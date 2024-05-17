@@ -5,7 +5,7 @@
 # Easy Notes
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/Kin69/EasyNotes?style=for-the-badge&logo=star&logoColor=%23101318&labelColor=%23101318&color=%2397caf9)
-![GitHub License](https://img.shields.io/github/license/Kin69/EasyNotes?style=for-the-badge&logoColor=%23101318&labelColor=%23101318&color=%2397caf9)
+![GitHub Release](https://img.shields.io/github/v/release/Kin69/EasyNotes?include_prereleases&style=for-the-badge&logo=%239acbff&logoColor=%23101318&labelColor=%23101318&color=%239acbff)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Kin69/EasyNotes?style=for-the-badge&labelColor=%23101318&color=%2397caf9)
 
 </div>
