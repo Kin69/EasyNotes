@@ -9,7 +9,7 @@ val lightScheme = lightColorScheme(
     primaryContainer = primaryContainerLight,
     onPrimaryContainer = onPrimaryContainerLight,
     secondary = secondaryLight,
-    onSecondary = onSecondaryLight,
+    onSecondary = adjustColor(color = surfaceDimLight, multiplier = 0.8f),
     secondaryContainer = secondaryContainerLight,
     onSecondaryContainer = onSecondaryContainerLight,
     tertiary = tertiaryLight,
@@ -43,11 +43,11 @@ val lightScheme = lightColorScheme(
 
 val darkScheme = darkColorScheme(
     primary = primaryDark,
-    onPrimary = onPrimaryDark,
+    onPrimary = adjustColor(color = backgroundDark, multiplier = 1.2f),
     primaryContainer = primaryContainerDark,
     onPrimaryContainer = onPrimaryContainerDark,
     secondary = secondaryDark,
-    onSecondary = onSecondaryDark,
+    onSecondary = adjustColor(color = backgroundDark, multiplier = 2f),
     secondaryContainer = secondaryContainerDark,
     onSecondaryContainer = onSecondaryContainerDark,
     tertiary = tertiaryDark,

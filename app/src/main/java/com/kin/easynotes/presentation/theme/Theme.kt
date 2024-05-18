@@ -21,7 +21,7 @@ private fun setStatusBarAppearance(activity: Activity, isLightMode: Boolean) {
     }
 }
 
-private fun adjustColor(color: Color, multiplier: Float): Color {
+fun adjustColor(color: Color, multiplier: Float): Color {
     val newRed = (color.red * multiplier).coerceIn(0f, 1f)
     val newGreen = (color.green * multiplier).coerceIn(0f, 1f)
     val newBlue = (color.blue * multiplier).coerceIn(0f, 1f)
@@ -32,7 +32,7 @@ private fun getColorScheme(context: Context, isDarkTheme: Boolean, isDynamicThem
     val colorScheme = if (isDynamicTheme && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         val dynamicScheme = if (isDarkTheme || isAmoledTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         val onPrimaryColor = if (isDarkTheme || isAmoledTheme) adjustColor(color = dynamicScheme.background, multiplier = 1.2f) else dynamicScheme.surfaceDim
-        val onSecondaryColor = if (isDarkTheme || isAmoledTheme) adjustColor(color = dynamicScheme.background, multiplier = 2f) else adjustColor(color = dynamicScheme.surfaceDim, multiplier = 2f)
+        val onSecondaryColor = if (isDarkTheme || isAmoledTheme) adjustColor(color = dynamicScheme.background, multiplier = 2f) else adjustColor(color = dynamicScheme.surfaceDim, multiplier = 0.8f)
         dynamicScheme.copy(onPrimary = onPrimaryColor, onSecondary = onSecondaryColor)
     } else if (isDarkTheme || isAmoledTheme) darkScheme else lightScheme
 
