@@ -1,0 +1,4 @@
+Easy Notes: Effortless Note-Taking, Modernized
+
+Featuring dynamic colors, Jetpack Compose, and MVVM architecture, it offers a streamlined interface for capturing ideas.
+Enjoy customizable options, and prioritize privacy. Elevate your productivity with Easy Notes.
