@@ -1,51 +1,69 @@
-<div align="center">
 
-<img width="" src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="Easy Notes" align="center">
+
+<div align="center">
+<img width="255" height="255" src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" align="center">
+
+<br></br>
+
+![GitHub Repo stars](https://img.shields.io/github/stars/Kin69/EasyNotes?style=for-the-badge&logo=star&logoColor=%23FFFFFF&labelColor=%23332f2f&color=%23fddbd6)
+![GitHub Release](https://img.shields.io/github/v/release/Kin69/EasyNotes?include_prereleases&style=for-the-badge&logo=%239acbff&logoColor=%23101318&labelColor=%23332f2f&color=%23fddbd6)
+![GitHub last commit](https://img.shields.io/github/last-commit/Kin69/EasyNotes?style=for-the-badge&labelColor=%23332f2f&color=%23fddbd6)
 
 # Easy Notes
-
-![GitHub Repo stars](https://img.shields.io/github/stars/Kin69/EasyNotes?style=for-the-badge&logo=star&logoColor=%23101318&labelColor=%23101318&color=%2397caf9)
-![GitHub Release](https://img.shields.io/github/v/release/Kin69/EasyNotes?include_prereleases&style=for-the-badge&logo=%239acbff&logoColor=%23101318&labelColor=%23101318&color=%239acbff)
-![GitHub last commit](https://img.shields.io/github/last-commit/Kin69/EasyNotes?style=for-the-badge&labelColor=%23101318&color=%2397caf9)
-
+Lightweight android notes app with Material You.
+<br></br>
 </div>
-
 <div align="left">
 
-## Features
-
-* Material Design 3
-* Jetpack Compose and MVVM
-* Animations
-* Multiple themes
-
-
-## Screenshots
 <div align="center">
-    <img src="metadata/screenshots/screenshot_1.jpg" width="25%" />
-    <img src="metadata/screenshots/screenshot_2.jpg" width="25%" />
-    <img src="metadata/screenshots/screenshot_3.jpg" width="25%" />
+    <img src="metadata/screenshots/screenshot_1.png" width="20%" />
+    <img src="metadata/screenshots/screenshot_2.jpg" width="20%" />
+    <img src="metadata/screenshots/screenshot_3.png" width="20%" />
 </div>
+<br>
 
-<div align="left">
+---
 
-## Download
+## 📝 Overview
+- [x] Material Design 3
+- [x] Jetpack Compose and MVVM
+- [x] Lightweight (~5.91 Mb)
+- [x] Multiple themes
 
-[<img src="metadata/icons/github.png" alt="Get it on GitHub" height="80">](https://github.com/Kin69/EasyNotes/releases)
+---
 
-## Building and Installation
 
-### 1. Install Android Studio
-- Ensure that you have the latest version of [Android Studio](https://developer.android.com/studio) installed on your workstation.
+## 💬 Contact Me
 
-### 2. Repository Cloning
-- Launch Android Studio and opt for `"project from Version Control."`
-  - Proceed by pasting the repository URL to clone the project locally.
+-  Email : k1nS4@proton.me
+-  Discord : Not Yet
 
-### 3. Building the Application Package (APK)
-- Within Android Studio, navigate to **Build > Build Bundle(s) / APK(s)**.
-- If necessary, generate a new keystore by selecting `"Create New Keystore"` and inputting the requisite details, including a password.
-- Allow the build process to execute until completion.
+  ---
+## 🛠️ Implementation
 
-For comprehensive guidance and troubleshooting, consult the official [Android Studio documentation](https://developer.android.com/studio).
-</div>
+- [x] Basic Layout
+- [x] Themes Control
+- [x] Animations
+- [ ] Exporting
+- [ ] Widget
+- [ ] Option to select todo
+
+---
+
+## ⚠️ Copyright
+
+    Copyright (c)2024 kin69
+    
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+    
+    The above copyright notice, this permission notice, and its license shall be included in all copies or substantial portions of the Software.
+    
+    You can find a copy of the GNU General Public License v3 [here](https://www.gnu.org/licenses/)</p>
