@@ -17,6 +17,7 @@
             android:name=".presentation.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.EasySplash">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
