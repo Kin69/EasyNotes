@@ -1,7 +1,7 @@
 
 
 <div align="center">
-<img width="255" height="255" src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" align="center">
+<img width="192" height="192" src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" align="center" alt="">
 
 <br></br>
 
@@ -16,11 +16,12 @@ Lightweight android notes app with Material You.
 <div align="left">
 
 <div align="center">
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-settings.png" width="20%" />
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-home.jpg" width="20%" />
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit.png" width="20%" />
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-settings.png" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-home.jpg" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit.png" width="20%"  alt=""/>
 </div>
 <br>
+</div>
 
 ---
 
