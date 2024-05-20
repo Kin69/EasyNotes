@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteViewModel
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : NoteViewModel() {
     val selectedNotes = mutableStateListOf<Note>()
     var editMode by mutableStateOf(false)
 

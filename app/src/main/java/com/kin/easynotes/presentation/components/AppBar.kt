@@ -25,20 +25,23 @@ import androidx.compose.ui.Modifier
 @Composable
 fun AppBarView(
     titleText: String = "",
-    onBackNavClicked: () -> Unit = {},
-    onSettingsClicked: () -> Unit = {},
-    onDeleteClicked: () -> Unit = {},
-    onDeleteEnabled: Boolean = false,
-    onSaveEnabled: Boolean = false,
-    onSaveClicked: () -> Unit = {}
+    onBackNavClicked: (() -> Unit)? = null,
+    onSettingsClicked:  () -> Unit = {},
+    onDeleteClicked:  (() -> Unit)? = null,
+    onSaveClicked:  (() -> Unit)? = null,
 ) {
     TopAppBar(
         title = { TitleText(titleText) },
-        navigationIcon = { NavigationIcon(titleText, onBackNavClicked) },
-        actions = { ActionButtons(onSaveEnabled, onSaveClicked, onDeleteEnabled, onDeleteClicked, onSettingsClicked, titleText) },
+        navigationIcon = { NavigationIcon(titleText, onBackNavClicked  ?: {})},
+        actions = {
+            Row {
+                if (onSaveClicked != null) SaveButton(onSaveClicked)
+                if (onDeleteClicked != null) DeleteButton(onDeleteClicked)
+                SettingsButton(titleText, onSettingsClicked)
+            }
+        },
         colors = topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     )
 }
 
@@ -69,44 +72,24 @@ private fun NavigationIcon(titleText: String, onBackNavClicked: () -> Unit) {
 }
 
 @Composable
-private fun ActionButtons(
-    onSaveEnabled: Boolean,
-    onSaveClicked: () -> Unit,
-    onDeleteEnabled: Boolean,
-    onDeleteClicked: () -> Unit,
-    onSettingsClicked: () -> Unit,
-    titleText: String
-) {
-    Row {
-        SaveButton(onSaveEnabled, onSaveClicked)
-        DeleteButton(onDeleteEnabled, onDeleteClicked)
-        SettingsButton(titleText, onSettingsClicked)
+private fun SaveButton(onSaveClicked: () -> Unit) {
+    IconButton(onClick = onSaveClicked) {
+        Icon(
+            imageVector = Icons.Default.Done,
+            contentDescription = "Done",
+            tint = MaterialTheme.colorScheme.onBackground
+        )
     }
 }
 
 @Composable
-private fun SaveButton(onSaveEnabled: Boolean, onSaveClicked: () -> Unit) {
-    if (onSaveEnabled) {
-        IconButton(onClick = onSaveClicked) {
-            Icon(
-                imageVector = Icons.Default.Done,
-                contentDescription = "Done",
-                tint = MaterialTheme.colorScheme.onBackground
-            )
-        }
-    }
-}
-
-@Composable
-private fun DeleteButton(onDeleteEnabled: Boolean, onDeleteClicked: () -> Unit) {
-    if (onDeleteEnabled) {
-        IconButton(onClick = onDeleteClicked) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = "Delete",
-                tint = MaterialTheme.colorScheme.onBackground
-            )
-        }
+private fun DeleteButton(onDeleteClicked:  () -> Unit) {
+    IconButton(onClick = onDeleteClicked) {
+        Icon(
+            imageVector = Icons.Default.Delete,
+            contentDescription = "Delete",
+            tint = MaterialTheme.colorScheme.onBackground
+        )
     }
 }
 

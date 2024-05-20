@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -26,32 +24,27 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kin.easynotes.domain.model.Note
-import com.kin.easynotes.domain.usecase.NoteViewModel
 import com.kin.easynotes.navigation.NavRoutes
 import com.kin.easynotes.presentation.components.AppBarView
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
+import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
 
 @Composable
 fun HomeView(navController: NavController) {
-    val homeViewModel: HomeViewModel = viewModel()
-    val noteViewModel: NoteViewModel = viewModel()
+    val viewModel: HomeViewModel = viewModel()
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
         topBar = {
             AppBarView(
                 titleText = "Notes",
-                onDeleteEnabled = homeViewModel.editMode,
-                onDeleteClicked = { homeViewModel.deleteSelectedNotes(noteViewModel) },
+                onDeleteClicked = if (viewModel.editMode) { { viewModel.deleteSelectedNotes(viewModel) } } else null,
                 onSettingsClicked = { navController.navigate(NavRoutes.Settings.route) }
             )
         },
@@ -66,80 +59,57 @@ fun HomeView(navController: NavController) {
                     Icon(
                         imageVector = Icons.Default.Create,
                         contentDescription = "Add",
-                        modifier = Modifier.padding(end = 6.dp)
+                        modifier = Modifier.padding(end = 9.dp)
                     )
                     Text(text = "Add Note")
                 }
             }
         }
     ) {
-        NoteList(navController = navController, homeViewModel = homeViewModel, noteViewModel = noteViewModel, padding = it.calculateTopPadding())
+        Box(modifier = Modifier.padding(top = it.calculateTopPadding())) {
+            NoteList(navController = navController, viewModel)
+        }
     }
 }
 
 @Composable
-private fun NoteList(navController: NavController, homeViewModel: HomeViewModel, noteViewModel: NoteViewModel, padding: Dp) {
-    val notes = noteViewModel.getAllNotes.collectAsState(initial = listOf())
-    if (notes.value.isEmpty()) {
-        EmptyNoteList()
-    } else {
-        NotesGrid(navController = navController, homeViewModel = homeViewModel, notes = notes.value, padding = padding)
+private fun NoteList(navController: NavController, viewModel: HomeViewModel) {
+    val notes = viewModel.getAllNotes.collectAsState(initial = listOf())
+
+    when {
+        notes.value.isEmpty() -> EmptyNoteList()
+        else -> NotesGrid(navController = navController, viewModel = viewModel, notes = notes.value)
     }
 }
-
 @Composable
-private fun EmptyNoteList() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "No created notes.",
-            color = MaterialTheme.colorScheme.primary,
-            fontSize = 14.sp
-        )
-    }
-}
-
-@Composable
-private fun NotesGrid(
-    navController: NavController,
-    homeViewModel: HomeViewModel,
-    notes: List<Note>, padding: Dp) {
+private fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: List<Note>) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier
-            .padding(start = 12.dp, end = 12.dp, top = padding)
+        modifier = Modifier.padding(12.dp)
     ) {
         items(notes) { note ->
             NoteCard(
                 note = note,
                 onItemClick = { selectedNote ->
-                    if (homeViewModel.editMode) {
-                        homeViewModel.toggleNoteSelection(selectedNote)
-                        if (homeViewModel.selectedNotes.isEmpty()) {
-                            homeViewModel.updateEditMode(false)
-                        }
-                    } else {
-                        navController.navigate(NavRoutes.Edit.route + "/${note.id}")
-                    }
+                    if (viewModel.editMode) {
+                        viewModel.toggleNoteSelection(selectedNote)
+                        if (viewModel.selectedNotes.isEmpty()) viewModel.updateEditMode(false)
+                    } else navController.navigate(NavRoutes.Edit.route + "/${note.id}")
                 },
                 onItemLongClick = { selectedNote ->
-                    homeViewModel.toggleNoteSelection(selectedNote)
-                    if (homeViewModel.selectedNotes.isEmpty()) {
-                        homeViewModel.updateEditMode(false)
-                    } else {
-                        homeViewModel.updateEditMode(true)
+                    viewModel.toggleNoteSelection(selectedNote)
+                    when {
+                        viewModel.selectedNotes.isEmpty() -> viewModel.updateEditMode(false)
+                        else ->  viewModel.updateEditMode(true)
                     }
                 },
-                isSelected = homeViewModel.selectedNotes.contains(note)
+                isSelected = viewModel.selectedNotes.contains(note)
             )
         }
     }
 }
+
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -156,7 +126,7 @@ private fun NoteCard(
             .combinedClickable(
                 onClick = { onItemClick(note) },
                 onLongClick = { onItemLongClick(note) }
-            ).fillMaxWidth()
+            )
             .background(
                 if (isSelected) MaterialTheme.colorScheme.surfaceContainerHighest else MaterialTheme.colorScheme.surfaceContainerHigh,
                 shape = RoundedCornerShape(9.dp)
@@ -169,11 +139,10 @@ private fun NoteCard(
                 text = note.name,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 6.dp),
-                maxLines = 5
+                maxLines = 3
             )
             Text(
                 text = note.description,
-                modifier = Modifier.padding(start = 3.dp),
                 maxLines = 5,
                 overflow = TextOverflow.Ellipsis
             )
