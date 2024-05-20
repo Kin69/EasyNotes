@@ -46,6 +46,7 @@ fun HomeView(navController: NavController) {
     val noteViewModel: NoteViewModel = viewModel()
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
         topBar = {
             AppBarView(
                 titleText = "Notes",
@@ -115,7 +116,6 @@ private fun NotesGrid(
     ) {
         items(notes) { note ->
             NoteCard(
-                color = MaterialTheme.colorScheme.onPrimary,
                 note = note,
                 onItemClick = { selectedNote ->
                     if (homeViewModel.editMode) {
@@ -144,7 +144,6 @@ private fun NotesGrid(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun NoteCard(
-    color: Color,
     note: Note,
     onItemClick: (Note) -> Unit,
     onItemLongClick: (Note) -> Unit,
@@ -159,7 +158,7 @@ private fun NoteCard(
                 onLongClick = { onItemLongClick(note) }
             ).fillMaxWidth()
             .background(
-                if (isSelected) MaterialTheme.colorScheme.onSecondary else color,
+                if (isSelected) MaterialTheme.colorScheme.surfaceContainerHighest else MaterialTheme.colorScheme.surfaceContainerHigh,
                 shape = RoundedCornerShape(9.dp)
             )
     ) {

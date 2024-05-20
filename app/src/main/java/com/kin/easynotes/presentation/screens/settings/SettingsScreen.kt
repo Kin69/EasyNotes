@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,6 +38,7 @@ fun SettingsView(
     val notesViewModel: NoteViewModel = viewModel()
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
         topBar = {
             key(settingsModel.darkTheme,settingsModel.dynamicTheme,settingsModel.amoledTheme) {
                 AppBarView(

@@ -59,6 +59,7 @@ fun EditNoteView(
     }
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
         topBar = {
             AppBarView(
                 titleText = if (id != 0) "Edit"  else "Create Note",
@@ -157,10 +158,10 @@ private fun CustomTextField(
         modifier = modifier,
         shape = shape,
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
-            unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary,
-            unfocusedIndicatorColor = MaterialTheme.colorScheme.background,
-            focusedIndicatorColor = MaterialTheme.colorScheme.background
+            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            focusedIndicatorColor = MaterialTheme.colorScheme.surfaceContainerLow,
         ),
         placeholder = {
             Text(placeholder)

@@ -33,7 +33,7 @@ fun SettingsBox(
             .clip(RoundedCornerShape(radius[0],radius[1],radius[2],radius[3]))
             .clickable { onClicked() }
             .background(
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.surfaceContainerHigh,
                 shape = RoundedCornerShape(radius[0],radius[1],radius[2],radius[3])
             )
             .fillMaxWidth()
