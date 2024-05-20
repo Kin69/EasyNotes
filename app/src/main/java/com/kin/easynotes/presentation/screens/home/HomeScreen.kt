@@ -34,6 +34,7 @@ import com.kin.easynotes.navigation.NavRoutes
 import com.kin.easynotes.presentation.components.AppBarView
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
+import com.kin.easynotes.presentation.theme.GlobalFont
 
 @Composable
 fun HomeView(navController: NavController) {
@@ -61,7 +62,10 @@ fun HomeView(navController: NavController) {
                         contentDescription = "Add",
                         modifier = Modifier.padding(end = 9.dp)
                     )
-                    Text(text = "Add Note")
+                    Text(
+                        fontWeight = FontWeight.Bold,
+                        text = "Add Note",
+                        fontFamily = GlobalFont)
                 }
             }
         }
@@ -136,14 +140,16 @@ private fun NoteCard(
             modifier = Modifier.padding(6.dp)
         ) {
             Text(
-                text = note.name,
+                text = note.name.replaceFirstChar(Char::titlecase),
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 6.dp),
+                fontFamily = GlobalFont,
                 maxLines = 3
             )
             Text(
-                text = note.description,
+                text = note.description.replaceFirstChar(Char::titlecase),
                 maxLines = 5,
+                fontFamily = GlobalFont,
                 overflow = TextOverflow.Ellipsis
             )
         }

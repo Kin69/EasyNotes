@@ -17,6 +17,7 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.kin.easynotes.presentation.theme.GlobalFont
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,6 +51,7 @@ private fun TitleText(titleText: String) {
     ) {
         Text(
             text = titleText,
+            fontFamily = GlobalFont,
             modifier = Modifier.weight(1f)
         )
     }

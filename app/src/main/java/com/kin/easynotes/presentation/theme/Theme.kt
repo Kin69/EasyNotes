@@ -12,7 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.core.view.WindowCompat
+import com.kin.easynotes.R
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 private fun getColorScheme(context: Context, isDarkTheme: Boolean, isDynamicTheme: Boolean, isAmoledTheme: Boolean): ColorScheme {
     val colorScheme = if (isDynamicTheme && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -39,3 +42,5 @@ fun LeafNotesTheme(
         content = content
     )
 }
+
+val GlobalFont = FontFamily(Font(R.font.lato_regular))

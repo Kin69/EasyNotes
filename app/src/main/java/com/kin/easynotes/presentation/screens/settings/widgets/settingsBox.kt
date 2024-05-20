@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.kin.easynotes.presentation.theme.GlobalFont
 
 
 @Composable
@@ -39,7 +40,7 @@ fun SettingsBox(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 6.dp)
     ) {
-        Text(title, modifier = Modifier.padding(start = 3.dp))
+        Text(title, modifier = Modifier.padding(start = 3.dp),fontFamily = GlobalFont)
         Spacer(modifier = Modifier.weight(1f))
         if (customAction == null && variable != null) {
             Switch(

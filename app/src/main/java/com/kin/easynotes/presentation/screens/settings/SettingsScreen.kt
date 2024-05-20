@@ -26,6 +26,7 @@ import com.kin.easynotes.presentation.components.AppBarView
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingSection
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
+import com.kin.easynotes.presentation.theme.GlobalFont
 
 
 @Composable
@@ -86,7 +87,7 @@ fun SettingsView(
                     title = "Notes",
                     radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
                     customAction = {
-                        Text(text = notesCount.toString())
+                        Text(text = notesCount.toString(),fontFamily = GlobalFont)
                     }
                 )
                 Spacer(modifier = Modifier.height(32.dp))
