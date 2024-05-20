@@ -98,7 +98,7 @@ fun saveNote(
     viewModel: EditViewModel,
     id: Int
 ) {
-    if (viewModel.noteNameState.isNotEmpty() && viewModel.noteDescriptionState.isNotEmpty()) {
+    if (viewModel.noteNameState.isNotEmpty() || viewModel.noteDescriptionState.isNotEmpty()) {
         when (id) {
             0 -> viewModel.addNote(Note(name = viewModel.noteNameState, description = viewModel.noteDescriptionState))
             else -> viewModel.updateNote(Note(id = id, name = viewModel.noteNameState, description = viewModel.noteDescriptionState))

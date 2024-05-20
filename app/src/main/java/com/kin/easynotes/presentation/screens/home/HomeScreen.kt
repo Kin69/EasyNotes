@@ -55,7 +55,7 @@ fun HomeView(navController: NavController) {
             }) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(18.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Create,
@@ -64,7 +64,7 @@ fun HomeView(navController: NavController) {
                     )
                     Text(
                         fontWeight = FontWeight.Bold,
-                        text = "Add Note",
+                        text = "New Note",
                         fontFamily = GlobalFont)
                 }
             }
@@ -126,7 +126,7 @@ private fun NoteCard(
     Box(
         modifier = Modifier
             .padding(vertical = 6.dp)
-            .clip(RoundedCornerShape(9.dp))
+            .clip(RoundedCornerShape(14.dp))
             .combinedClickable(
                 onClick = { onItemClick(note) },
                 onLongClick = { onItemLongClick(note) }
@@ -137,7 +137,7 @@ private fun NoteCard(
             )
     ) {
         Column(
-            modifier = Modifier.padding(6.dp)
+            modifier = Modifier.padding(10.dp)
         ) {
             Text(
                 text = note.name.replaceFirstChar(Char::titlecase),
