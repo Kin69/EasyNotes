@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -15,14 +16,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.kin.easynotes.presentation.theme.GlobalFont
 
 
 @Composable
 fun SettingsBox(
     title: String,
+    icon : ImageVector,
     variable: Boolean? = null,
     radius: Array<Dp> = arrayOf(0.dp, 0.dp,0.dp,0.dp),
     customAction: @Composable (() -> Unit)? = null,
@@ -40,7 +44,12 @@ fun SettingsBox(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 6.dp)
     ) {
-        Text(title, modifier = Modifier.padding(start = 3.dp),fontFamily = GlobalFont)
+        Icon(imageVector = icon,
+            contentDescription = "",
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(end = 6.dp)
+        )
+        Text(title, modifier = Modifier.padding(start = 3.dp),fontFamily = GlobalFont, fontSize = 16.sp)
         Spacer(modifier = Modifier.weight(1f))
         if (customAction == null && variable != null) {
             Switch(

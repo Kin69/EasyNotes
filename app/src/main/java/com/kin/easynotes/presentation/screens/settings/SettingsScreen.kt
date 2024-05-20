@@ -7,6 +7,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.rounded.SpeakerNotes
+import androidx.compose.material.icons.rounded.Backup
+import androidx.compose.material.icons.rounded.DarkMode
+import androidx.compose.material.icons.rounded.InvertColors
+import androidx.compose.material.icons.rounded.Newspaper
+import androidx.compose.material.icons.rounded.Power
+import androidx.compose.material.icons.rounded.Restore
+import androidx.compose.material.icons.rounded.Support
+import androidx.compose.material.icons.rounded.VerifiedUser
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -61,6 +70,7 @@ fun SettingsView(
             SettingSection(sectionName = "Display") {
                 SettingsBox(
                     title = "Dark Theme",
+                    icon = Icons.Rounded.DarkMode,
                     variable = settingsModel.darkTheme,
                     radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp)
                 ) {
@@ -68,6 +78,7 @@ fun SettingsView(
                 }
                 SettingsBox(
                     title = "Dynamic Colors",
+                    icon = Icons.Rounded.InvertColors,
                     variable = settingsModel.dynamicTheme,
                     radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp)
                 ) {
@@ -75,6 +86,7 @@ fun SettingsView(
                 }
                 SettingsBox(
                     title = "Amoled Colors",
+                    icon = Icons.Rounded.Power,
                     variable = settingsModel.amoledTheme,
                     radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp)
                 ) {
@@ -85,6 +97,7 @@ fun SettingsView(
             SettingSection(sectionName = "Database") {
                 SettingsBox(
                     title = "Notes",
+                    icon = Icons.AutoMirrored.Rounded.SpeakerNotes,
                     radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
                     customAction = {
                         Text(text = notesCount.toString(),fontFamily = GlobalFont)
@@ -93,6 +106,7 @@ fun SettingsView(
                 Spacer(modifier = Modifier.height(32.dp))
                 SettingsBox(
                     title = "Backup",
+                    icon = Icons.Rounded.Backup,
                     radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
                     customAction = {
                         Icon(
@@ -105,6 +119,7 @@ fun SettingsView(
                 }
                 SettingsBox(
                     title = "Restore",
+                    icon = Icons.Rounded.Restore,
                     radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
                     customAction = {
                         Icon(
@@ -120,6 +135,7 @@ fun SettingsView(
             SettingSection(sectionName = "About") {
                 SettingsBox(
                     title = "Version",
+                    icon = Icons.Rounded.VerifiedUser,
                     radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
                     customAction = {
                         Text(settingsModel.version)
@@ -127,6 +143,7 @@ fun SettingsView(
                 )
                 SettingsBox(
                     title = "Latest Release",
+                    icon = Icons.Rounded.Newspaper,
                     radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
                     customAction = {
                         Icon(
@@ -139,6 +156,7 @@ fun SettingsView(
                 Spacer(modifier = Modifier.height(32.dp))
                 SettingsBox(
                     title = "Support Us",
+                    icon = Icons.Rounded.Support,
                     radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
                     customAction = {
                         Icon(

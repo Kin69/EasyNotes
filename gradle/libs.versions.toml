@@ -8,6 +8,7 @@ roomKtx = "2.6.1"
 activityKtx = "1.9.0"
 core-ktx = "1.13.1"
 coreSplashscreen = "1.0.1"
+compose = "1.6.7"
 
 [libraries]
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomKtx" }
@@ -20,7 +21,7 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
-
+compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -3,10 +3,10 @@ package com.kin.easynotes.presentation.components
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Done
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -62,7 +62,7 @@ private fun NavigationIcon(titleText: String, onBackNavClicked: () -> Unit) {
     if (!titleText.equals("notes", ignoreCase = true)) {
         IconButton(onClick = onBackNavClicked) {
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                 contentDescription = "back",
                 tint = MaterialTheme.colorScheme.onBackground
             )
@@ -74,7 +74,7 @@ private fun NavigationIcon(titleText: String, onBackNavClicked: () -> Unit) {
 private fun SaveButton(onSaveClicked: () -> Unit) {
     IconButton(onClick = onSaveClicked) {
         Icon(
-            imageVector = Icons.Default.Done,
+            imageVector = Icons.Rounded.Done,
             contentDescription = "Done",
             tint = MaterialTheme.colorScheme.onBackground
         )
@@ -85,7 +85,7 @@ private fun SaveButton(onSaveClicked: () -> Unit) {
 private fun DeleteButton(onDeleteClicked:  () -> Unit) {
     IconButton(onClick = onDeleteClicked) {
         Icon(
-            imageVector = Icons.Default.Delete,
+            imageVector = Icons.Rounded.Delete,
             contentDescription = "Delete",
             tint = MaterialTheme.colorScheme.onBackground
         )
@@ -99,7 +99,7 @@ private fun SettingsButton(titleText: String, onSettingsClicked: () -> Unit) {
             onClick = onSettingsClicked
         ) {
             Icon(
-                imageVector = Icons.Default.Settings,
+                imageVector = Icons.Rounded.Settings,
                 contentDescription = "settings",
                 tint = MaterialTheme.colorScheme.onBackground
             )
