@@ -7,14 +7,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.rounded.Message
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.automirrored.rounded.SpeakerNotes
 import androidx.compose.material.icons.rounded.Backup
+import androidx.compose.material.icons.rounded.Colorize
+import androidx.compose.material.icons.rounded.Copyright
 import androidx.compose.material.icons.rounded.DarkMode
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.InvertColors
+import androidx.compose.material.icons.rounded.LocalCafe
 import androidx.compose.material.icons.rounded.Newspaper
+import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.Power
 import androidx.compose.material.icons.rounded.Restore
+import androidx.compose.material.icons.rounded.SecurityUpdate
+import androidx.compose.material.icons.rounded.SettingsBackupRestore
 import androidx.compose.material.icons.rounded.Support
+import androidx.compose.material.icons.rounded.Update
 import androidx.compose.material.icons.rounded.VerifiedUser
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kin.easynotes.domain.usecase.NoteViewModel
 import com.kin.easynotes.presentation.components.AppBarView
+import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingSection
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
@@ -47,8 +58,7 @@ fun SettingsView(
     val context = LocalContext.current
     val notesViewModel: NoteViewModel = viewModel()
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+    NotesScaffold(
         topBar = {
             key(settingsModel.darkTheme,settingsModel.dynamicTheme,settingsModel.amoledTheme) {
                 AppBarView(
@@ -64,13 +74,12 @@ fun SettingsView(
         val notesCount = notesViewModel.getAllNotes.collectAsState(initial = listOf()).value.size
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(16.dp, it.calculateTopPadding(), 16.dp, 16.dp)
+            modifier = Modifier.padding(16.dp, 0.dp,16.dp,16.dp)
         ) {
             SettingSection(sectionName = "Display") {
                 SettingsBox(
                     title = "Dark Theme",
-                    icon = Icons.Rounded.DarkMode,
+                    icon = Icons.Rounded.Palette,
                     variable = settingsModel.darkTheme,
                     radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp)
                 ) {
@@ -78,7 +87,7 @@ fun SettingsView(
                 }
                 SettingsBox(
                     title = "Dynamic Colors",
-                    icon = Icons.Rounded.InvertColors,
+                    icon = Icons.Rounded.Colorize,
                     variable = settingsModel.dynamicTheme,
                     radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp)
                 ) {
@@ -86,7 +95,7 @@ fun SettingsView(
                 }
                 SettingsBox(
                     title = "Amoled Colors",
-                    icon = Icons.Rounded.Power,
+                    icon = Icons.Rounded.DarkMode,
                     variable = settingsModel.amoledTheme,
                     radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp)
                 ) {
@@ -97,13 +106,13 @@ fun SettingsView(
             SettingSection(sectionName = "Database") {
                 SettingsBox(
                     title = "Notes",
-                    icon = Icons.AutoMirrored.Rounded.SpeakerNotes,
+                    icon = Icons.AutoMirrored.Rounded.Message,
                     radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
                     customAction = {
                         Text(text = notesCount.toString(),fontFamily = GlobalFont)
                     }
                 )
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 SettingsBox(
                     title = "Backup",
                     icon = Icons.Rounded.Backup,
@@ -119,7 +128,7 @@ fun SettingsView(
                 }
                 SettingsBox(
                     title = "Restore",
-                    icon = Icons.Rounded.Restore,
+                    icon = Icons.Rounded.SettingsBackupRestore,
                     radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
                     customAction = {
                         Icon(
@@ -135,32 +144,44 @@ fun SettingsView(
             SettingSection(sectionName = "About") {
                 SettingsBox(
                     title = "Version",
-                    icon = Icons.Rounded.VerifiedUser,
+                    icon = Icons.Rounded.Info,
                     radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
                     customAction = {
                         Text(settingsModel.version)
                     }
                 )
                 SettingsBox(
+                    title = "License",
+                    icon = Icons.Rounded.Copyright,
+                    radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp),
+                    customAction = {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
+                            contentDescription = "Latest Release"
+                        )
+                    }) {
+                    uriHandler.openUri("https://github.com/Kin69/EasyNotes/blob/master/LICENSE")
+                }
+                SettingsBox(
                     title = "Latest Release",
-                    icon = Icons.Rounded.Newspaper,
+                    icon = Icons.Rounded.SecurityUpdate,
                     radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
                     customAction = {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+                            imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
                             contentDescription = "Latest Release"
                         )
                     }) {
                     uriHandler.openUri("https://github.com/Kin69/EasyNotes/releases")
                 }
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 SettingsBox(
                     title = "Support Us",
-                    icon = Icons.Rounded.Support,
+                    icon = Icons.Rounded.LocalCafe,
                     radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
                     customAction = {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+                            imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
                             contentDescription = "Support Us"
                         )
                     }) {

@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -35,18 +36,15 @@ fun SettingsBox(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .clip(RoundedCornerShape(radius[0],radius[1],radius[2],radius[3]))
+            .clip(RoundedCornerShape(radius[0], radius[1], radius[2], radius[3]))
             .clickable { onClicked() }
-            .background(
-                color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                shape = RoundedCornerShape(radius[0],radius[1],radius[2],radius[3])
-            )
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 6.dp)
+            .background(color = MaterialTheme.colorScheme.surfaceContainerHigh,)
+            .padding(horizontal = 20.dp, vertical = 4.dp)
     ) {
-        Icon(imageVector = icon,
+        Icon(
+            imageVector = icon,
             contentDescription = "",
-            tint = MaterialTheme.colorScheme.primary,
+            tint = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(end = 6.dp)
         )
         Text(title, modifier = Modifier.padding(start = 3.dp),fontFamily = GlobalFont, fontSize = 16.sp)
@@ -64,4 +62,5 @@ fun SettingsBox(
             Spacer(modifier = Modifier.padding(vertical = 24.dp))
         }
     }
+    Spacer(modifier = Modifier.height(2.dp))
 }
