@@ -4,9 +4,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,7 +27,10 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kin.easynotes.domain.model.Note
+import com.kin.easynotes.navigation.NavRoutes
 import com.kin.easynotes.presentation.components.AppBarView
+import com.kin.easynotes.presentation.components.NotesButton
+import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 
 
@@ -50,8 +57,7 @@ fun EditNoteView(navController: NavController, id: Int) {
         viewModel.updateNoteNameDescription(note.value.description)
     }
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+    NotesScaffold(
         topBar = {
             AppBarView(
                 titleText = if (id != 0) "Edit"  else "Create Note",
@@ -61,13 +67,11 @@ fun EditNoteView(navController: NavController, id: Int) {
                     navController.navigateUp()
                     if (id != 0) viewModel.deleteNoteById(id)
                 },
-                onSaveClicked = if (id == 0) { { navController.navigateUp() } } else null
+                onSaveClicked = { navController.navigateUp() }
             )
         })
     {
-        Box(modifier = Modifier.padding(top = it.calculateTopPadding())) {
-            EditNoteContent(viewModel = viewModel)
-        }
+        EditNoteContent(viewModel = viewModel)
     }
 }
 
@@ -75,7 +79,7 @@ fun EditNoteView(navController: NavController, id: Int) {
 private fun EditNoteContent(viewModel: EditViewModel) {
     Column(
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+            .padding(12.dp)
             .imePadding()
     ) {
         CustomTextField(
@@ -88,7 +92,7 @@ private fun EditNoteContent(viewModel: EditViewModel) {
             value = viewModel.noteDescriptionState,
             onValueChange = { viewModel.updateNoteNameDescription(it) },
             placeholder = "Description",
-            RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp),
+            RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
             modifier = Modifier
                 .fillMaxHeight()
                 .padding(top = 3.dp)

@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation.components
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
@@ -13,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.kin.easynotes.presentation.theme.GlobalFont
 
 
 @Composable
@@ -22,7 +25,8 @@ fun NotesButton(
     onClick: () -> Unit
 ) {
     FloatingActionButton(
-        onClick = { onClick() }
+        onClick = { onClick() },
+        modifier = Modifier.imePadding()
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -34,7 +38,8 @@ fun NotesButton(
                 modifier = Modifier.padding(end = 9.dp)
             )
             Text(
-                fontWeight = FontWeight.Bold,
+                fontFamily = GlobalFont,
+                fontSize = 14.sp,
                 text = text,
             )
         }

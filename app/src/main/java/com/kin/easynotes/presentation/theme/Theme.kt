@@ -43,4 +43,4 @@ fun LeafNotesTheme(
     )
 }
 
-val GlobalFont = FontFamily(Font(R.font.lato_regular))
+val GlobalFont = FontFamily(Font(R.font.roboto))

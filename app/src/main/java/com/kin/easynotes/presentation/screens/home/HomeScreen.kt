@@ -41,6 +41,7 @@ import com.kin.easynotes.presentation.components.NotesButton
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
+import com.kin.easynotes.presentation.theme.GlobalFont
 import java.util.Locale
 
 @Composable
@@ -146,11 +147,13 @@ private fun NoteCard(note: Note, containerColor : Color, onShortClick : () -> Un
             Text(
                 text = note.name.replaceFirstChar { it.titlecase(Locale.ROOT)},
                 fontWeight = FontWeight.Bold,
+                fontFamily = GlobalFont,
                 maxLines = 3
             )
             Text(
                 text = note.description.replaceFirstChar { it.titlecase(Locale.ROOT)},
                 maxLines = 5,
+                fontFamily = GlobalFont,
                 overflow = TextOverflow.Ellipsis
             )
         }

@@ -23,7 +23,7 @@ fun SettingSection(
         Text(
             sectionName,
             fontFamily = GlobalFont,
-            fontSize = 18.sp
+            fontSize = 16.sp
         )
     }
     content()
