@@ -87,10 +87,10 @@ private fun NotesGrid(navController: NavController, viewModel: HomeViewModel, no
             val animVisibleState = remember {  MutableTransitionState(false).apply {  targetState = true  }  }
             AnimatedVisibility(
                 visibleState = animVisibleState,
-                enter =  fadeIn(animationSpec = tween(200, delayMillis = 50)) +
+                enter =  fadeIn(animationSpec = tween(200)) +
                         scaleIn(
-                            initialScale = 0.92f,
-                            animationSpec = tween(200, delayMillis = 50)
+                            initialScale = 0.9f,
+                            animationSpec = tween(200)
                         ),
                 exit = slideOutHorizontally(
                     targetOffsetX = { slideDirection * it },

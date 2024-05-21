@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
@@ -25,24 +26,32 @@ fun NavGraphBuilder.animatedComposable(
     arguments = arguments,
     deepLinks = deepLinks,
     enterTransition = {
-        fadeIn(animationSpec = tween(250, delayMillis = 50)) +
+        fadeIn(animationSpec = tween(300)) +
                 scaleIn(
-                    initialScale = 0.92f,
-                    animationSpec = tween(150, delayMillis = 50)
+                    initialScale = 0.9f,
+                    animationSpec = tween(400)
                 )
     },
     exitTransition = {
-        fadeOut(animationSpec = tween(250))
+        fadeOut(animationSpec = tween(300)) +
+                scaleOut(
+                    targetScale = 0.9f,
+                    animationSpec = tween(400)
+                )
     },
     popEnterTransition = {
-        fadeIn(animationSpec = tween(250, delayMillis = 50)) +
+        fadeIn(animationSpec = tween(300)) +
                 scaleIn(
-                    initialScale = 0.92f,
-                    animationSpec = tween(150, delayMillis = 50)
+                    initialScale = 0.9f,
+                    animationSpec = tween(400)
                 )
     },
     popExitTransition = {
-        fadeOut(animationSpec = tween(250))
+        fadeOut(animationSpec = tween(300)) +
+                scaleOut(
+                    targetScale = 0.9f,
+                    animationSpec = tween(400)
+                )
     },
     content = content
 )
