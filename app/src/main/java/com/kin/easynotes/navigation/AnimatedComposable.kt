@@ -59,13 +59,13 @@ fun NavGraphBuilder.slideInComposable(
     enterTransition = {
         slideInHorizontally(
             initialOffsetX = { fullWidth -> fullWidth },
-            animationSpec = tween(300)
+            animationSpec = tween(500)
         )
     },
     exitTransition = {
         slideOutHorizontally(
             targetOffsetX = { fullWidth -> fullWidth },
-            animationSpec = tween(300)
+            animationSpec = tween(500)
         )
     },
     popEnterTransition = {

@@ -1,33 +1,36 @@
 package com.kin.easynotes.presentation.screens.home.viewmodel
 
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteViewModel
 
 class HomeViewModel : NoteViewModel() {
-    val selectedNotes = mutableStateListOf<Note>()
-    var editMode by mutableStateOf(false)
+    var selectedNotes = mutableStateListOf<Int>()
 
-    fun updateEditMode(boolean: Boolean) {
-        editMode =  boolean
+    private var _isDeleteMode = mutableStateOf(false)
+    val isDeleteMode: State<Boolean> = _isDeleteMode
+
+    private var _isSelectingMode = mutableStateOf(false)
+    val isSelectingMode: State<Boolean> = _isSelectingMode
+
+    fun toggleIsSelectingMode(enabled: Boolean) {
+        _isSelectingMode.value = enabled
     }
 
-    fun toggleNoteSelection(note: Note) {
-        if (selectedNotes.contains(note)) {
-            selectedNotes.remove(note)
+    fun toggleIsDeleteMode(enabled: Boolean) {
+        _isDeleteMode.value = enabled
+    }
+
+    fun toggleNoteSelection(id: Int) {
+        if (selectedNotes.contains(id)) {
+            selectedNotes.remove(id)
+            if (selectedNotes.isEmpty()) {
+                toggleIsDeleteMode(false)
+                toggleIsSelectingMode(false)
+            }
         } else {
-            selectedNotes.add(note)
+            selectedNotes.add(id)
         }
-    }
-
-    fun deleteSelectedNotes(noteViewModel: NoteViewModel) {
-        selectedNotes.forEach { note ->
-            noteViewModel.deleteNoteById(note.id)
-        }
-        selectedNotes.clear()
-        editMode = false
     }
 }
