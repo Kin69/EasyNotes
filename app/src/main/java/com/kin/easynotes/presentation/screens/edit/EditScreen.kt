@@ -91,6 +91,7 @@ private fun EditNoteContent(viewModel: EditViewModel) {
             RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp),
             modifier = Modifier
                 .fillMaxHeight()
+                .padding(top = 3.dp)
         )
     }
 }
