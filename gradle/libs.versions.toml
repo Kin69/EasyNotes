@@ -1,5 +1,6 @@
 [versions]
-agp = "8.4.0"
+accompanist = "0.32.0"
+agp = "8.4.1"
 kotlin = "1.9.24"
 composeBom = "2024.05.00"
 navigationCompose = "2.7.7"
@@ -11,6 +12,7 @@ coreSplashscreen = "1.0.1"
 compose = "1.6.7"
 
 [libraries]
+accompanist-webview = { group = "com.google.accompanist", name = "accompanist-webview", version.ref = "accompanist" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomKtx" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomKtx" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }

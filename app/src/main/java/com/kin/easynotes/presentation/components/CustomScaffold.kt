@@ -16,10 +16,11 @@ fun NotesScaffold(
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
         topBar = { topBar() },
-        floatingActionButton = { floatingActionButton() }
-    ) {
-        Box(modifier = Modifier.padding(top = it.calculateTopPadding())) {
-            content()
+        floatingActionButton = { floatingActionButton() },
+        content = {
+            Box(modifier = Modifier.padding(top = it.calculateTopPadding())) {
+                content()
+            }
         }
-    }
+    )
 }

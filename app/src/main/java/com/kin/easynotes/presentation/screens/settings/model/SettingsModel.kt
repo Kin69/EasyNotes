@@ -4,9 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.kin.easynotes.domain.usecase.NoteViewModel
 import com.kin.easynotes.domain.usecase.Preferences
 
-class SettingsViewModel : ViewModel() {
+class SettingsViewModel : NoteViewModel() {
     var version: String = "0.0.1"
     var dynamicTheme : Boolean by mutableStateOf(getValue("DYNAMIC_THEME"))
     var darkTheme : Boolean by mutableStateOf(getValue("DARK_THEME"))

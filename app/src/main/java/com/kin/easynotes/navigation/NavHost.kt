@@ -18,7 +18,9 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navC
         }
         animatedComposable(route = NavRoutes.Edit.route + "/{id}", arguments = NavRoutes.Edit.navArguments) { entry ->
             val id = entry.arguments?.getInt("id") ?: 0
-            EditNoteView(navController = navController, id = id)
+            EditNoteView(id = id) {
+                navController.navigateUp()
+            }
         }
         slideInComposable(route = NavRoutes.Settings.route) {
             SettingsView(navController = navController,settingsModel)

@@ -21,8 +21,11 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
@@ -36,23 +39,32 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.navigation.NavRoutes
-import com.kin.easynotes.presentation.components.AppBarView
+import com.kin.easynotes.presentation.components.DeleteButton
+
 import com.kin.easynotes.presentation.components.NotesButton
 import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.SettingsButton
+import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
 import com.kin.easynotes.presentation.theme.GlobalFont
 import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeView(navController: NavController) {
-    val viewModel: HomeViewModel = viewModel()
+fun HomeView(
+    navController: NavController,
+    viewModel: HomeViewModel = viewModel()
+) {
     NotesScaffold(
         topBar = {
-            AppBarView(
-                titleText = "Notes",
-                onDeleteClicked = if (viewModel.isSelectingMode.value) { { viewModel.toggleIsDeleteMode(true) } } else null,
-                onSettingsClicked = { navController.navigate(NavRoutes.Settings.route) }
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
+                title = { TitleText(titleText = "Notes")},
+                actions = {
+                    SettingsButton { navController.navigate(NavRoutes.Settings.route) }
+                    if (viewModel.isSelectingMode.value) DeleteButton { viewModel.toggleIsDeleteMode(true) }
+                }
             )
         },
         floatingActionButton = {
@@ -61,10 +73,11 @@ fun HomeView(navController: NavController) {
                 text = "New Note",
                 onClick = { navController.navigate(NavRoutes.Edit.route + "/0") }
             )
+        },
+        content =  {
+            NoteList(navController = navController, viewModel)
         }
-    ) {
-        NoteList(navController = navController, viewModel)
-    }
+    )
 }
 
 @Composable
@@ -75,7 +88,6 @@ private fun NoteList(navController: NavController, viewModel: HomeViewModel) {
         else -> NotesGrid(navController = navController, viewModel = viewModel, notes = notes.value)
     }
 }
-@SuppressLint("UnrememberedMutableState")
 @Composable
 private fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: List<Note>) {
     LazyVerticalStaggeredGrid(
