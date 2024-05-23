@@ -1,6 +1,5 @@
 package com.kin.easynotes.presentation.screens.home
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
@@ -23,7 +22,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -33,22 +31,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.navigation.NavRoutes
 import com.kin.easynotes.presentation.components.DeleteButton
-
 import com.kin.easynotes.presentation.components.NotesButton
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
+import com.kin.easynotes.presentation.screens.edit.components.MarkdownPreview
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
-import com.kin.easynotes.presentation.theme.GlobalFont
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -155,19 +150,12 @@ private fun NoteCard(note: Note, containerColor : Color, onShortClick : () -> Un
                 onLongClick = { onLongClick() }
             )
     ) {
-        Column(modifier = Modifier.padding(10.dp)) {
-            Text(
-                text = note.name.replaceFirstChar { it.titlecase(Locale.ROOT)},
-                fontWeight = FontWeight.Bold,
-                fontFamily = GlobalFont,
-                maxLines = 3
-            )
-            Text(
-                text = note.description.replaceFirstChar { it.titlecase(Locale.ROOT)},
-                maxLines = 5,
-                fontFamily = GlobalFont,
-                overflow = TextOverflow.Ellipsis
-            )
+        Column(
+            modifier = Modifier
+                .padding(10.dp)
+        ) {
+           MarkdownPreview(markdown = note.name, maxHeight = 100.dp, weight = FontWeight.Bold)
+           MarkdownPreview(markdown = note.description,maxHeight = 100.dp)
         }
     }
 }

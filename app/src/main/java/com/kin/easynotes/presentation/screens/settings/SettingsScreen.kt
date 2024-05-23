@@ -14,10 +14,10 @@ import androidx.compose.material.icons.rounded.Colorize
 import androidx.compose.material.icons.rounded.Copyright
 import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.Info
-import androidx.compose.material.icons.rounded.LocalCafe
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.SecurityUpdate
 import androidx.compose.material.icons.rounded.SettingsBackupRestore
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -167,8 +167,8 @@ fun SettingsView(
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     SettingsBox(
-                        title = "Support Us",
-                        icon = Icons.Rounded.LocalCafe,
+                        title = "Give me star",
+                        icon = Icons.Rounded.Star,
                         radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
                         customAction = {
                             Icon(

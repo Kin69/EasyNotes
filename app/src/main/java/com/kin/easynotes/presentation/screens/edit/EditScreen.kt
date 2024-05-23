@@ -1,15 +1,16 @@
 package com.kin.easynotes.presentation.screens.edit
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -24,10 +25,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
@@ -39,9 +42,10 @@ import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SaveButton
 import com.kin.easynotes.presentation.screens.edit.components.CustomIconButton
+import com.kin.easynotes.presentation.screens.edit.components.CustomTextField
+import com.kin.easynotes.presentation.screens.edit.components.MarkdownView
+import com.kin.easynotes.presentation.screens.edit.components.TextFormattingToolbar
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
-import com.kin.easynotes.presentation.screens.edit.modes.EditScreen
-import com.kin.easynotes.presentation.screens.edit.modes.PreviewScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -51,6 +55,7 @@ fun EditNoteView(
     viewModel : EditViewModel = viewModel(),
     onClickBack : () -> Unit
 ) {
+    val coroutineScope = rememberCoroutineScope()
     val lifecycleOwner = LocalLifecycleOwner.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val emptyNote : Note = Note( 0, "", "")
@@ -60,6 +65,7 @@ fun EditNoteView(
         viewModel.updateNoteNameDescription(it.description)
     }
 
+
     NotesScaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -68,10 +74,7 @@ fun EditNoteView(
                 navigationIcon = { NavigationIcon { onClickBack() } },
                 actions = {
                     if (pagerState.currentPage == 0) {
-                        SaveButton {
-                            saveNote(viewModel,id)
-                            onClickBack()
-                        }
+                        SaveButton { onClickBack() }
                     }
                 }
             )
@@ -97,7 +100,11 @@ fun EditNoteView(
                         EditScreen(viewModel = viewModel, id = id)
                     }
                     1 -> {
-                        PreviewScreen(viewModel = viewModel, id = id)
+                        PreviewScreen(viewModel = viewModel, id = id) {
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(0)
+                            }
+                        }
                         keyboardController?.hide()
                     }
                 }
@@ -158,3 +165,81 @@ fun saveNote(viewModel: EditViewModel, id: Int) {
         }
     }
 }
+
+@Composable
+fun EditScreen(viewModel: EditViewModel, id : Int) {
+    val focusRequester = remember { FocusRequester() }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp,16.dp, 16.dp, 0.dp)
+            .imePadding()
+    ) {
+        CustomTextField(
+            value = viewModel.noteNameState.value,
+            onValueChange = { viewModel.updateNoteNameState(it) },
+            placeholder = "Name",
+            shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+            modifier = Modifier.focusRequester(focusRequester)
+        )
+        CustomTextField(
+            value = viewModel.noteDescriptionState.value,
+            onValueChange = { viewModel.updateNoteNameDescription(it) },
+            placeholder = "Description",
+            shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
+            modifier = Modifier
+                .fillMaxHeight(0.92f)
+                .padding(bottom = 8.dp, top = 2.dp)
+        )
+        TextFormattingToolbar(viewModel)
+    }
+}
+
+@Composable
+fun PreviewScreen(viewModel: EditViewModel, id: Int, onClick: () -> Unit) {
+    val text = """
+        # Markdown Rendering with Compose
+        
+        - Create rich text content programmatically
+        - Support headings, lists, links, and code snippets
+        
+        Here's a example code snippet:
+        
+        ```
+        fun main() {
+            println("Hello, Compose!")
+        }
+
+        ```
+        
+        [Learn more about Compose](https://developer.android.com/jetpack/compose)
+        """.trimIndent()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp, 16.dp, 16.dp, 0.dp)
+            .imePadding()
+    ) {
+        MarkdownView(
+            markdown = viewModel.noteNameState.value.trimIndent(),
+            modifier = Modifier
+                .background(
+                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+                )
+                .clickable { onClick() }
+        )
+        Spacer(modifier = Modifier.height(3.dp))
+        MarkdownView(
+            markdown = viewModel.noteDescriptionState.value.trimIndent(),
+            modifier = Modifier
+                .background(
+                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp)
+                )
+                .fillMaxHeight(0.98f)
+                .clickable { onClick() }
+        )
+    }
+}
+

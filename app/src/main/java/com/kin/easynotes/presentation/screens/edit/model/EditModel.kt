@@ -20,19 +20,4 @@ class EditViewModel : NoteViewModel() {
         _noteDescriptionState.value = newDescription
     }
 
-    fun toggleBold() {
-        _noteDescriptionState.value = toggleMarkdownFormat(_noteDescriptionState.value, "<strong>")
-    }
-
-    fun toggleItalic() {
-        _noteDescriptionState.value = toggleMarkdownFormat(_noteDescriptionState.value, "_")
-    }
-
-    private fun toggleMarkdownFormat(text: String, format: String): String {
-        return if (text.startsWith(format) && text.endsWith(format)) {
-            text.substring(format.length, text.length - format.length)
-        } else {
-            "$format$text$format"
-        }
-    }
 }
