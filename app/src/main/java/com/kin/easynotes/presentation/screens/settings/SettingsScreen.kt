@@ -167,7 +167,7 @@ fun SettingsView(
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     SettingsBox(
-                        title = "Give me star",
+                        title = "Star Project :)",
                         icon = Icons.Rounded.Star,
                         radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
                         customAction = {

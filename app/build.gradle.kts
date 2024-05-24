@@ -14,8 +14,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -54,13 +52,13 @@ android {
 dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime)
-    implementation(libs.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.room.ktx)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.navigation.compose)
+
 }

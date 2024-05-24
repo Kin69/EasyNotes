@@ -58,7 +58,7 @@ fun EditNoteView(
     val coroutineScope = rememberCoroutineScope()
     val lifecycleOwner = LocalLifecycleOwner.current
     val keyboardController = LocalSoftwareKeyboardController.current
-    val emptyNote : Note = Note( 0, "", "")
+    val emptyNote = Note( 0, "", "")
     val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
     val note = (viewModel.getNoteById(id).collectAsState(emptyNote).value ?: emptyNote).let {
         viewModel.updateNoteNameState(it.name)
@@ -70,7 +70,7 @@ fun EditNoteView(
         topBar = {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-                title = { ModeButton(viewModel = viewModel, pagerState) },
+                title = { ModeButton(pagerState) },
                 navigationIcon = { NavigationIcon { onClickBack() } },
                 actions = {
                     if (pagerState.currentPage == 0) {
@@ -97,10 +97,10 @@ fun EditNoteView(
             ) { page ->
                 when (page) {
                     0 -> {
-                        EditScreen(viewModel = viewModel, id = id)
+                        EditScreen(viewModel = viewModel)
                     }
                     1 -> {
-                        PreviewScreen(viewModel = viewModel, id = id) {
+                        PreviewScreen(viewModel = viewModel) {
                             coroutineScope.launch {
                                 pagerState.animateScrollToPage(0)
                             }
@@ -114,7 +114,7 @@ fun EditNoteView(
 }
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ModeButton(viewModel: EditViewModel, pagerState: PagerState) {
+fun ModeButton(pagerState: PagerState) {
     val coroutineScope = rememberCoroutineScope()
 
     Row {
@@ -167,7 +167,7 @@ fun saveNote(viewModel: EditViewModel, id: Int) {
 }
 
 @Composable
-fun EditScreen(viewModel: EditViewModel, id : Int) {
+fun EditScreen(viewModel: EditViewModel) {
     val focusRequester = remember { FocusRequester() }
     Column(
         modifier = Modifier
@@ -196,24 +196,7 @@ fun EditScreen(viewModel: EditViewModel, id : Int) {
 }
 
 @Composable
-fun PreviewScreen(viewModel: EditViewModel, id: Int, onClick: () -> Unit) {
-    val text = """
-        # Markdown Rendering with Compose
-        
-        - Create rich text content programmatically
-        - Support headings, lists, links, and code snippets
-        
-        Here's a example code snippet:
-        
-        ```
-        fun main() {
-            println("Hello, Compose!")
-        }
-
-        ```
-        
-        [Learn more about Compose](https://developer.android.com/jetpack/compose)
-        """.trimIndent()
+fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
