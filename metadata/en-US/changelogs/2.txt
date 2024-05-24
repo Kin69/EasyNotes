@@ -1,0 +1,4 @@
+- Updated editing functionality
+- Markdown support (will support images and more in next releases)
+- Updated Settings Gui
+- Changed colorscheme
