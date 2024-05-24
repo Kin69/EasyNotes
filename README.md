@@ -16,9 +16,9 @@ Lightweight android notes app with Material You.
 <div align="left">
 
 <div align="center">
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-settings.png" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-settings.jpg" width="20%"  alt=""/>
     <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-home.jpg" width="20%"  alt=""/>
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit.png" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit.jpg" width="20%"  alt=""/>
 </div>
 <br>
 </div>

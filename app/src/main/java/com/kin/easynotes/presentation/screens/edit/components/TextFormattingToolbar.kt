@@ -19,7 +19,7 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        IconButton(onClick = { viewModel.updateNoteNameDescription(viewModel.noteDescriptionState.value + "\n-" ) }) {
+        IconButton(onClick = { viewModel.updateNoteNameDescription(viewModel.noteDescriptionState.value + "\n- " ) }) {
             Icon(Icons.AutoMirrored.Rounded.FormatListBulleted, contentDescription = "bullet")
         }
         IconButton(onClick = { viewModel.updateNoteNameDescription(viewModel.noteDescriptionState.value + "\n```\n```") }) {
