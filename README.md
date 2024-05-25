@@ -45,7 +45,7 @@ Lightweight android notes app with Material You.
 ## 💬 Contact Me
 
 -  Email : k1nS4@proton.me
--  Discord : Not Yet
+-  Discord : .kin69.
 
   ---
 ## 🛠️ Implementation
