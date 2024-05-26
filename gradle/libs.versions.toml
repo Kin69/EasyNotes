@@ -1,6 +1,6 @@
 [versions]
 agp = "8.4.1"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 ksp = "2.0.0-1.0.21"
 room = "2.6.1"
 activityCompose = "1.9.0"
@@ -10,6 +10,7 @@ compose = "1.6.7"
 material3 = "1.2.1"
 navigationCompose = "2.7.7"
 appcompat = "1.6.1"
+
 
 [libraries]
 # Room
@@ -29,6 +30,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3",
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
