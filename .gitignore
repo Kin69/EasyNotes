@@ -19,6 +19,7 @@
 .idea/uiDesigner.xml
 
 # Android Studio
+.kotlin/
 /*/build/
 /*/local.properties
 /*/out
