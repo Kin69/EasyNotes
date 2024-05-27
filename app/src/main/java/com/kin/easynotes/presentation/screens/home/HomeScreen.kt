@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kin.easynotes.domain.model.Note
@@ -152,7 +153,7 @@ private fun NoteCard(note: Note, containerColor : Color, onShortClick : () -> Un
                 .padding(10.dp)
         ) {
            MarkdownPreview(markdown = note.name, maxHeight = 100.dp, weight = FontWeight.Bold)
-           MarkdownPreview(markdown = note.description,maxHeight = 100.dp)
+           MarkdownPreview(markdown = note.description,maxHeight = 100.dp, fontSize = 14.sp)
         }
     }
 }

@@ -38,6 +38,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kin.easynotes.domain.model.Note
+import com.kin.easynotes.domain.usecase.Preferences
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SaveButton
@@ -204,7 +205,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
             .imePadding()
     ) {
         MarkdownView(
-            markdown = viewModel.noteNameState.value.trimIndent(),
+            markdown = viewModel.noteNameState.value,
             modifier = Modifier
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -214,7 +215,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
         )
         Spacer(modifier = Modifier.height(3.dp))
         MarkdownView(
-            markdown = viewModel.noteDescriptionState.value.trimIndent(),
+            markdown = viewModel.noteDescriptionState.value,
             modifier = Modifier
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainerHigh,
