@@ -43,6 +43,7 @@ import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.edit.components.MarkdownPreview
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -152,7 +153,7 @@ private fun NoteCard(note: Note, containerColor : Color, onShortClick : () -> Un
             modifier = Modifier
                 .padding(10.dp)
         ) {
-           MarkdownPreview(markdown = note.name, maxHeight = 100.dp, weight = FontWeight.Bold)
+           MarkdownPreview(markdown = note.name.replaceFirstChar { it.titlecase(Locale.getDefault()) }, maxHeight = 100.dp, weight = FontWeight.Bold, fontSize = 17.sp)
            MarkdownPreview(markdown = note.description,maxHeight = 100.dp, fontSize = 14.sp)
         }
     }

@@ -1,18 +1,11 @@
 package com.kin.easynotes.presentation.screens.edit.components
 
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -29,9 +21,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
-import coil.request.ImageRequest
 
 sealed interface MarkdownElement {
     fun render(builder: StringBuilder)
@@ -169,6 +158,7 @@ fun MarkdownCodeBlock(code: String, modifier: Modifier, weight : FontWeight = Fo
                         fontSize = fontSize,
                         modifier = modifier.padding(8.dp),
                         weight = weight,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
             )
@@ -267,8 +257,7 @@ fun MarkdownPreview(
                 .heightIn(max = maxHeight)
         ) {
             items(markdownBuilder.content.size) { index ->
-                val element = markdownBuilder.content[index]
-                when (element) {
+                when (val element = markdownBuilder.content[index]) {
                     is Heading -> {
                         val fontSize = when (element.level) {
                             1 -> 24.sp
