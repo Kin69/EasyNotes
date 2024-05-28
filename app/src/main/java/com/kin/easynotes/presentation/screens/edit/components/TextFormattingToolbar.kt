@@ -9,8 +9,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.FormatListBulleted
+import androidx.compose.material.icons.rounded.Code
 import androidx.compose.material.icons.rounded.FormatQuote
-import androidx.compose.material.icons.rounded.FormatSize
+import androidx.compose.material.icons.rounded.HMobiledata
 import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,10 +36,13 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
             Icon(Icons.AutoMirrored.Rounded.FormatListBulleted, contentDescription = "bullet")
         }
         IconButton(onClick = { viewModel.insertText("```\n\n```",-4) }) {
-            Icon(Icons.Rounded.FormatQuote, contentDescription = "Quote")
+            Icon(Icons.Rounded.Code, contentDescription = "Code Block")
         }
         IconButton(onClick = { viewModel.insertText("# ") }) {
-            Icon(Icons.Rounded.FormatSize, contentDescription = "Size")
+            Icon(Icons.Rounded.HMobiledata, contentDescription = "Size")
+        }
+        IconButton(onClick = { viewModel.insertText("> ") }) {
+            Icon(Icons.Rounded.FormatQuote, contentDescription = "Quote")
         }
         ImagePicker { photoUri ->
             context.contentResolver.takePersistableUriPermission(photoUri, flag)

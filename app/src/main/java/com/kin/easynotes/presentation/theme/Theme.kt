@@ -44,3 +44,4 @@ fun LeafNotesTheme(
 }
 
 val GlobalFont = FontFamily(Font(R.font.roboto))
+val CodeFont = FontFamily(Font(R.font.monospace))

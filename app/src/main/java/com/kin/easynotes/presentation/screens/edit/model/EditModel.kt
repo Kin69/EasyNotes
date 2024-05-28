@@ -26,27 +26,12 @@ class EditViewModel : NoteViewModel() {
         _noteDescriptionState.value = newDescription
     }
 
-    fun insertText(insertText: String, offset: Int = 1) {
-        val textFieldValue = _noteDescriptionState.value
-        val text = textFieldValue.text
-        val selection = textFieldValue.selection
-        val cursorPosition = selection.start
-        val lastNewLineIndex = text.lastIndexOf('\n', cursorPosition - 1)
-        val isCurrentLineEmpty = if (lastNewLineIndex == -1) {
-            text.substring(0, cursorPosition).isEmpty()
-        } else {
-            text.substring(lastNewLineIndex + 1, cursorPosition).isEmpty()
+    fun insertText(insertText: String, offset : Int = 1) {
+        val text = _noteDescriptionState.value.text.let {
+            if (it.isNotEmpty()) "$it\n" else it
         }
-        val newText = if (!isCurrentLineEmpty) {
-            "$text\n$insertText"
-        } else {
-            "$text$insertText"
-        }
-        val newCursorPosition = cursorPosition + insertText.length + if (isCurrentLineEmpty) offset else offset + 1
-        _noteDescriptionState.value = TextFieldValue(
-            text = newText,
-            selection = TextRange(newCursorPosition)
-        )
+
+        _noteDescriptionState.value = TextFieldValue(text = "$text$insertText",selection = TextRange(text.length + insertText.length + offset))
     }
 
 }

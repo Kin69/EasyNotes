@@ -1,9 +1,15 @@
 package com.kin.easynotes.presentation.screens.edit.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -21,6 +28,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.kin.easynotes.presentation.theme.CodeFont
+import com.kin.easynotes.presentation.theme.GlobalFont
 
 sealed interface MarkdownElement {
     fun render(builder: StringBuilder)
@@ -29,6 +38,12 @@ sealed interface MarkdownElement {
 data class Heading(val level: Int, val text: String) : MarkdownElement {
     override fun render(builder: StringBuilder) {
         builder.append("#".repeat(level)).append(" $text\n\n")
+    }
+}
+
+data class Quote(val level: Int, val text: String) : MarkdownElement {
+    override fun render(builder: StringBuilder) {
+        builder.append("> ${text}\n")
     }
 }
 
@@ -115,6 +130,7 @@ fun MarkdownText(
     modifier: Modifier = Modifier,
     weight: FontWeight = FontWeight.Normal,
     style: FontStyle = FontStyle.Normal,
+    font: FontFamily = GlobalFont,
     fontSize: TextUnit = 16.sp,
     overflow: TextOverflow = TextOverflow.Clip,
     maxLines: Int = Int.MAX_VALUE
@@ -125,6 +141,7 @@ fun MarkdownText(
         fontSize = fontSize,
         fontWeight = weight,
         fontStyle = style,
+        fontFamily = font,
         overflow = overflow,
         maxLines = maxLines
     )
@@ -158,7 +175,8 @@ fun MarkdownCodeBlock(code: String, modifier: Modifier, weight : FontWeight = Fo
                         fontSize = fontSize,
                         modifier = modifier.padding(8.dp),
                         weight = weight,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        font = CodeFont
                     )
                 }
             )
@@ -176,6 +194,16 @@ class HeadingProcessor : MarkdownLineProcessor {
     }
 }
 
+class QuoteProcessor : MarkdownLineProcessor {
+    override fun canProcessLine(line: String): Boolean = line.trim().startsWith(">")
+
+    override fun processLine(line: String, builder: MarkdownBuilder) {
+        val level = line.takeWhile { it == '>' }.length
+        val text = line.drop(level).trim()
+        builder.add(Quote(level, text))
+    }
+}
+
 class ListItemProcessor : MarkdownLineProcessor {
     override fun canProcessLine(line: String): Boolean = line.startsWith("- ")
 
@@ -185,6 +213,28 @@ class ListItemProcessor : MarkdownLineProcessor {
     }
 }
 
+@Composable
+fun MarkdownQuote(
+    modifier: Modifier = Modifier,
+    level: Int,
+    content: String
+) {
+    Row(
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier
+                .height(22.dp)
+                .width(6.dp)
+                .background(
+                    MaterialTheme.colorScheme.surfaceContainerLow,
+                    RoundedCornerShape(16.dp)
+                )
+        )
+        Spacer(modifier = Modifier.width(6.dp))
+        MarkdownText(text = " $content")
+    }
+}
 
 
 interface MarkdownLineProcessor {
@@ -198,7 +248,7 @@ fun MarkdownView(
     modifier: Modifier = Modifier
 ) {
     val lines = markdown.lines()
-    val lineProcessors = listOf(HeadingProcessor(), ListItemProcessor(), CodeBlockProcessor(), ImageInsertionProcessor())
+    val lineProcessors = listOf(HeadingProcessor(), ListItemProcessor(), CodeBlockProcessor(), ImageInsertionProcessor(), QuoteProcessor())
     val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
     markdownBuilder.parse()
     LazyColumn(
@@ -218,6 +268,9 @@ fun MarkdownView(
                 }
                 is ListItem -> {
                     MarkdownText(text = "• ${element.text}", modifier = Modifier)
+                }
+                is Quote -> {
+                    MarkdownQuote(level = element.level, content = element.text)
                 }
                 is CodeBlock -> {
                     MarkdownCodeBlock(code = element.code.dropLast(1), modifier = Modifier, fontSize = 16.sp)
@@ -246,7 +299,7 @@ fun MarkdownPreview(
     fontSize: TextUnit = 16.sp
 ) {
     val lines = markdown.lines()
-    val lineProcessors = listOf(HeadingProcessor(), ListItemProcessor(), CodeBlockProcessor())
+    val lineProcessors = listOf(HeadingProcessor(), ListItemProcessor(), CodeBlockProcessor(), QuoteProcessor())
     val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
     markdownBuilder.parse()
 
@@ -275,6 +328,9 @@ fun MarkdownPreview(
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1
                         )
+                    }
+                    is Quote -> {
+                        MarkdownQuote(level = element.level, content = element.text)
                     }
                     is CodeBlock -> {
                         MarkdownCodeBlock(
