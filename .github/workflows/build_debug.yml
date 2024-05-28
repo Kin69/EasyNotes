@@ -35,9 +35,6 @@ jobs:
       - name: Grant execution permission to Gradle Wrapper
         run: chmod +x gradlew
 
-      - name: Format Code
-        run: ./gradlew ktlintFormat
-
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
