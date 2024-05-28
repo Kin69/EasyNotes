@@ -59,7 +59,7 @@ Lightweight android notes app with Material You.
 
 ---
 
-## ⚠️ Copyright
+## ⚠️ License
 
     Copyright (c)2024 kin69
     
