@@ -13,10 +13,11 @@ import com.kin.easynotes.presentation.theme.GlobalFont
 @Composable
 fun SettingSection(
     sectionName: String,
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 16.dp, horizontal = 4.dp)
     ) {

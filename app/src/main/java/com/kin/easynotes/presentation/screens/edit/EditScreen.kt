@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -39,7 +40,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kin.easynotes.domain.model.Note
-import com.kin.easynotes.domain.usecase.Preferences
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SaveButton
@@ -174,6 +174,7 @@ fun EditScreen(viewModel: EditViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .navigationBarsPadding()
             .padding(16.dp,16.dp, 16.dp, 0.dp)
             .imePadding()
     ) {
@@ -202,6 +203,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .navigationBarsPadding()
             .padding(16.dp, 16.dp, 16.dp, 0.dp)
             .imePadding()
     ) {
