@@ -33,6 +33,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -62,8 +63,8 @@ fun EditNoteView(
     val emptyNote = Note( 0, "", "")
     val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
     val note = (viewModel.getNoteById(id).collectAsState(emptyNote).value ?: emptyNote).let {
-        viewModel.updateNoteNameState(it.name)
-        viewModel.updateNoteNameDescription(it.description)
+        viewModel.updateNoteNameState(TextFieldValue(it.name))
+        viewModel.updateNoteDescriptionState(TextFieldValue(it.description))
     }
 
 
@@ -155,14 +156,14 @@ fun ModeButton(pagerState: PagerState) {
 }
 
 fun saveNote(viewModel: EditViewModel, id: Int) {
-    if (viewModel.noteNameState.value.isNotEmpty() || viewModel.noteDescriptionState.value.isNotEmpty()) {
+    if (viewModel.noteNameState.value.text.isNotEmpty() || viewModel.noteDescriptionState.value.text.isNotEmpty()) {
         when {
-            viewModel.noteNameState.value.isEmpty() ->  viewModel.updateNoteNameState("Undefined")
-            viewModel.noteDescriptionState.value.isEmpty() ->  viewModel.updateNoteNameDescription("Undefined")
+            viewModel.noteNameState.value.text.isEmpty() ->  viewModel.updateNoteNameState(TextFieldValue("Undefined"))
+            viewModel.noteDescriptionState.value.text.isEmpty() ->  viewModel.updateNoteDescriptionState(TextFieldValue("Undefined"))
         }
         when (id) {
-            0 -> viewModel.addNote(Note(name = viewModel.noteNameState.value ,description = viewModel.noteDescriptionState.value))
-            else -> viewModel.updateNote(Note(id = id, name = viewModel.noteNameState.value, description = viewModel.noteDescriptionState.value))
+            0 -> viewModel.addNote(Note(name = viewModel.noteNameState.value.text ,description = viewModel.noteDescriptionState.value.text))
+            else -> viewModel.updateNote(Note(id = id, name = viewModel.noteNameState.value.text, description = viewModel.noteDescriptionState.value.text))
         }
     }
 }
@@ -185,7 +186,7 @@ fun EditScreen(viewModel: EditViewModel) {
         )
         CustomTextField(
             value = viewModel.noteDescriptionState.value,
-            onValueChange = { viewModel.updateNoteNameDescription(it) },
+            onValueChange = { viewModel.updateNoteDescriptionState(it) },
             placeholder = "Description",
             shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
             modifier = Modifier
@@ -205,7 +206,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
             .imePadding()
     ) {
         MarkdownView(
-            markdown = viewModel.noteNameState.value,
+            markdown = viewModel.noteNameState.value.text,
             modifier = Modifier
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -215,7 +216,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
         )
         Spacer(modifier = Modifier.height(3.dp))
         MarkdownView(
-            markdown = viewModel.noteDescriptionState.value,
+            markdown = viewModel.noteDescriptionState.value.text,
             modifier = Modifier
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainerHigh,
