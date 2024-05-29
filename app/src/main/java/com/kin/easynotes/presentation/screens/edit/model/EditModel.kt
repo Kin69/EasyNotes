@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation.screens.edit.model
 
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.TextRange
@@ -16,6 +17,8 @@ class EditViewModel : NoteViewModel() {
     val noteDescriptionState: State<TextFieldValue> get() = _noteDescriptionState
 
     var noteDeleteState: Boolean = false
+    var noteInfoState: MutableState<Boolean> = mutableStateOf(false)
+
 
     fun updateNoteNameState(newName: TextFieldValue) {
         _noteNameState.value = newName

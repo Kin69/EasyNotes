@@ -3,12 +3,15 @@ package com.kin.easynotes.presentation.screens.edit
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -18,10 +21,16 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.RemoveRedEye
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -32,12 +41,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.NavigationIcon
@@ -68,6 +79,7 @@ fun EditNoteView(
     }
 
 
+
     NotesScaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -77,6 +89,13 @@ fun EditNoteView(
                 actions = {
                     if (pagerState.currentPage == 0) {
                         SaveButton { onClickBack() }
+                    }
+                    if (pagerState.currentPage == 1) {
+                        IconButton(onClick = {
+                            viewModel.noteInfoState.value = true
+                        }) {
+                            Icon(Icons.Rounded.MoreVert, contentDescription = "Info")
+                        }
                     }
                 }
             )
@@ -113,6 +132,35 @@ fun EditNoteView(
             }
         }
     )
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BottomModal(viewModel: EditViewModel) {
+    ModalBottomSheet(onDismissRequest = {
+        viewModel.noteInfoState.value = false
+    }) {
+        Column {
+            Row(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Words",
+                    modifier = Modifier.weight(1f)
+                )
+                Text(text = viewModel.noteDescriptionState.value.text.split("\\s+".toRegex()).size.toString())
+            }
+            Row(
+                modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 32.dp)
+            ) {
+                Text(
+                    text = "Characters",
+                    modifier = Modifier.weight(1f)
+                )
+                Text(viewModel.noteDescriptionState.value.text.length.toString())
+
+            }
+        }
+    }
 }
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -175,7 +223,7 @@ fun EditScreen(viewModel: EditViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding()
-            .padding(16.dp,16.dp, 16.dp, 0.dp)
+            .padding(16.dp, 16.dp, 16.dp, 0.dp)
             .imePadding()
     ) {
         CustomTextField(
@@ -191,15 +239,16 @@ fun EditScreen(viewModel: EditViewModel) {
             placeholder = "Description",
             shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
             modifier = Modifier
-                .fillMaxHeight(0.92f)
-                .padding(bottom = 8.dp, top = 2.dp)
+                .fillMaxHeight(if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) 0.90f else 1f)
+                .padding(bottom = 16.dp, top = 2.dp)
         )
-        TextFormattingToolbar(viewModel)
+        if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) TextFormattingToolbar(viewModel)
     }
 }
 
 @Composable
 fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
+    if (viewModel.noteInfoState.value) BottomModal(viewModel)
     Column(
         modifier = Modifier
             .fillMaxSize()
