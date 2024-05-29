@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.FormatListBulleted
+import androidx.compose.material.icons.rounded.CheckBox
 import androidx.compose.material.icons.rounded.Code
 import androidx.compose.material.icons.rounded.FormatQuote
 import androidx.compose.material.icons.rounded.HMobiledata
@@ -43,6 +44,9 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         }
         IconButton(onClick = { viewModel.insertText("> ") }) {
             Icon(Icons.Rounded.FormatQuote, contentDescription = "Quote")
+        }
+        IconButton(onClick = { viewModel.insertText("[ ] ") }) {
+            Icon(Icons.Rounded.CheckBox, contentDescription = "CheckBox")
         }
         ImagePicker { photoUri ->
             context.contentResolver.takePersistableUriPermission(photoUri, flag)

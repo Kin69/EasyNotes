@@ -215,7 +215,8 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
                     shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                 )
                 .padding(14.dp)
-                .clickable { onClick() }
+                .clickable { onClick() },
+            onContentChange = { viewModel.updateNoteNameState(TextFieldValue(text = it)) }
         )
         Spacer(modifier = Modifier.height(3.dp))
         MarkdownText(
@@ -227,7 +228,8 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
                 )
                 .padding(16.dp)
                 .fillMaxHeight(0.98f)
-                .clickable { onClick() }
+                .clickable { onClick() },
+            onContentChange = { viewModel.updateNoteDescriptionState(TextFieldValue(text = it)) }
         )
     }
 }

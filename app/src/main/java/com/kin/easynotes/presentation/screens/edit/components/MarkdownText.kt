@@ -8,13 +8,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -34,6 +37,12 @@ sealed interface MarkdownElement {
 data class Heading(val level: Int, val text: String) : MarkdownElement {
     override fun render(builder: StringBuilder) {
         builder.append("#".repeat(level)).append(" $text\n\n")
+    }
+}
+
+data class CheckboxItem(val text: String, var checked: Boolean = false) : MarkdownElement {
+    override fun render(builder: StringBuilder) {
+        builder.append("[${if (checked) "X" else " "}] $text\n")
     }
 }
 
@@ -131,6 +140,16 @@ class ImageInsertionProcessor : MarkdownLineProcessor {
     }
 }
 
+class CheckboxProcessor : MarkdownLineProcessor {
+    override fun canProcessLine(line: String): Boolean = line.startsWith("[ ]") || line.startsWith("[X]") || line.startsWith("[]")
+
+    override fun processLine(line: String, builder: MarkdownBuilder) {
+        val checked = line.startsWith("[X]")
+        val text = line.drop(3).trim()
+        builder.add(CheckboxItem(text, checked))
+    }
+}
+
 @Composable
 fun MarkdownCodeBlock(
     color: Color,
@@ -199,10 +218,31 @@ fun MarkdownQuote(content: String, fontSize: TextUnit) {
 }
 
 
+
+
 interface MarkdownLineProcessor {
     fun canProcessLine(line: String): Boolean
     fun processLine(line: String, builder: MarkdownBuilder)
 }
+
+
+@Composable
+fun MarkdownCheck(content: @Composable () -> Unit, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            modifier = Modifier.size(20.dp)
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        content()
+    }
+}
+
+
 
 @Composable
 fun MarkdownText(
@@ -211,10 +251,11 @@ fun MarkdownText(
     weight: FontWeight = FontWeight.Normal,
     fontSize: TextUnit = 16.sp,
     overflow: TextOverflow = TextOverflow.Clip,
-    maxLines: Int = Int.MAX_VALUE
+    maxLines: Int = Int.MAX_VALUE,
+    onContentChange: (String) -> Unit = {}
 ) {
     val lines = markdown.lines()
-    val lineProcessors = listOf(HeadingProcessor(), ListItemProcessor(), CodeBlockProcessor(), QuoteProcessor())
+    val lineProcessors = listOf(HeadingProcessor(), ListItemProcessor(), CodeBlockProcessor(), QuoteProcessor(), CheckboxProcessor())
     val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
     markdownBuilder.parse()
 
@@ -232,6 +273,28 @@ fun MarkdownText(
                         fontFamily = GlobalFont
                     )
                 }
+                is CheckboxItem -> {
+                    MarkdownCheck(
+                        content = {
+                            Text(
+                                text = element.text,
+                                fontSize = fontSize,
+                                overflow = overflow,
+                                fontWeight = weight,
+                                maxLines = maxLines,
+                                fontFamily = GlobalFont
+                            )
+                        },
+                        checked = element.checked) { newChecked ->
+                            val newMarkdown = lines.toMutableList()
+                            if (newChecked)  {
+                                newMarkdown[index] = "[X] ${element.text}"
+                            } else {
+                                newMarkdown[index] = "[ ] ${element.text}"
+                            }
+                            onContentChange(newMarkdown.joinToString("\n"))
+                        }
+                }
                 is ListItem -> {
                     Text(
                         text = "• ${element.text}",
@@ -246,7 +309,7 @@ fun MarkdownText(
                     MarkdownQuote(content = element.text, fontSize = fontSize)
                 }
                 is CodeBlock -> {
-                    MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow,) {
+                    MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
                         Text(
                             text = element.code.dropLast(1),
                             fontSize = fontSize,
@@ -279,5 +342,3 @@ fun MarkdownText(
         }
     }
 }
-
-

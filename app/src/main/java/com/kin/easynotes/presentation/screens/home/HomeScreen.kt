@@ -45,7 +45,6 @@ import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.edit.components.MarkdownText
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -107,6 +106,7 @@ private fun NotesGrid(navController: NavController, viewModel: HomeViewModel, no
                 ) + fadeOut(animationSpec = tween(durationMillis = 300))
             )  {
                 NoteCard(
+                    viewModel = viewModel,
                     note = note,
                     containerColor = when {
                         viewModel.selectedNotes.contains(note.id) -> MaterialTheme.colorScheme.surfaceContainerHighest
@@ -140,7 +140,7 @@ private fun NotesGrid(navController: NavController, viewModel: HomeViewModel, no
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun NoteCard(note: Note, containerColor : Color, onShortClick : () -> Unit, onLongClick : () -> Unit) {
+private fun NoteCard(viewModel: HomeViewModel,note: Note, containerColor : Color, onShortClick : () -> Unit, onLongClick : () -> Unit) {
     Box(
         modifier = Modifier
             .padding(bottom = 9.dp)
@@ -156,14 +156,17 @@ private fun NoteCard(note: Note, containerColor : Color, onShortClick : () -> Un
                 .padding(10.dp)
         ) {
            MarkdownText(
-               markdown = note.name.replaceFirstChar { it.titlecase(Locale.getDefault()) },
+               markdown = note.name,
                modifier = Modifier
                    .heightIn(max = 28.dp)
-                   .padding(2.dp,2.dp,6.dp,0.dp),
+                   .padding(2.dp, 2.dp, 6.dp, 0.dp),
                weight = FontWeight.Bold,
                fontSize = 17.sp,
                overflow = TextOverflow.Ellipsis,
-               maxLines = 1
+               maxLines = 1,
+               onContentChange = {
+                   viewModel.updateNote(note.copy(name = it))
+               }
            )
            MarkdownText(
                markdown = note.description,
@@ -172,7 +175,10 @@ private fun NoteCard(note: Note, containerColor : Color, onShortClick : () -> Un
                    .padding(3.dp),
                fontSize = 14.sp,
                overflow = TextOverflow.Ellipsis,
-               maxLines = 1
+               maxLines = 1,
+               onContentChange = {
+                    viewModel.updateNote(note.copy(description = it))
+               }
            )
         }
     }
