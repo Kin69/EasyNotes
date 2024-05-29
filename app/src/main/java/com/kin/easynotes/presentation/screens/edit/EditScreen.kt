@@ -54,7 +54,7 @@ import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SaveButton
-import com.kin.easynotes.presentation.screens.edit.components.CustomIconButton
+import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.edit.components.CustomTextField
 import com.kin.easynotes.presentation.screens.edit.components.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.TextFormattingToolbar
@@ -84,7 +84,7 @@ fun EditNoteView(
         topBar = {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-                title = { ModeButton(pagerState) },
+                title = { if (pagerState.currentPage == 0) TitleText(titleText = "Edit") else TitleText(titleText = "Preview") },
                 navigationIcon = { NavigationIcon { onClickBack() } },
                 actions = {
                     if (pagerState.currentPage == 0) {
@@ -162,46 +162,6 @@ fun BottomModal(viewModel: EditViewModel) {
         }
     }
 }
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun ModeButton(pagerState: PagerState) {
-    val coroutineScope = rememberCoroutineScope()
-
-    Row {
-        CustomIconButton(
-            onClick = {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(0)
-                }
-            },
-            icon = Icons.Rounded.Edit,
-            modifier = Modifier
-                .clip(RoundedCornerShape(topStart = 32.dp, bottomStart = 32.dp))
-                .background(
-                    when (pagerState.currentPage) {
-                        0 -> MaterialTheme.colorScheme.surfaceContainerHighest
-                        else -> MaterialTheme.colorScheme.surfaceContainerHigh
-                    }
-                )
-        )
-        CustomIconButton(
-            onClick = {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(1)
-                }
-            },
-            icon = Icons.Rounded.RemoveRedEye,
-            modifier = Modifier
-                .clip(RoundedCornerShape(bottomEnd = 32.dp, topEnd = 32.dp))
-                .background(
-                    when (pagerState.currentPage) {
-                        1 -> MaterialTheme.colorScheme.surfaceContainerHighest
-                        else -> MaterialTheme.colorScheme.surfaceContainerHigh
-                    }
-                )
-        )
-    }
-}
 
 fun saveNote(viewModel: EditViewModel, id: Int) {
     if (viewModel.noteNameState.value.text.isNotEmpty() || viewModel.noteDescriptionState.value.text.isNotEmpty()) {
@@ -223,7 +183,7 @@ fun EditScreen(viewModel: EditViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding()
-            .padding(16.dp, 16.dp, 16.dp, 0.dp)
+            .padding(16.dp, 0.dp, 16.dp, 0.dp)
             .imePadding()
     ) {
         CustomTextField(
@@ -240,7 +200,10 @@ fun EditScreen(viewModel: EditViewModel) {
             shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
             modifier = Modifier
                 .fillMaxHeight(if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) 0.90f else 1f)
-                .padding(bottom = if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) 0.dp else 16.dp, top = 2.dp)
+                .padding(
+                    bottom = if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) 0.dp else 16.dp,
+                    top = 2.dp
+                )
         )
         if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) TextFormattingToolbar(viewModel)
     }
@@ -253,7 +216,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding()
-            .padding(16.dp, 16.dp, 16.dp, 0.dp)
+            .padding(16.dp, 0.dp, 16.dp, 0.dp)
             .imePadding()
     ) {
         MarkdownText(
