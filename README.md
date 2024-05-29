@@ -27,7 +27,7 @@ Lightweight android notes app with Material You.
 
 ## 📥 Download
 [<img src="metadata/en-US/images/icons/github.png" alt="Get it on GitHub" height="80">](https://github.com/Kin69/EasyNotes/releases/latest)
-[<img src=".github/izzy_icon.png" height="80">](https://android.izzysoft.de/repo/apk/com.kin.easynotes))
+[<img src=".github/izzy_icon.png" height="80">](https://android.izzysoft.de/repo/apk/com.kin.easynotes)
 
 ---
 
