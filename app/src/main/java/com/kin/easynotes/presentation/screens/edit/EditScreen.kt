@@ -240,7 +240,7 @@ fun EditScreen(viewModel: EditViewModel) {
             shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
             modifier = Modifier
                 .fillMaxHeight(if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) 0.90f else 1f)
-                .padding(bottom = 16.dp, top = 2.dp)
+                .padding(bottom = if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) 0.dp else 16.dp, top = 2.dp)
         )
         if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) TextFormattingToolbar(viewModel)
     }
