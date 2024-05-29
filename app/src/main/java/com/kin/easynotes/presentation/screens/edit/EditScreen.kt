@@ -45,7 +45,7 @@ import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SaveButton
 import com.kin.easynotes.presentation.screens.edit.components.CustomIconButton
 import com.kin.easynotes.presentation.screens.edit.components.CustomTextField
-import com.kin.easynotes.presentation.screens.edit.components.MarkdownView
+import com.kin.easynotes.presentation.screens.edit.components.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.TextFormattingToolbar
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 import kotlinx.coroutines.launch
@@ -207,23 +207,25 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
             .padding(16.dp, 16.dp, 16.dp, 0.dp)
             .imePadding()
     ) {
-        MarkdownView(
+        MarkdownText(
             markdown = viewModel.noteNameState.value.text,
             modifier = Modifier
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainerHigh,
                     shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                 )
+                .padding(14.dp)
                 .clickable { onClick() }
         )
         Spacer(modifier = Modifier.height(3.dp))
-        MarkdownView(
+        MarkdownText(
             markdown = viewModel.noteDescriptionState.value.text,
             modifier = Modifier
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainerHigh,
                     shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp)
                 )
+                .padding(16.dp)
                 .fillMaxHeight(0.98f)
                 .clickable { onClick() }
         )

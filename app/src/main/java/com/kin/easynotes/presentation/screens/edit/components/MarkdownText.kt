@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,11 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,7 +45,6 @@ data class Quote(val level: Int, val text: String) : MarkdownElement {
 
 data class ImageInsertion(val photoUri: String) : MarkdownElement {
     override fun render(builder: StringBuilder) {
-        // Markdown syntax for image insertion: !($photoUri)
         builder.append("!($photoUri)\n\n")
     }
 }
@@ -72,17 +67,18 @@ data class NormalText(val text: String) : MarkdownElement {
         builder.append("$text\n\n")
     }
 }
+
 class CodeBlockProcessor : MarkdownLineProcessor {
     override fun canProcessLine(line: String): Boolean = line == "```"
 
     override fun processLine(line: String, builder: MarkdownBuilder) {
         val codeBlock = StringBuilder()
-        var index = builder.lineIndex + 1 // Start from the next line
+        var index = builder.lineIndex + 1
 
         while (index < builder.lines.size) {
             val nextLine = builder.lines[index]
             if (nextLine == "```") {
-                builder.lineIndex = index // Update the line index in the builder
+                builder.lineIndex = index
                 break
             }
             codeBlock.appendLine(nextLine)
@@ -124,30 +120,6 @@ class MarkdownBuilder(internal val lines: List<String>, private var lineProcesso
     }
 }
 
-@Composable
-fun MarkdownText(
-    text: String,
-    modifier: Modifier = Modifier,
-    weight: FontWeight = FontWeight.Normal,
-    style: FontStyle = FontStyle.Normal,
-    font: FontFamily = GlobalFont,
-    fontSize: TextUnit = 16.sp,
-    overflow: TextOverflow = TextOverflow.Clip,
-    maxLines: Int = Int.MAX_VALUE
-) {
-    Text(
-        modifier = modifier,
-        text = text,
-        fontSize = fontSize,
-        fontWeight = weight,
-        fontStyle = style,
-        fontFamily = font,
-        overflow = overflow,
-        maxLines = maxLines
-    )
-}
-
-
 class ImageInsertionProcessor : MarkdownLineProcessor {
     override fun canProcessLine(line: String): Boolean {
         return line.trim().startsWith("!(") && line.trim().endsWith(")")
@@ -160,7 +132,10 @@ class ImageInsertionProcessor : MarkdownLineProcessor {
 }
 
 @Composable
-fun MarkdownCodeBlock(code: String, modifier: Modifier, weight : FontWeight = FontWeight.Normal,color : Color = MaterialTheme.colorScheme.surfaceContainerLow,fontSize: TextUnit) {
+fun MarkdownCodeBlock(
+    color: Color,
+    text: @Composable () -> Unit
+) {
     Box(
         modifier = Modifier,
         content = {
@@ -170,14 +145,7 @@ fun MarkdownCodeBlock(code: String, modifier: Modifier, weight : FontWeight = Fo
                     .clip(RoundedCornerShape(6.dp))
                     .fillMaxWidth(),
                 content = {
-                    MarkdownText(
-                        text = code,
-                        fontSize = fontSize,
-                        modifier = modifier.padding(8.dp),
-                        weight = weight,
-                        overflow = TextOverflow.Ellipsis,
-                        font = CodeFont
-                    )
+                    text()
                 }
             )
         }
@@ -214,14 +182,8 @@ class ListItemProcessor : MarkdownLineProcessor {
 }
 
 @Composable
-fun MarkdownQuote(
-    modifier: Modifier = Modifier,
-    level: Int,
-    content: String
-) {
-    Row(
-        horizontalArrangement = Arrangement.Center
-    ) {
+fun MarkdownQuote(content: String, fontSize: TextUnit) {
+    Row(horizontalArrangement = Arrangement.Center) {
         Box(
             modifier = Modifier
                 .height(22.dp)
@@ -232,7 +194,7 @@ fun MarkdownQuote(
                 )
         )
         Spacer(modifier = Modifier.width(6.dp))
-        MarkdownText(text = " $content")
+        Text(text = " $content",fontSize = fontSize)
     }
 }
 
@@ -243,122 +205,79 @@ interface MarkdownLineProcessor {
 }
 
 @Composable
-fun MarkdownView(
+fun MarkdownText(
     markdown: String,
-    modifier: Modifier = Modifier
-) {
-    val lines = markdown.lines()
-    val lineProcessors = listOf(HeadingProcessor(), ListItemProcessor(), CodeBlockProcessor(), ImageInsertionProcessor(), QuoteProcessor())
-    val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
-    markdownBuilder.parse()
-    LazyColumn(
-        modifier = modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-    ) {
-        items(markdownBuilder.content.size) { index ->
-            when (val element = markdownBuilder.content[index]) {
-                is Heading -> {
-                    val fontSize = when (element.level) {
-                        1 -> 24.sp
-                        2 -> 20.sp
-                        else -> 16.sp
-                    }
-                    MarkdownText(text = element.text, fontSize = fontSize, modifier = Modifier)
-                }
-                is ListItem -> {
-                    MarkdownText(text = "• ${element.text}", modifier = Modifier)
-                }
-                is Quote -> {
-                    MarkdownQuote(level = element.level, content = element.text)
-                }
-                is CodeBlock -> {
-                    MarkdownCodeBlock(code = element.code.dropLast(1), modifier = Modifier, fontSize = 16.sp)
-                }
-                is ImageInsertion -> {
-                    AsyncImage(
-                        model = element.photoUri,
-                        contentDescription = "ahoj",
-                        modifier = Modifier.clip(RoundedCornerShape(9.dp))
-                        )
-                }
-                is NormalText -> {
-                    MarkdownText(text = element.text, modifier = Modifier)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun MarkdownPreview(
-    markdown: String,
-    maxHeight: Dp,
     modifier: Modifier = Modifier,
     weight: FontWeight = FontWeight.Normal,
-    fontSize: TextUnit = 16.sp
+    fontSize: TextUnit = 16.sp,
+    overflow: TextOverflow = TextOverflow.Clip,
+    maxLines: Int = Int.MAX_VALUE
 ) {
     val lines = markdown.lines()
     val lineProcessors = listOf(HeadingProcessor(), ListItemProcessor(), CodeBlockProcessor(), QuoteProcessor())
     val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
     markdownBuilder.parse()
 
-    Box(modifier = modifier.padding(3.dp)) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(max = maxHeight)
-        ) {
-            items(markdownBuilder.content.size) { index ->
-                when (val element = markdownBuilder.content[index]) {
-                    is Heading -> {
-                        val fontSize = when (element.level) {
-                            1 -> 24.sp
-                            2 -> 20.sp
-                            else -> 16.sp
-                        }
-                        MarkdownText(text = element.text, fontSize = fontSize, modifier = Modifier, weight = weight)
-                    }
-                    is ListItem -> {
-                        MarkdownText(
-                            text = "• ${element.text}",
-                            modifier = Modifier,
-                            weight = weight,
+    LazyColumn(modifier = modifier.fillMaxWidth()) {
+        items(markdownBuilder.content.size) { index ->
+            Spacer(modifier = Modifier.height(4.dp))
+            when (val element = markdownBuilder.content[index]) {
+                is Heading -> {
+                    Text(
+                        text = element.text,
+                        fontSize = 24.sp,
+                        overflow = overflow,
+                        fontWeight = weight,
+                        maxLines = maxLines,
+                        fontFamily = GlobalFont
+                    )
+                }
+                is ListItem -> {
+                    Text(
+                        text = "• ${element.text}",
+                        fontSize = fontSize,
+                        overflow = overflow,
+                        fontWeight = weight,
+                        maxLines = maxLines,
+                        fontFamily = GlobalFont
+                    )
+                }
+                is Quote -> {
+                    MarkdownQuote(content = element.text, fontSize = fontSize)
+                }
+                is CodeBlock -> {
+                    MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow,) {
+                        Text(
+                            text = element.code.dropLast(1),
                             fontSize = fontSize,
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1
+                            fontWeight = weight,
+                            overflow = overflow,
+                            maxLines = maxLines,
+                            fontFamily = CodeFont,
+                            modifier = Modifier.padding(6.dp)
                         )
                     }
-                    is Quote -> {
-                        MarkdownQuote(level = element.level, content = element.text)
-                    }
-                    is CodeBlock -> {
-                        MarkdownCodeBlock(
-                            code = element.code.dropLast(1),
-                            modifier = Modifier,
-                            color = MaterialTheme.colorScheme.surfaceContainerLow,
-                            fontSize = fontSize
-                        )
-                    }
-                    is ImageInsertion -> {
-                        AsyncImage(
-                            model = element.photoUri,
-                            contentDescription = "ahoj",
-                            modifier = Modifier.clip(RoundedCornerShape(9.dp))
-                        )
-                    }
-                    is NormalText -> {
-                        MarkdownText(
-                            text = element.text,
-                            modifier = Modifier,
-                            weight = weight,
-                            fontSize = fontSize,
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1
-                        )
-                    }
+                }
+                is ImageInsertion -> {
+                    AsyncImage(
+                        model = element.photoUri,
+                        contentDescription = "Image",
+                        modifier = Modifier.clip(RoundedCornerShape(9.dp))
+                    )
+                }
+                is NormalText -> {
+                    Text(
+                        text = element.text,
+                        fontWeight = weight,
+                        fontSize = fontSize,
+                        overflow = overflow,
+                        maxLines = maxLines,
+                        fontFamily = GlobalFont
+                    )
                 }
             }
         }
     }
 }
+
+

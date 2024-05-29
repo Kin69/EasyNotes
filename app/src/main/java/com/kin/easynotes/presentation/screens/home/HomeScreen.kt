@@ -13,6 +13,7 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,7 +42,7 @@ import com.kin.easynotes.presentation.components.NotesButton
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
-import com.kin.easynotes.presentation.screens.edit.components.MarkdownPreview
+import com.kin.easynotes.presentation.screens.edit.components.MarkdownText
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
 import java.util.Locale
@@ -153,8 +155,25 @@ private fun NoteCard(note: Note, containerColor : Color, onShortClick : () -> Un
             modifier = Modifier
                 .padding(10.dp)
         ) {
-           MarkdownPreview(markdown = note.name.replaceFirstChar { it.titlecase(Locale.getDefault()) }, maxHeight = 100.dp, weight = FontWeight.Bold, fontSize = 17.sp)
-           MarkdownPreview(markdown = note.description,maxHeight = 100.dp, fontSize = 14.sp)
+           MarkdownText(
+               markdown = note.name.replaceFirstChar { it.titlecase(Locale.getDefault()) },
+               modifier = Modifier
+                   .heightIn(max = 28.dp)
+                   .padding(2.dp,2.dp,6.dp,0.dp),
+               weight = FontWeight.Bold,
+               fontSize = 17.sp,
+               overflow = TextOverflow.Ellipsis,
+               maxLines = 1
+           )
+           MarkdownText(
+               markdown = note.description,
+               modifier = Modifier
+                   .heightIn(max = 100.dp)
+                   .padding(3.dp),
+               fontSize = 14.sp,
+               overflow = TextOverflow.Ellipsis,
+               maxLines = 1
+           )
         }
     }
 }
