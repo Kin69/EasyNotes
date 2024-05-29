@@ -13,6 +13,7 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
@@ -24,7 +25,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +44,7 @@ import com.kin.easynotes.navigation.NavRoutes
 import com.kin.easynotes.presentation.components.DeleteButton
 import com.kin.easynotes.presentation.components.NotesButton
 import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.SearchButton
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.edit.components.MarkdownText
@@ -58,6 +63,7 @@ fun HomeView(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
                 title = { TitleText(titleText = "Notes")},
                 actions = {
+                    SearchButton { navController.navigate(NavRoutes.Search.route) }
                     SettingsButton { navController.navigate(NavRoutes.Settings.route) }
                     if (viewModel.isSelectingMode.value) DeleteButton { viewModel.toggleIsDeleteMode(true) }
                 }
@@ -76,15 +82,31 @@ fun HomeView(
 }
 
 @Composable
-private fun NoteList(navController: NavController, viewModel: HomeViewModel) {
-    val notes = viewModel.getAllNotes.collectAsState(initial = listOf())
-    when {
-        notes.value.isEmpty() -> EmptyNoteList()
-        else -> NotesGrid(navController = navController, viewModel = viewModel, notes = notes.value)
+fun NoteList(navController: NavController, viewModel: HomeViewModel, searchText: String? = null) {
+    var emptyText = "No created notes."
+    val notesState by viewModel.getAllNotes.collectAsState(initial = listOf())
+    val filteredNotes = if (searchText != null) {
+        if (searchText == "") {
+            emptyText = "No notes found."
+            listOf()
+        } else {
+            notesState.filter { note ->
+                note.name.contains(searchText, ignoreCase = true) ||
+                        note.description.contains(searchText, ignoreCase = true)
+            }
+        }
+    } else {
+        notesState
     }
+
+    when {
+        filteredNotes.isEmpty() -> EmptyNoteList(emptyText)
+        else -> NotesGrid(navController = navController, viewModel = viewModel, notes = filteredNotes)
+    }
+
 }
 @Composable
-private fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: List<Note>) {
+fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: List<Note>) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(12.dp),

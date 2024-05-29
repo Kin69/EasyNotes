@@ -8,6 +8,7 @@ sealed class NavRoutes(
     val navArguments: List<NamedNavArgument> = emptyList()
 ) {
     data object Home : NavRoutes("home")
+    data object Search : NavRoutes("search")
     data object Settings : NavRoutes("settings")
     data object Edit : NavRoutes(
         route = "edit",

@@ -10,13 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun EmptyNoteList() {
+fun EmptyNoteList(emptyText : String) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "No created notes.",
+            text = emptyText,
             color = MaterialTheme.colorScheme.primary,
             fontSize = 14.sp
         )
