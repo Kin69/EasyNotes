@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import com.kin.easynotes.domain.usecase.NoteViewModel
 
-class HomeViewModel : NoteViewModel() {
+open class HomeViewModel : NoteViewModel() {
     var selectedNotes = mutableStateListOf<Int>()
 
     private var _isDeleteMode = mutableStateOf(false)

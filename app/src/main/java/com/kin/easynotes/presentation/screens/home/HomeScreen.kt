@@ -60,8 +60,8 @@ fun HomeView(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
                 title = { TitleText(titleText = "Notes")},
                 actions = {
-                    SearchButton { navController.navigate(NavRoutes.Search.route) }
                     if (viewModel.isSelectingMode.value) DeleteButton { viewModel.toggleIsDeleteMode(true) }
+                    SearchButton { navController.navigate(NavRoutes.Search.route) }
                     SettingsButton { navController.navigate(NavRoutes.Settings.route) }
                 }
             )
