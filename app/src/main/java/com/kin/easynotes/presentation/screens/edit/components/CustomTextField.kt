@@ -1,5 +1,7 @@
 package com.kin.easynotes.presentation.screens.edit.components
 
+import androidx.compose.foundation.interaction.InteractionSource
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -16,11 +18,13 @@ fun CustomTextField(
     onValueChange: (TextFieldValue) -> Unit,
     placeholder: String,
     shape: RoundedCornerShape,
+    interactionSource: MutableInteractionSource = MutableInteractionSource(),
     modifier: Modifier = Modifier
 ) {
     TextField(
         value = value,
         onValueChange = onValueChange,
+        interactionSource = interactionSource,
         modifier = modifier.fillMaxWidth(),
         shape = shape,
         colors = TextFieldDefaults.colors(
