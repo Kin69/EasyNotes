@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation.screens.edit.model
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
@@ -16,12 +17,15 @@ class EditViewModel : NoteViewModel() {
     private val _noteDescription = mutableStateOf(TextFieldValue())
     val noteDescription: State<TextFieldValue> get() = _noteDescription
 
+    private val _noteCreatedTime = mutableLongStateOf(0)
+    val noteCreatedTime: State<Long> get() = _noteCreatedTime
+
     private val _isNoteInfoVisible = mutableStateOf(false)
     val isNoteInfoVisible: State<Boolean> get() = _isNoteInfoVisible
 
     override fun getNoteById(id: Int): Flow<Note> {
         return when (id) {
-            0 -> flowOf(Note(0, "", ""))
+            0 -> flowOf(Note(0, "", "",0L))
             else -> super.getNoteById(id)
         }
     }
@@ -45,6 +49,7 @@ class EditViewModel : NoteViewModel() {
     fun syncNote(note: Note) {
         updateNoteName(TextFieldValue(note.name))
         updateNoteDescription(TextFieldValue(note.description))
+        updateNoteCreatedTime(note.createdAt)
     }
 
     fun toggleNoteInfoVisibility(value: Boolean) {
@@ -53,6 +58,10 @@ class EditViewModel : NoteViewModel() {
 
     fun updateNoteName(newName: TextFieldValue) {
         _noteName.value = newName
+    }
+
+    private fun updateNoteCreatedTime(newTime: Long) {
+        _noteCreatedTime.longValue = newTime
     }
 
     fun updateNoteDescription(newDescription: TextFieldValue) {

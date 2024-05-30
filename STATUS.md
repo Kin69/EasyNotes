@@ -7,9 +7,9 @@
 - [x] Font Fix
 - [x] EditScreen Simplify
 - [x] Fix Bugs and typos
+- [x] Note created time
 
 ## In Progress
-- [ ] Note created time
 - [ ] Add debug builds
 - [ ] Code Refactor (EditScreen finished)
 - [ ] Feature requests

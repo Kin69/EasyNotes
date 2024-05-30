@@ -1,5 +1,6 @@
 package com.kin.easynotes.presentation.screens.edit
 
+import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -45,6 +46,8 @@ import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -137,9 +140,18 @@ fun BottomModal(
     ) {
         Column(modifier = Modifier.padding(16.dp,0.dp,16.dp,24.dp)) {
             SettingsBox(
-                title = "Words",
+                title = "Created Time",
                 icon = Icons.Rounded.Numbers,
                 radius = arrayOf(16.dp,16.dp,0.dp,0.dp),
+                customAction = {
+                    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                    Text(sdf.format(Date(viewModel.noteCreatedTime.value)).toString())
+                }
+            )
+            SettingsBox(
+                title = "Words",
+                icon = Icons.Rounded.Numbers,
+                radius = arrayOf(0.dp,0.dp,0.dp,0.dp),
                 customAction = {
                     Text(viewModel.noteDescription.value.text.split("\\s+".toRegex()).size.toString())
                 }

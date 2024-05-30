@@ -13,5 +13,8 @@ data class Note(
     val name: String,
 
     @ColumnInfo(name = "note-description")
-    val description: String
+    val description: String,
+
+    @ColumnInfo(name = "created_at")
+    val createdAt: Long = System.currentTimeMillis() // Default value is the current timestamp
 )
