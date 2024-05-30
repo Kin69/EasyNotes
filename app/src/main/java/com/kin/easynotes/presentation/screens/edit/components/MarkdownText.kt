@@ -21,14 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.kin.easynotes.presentation.theme.CodeFont
-import com.kin.easynotes.presentation.theme.GlobalFont
 
 sealed interface MarkdownElement {
     fun render(builder: StringBuilder)
@@ -270,7 +269,6 @@ fun MarkdownText(
                         overflow = overflow,
                         fontWeight = weight,
                         maxLines = maxLines,
-                        fontFamily = GlobalFont
                     )
                 }
                 is CheckboxItem -> {
@@ -282,7 +280,6 @@ fun MarkdownText(
                                 overflow = overflow,
                                 fontWeight = weight,
                                 maxLines = maxLines,
-                                fontFamily = GlobalFont
                             )
                         },
                         checked = element.checked) { newChecked ->
@@ -302,7 +299,6 @@ fun MarkdownText(
                         overflow = overflow,
                         fontWeight = weight,
                         maxLines = maxLines,
-                        fontFamily = GlobalFont
                     )
                 }
                 is Quote -> {
@@ -316,7 +312,7 @@ fun MarkdownText(
                             fontWeight = weight,
                             overflow = overflow,
                             maxLines = maxLines,
-                            fontFamily = CodeFont,
+                            fontFamily = FontFamily.Monospace,
                             modifier = Modifier.padding(6.dp)
                         )
                     }
@@ -335,7 +331,7 @@ fun MarkdownText(
                         fontSize = fontSize,
                         overflow = overflow,
                         maxLines = maxLines,
-                        fontFamily = GlobalFont
+
                     )
                 }
             }

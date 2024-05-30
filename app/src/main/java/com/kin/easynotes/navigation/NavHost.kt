@@ -1,5 +1,6 @@
 package com.kin.easynotes.navigation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,6 +12,7 @@ import com.kin.easynotes.presentation.screens.settings.SettingsView
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navController: NavHostController = rememberNavController()) {
     NavHost(navController, startDestination = startDestination) {

@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kin.easynotes.presentation.theme.GlobalFont
 
 
 @Composable
@@ -47,7 +46,7 @@ fun SettingsBox(
             tint = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(end = 6.dp)
         )
-        Text(title, modifier = Modifier.padding(start = 3.dp),fontFamily = GlobalFont, fontSize = 16.sp)
+        Text(title, modifier = Modifier.padding(start = 3.dp), fontSize = 16.sp)
         Spacer(modifier = Modifier.weight(1f))
         if (customAction == null && variable != null) {
             Switch(

@@ -37,8 +37,6 @@ import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingSection
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
-import com.kin.easynotes.presentation.theme.GlobalFont
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -100,7 +98,7 @@ fun SettingsView(
                             icon = Icons.AutoMirrored.Rounded.Message,
                             radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
                             customAction = {
-                                Text(text = notesCount.toString(),fontFamily = GlobalFont)
+                                Text(text = notesCount.toString())
                             }
                         )
                         Spacer(modifier = Modifier.height(16.dp))

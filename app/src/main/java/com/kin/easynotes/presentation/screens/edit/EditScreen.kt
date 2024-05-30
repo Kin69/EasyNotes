@@ -3,7 +3,6 @@ package com.kin.easynotes.presentation.screens.edit
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,38 +18,34 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Edit
-import androidx.compose.material.icons.rounded.Info
-import androidx.compose.material.icons.rounded.MoreVert
-import androidx.compose.material.icons.rounded.RemoveRedEye
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kin.easynotes.domain.model.Note
+import com.kin.easynotes.presentation.components.MoreButton
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SaveButton
@@ -59,86 +54,78 @@ import com.kin.easynotes.presentation.screens.edit.components.CustomTextField
 import com.kin.easynotes.presentation.screens.edit.components.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.TextFormattingToolbar
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun EditNoteView(
-    id : Int,
-    viewModel : EditViewModel = viewModel(),
-    onClickBack : () -> Unit
+    id: Int,
+    viewModel: EditViewModel = viewModel(),
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    pagerState: PagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 }),
+    onClickBack: () -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val emptyNote = Note( 0, "", "")
-    val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
-    val note = (viewModel.getNoteById(id).collectAsState(emptyNote).value ?: emptyNote).let {
-        viewModel.updateNoteNameState(TextFieldValue(it.name))
-        viewModel.updateNoteDescriptionState(TextFieldValue(it.description))
+    viewModel.getNoteById(id).collectAsState(Note(0,"","")).value.let {
+        viewModel.syncNote(it)
     }
 
-
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP) {
+                saveNote(viewModel, id)
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 
     NotesScaffold(
         topBar = {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-                title = { if (pagerState.currentPage == 0) TitleText(titleText = "Edit") else TitleText(titleText = "Preview") },
+                title = {
+                    when (pagerState.currentPage) {
+                        0 -> TitleText(titleText = "Edit")
+                        1 -> TitleText(titleText = "Preview")
+                    }
+                },
                 navigationIcon = { NavigationIcon { onClickBack() } },
                 actions = {
-                    if (pagerState.currentPage == 0) {
-                        SaveButton { onClickBack() }
-                    }
-                    if (pagerState.currentPage == 1) {
-                        IconButton(onClick = {
-                            viewModel.noteInfoState.value = true
-                        }) {
-                            Icon(Icons.Rounded.MoreVert, contentDescription = "Info")
-                        }
+                    when (pagerState.currentPage) {
+                        0 -> SaveButton { onClickBack() }
+                        1 -> MoreButton { viewModel.updateInfo(true) }
                     }
                 }
             )
         },
         content = {
-            DisposableEffect(lifecycleOwner) {
-                val observer = LifecycleEventObserver { _, event ->
-                    if (event == Lifecycle.Event.ON_STOP && !viewModel.noteDeleteState) {
-                        saveNote(viewModel, id)
-                    }
-                }
-                lifecycleOwner.lifecycle.addObserver(observer)
-                onDispose {
-                    lifecycleOwner.lifecycle.removeObserver(observer)
-                }
-            }
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier.fillMaxSize()
             ) { page ->
                 when (page) {
-                    0 -> {
-                        EditScreen(viewModel = viewModel)
-                    }
+                    0 -> EditScreen(viewModel = viewModel)
                     1 -> {
                         PreviewScreen(viewModel = viewModel) {
                             coroutineScope.launch {
                                 pagerState.animateScrollToPage(0)
                             }
                         }
-                        keyboardController?.hide()
                     }
                 }
             }
         }
     )
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomModal(viewModel: EditViewModel) {
-    ModalBottomSheet(onDismissRequest = {
-        viewModel.noteInfoState.value = false
-    }) {
+    ModalBottomSheet(onDismissRequest = { viewModel.updateInfo(false) }) {
         Column {
             Row(
                 modifier = Modifier.padding(16.dp)
@@ -147,7 +134,8 @@ fun BottomModal(viewModel: EditViewModel) {
                     text = "Words",
                     modifier = Modifier.weight(1f)
                 )
-                Text(text = viewModel.noteDescriptionState.value.text.split("\\s+".toRegex()).size.toString())
+                Text(
+                    text = viewModel.noteDescriptionState.value.text.split("\\s+".toRegex()).size.toString())
             }
             Row(
                 modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 32.dp)
@@ -185,13 +173,14 @@ fun EditScreen(viewModel: EditViewModel) {
             .navigationBarsPadding()
             .padding(16.dp, 0.dp, 16.dp, 0.dp)
             .imePadding()
+            .focusRequester(focusRequester)
     ) {
+
         CustomTextField(
             value = viewModel.noteNameState.value,
             onValueChange = { viewModel.updateNoteNameState(it) },
             placeholder = "Name",
             shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
-            modifier = Modifier.focusRequester(focusRequester)
         )
         CustomTextField(
             value = viewModel.noteDescriptionState.value,
@@ -205,12 +194,14 @@ fun EditScreen(viewModel: EditViewModel) {
                     top = 2.dp
                 )
         )
-        if (WindowInsets.ime.getBottom(LocalDensity.current) > 0) TextFormattingToolbar(viewModel)
+         TextFormattingToolbar(viewModel)
     }
 }
 
 @Composable
 fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
+    val focusManager = LocalFocusManager.current
+    focusManager.clearFocus()
     if (viewModel.noteInfoState.value) BottomModal(viewModel)
     Column(
         modifier = Modifier

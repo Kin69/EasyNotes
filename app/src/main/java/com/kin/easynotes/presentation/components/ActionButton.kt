@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kin.easynotes.presentation.theme.GlobalFont
 
 
 @Composable
@@ -35,7 +34,6 @@ fun NotesButton(
                 modifier = Modifier.padding(end = 9.dp)
             )
             Text(
-                fontFamily = GlobalFont,
                 fontSize = 14.sp,
                 text = text,
             )

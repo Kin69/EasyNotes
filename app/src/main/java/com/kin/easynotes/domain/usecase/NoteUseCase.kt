@@ -28,13 +28,13 @@ open class NoteViewModel(
         }
     }
 
-    fun updateNote(note: Note) {
+    open fun updateNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
             noteRepository.updateNote(note)
         }
     }
 
-    fun getNoteById(id: Int): Flow<Note> {
+    open fun getNoteById(id: Int): Flow<Note> {
         return noteRepository.getNoteById(id)
     }
 
