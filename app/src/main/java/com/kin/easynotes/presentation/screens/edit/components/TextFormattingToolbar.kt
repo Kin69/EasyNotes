@@ -1,7 +1,11 @@
 package com.kin.easynotes.presentation.screens.edit.components
 
+import android.Manifest
 import android.content.Intent
+import android.content.UriPermission
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 
 @Composable
@@ -49,11 +55,19 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
             Icon(Icons.Rounded.CheckBox, contentDescription = "CheckBox")
         }
         ImagePicker { photoUri ->
-            context.contentResolver.takePersistableUriPermission(photoUri, flag)
-            viewModel.insertText("!($photoUri)")
+            try {
+                context.contentResolver.takePersistableUriPermission(
+                    photoUri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                viewModel.insertText("!($photoUri)")
+            } catch (e: SecurityException) {
+                throw Exception("Permission not granted)")
+            }
         }
     }
 }
+
 
 @Composable
 fun ImagePicker(onImageSelected: (Uri) -> Unit) {
