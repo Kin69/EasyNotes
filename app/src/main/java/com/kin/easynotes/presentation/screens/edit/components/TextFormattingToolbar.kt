@@ -1,11 +1,13 @@
 package com.kin.easynotes.presentation.screens.edit.components
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.UriPermission
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.view.View
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -54,16 +56,11 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         IconButton(onClick = { viewModel.insertText("[ ] ") }) {
             Icon(Icons.Rounded.CheckBox, contentDescription = "CheckBox")
         }
+        val activity: Activity = LocalContext.current as Activity
+
         ImagePicker { photoUri ->
-            try {
-                context.contentResolver.takePersistableUriPermission(
-                    photoUri,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
-                )
-                viewModel.insertText("!($photoUri)")
-            } catch (e: SecurityException) {
-                throw Exception("Permission not granted)")
-            }
+            activity.grantUriPermission(activity.packageName, photoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            viewModel.insertText("!($photoUri)")
         }
     }
 }
@@ -73,6 +70,7 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
 fun ImagePicker(onImageSelected: (Uri) -> Unit) {
     var photoUri: Uri? by remember { mutableStateOf(null) }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+
         photoUri = uri
         if (uri != null) {
             onImageSelected(uri)

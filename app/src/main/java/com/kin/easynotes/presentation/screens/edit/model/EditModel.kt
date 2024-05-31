@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation.screens.edit.model
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.TextRange
@@ -16,6 +17,9 @@ class EditViewModel : NoteViewModel() {
 
     private val _noteDescription = mutableStateOf(TextFieldValue())
     val noteDescription: State<TextFieldValue> get() = _noteDescription
+
+    private val _noteId = mutableIntStateOf(0)
+    val noteId: State<Int> get() = _noteId
 
     private val _noteCreatedTime = mutableLongStateOf(0)
     val noteCreatedTime: State<Long> get() = _noteCreatedTime
@@ -50,6 +54,7 @@ class EditViewModel : NoteViewModel() {
         updateNoteName(TextFieldValue(note.name))
         updateNoteDescription(TextFieldValue(note.description))
         updateNoteCreatedTime(note.createdAt)
+        updateNoteId(note.id)
     }
 
     fun toggleNoteInfoVisibility(value: Boolean) {
@@ -62,6 +67,10 @@ class EditViewModel : NoteViewModel() {
 
     private fun updateNoteCreatedTime(newTime: Long) {
         _noteCreatedTime.longValue = newTime
+    }
+
+    private fun updateNoteId(newId: Int) {
+        _noteId.value = newId
     }
 
     fun updateNoteDescription(newDescription: TextFieldValue) {

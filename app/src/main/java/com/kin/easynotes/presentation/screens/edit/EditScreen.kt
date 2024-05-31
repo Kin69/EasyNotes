@@ -45,6 +45,7 @@ import com.kin.easynotes.presentation.screens.edit.components.TextFormattingTool
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.Locale
@@ -66,7 +67,19 @@ fun EditNoteView(
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) {
-                viewModel.saveNote(id)
+                coroutineScope.launch {
+                    viewModel.saveNote(viewModel.noteId.value)
+                    if (id == 0) {
+                        viewModel.getAllNotes.collectLatest { notes ->
+                            val note = notes.last()
+                            coroutineScope.launch {
+                                viewModel.getNoteById(note.id).collect { notes ->
+                                    viewModel.syncNote(notes)
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
