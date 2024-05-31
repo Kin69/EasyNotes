@@ -27,7 +27,7 @@ Lightweight android notes app with Material You.
 
 ## 📥 Download
 [<img src="metadata/en-US/images/icons/github.png" alt="Get it on GitHub" height="80">](https://github.com/Kin69/EasyNotes/releases/latest)
-[<img src=".github/izzy_icon.png" height="80">](https://android.izzysoft.de/repo/apk/com.kin.easynotes)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.kin.easynotes/)
 
 ---
 
@@ -36,7 +36,7 @@ Lightweight android notes app with Material You.
 ## 📝 Overview
 - [x] Material Design 3
 - [x] Jetpack Compose and MVVM
-- [x] Lightweight (~5.91 Mb)
+- [x] Lightweight (~11Mb)
 - [x] Multiple themes
 
 ---
@@ -50,12 +50,13 @@ Lightweight android notes app with Material You.
   ---
 ## 🛠️ Implementation
 
-- [x] Basic Layout
-- [x] Themes Control
-- [x] Animations
-- [ ] Exporting
-- [ ] Widget
-- [ ] Option to select todo
+ For the latest updates and status of the project, please refer to the [STATUS.md](./STATUS.md) file.
+  
+- [x] Initial setup of project
+- [x] Implementation of core features
+- [x] UI design with Material You
+- [x] Integration of Jetpack Compose and MVVM
+- [x] Basic themes support
 
 ---
 
