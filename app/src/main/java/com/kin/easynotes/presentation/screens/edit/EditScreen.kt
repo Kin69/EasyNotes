@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.*
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.*
+import com.kin.easynotes.presentation.components.Makrdown.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.*
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
@@ -101,7 +102,7 @@ fun ObserveLifecycleEvents(viewModel: EditViewModel, id: Int) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) {
                 coroutineScope.launch {
-                    viewModel.saveNote(id)
+                    viewModel.saveNote(viewModel.noteId.value)
                     if (id == 0) fetchLastNoteAndUpdate(viewModel, coroutineScope)
                 }
             }
@@ -185,7 +186,7 @@ fun EditScreen(viewModel: EditViewModel) {
             placeholder = "Name",
             shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
         )
-        Spacer(modifier = Modifier.height(3.dp))
+        Spacer(modifier = Modifier.height(2.dp))
         CustomTextField(
             value = viewModel.noteDescription.value,
             onValueChange = { viewModel.updateNoteDescription(it) },
@@ -220,7 +221,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
                 .clickable { onClick() },
             onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(3.dp))
         MarkdownText(
             markdown = viewModel.noteDescription.value.text,
             modifier = Modifier

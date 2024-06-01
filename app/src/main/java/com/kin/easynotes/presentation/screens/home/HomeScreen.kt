@@ -44,7 +44,7 @@ import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SearchButton
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
-import com.kin.easynotes.presentation.screens.edit.components.MarkdownText
+import com.kin.easynotes.presentation.components.Makrdown.MarkdownText
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
 

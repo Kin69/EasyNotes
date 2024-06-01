@@ -1,4 +1,4 @@
-package com.kin.easynotes.presentation.screens.edit.components
+package com.kin.easynotes.presentation.components.Makrdown
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,125 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
-sealed interface MarkdownElement {
-    fun render(builder: StringBuilder)
-}
-
-data class Heading(val level: Int, val text: String) : MarkdownElement {
-    override fun render(builder: StringBuilder) {
-        builder.append("#".repeat(level)).append(" $text\n\n")
-    }
-}
-
-data class CheckboxItem(val text: String, var checked: Boolean = false) : MarkdownElement {
-    override fun render(builder: StringBuilder) {
-        builder.append("[${if (checked) "X" else " "}] $text\n")
-    }
-}
-
-data class Quote(val level: Int, val text: String) : MarkdownElement {
-    override fun render(builder: StringBuilder) {
-        builder.append("> ${text}\n")
-    }
-}
-
-data class ImageInsertion(val photoUri: String) : MarkdownElement {
-    override fun render(builder: StringBuilder) {
-        builder.append("!($photoUri)\n\n")
-    }
-}
-
-
-data class ListItem(val text: String) : MarkdownElement {
-    override fun render(builder: StringBuilder) {
-        builder.append("- ${text}\n")
-    }
-}
-
-data class CodeBlock(val code: String) : MarkdownElement {
-    override fun render(builder: StringBuilder) {
-        builder.append("```\n$code\n```\n")
-    }
-}
-
-data class NormalText(val text: String) : MarkdownElement {
-    override fun render(builder: StringBuilder) {
-        builder.append("$text\n\n")
-    }
-}
-
-class CodeBlockProcessor : MarkdownLineProcessor {
-    override fun canProcessLine(line: String): Boolean = line == "```"
-
-    override fun processLine(line: String, builder: MarkdownBuilder) {
-        val codeBlock = StringBuilder()
-        var index = builder.lineIndex + 1
-
-        while (index < builder.lines.size) {
-            val nextLine = builder.lines[index]
-            if (nextLine == "```") {
-                builder.lineIndex = index
-                break
-            }
-            codeBlock.appendLine(nextLine)
-            index++
-        }
-        builder.add(CodeBlock(codeBlock.toString()))
-    }
-}
-
-class MarkdownBuilder(internal val lines: List<String>, private var lineProcessors: List<MarkdownLineProcessor>) {
-    var lineIndex = -1
-
-    internal val content = mutableListOf<MarkdownElement>()
-
-    init {
-        lineProcessors += ImageInsertionProcessor()
-    }
-    fun add(element: MarkdownElement) {
-        content.add(element)
-    }
-
-    fun parse() {
-        while (hasNextLine()) {
-            val line = nextLine()
-            val processor = lineProcessors.find { it.canProcessLine(line) }
-            if (processor != null) {
-                processor.processLine(line, this)
-            } else {
-                add(NormalText(line))
-            }
-        }
-    }
-
-    private fun hasNextLine(): Boolean = lineIndex + 1 < lines.size
-
-    private fun nextLine(): String {
-        lineIndex++
-        return lines[lineIndex]
-    }
-}
-
-class ImageInsertionProcessor : MarkdownLineProcessor {
-    override fun canProcessLine(line: String): Boolean {
-        return line.trim().startsWith("!(") && line.trim().endsWith(")")
-    }
-
-    override fun processLine(line: String, builder: MarkdownBuilder) {
-        val photoUri = line.substringAfter("!(", "").substringBefore(")")
-        builder.add(ImageInsertion(photoUri))
-    }
-}
-
-class CheckboxProcessor : MarkdownLineProcessor {
-    override fun canProcessLine(line: String): Boolean = line.startsWith("[ ]") || line.startsWith("[X]") || line.startsWith("[]")
-
-    override fun processLine(line: String, builder: MarkdownBuilder) {
-        val checked = line.startsWith("[X]")
-        val text = line.drop(3).trim()
-        builder.add(CheckboxItem(text, checked))
-    }
-}
 
 @Composable
 fun MarkdownCodeBlock(
@@ -170,35 +51,6 @@ fun MarkdownCodeBlock(
     )
 }
 
-class HeadingProcessor : MarkdownLineProcessor {
-    override fun canProcessLine(line: String): Boolean = line.startsWith("#")
-
-    override fun processLine(line: String, builder: MarkdownBuilder) {
-        val level = line.takeWhile { it == '#' }.length
-        val text = line.drop(level).trim()
-        builder.add(Heading(level, text))
-    }
-}
-
-class QuoteProcessor : MarkdownLineProcessor {
-    override fun canProcessLine(line: String): Boolean = line.trim().startsWith(">")
-
-    override fun processLine(line: String, builder: MarkdownBuilder) {
-        val level = line.takeWhile { it == '>' }.length
-        val text = line.drop(level).trim()
-        builder.add(Quote(level, text))
-    }
-}
-
-class ListItemProcessor : MarkdownLineProcessor {
-    override fun canProcessLine(line: String): Boolean = line.startsWith("- ")
-
-    override fun processLine(line: String, builder: MarkdownBuilder) {
-        val text = line.removePrefix("- ").trim()
-        builder.add(ListItem(text))
-    }
-}
-
 @Composable
 fun MarkdownQuote(content: String, fontSize: TextUnit) {
     Row(horizontalArrangement = Arrangement.Center) {
@@ -215,15 +67,6 @@ fun MarkdownQuote(content: String, fontSize: TextUnit) {
         Text(text = " $content",fontSize = fontSize)
     }
 }
-
-
-
-
-interface MarkdownLineProcessor {
-    fun canProcessLine(line: String): Boolean
-    fun processLine(line: String, builder: MarkdownBuilder)
-}
-
 
 @Composable
 fun MarkdownCheck(content: @Composable () -> Unit, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
@@ -285,9 +128,9 @@ fun MarkdownText(
                         checked = element.checked) { newChecked ->
                             val newMarkdown = lines.toMutableList()
                             if (newChecked)  {
-                                newMarkdown[index] = "[X] ${element.text}"
+                                newMarkdown[element.index] = "[X] ${element.text}"
                             } else {
-                                newMarkdown[index] = "[ ] ${element.text}"
+                                newMarkdown[element.index] = "[ ] ${element.text}"
                             }
                             onContentChange(newMarkdown.joinToString("\n"))
                         }
@@ -305,16 +148,20 @@ fun MarkdownText(
                     MarkdownQuote(content = element.text, fontSize = fontSize)
                 }
                 is CodeBlock -> {
-                    MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                        Text(
-                            text = element.code.dropLast(1),
-                            fontSize = fontSize,
-                            fontWeight = weight,
-                            overflow = overflow,
-                            maxLines = maxLines,
-                            fontFamily = FontFamily.Monospace,
-                            modifier = Modifier.padding(6.dp)
-                        )
+                    if (element.iSEnded) {
+                        MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                            Text(
+                                text = element.code.dropLast(1),
+                                fontSize = fontSize,
+                                fontWeight = weight,
+                                overflow = overflow,
+                                maxLines = maxLines,
+                                fontFamily = FontFamily.Monospace,
+                                modifier = Modifier.padding(6.dp)
+                            )
+                        }
+                    } else {
+                        NormalText(element.code)
                     }
                 }
                 is ImageInsertion -> {

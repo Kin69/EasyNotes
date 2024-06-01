@@ -10,8 +10,6 @@ import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlin.math.max
-import kotlin.math.min
 
 class EditViewModel : NoteViewModel() {
     private val _noteName = mutableStateOf(TextFieldValue())
@@ -54,8 +52,8 @@ class EditViewModel : NoteViewModel() {
     }
 
     fun syncNote(note: Note) {
-        updateNoteName(TextFieldValue(note.name))
-        updateNoteDescription(TextFieldValue(note.description))
+        updateNoteName(TextFieldValue(note.name, selection = TextRange(note.name.length)))
+        updateNoteDescription(TextFieldValue(note.description, selection = TextRange(note.name.length)))
         updateNoteCreatedTime(note.createdAt)
         updateNoteId(note.id)
     }
