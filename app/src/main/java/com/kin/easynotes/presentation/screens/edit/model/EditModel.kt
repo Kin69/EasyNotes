@@ -10,6 +10,8 @@ import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlin.math.max
+import kotlin.math.min
 
 class EditViewModel : NoteViewModel() {
     private val _noteName = mutableStateOf(TextFieldValue())
@@ -21,31 +23,32 @@ class EditViewModel : NoteViewModel() {
     private val _noteId = mutableIntStateOf(0)
     val noteId: State<Int> get() = _noteId
 
-    private val _noteCreatedTime = mutableLongStateOf(0)
+    private val _noteCreatedTime = mutableLongStateOf(0L)
     val noteCreatedTime: State<Long> get() = _noteCreatedTime
 
     private val _isNoteInfoVisible = mutableStateOf(false)
     val isNoteInfoVisible: State<Boolean> get() = _isNoteInfoVisible
 
     override fun getNoteById(id: Int): Flow<Note> {
-        return when (id) {
-            0 -> flowOf(Note(0, "", "",0L))
-            else -> super.getNoteById(id)
+        return if (id == 0) {
+            flowOf(Note(0, "", "", 0L))
+        } else {
+            super.getNoteById(id)
         }
     }
 
     fun saveNote(id: Int) {
         if (noteName.value.text.isNotEmpty() || noteDescription.value.text.isNotEmpty()) {
-            if (noteName.value.text.isEmpty()) {
-                updateNoteName(TextFieldValue("Empty"))
-            }
-            if (noteDescription.value.text.isEmpty()) {
-                updateNoteDescription(TextFieldValue("Empty"))
-            }
+            val note = Note(
+                id = id,
+                name = noteName.value.text,
+                description = noteDescription.value.text,
+                createdAt = noteCreatedTime.value
+            )
 
-            when (id) {
-                0 -> addNote(Note(name = noteName.value.text, description = noteDescription.value.text))
-                else -> updateNote(Note(id = id, name = noteName.value.text, description = noteDescription.value.text))
+            when (note.id) {
+                0 -> addNote(note)
+                else -> updateNote(note)
             }
         }
     }
@@ -70,20 +73,55 @@ class EditViewModel : NoteViewModel() {
     }
 
     private fun updateNoteId(newId: Int) {
-        _noteId.value = newId
+        _noteId.intValue = newId
     }
 
     fun updateNoteDescription(newDescription: TextFieldValue) {
         _noteDescription.value = newDescription
     }
 
-    fun insertText(insertText: String, offset: Int = 1) {
-        val text = _noteDescription.value.text.let {
-            if (it.isNotEmpty()) "$it\n" else it
+    private fun isSelectorAtStartOfNonEmptyLine(): Boolean {
+        val text = _noteDescription.value.text
+        val selectionStart = _noteDescription.value.selection.start
+
+        if (selectionStart == 0) {
+            return true
         }
+        return text[selectionStart - 1] == '\n'
+    }
+
+    private fun getCurrentLine(): String {
+        val text = _noteDescription.value.text
+        val selectionStart = _noteDescription.value.selection.start
+        val selectionEnd = _noteDescription.value.selection.end
+        var lineStart = selectionStart
+        var lineEnd = selectionEnd
+
+        while (lineStart > 0 && text[lineStart - 1] != '\n') {
+            lineStart--
+        }
+
+        while (lineEnd < text.length && text[lineEnd] != '\n') {
+            lineEnd++
+        }
+        return text.substring(lineStart, lineEnd)
+    }
+
+    fun insertText(insertText: String, offset: Int = 1) {
+        val currentText = _noteDescription.value.text
+        val updatedText = if (getCurrentLine().isNotEmpty()) {
+            if (isSelectorAtStartOfNonEmptyLine()) {
+                val currentLine = getCurrentLine()
+                val newLine = insertText + currentLine
+                currentText.replace(currentLine, newLine)
+            } else {
+                "$currentText\n$insertText"
+            }
+        } else currentText + insertText
+        println(getCurrentLine())
         _noteDescription.value = TextFieldValue(
-            text = "$text$insertText",
-            selection = TextRange(text.length + insertText.length + offset)
+            text = updatedText,
+            selection = TextRange(updatedText.length + offset)
         )
     }
 }

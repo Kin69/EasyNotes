@@ -34,9 +34,10 @@ import androidx.core.content.ContextCompat
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 
 @Composable
-fun TextFormattingToolbar(viewModel: EditViewModel) {
-    val context = LocalContext.current
-    val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+fun TextFormattingToolbar(
+    viewModel: EditViewModel,
+    activity: Activity = LocalContext.current as Activity
+) {
     Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.SpaceEvenly
@@ -44,9 +45,9 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         IconButton(onClick = { viewModel.insertText("- ") }) {
             Icon(Icons.AutoMirrored.Rounded.FormatListBulleted, contentDescription = "bullet")
         }
-        IconButton(onClick = { viewModel.insertText("```\n\n```",-4) }) {
-            Icon(Icons.Rounded.Code, contentDescription = "Code Block")
-        }
+//        IconButton(onClick = { viewModel.insertText("```\n\n```",-4) }) {
+//            Icon(Icons.Rounded.Code, contentDescription = "Code Block")
+//        }
         IconButton(onClick = { viewModel.insertText("# ") }) {
             Icon(Icons.Rounded.HMobiledata, contentDescription = "Size")
         }
@@ -56,8 +57,6 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         IconButton(onClick = { viewModel.insertText("[ ] ") }) {
             Icon(Icons.Rounded.CheckBox, contentDescription = "CheckBox")
         }
-        val activity: Activity = LocalContext.current as Activity
-
         ImagePicker { photoUri ->
             activity.grantUriPermission(activity.packageName, photoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             viewModel.insertText("!($photoUri)")

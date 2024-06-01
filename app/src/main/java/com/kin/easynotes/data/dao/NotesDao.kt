@@ -27,4 +27,7 @@ abstract class NoteDao {
 
     @Query("SELECT * FROM `notes-table` WHERE id=:id")
     abstract fun getNoteById(id: Int): Flow<Note>
+
+    @Query("SELECT id FROM `notes-table` ORDER BY id DESC LIMIT 1")
+    abstract fun getLastNoteId(): Long?
 }

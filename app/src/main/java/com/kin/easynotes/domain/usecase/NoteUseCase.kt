@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 open class NoteViewModel(
     private val noteRepository: NoteRepository = DatabaseHolder.noteRepository
@@ -42,6 +43,15 @@ open class NoteViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val noteToDelete = noteRepository.getNoteById(id).first()
             noteRepository.deleteNote(noteToDelete)
+        }
+    }
+
+    fun getLastNoteId(onResult: (Long?) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val lastNoteId = noteRepository.getLastNoteId()
+            withContext(Dispatchers.Main) {
+                onResult(lastNoteId)
+            }
         }
     }
 }
