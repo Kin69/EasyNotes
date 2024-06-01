@@ -174,31 +174,35 @@ private fun NoteCard(viewModel: HomeViewModel,note: Note, containerColor : Color
             modifier = Modifier
                 .padding(10.dp)
         ) {
-           MarkdownText(
-               markdown = note.name,
-               modifier = Modifier
-                   .heightIn(max = 28.dp)
-                   .padding(2.dp, 2.dp, 6.dp, 0.dp),
-               weight = FontWeight.Bold,
-               fontSize = 17.sp,
-               overflow = TextOverflow.Ellipsis,
-               maxLines = 1,
-               onContentChange = {
-                   viewModel.updateNote(note.copy(name = it))
-               }
-           )
-           MarkdownText(
-               markdown = note.description,
-               modifier = Modifier
-                   .heightIn(max = 100.dp)
-                   .padding(3.dp),
-               fontSize = 14.sp,
-               overflow = TextOverflow.Ellipsis,
-               maxLines = 1,
-               onContentChange = {
-                    viewModel.updateNote(note.copy(description = it))
-               }
-           )
+            if (note.name.isNotEmpty()) {
+                MarkdownText(
+                    markdown = note.name,
+                    modifier = Modifier
+                        .heightIn(max = 35.dp)
+                        .padding(3.dp),
+                    weight = FontWeight.Bold,
+                    fontSize = 17.sp,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    onContentChange = {
+                        viewModel.updateNote(note.copy(name = it))
+                    }
+                )
+            }
+            if (note.description.isNotEmpty()) {
+                MarkdownText(
+                    markdown = note.description,
+                    modifier = Modifier
+                        .heightIn(max = 100.dp)
+                        .padding(3.dp),
+                    fontSize = 14.sp,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    onContentChange = {
+                        viewModel.updateNote(note.copy(description = it))
+                    }
+                )
+            }
         }
     }
 }

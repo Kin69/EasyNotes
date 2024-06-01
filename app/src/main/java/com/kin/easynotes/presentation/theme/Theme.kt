@@ -17,7 +17,7 @@ import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 private fun getColorScheme(context: Context, isDarkTheme: Boolean, isDynamicTheme: Boolean, isAmoledTheme: Boolean): ColorScheme {
     val colorScheme = if (isDynamicTheme && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        if (isDarkTheme || isAmoledTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        if (isDarkTheme || isAmoledTheme) dynamicDarkColorScheme(context).copy() else dynamicLightColorScheme(context)
     } else if (isDarkTheme || isAmoledTheme) darkScheme else lightScheme
 
     return if (isAmoledTheme) colorScheme.copy(surfaceContainerLow = Color.Black, surface = Color.Black) else colorScheme
