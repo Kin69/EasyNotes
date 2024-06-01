@@ -17,7 +17,7 @@ import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navController: NavHostController = rememberNavController()) {
     NavHost(navController, startDestination = startDestination) {
         animatedComposable(route = NavRoutes.Home.route) {
-            HomeView(navController = navController)
+            HomeView(navController = navController, settingsModel)
         }
         animatedComposable(route = NavRoutes.Edit.route + "/{id}", arguments = NavRoutes.Edit.navArguments) { entry ->
             val id = entry.arguments?.getInt("id") ?: 0

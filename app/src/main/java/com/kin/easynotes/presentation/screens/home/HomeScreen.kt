@@ -47,11 +47,13 @@ import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.components.Makrdown.MarkdownText
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeView(
     navController: NavController,
+    settings: SettingsViewModel,
     viewModel: HomeViewModel = viewModel()
 ) {
     NotesScaffold(
@@ -73,13 +75,13 @@ fun HomeView(
             )
         },
         content =  {
-            NoteList(navController = navController, viewModel)
+            NoteList(navController = navController, viewModel, settings = settings)
         }
     )
 }
 
 @Composable
-fun NoteList(navController: NavController, viewModel: HomeViewModel, searchText: String? = null) {
+fun NoteList(navController: NavController, viewModel: HomeViewModel, searchText: String? = null, settings: SettingsViewModel? = null) {
     var emptyText = "No created notes."
     val notesState by viewModel.getAllNotes.collectAsState(initial = listOf())
     val filteredNotes = if (searchText != null) {
@@ -98,12 +100,12 @@ fun NoteList(navController: NavController, viewModel: HomeViewModel, searchText:
 
     when {
         filteredNotes.isEmpty() -> EmptyNoteList(emptyText)
-        else -> NotesGrid(navController = navController, viewModel = viewModel, notes = filteredNotes)
+        else -> NotesGrid(navController = navController, viewModel = viewModel, notes = filteredNotes, settings)
     }
 
 }
 @Composable
-fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: List<Note>) {
+fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: List<Note>, settings: SettingsViewModel? = null) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -131,6 +133,7 @@ fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: Lis
                         viewModel.selectedNotes.contains(note.id) -> MaterialTheme.colorScheme.surfaceContainerHighest
                         else ->  MaterialTheme.colorScheme.surfaceContainerHigh
                     },
+                    settings,
                     onShortClick = {
                         when {
                             viewModel.isSelectingMode.value -> viewModel.toggleNoteSelection(note.id)
@@ -159,7 +162,7 @@ fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: Lis
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun NoteCard(viewModel: HomeViewModel,note: Note, containerColor : Color, onShortClick : () -> Unit, onLongClick : () -> Unit) {
+private fun NoteCard(viewModel: HomeViewModel,note: Note, containerColor : Color,settings: SettingsViewModel? = null, onShortClick : () -> Unit, onLongClick : () -> Unit) {
     Box(
         modifier = Modifier
             .padding(bottom = 9.dp)
@@ -193,8 +196,12 @@ private fun NoteCard(viewModel: HomeViewModel,note: Note, containerColor : Color
                 MarkdownText(
                     markdown = note.description,
                     modifier = Modifier
+                        .background(
+                            color = if (settings?.amoledTheme ?: false) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh,
+                            shape = RoundedCornerShape(9.dp)
+                        )
                         .heightIn(max = 100.dp)
-                        .padding(3.dp),
+                        .padding(5.dp),
                     fontSize = 14.sp,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
