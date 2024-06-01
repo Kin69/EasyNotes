@@ -21,7 +21,7 @@ class EditViewModel : NoteViewModel() {
     private val _noteId = mutableIntStateOf(0)
     val noteId: State<Int> get() = _noteId
 
-    private val _noteCreatedTime = mutableLongStateOf(0L)
+    private val _noteCreatedTime = mutableLongStateOf(System.currentTimeMillis())
     val noteCreatedTime: State<Long> get() = _noteCreatedTime
 
     private val _isNoteInfoVisible = mutableStateOf(false)
@@ -40,8 +40,7 @@ class EditViewModel : NoteViewModel() {
             val note = Note(
                 id = id,
                 name = noteName.value.text,
-                description = noteDescription.value.text,
-                createdAt = noteCreatedTime.value
+                description = noteDescription.value.text
             )
 
             when (note.id) {

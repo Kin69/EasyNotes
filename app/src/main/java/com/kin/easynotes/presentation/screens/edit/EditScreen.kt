@@ -128,7 +128,6 @@ fun SetupNoteData(id: Int, viewModel: EditViewModel) {
         id = 0,
         name = "",
         description = "",
-        createdAt = 0L
     )).value
     viewModel.syncNote(note)
 }
@@ -147,7 +146,7 @@ fun BottomModal(viewModel: EditViewModel) {
                 radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
                 customAction = {
                     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                    Text(sdf.format(Date(viewModel.noteCreatedTime.value)).toString())
+                    Text(sdf.format(viewModel.noteCreatedTime.value).toString())
                 }
             )
             SettingsBox(

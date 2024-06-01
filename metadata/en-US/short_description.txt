@@ -1,1 +1,1 @@
-A simple modern notes app with material design
+A modern notes app with material design

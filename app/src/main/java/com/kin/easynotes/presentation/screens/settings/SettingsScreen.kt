@@ -7,9 +7,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.rounded.Message
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material.icons.rounded.AttachMoney
 import androidx.compose.material.icons.rounded.Backup
 import androidx.compose.material.icons.rounded.Colorize
-import androidx.compose.material.icons.rounded.Copyright
 import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Palette
@@ -141,18 +141,6 @@ fun SettingsView(
                             }
                         )
                         SettingsBox(
-                            title = "License",
-                            icon = Icons.Rounded.Copyright,
-                            radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp),
-                            customAction = {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
-                                    contentDescription = "Latest Release"
-                                )
-                            }) {
-                            uriHandler.openUri("https://github.com/Kin69/EasyNotes/blob/master/LICENSE")
-                        }
-                        SettingsBox(
                             title = "Latest Release",
                             icon = Icons.Rounded.SecurityUpdate,
                             radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
@@ -166,9 +154,9 @@ fun SettingsView(
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         SettingsBox(
-                            title = "Star Project :)",
+                            title = "Star Project",
                             icon = Icons.Rounded.Star,
-                            radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
+                            radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
                             customAction = {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
@@ -176,6 +164,18 @@ fun SettingsView(
                                 )
                             }) {
                             uriHandler.openUri("https://github.com/Kin69/EasyNotes")
+                        }
+                        SettingsBox(
+                            title = "Donate me",
+                            icon = Icons.Rounded.AttachMoney,
+                            radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
+                            customAction = {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
+                                    contentDescription = "Donate me :)"
+                                )
+                            }) {
+                            uriHandler.openUri("https://ko-fi.com/kin69_")
                         }
                     }
                 }
