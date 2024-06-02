@@ -45,7 +45,6 @@ Lightweight android notes app with Material You.
 
 ---
 
-[Vote For Community Server](https://github.com/Kin69/EasyNotes/discussions/22)
 ## 💬 Contact Me
 
 -  Email : k1nS4@proton.me
