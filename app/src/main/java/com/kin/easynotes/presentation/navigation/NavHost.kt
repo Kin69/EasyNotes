@@ -1,4 +1,4 @@
-package com.kin.easynotes.navigation
+package com.kin.easynotes.presentation.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
@@ -17,7 +17,7 @@ import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navController: NavHostController = rememberNavController()) {
     NavHost(navController, startDestination = startDestination) {
         animatedComposable(route = NavRoutes.Home.route) {
-            HomeView(navController = navController, settingsModel)
+            HomeView(navController = navController)
         }
         animatedComposable(route = NavRoutes.Edit.route + "/{id}", arguments = NavRoutes.Edit.navArguments) { entry ->
             val id = entry.arguments?.getInt("id") ?: 0

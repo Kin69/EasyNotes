@@ -71,7 +71,7 @@ fun SettingsView(
                             variable = settingsModel.darkTheme,
                             radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp)
                         ) {
-                            settingsModel.darkTheme = settingsModel.updateSetting("DARK_THEME",settingsModel.darkTheme)
+                            settingsModel.darkTheme = settingsModel.updateSetting("dark_theme",settingsModel.darkTheme)
                         }
                         SettingsBox(
                             title = "Dynamic Colors",
@@ -79,7 +79,7 @@ fun SettingsView(
                             variable = settingsModel.dynamicTheme,
                             radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp)
                         ) {
-                            settingsModel.dynamicTheme = settingsModel.updateSetting("DYNAMIC_THEME",settingsModel.dynamicTheme)
+                            settingsModel.dynamicTheme = settingsModel.updateSetting("dynamic_theme",settingsModel.dynamicTheme)
                         }
                         SettingsBox(
                             title = "Amoled Colors",
@@ -87,7 +87,7 @@ fun SettingsView(
                             variable = settingsModel.amoledTheme,
                             radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp)
                         ) {
-                            settingsModel.amoledTheme = settingsModel.updateSetting("AMOLED_THEME",settingsModel.amoledTheme)
+                            settingsModel.amoledTheme = settingsModel.updateSetting("amoled_theme",settingsModel.amoledTheme)
                         }
                     }
                 }

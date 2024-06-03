@@ -3,9 +3,12 @@ package com.kin.easynotes.presentation.screens.home.viewmodel
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import com.kin.easynotes.domain.repository.NoteRepository
 import com.kin.easynotes.domain.usecase.NoteViewModel
 
-open class HomeViewModel : NoteViewModel() {
+open class HomeViewModel(
+    private val noteRepository: NoteRepository
+) : NoteViewModel(noteRepository) {
     var selectedNotes = mutableStateListOf<Int>()
 
     private var _isDeleteMode = mutableStateOf(false)

@@ -20,7 +20,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.*
+import com.kin.easynotes.Notes
 import com.kin.easynotes.domain.model.Note
+import com.kin.easynotes.domain.usecase.viewModelFactory
 import com.kin.easynotes.presentation.components.*
 import com.kin.easynotes.presentation.components.Makrdown.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.*
@@ -33,7 +35,7 @@ import java.util.*
 @Composable
 fun EditNoteView(
     id: Int,
-    viewModel: EditViewModel = viewModel(),
+    viewModel: EditViewModel = viewModel<EditViewModel>(factory = viewModelFactory { EditViewModel(Notes.dataModule.noteRepository) }),
     onClickBack: () -> Unit
 ) {
     SetupNoteData(id = id, viewModel = viewModel)

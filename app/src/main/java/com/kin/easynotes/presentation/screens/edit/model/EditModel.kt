@@ -7,11 +7,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import com.kin.easynotes.domain.model.Note
+import com.kin.easynotes.domain.repository.NoteRepository
 import com.kin.easynotes.domain.usecase.NoteViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class EditViewModel : NoteViewModel() {
+class EditViewModel(
+    private val noteRepository: NoteRepository
+) : NoteViewModel(noteRepository) {
     private val _noteName = mutableStateOf(TextFieldValue())
     val noteName: State<TextFieldValue> get() = _noteName
 
@@ -37,16 +40,7 @@ class EditViewModel : NoteViewModel() {
 
     fun saveNote(id: Int) {
         if (noteName.value.text.isNotEmpty() || noteDescription.value.text.isNotEmpty()) {
-            val note = Note(
-                id = id,
-                name = noteName.value.text,
-                description = noteDescription.value.text
-            )
-
-            when (note.id) {
-                0 -> addNote(note)
-                else -> updateNote(note)
-            }
+            addNote(Note(id = id, name = noteName.value.text, description = noteDescription.value.text))
         }
     }
 
