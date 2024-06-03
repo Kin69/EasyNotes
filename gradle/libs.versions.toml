@@ -10,7 +10,7 @@ coreSplashscreen = "1.0.1"
 compose = "1.6.7"
 material3 = "1.2.1"
 navigationCompose = "2.7.7"
-appcompat = "1.6.1"
+appcompat = "1.7.0"
 
 
 [libraries]
