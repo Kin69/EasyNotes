@@ -58,7 +58,7 @@ fun SettingsView(
             }
         },
         content = {
-            val notesCount = settingsModel.getAllNotes.collectAsState(initial = listOf()).value.size
+            val notesCount = settingsModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value.size
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(16.dp, 0.dp,16.dp,16.dp)

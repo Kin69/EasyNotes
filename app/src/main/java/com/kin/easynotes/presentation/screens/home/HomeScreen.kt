@@ -54,7 +54,7 @@ import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
 @Composable
 fun HomeView(
     navController: NavController,
-    viewModel: HomeViewModel = viewModel<HomeViewModel>(factory = viewModelFactory { HomeViewModel(Notes.dataModule.noteRepository) })
+    viewModel: HomeViewModel = viewModel()
 ) {
     NotesScaffold(
         topBar = {
@@ -83,7 +83,7 @@ fun HomeView(
 @Composable
 fun NoteList(navController: NavController, viewModel: HomeViewModel, searchText: String? = null) {
     var emptyText = "No created notes."
-    val notesState by viewModel.getAllNotes.collectAsState(initial = listOf())
+    val notesState by viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf())
     val filteredNotes = if (searchText != null) {
         if (searchText == "") {
             emptyText = "No notes found."
@@ -151,7 +151,7 @@ fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: Lis
             if (!animVisibleState.targetState && !animVisibleState.currentState && viewModel.selectedNotes.contains(note.id)) {
                 viewModel.toggleNoteSelection(note.id)
                 animVisibleState.targetState = true
-                viewModel.deleteNoteById(note.id)
+                viewModel.noteUseCase.deleteNoteById(note.id)
             }
         }
     }
@@ -187,7 +187,7 @@ private fun NoteCard(viewModel: HomeViewModel,note: Note, containerColor : Color
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     onContentChange = {
-                        viewModel.addNote(note.copy(name = it))
+                        viewModel.noteUseCase.addNote(note.copy(name = it))
                     }
                 )
             }
@@ -205,7 +205,7 @@ private fun NoteCard(viewModel: HomeViewModel,note: Note, containerColor : Color
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     onContentChange = {
-                        viewModel.addNote(note.copy(description = it))
+                        viewModel.noteUseCase.addNote(note.copy(description = it))
                     }
                 )
             }

@@ -23,11 +23,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         enableEdgeToEdge()
         setContent {
-            val settingsViewModel: SettingsViewModel = viewModel<SettingsViewModel>(
-                factory = viewModelFactory {
-                    SettingsViewModel(Notes.dataModule.noteRepository)
-                }
-            )
+            val settingsViewModel: SettingsViewModel = viewModel()
 
             settingsViewModel.apply {
                 if (settingsViewModel.preferences.automaticTheme) {

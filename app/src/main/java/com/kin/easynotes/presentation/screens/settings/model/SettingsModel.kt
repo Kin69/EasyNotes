@@ -3,16 +3,16 @@ package com.kin.easynotes.presentation.screens.settings.model
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.BuildConfig
 import com.kin.easynotes.Notes
 import com.kin.easynotes.di.DataModule
-import com.kin.easynotes.domain.repository.NoteRepository
-import com.kin.easynotes.domain.usecase.NoteViewModel
+import com.kin.easynotes.domain.usecase.NoteUseCase
 
-class SettingsViewModel(
-    private val noteRepository: NoteRepository
-) : NoteViewModel(noteRepository) {
-    private lateinit var dataModule: DataModule
+class SettingsViewModel() : ViewModel() {
+    private val noteRepository = Notes.dataModule.noteRepository
+    val noteUseCase = NoteUseCase(noteRepository, viewModelScope)
 
     val preferences = Notes.dataModule.preferences
 

@@ -31,7 +31,7 @@ import com.kin.easynotes.presentation.screens.search.viewmodel.SearchViewModel
 @Composable
 fun SearchScreen(
     navController: NavController,
-    viewModel: SearchViewModel = viewModel<SearchViewModel>(factory = viewModelFactory { SearchViewModel(Notes.dataModule.noteRepository) })
+    viewModel: SearchViewModel = viewModel()
 ) {
     NotesScaffold(
         topBar = {
