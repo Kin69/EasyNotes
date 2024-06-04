@@ -176,7 +176,14 @@ fun MarkdownText(
                             )
                         }
                     } else {
-                        NormalText(element.code)
+                        Text(
+                            text = "```",
+                            fontWeight = weight,
+                            fontSize = fontSize,
+                            overflow = overflow,
+                            maxLines = maxLines,
+
+                        )
                     }
                 }
                 is ImageInsertion -> {
