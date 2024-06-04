@@ -29,8 +29,12 @@ Lightweight android notes app with Material You.
 [<img src="metadata/en-US/images/icons/github.png" alt="Get it on GitHub" height="80">](https://github.com/Kin69/EasyNotes/releases/latest)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.kin.easynotes/)
 
----
+--- 
+## 📢 News
 
+- [Vote For Community Server](https://github.com/Kin69/EasyNotes/discussions/22)
+
+---
 
 
 ## 📝 Overview
@@ -40,7 +44,6 @@ Lightweight android notes app with Material You.
 - [x] Multiple themes
 
 ---
-
 
 ## 💬 Contact Me
 

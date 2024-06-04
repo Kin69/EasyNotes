@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <application
-        android:name=".App"
+        android:name=".Notes"
         android:allowBackup="true"
         android:grantUriPermissions="true"
         android:dataExtractionRules="@xml/data_extraction_rules"

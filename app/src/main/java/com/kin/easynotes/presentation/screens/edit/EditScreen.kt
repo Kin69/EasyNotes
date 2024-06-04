@@ -21,7 +21,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.*
-import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.*
 import com.kin.easynotes.presentation.components.Makrdown.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.*
@@ -34,11 +33,11 @@ import java.util.*
 @Composable
 fun EditNoteView(
     id: Int,
-    viewModel: EditViewModel = viewModel(),
     onClickBack: () -> Unit
 ) {
-    SetupNoteData(id = id, viewModel = viewModel)
-    ObserveLifecycleEvents(viewModel, id)
+    val viewModel: EditViewModel = viewModel()
+    viewModel.setupNoteData(id)
+    ObserveLifecycleEvents(viewModel)
 
     val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
@@ -95,44 +94,20 @@ fun TopBar(pagerState: PagerState,coroutineScope: CoroutineScope, onClickBack: (
 }
 
 @Composable
-fun ObserveLifecycleEvents(viewModel: EditViewModel, id: Int) {
+fun ObserveLifecycleEvents(viewModel: EditViewModel) {
     val lifecycleOwner = LocalLifecycleOwner.current
-    val coroutineScope = rememberCoroutineScope()
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) {
-                coroutineScope.launch {
-                    viewModel.saveNote(viewModel.noteId.value)
-                    if (id == 0) fetchLastNoteAndUpdate(viewModel, coroutineScope)
-                }
+                viewModel.saveNote(viewModel.noteId.value)
+                viewModel.fetchLastNoteAndUpdate()
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 }
-
-private suspend fun fetchLastNoteAndUpdate(viewModel: EditViewModel, coroutineScope: CoroutineScope) {
-    viewModel.getLastNoteId { lastId ->
-        coroutineScope.launch {
-            viewModel.getNoteById(lastId?.toInt() ?: 0).collect { note ->
-                viewModel.syncNote(note)
-            }
-        }
-    }
-}
-
-@Composable
-fun SetupNoteData(id: Int, viewModel: EditViewModel) {
-    val note = viewModel.getNoteById(id).collectAsState(Note(
-        id = 0,
-        name = "",
-        description = "",
-    )).value
-    viewModel.syncNote(note)
-}
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -185,6 +160,7 @@ fun EditScreen(viewModel: EditViewModel) {
             onValueChange = { viewModel.updateNoteName(it) },
             placeholder = "Name",
             shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+            modifier = Modifier.heightIn(max = 128.dp)
         )
         Spacer(modifier = Modifier.height(2.dp))
         CustomTextField(
@@ -209,6 +185,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .heightIn(max = 128.dp)
             .padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
         MarkdownText(
@@ -219,6 +196,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
                     shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                 )
                 .padding(14.dp)
+                .heightIn(max = 128.dp)
                 .clickable { onClick() },
             onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
         )

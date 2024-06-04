@@ -1,17 +1,27 @@
 package com.kin.easynotes.presentation.screens.edit.model
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.kin.easynotes.Notes
 import com.kin.easynotes.domain.model.Note
-import com.kin.easynotes.domain.usecase.NoteViewModel
+import com.kin.easynotes.domain.usecase.NoteUseCase
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 
-class EditViewModel : NoteViewModel() {
+class EditViewModel : ViewModel() {
+    private val noteRepository = Notes.dataModule.noteRepository
+    val noteUseCase = NoteUseCase(noteRepository, viewModelScope)
+
     private val _noteName = mutableStateOf(TextFieldValue())
     val noteName: State<TextFieldValue> get() = _noteName
 
@@ -27,26 +37,9 @@ class EditViewModel : NoteViewModel() {
     private val _isNoteInfoVisible = mutableStateOf(false)
     val isNoteInfoVisible: State<Boolean> get() = _isNoteInfoVisible
 
-    override fun getNoteById(id: Int): Flow<Note> {
-        return if (id == 0) {
-            flowOf(Note(0, "", "", 0L))
-        } else {
-            super.getNoteById(id)
-        }
-    }
-
     fun saveNote(id: Int) {
         if (noteName.value.text.isNotEmpty() || noteDescription.value.text.isNotEmpty()) {
-            val note = Note(
-                id = id,
-                name = noteName.value.text,
-                description = noteDescription.value.text
-            )
-
-            when (note.id) {
-                0 -> addNote(note)
-                else -> updateNote(note)
-            }
+            noteUseCase.addNote(Note(id = id, name = noteName.value.text, description = noteDescription.value.text))
         }
     }
 
@@ -55,6 +48,29 @@ class EditViewModel : NoteViewModel() {
         updateNoteDescription(TextFieldValue(note.description, selection = TextRange(note.name.length)))
         updateNoteCreatedTime(note.createdAt)
         updateNoteId(note.id)
+    }
+
+    fun setupNoteData(id : Int = noteId.value) {
+        val note: Note = Note(id = 0, name = "", description = "")
+        if (id != 0) {
+            viewModelScope.launch {
+                noteUseCase.getNoteById(id).collectLatest { note ->
+                    syncNote(note)
+                }
+            }
+        }
+    }
+
+    fun fetchLastNoteAndUpdate() {
+        if (noteId.value == 0) {
+            viewModelScope.launch {
+                noteUseCase.getLastNoteId { lastId ->
+                    viewModelScope.launch {
+                        setupNoteData(lastId?.toInt() ?: 1)
+                    }
+                }
+            }
+        }
     }
 
     fun toggleNoteInfoVisibility(value: Boolean) {
@@ -69,7 +85,7 @@ class EditViewModel : NoteViewModel() {
         _noteCreatedTime.longValue = newTime
     }
 
-    private fun updateNoteId(newId: Int) {
+    fun updateNoteId(newId: Int) {
         _noteId.intValue = newId
     }
 

@@ -1,4 +1,4 @@
-package com.kin.easynotes.data.dao
+package com.kin.easynotes.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
