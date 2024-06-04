@@ -37,7 +37,7 @@ data class ListItem(val text: String) : MarkdownElement {
     }
 }
 
-data class CodeBlock(val code: String, val iSEnded: Boolean = false) : MarkdownElement {
+data class CodeBlock(val code: String, val iSEnded: Boolean = false, val firstLine : String) : MarkdownElement {
     override fun render(builder: StringBuilder) {
         builder.append("```")
         iSEnded.let {

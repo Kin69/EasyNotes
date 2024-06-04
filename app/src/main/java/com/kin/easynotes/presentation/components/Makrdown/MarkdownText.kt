@@ -177,7 +177,7 @@ fun MarkdownText(
                         }
                     } else {
                         Text(
-                            text = "```",
+                            text = element.firstLine,
                             fontWeight = weight,
                             fontSize = fontSize,
                             overflow = overflow,

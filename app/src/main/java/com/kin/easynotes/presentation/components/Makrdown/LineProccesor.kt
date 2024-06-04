@@ -28,7 +28,7 @@ class CodeBlockProcessor : MarkdownLineProcessor {
             index++
         }
 
-        builder.add(CodeBlock(codeBlock.toString(), isEnded))
+        builder.add(CodeBlock(codeBlock.toString(), isEnded, line))
     }
 }
 

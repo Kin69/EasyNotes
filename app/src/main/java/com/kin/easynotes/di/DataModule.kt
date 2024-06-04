@@ -26,7 +26,6 @@ class DataModuleImpl(
         .addMigrations(MIGRATION_1_2)
         .build()
     }
-    //Helloa
     override val noteRepository: NoteRepository by lazy {
         NoteRepositoryImpl(noteDatabase.noteDao())
     }
