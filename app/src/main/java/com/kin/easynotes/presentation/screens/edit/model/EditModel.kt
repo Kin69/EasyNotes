@@ -37,14 +37,6 @@ class EditViewModel : ViewModel() {
     private val _isNoteInfoVisible = mutableStateOf(false)
     val isNoteInfoVisible: State<Boolean> get() = _isNoteInfoVisible
 
-    fun getNoteById(id: Int): Flow<Note> {
-        return if (id == 0) {
-            flowOf(Note(0, "", "", 0L))
-        } else {
-            noteUseCase.getNoteById(id)
-        }
-    }
-
     fun saveNote(id: Int) {
         if (noteName.value.text.isNotEmpty() || noteDescription.value.text.isNotEmpty()) {
             noteUseCase.addNote(Note(id = id, name = noteName.value.text, description = noteDescription.value.text))

@@ -159,6 +159,7 @@ fun EditScreen(viewModel: EditViewModel) {
             onValueChange = { viewModel.updateNoteName(it) },
             placeholder = "Name",
             shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+            modifier = Modifier.heightIn(max = 128.dp)
         )
         Spacer(modifier = Modifier.height(2.dp))
         CustomTextField(
@@ -182,6 +183,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .heightIn(max = 128.dp)
             .padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
         MarkdownText(
@@ -192,6 +194,7 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
                     shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                 )
                 .padding(14.dp)
+                .heightIn(max = 128.dp)
                 .clickable { onClick() },
             onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
         )
