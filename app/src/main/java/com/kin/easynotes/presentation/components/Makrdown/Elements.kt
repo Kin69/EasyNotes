@@ -1,5 +1,7 @@
 package com.kin.easynotes.presentation.components.Makrdown
 
+import android.net.Uri
+
 sealed interface MarkdownElement {
     fun render(builder: StringBuilder)
 }
@@ -22,7 +24,7 @@ data class Quote(val level: Int, val text: String) : MarkdownElement {
     }
 }
 
-data class ImageInsertion(val photoUri: String) : MarkdownElement {
+data class ImageInsertion(val photoUri: Uri) : MarkdownElement {
     override fun render(builder: StringBuilder) {
         builder.append("!($photoUri)\n\n")
     }
