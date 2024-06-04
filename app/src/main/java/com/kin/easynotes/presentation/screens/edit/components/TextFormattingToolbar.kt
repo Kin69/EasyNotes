@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation.screens.edit.components
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -29,7 +30,8 @@ import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 @Composable
 fun TextFormattingToolbar(
     viewModel: EditViewModel,
-    activity: Activity = LocalContext.current as Activity
+    activity: Activity = LocalContext.current as Activity,
+    context : Context = LocalContext.current
 ) {
     Row(
         modifier = Modifier.fillMaxSize(),
@@ -52,11 +54,11 @@ fun TextFormattingToolbar(
         }
         ImagePicker { photoUri ->
             activity.grantUriPermission(activity.packageName, photoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            context.contentResolver.takePersistableUriPermission(photoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             viewModel.insertText("!($photoUri)")
         }
     }
 }
-
 
 @Composable
 fun ImagePicker(onImageSelected: (Uri) -> Unit) {
