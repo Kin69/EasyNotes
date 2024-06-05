@@ -15,6 +15,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -146,7 +147,7 @@ fun BottomModal(viewModel: EditViewModel) {
 
 @Composable
 fun EditScreen(viewModel: EditViewModel) {
-    val isKeyboardVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
+    var isInFocus by remember{ mutableStateOf(false)}
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -168,8 +169,9 @@ fun EditScreen(viewModel: EditViewModel) {
             placeholder = "Description",
             shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
             modifier = Modifier
-                .fillMaxHeight(if (isKeyboardVisible) 0.90f else 1f)
-                .padding(bottom = if (isKeyboardVisible) 0.dp else 16.dp)
+                .onFocusChanged { isInFocus = it.isFocused }
+                .fillMaxHeight(if (isInFocus) 0.90f else 1f)
+                .padding(bottom = if (isInFocus) 0.dp else 16.dp)
         )
         TextFormattingToolbar(viewModel)
     }
