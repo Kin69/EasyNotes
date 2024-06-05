@@ -210,8 +210,10 @@ fun LoadImageFromUri(context: Context, imageUri: Uri) {
 
     LaunchedEffect(imageUri) {
         try {
+            val activity : Activity = context as Activity
             val inputStream = context.contentResolver.openInputStream(imageUri)
             context.contentResolver.takePersistableUriPermission(imageUri,Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            activity.grantUriPermission(activity.packageName, imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             bitmap = BitmapFactory.decodeStream(inputStream)
             inputStream?.close()
         } catch (e: SecurityException) {
