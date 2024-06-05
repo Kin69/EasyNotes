@@ -31,7 +31,8 @@ Lightweight android notes app with Material You.
 
 --- 
 ## 📢 News
-
+- [Join Discord Server](https://discord.gg/ZrP4G8z23H)
+- [Bug with Images Disappearing in New Builds (up from v1.2)](https://github.com/Kin69/EasyNotes/discussions/29)
 - [Vote For Community Server](https://github.com/Kin69/EasyNotes/discussions/22)
 
 ---
