@@ -1,4 +1,4 @@
-package com.kin.easynotes.presentation.components.Makrdown
+package com.kin.easynotes.presentation.components.markdown
 
 import androidx.core.net.toUri
 

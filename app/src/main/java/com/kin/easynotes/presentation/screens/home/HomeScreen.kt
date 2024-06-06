@@ -36,9 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.kin.easynotes.Notes
 import com.kin.easynotes.domain.model.Note
-import com.kin.easynotes.domain.usecase.viewModelFactory
 import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.components.DeleteButton
 import com.kin.easynotes.presentation.components.NotesButton
@@ -46,7 +44,9 @@ import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.SearchButton
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
-import com.kin.easynotes.presentation.components.Makrdown.MarkdownText
+import com.kin.easynotes.presentation.components.getNoteEnterAnimation
+import com.kin.easynotes.presentation.components.getNoteExitAnimation
+import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.EmptyNoteList
 
@@ -116,15 +116,8 @@ fun NotesGrid(navController: NavController, viewModel: HomeViewModel, notes: Lis
             val animVisibleState = remember {  MutableTransitionState(false).apply {  targetState = true  }  }
             AnimatedVisibility(
                 visibleState = animVisibleState,
-                enter =  fadeIn(animationSpec = tween(200)) +
-                        scaleIn(
-                            initialScale = 0.9f,
-                            animationSpec = tween(200)
-                        ),
-                exit = slideOutHorizontally(
-                    targetOffsetX = { slideDirection * it },
-                    animationSpec = tween(durationMillis = 300)
-                ) + fadeOut(animationSpec = tween(durationMillis = 300))
+                enter =  getNoteEnterAnimation(),
+                exit = getNoteExitAnimation(slideDirection)
             )  {
                 NoteCard(
                     viewModel = viewModel,

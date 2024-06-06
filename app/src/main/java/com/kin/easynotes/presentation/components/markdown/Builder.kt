@@ -1,4 +1,4 @@
-package com.kin.easynotes.presentation.components.Makrdown
+package com.kin.easynotes.presentation.components.markdown
 
 class MarkdownBuilder(internal val lines: List<String>, private var lineProcessors: List<MarkdownLineProcessor>) {
     var lineIndex = -1

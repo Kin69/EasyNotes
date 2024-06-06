@@ -1,4 +1,4 @@
-package com.kin.easynotes.presentation.components.Makrdown
+package com.kin.easynotes.presentation.components.markdown
 
 import android.app.Activity
 import android.content.Context
@@ -42,7 +42,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.io.IOException
 
 
 @Composable

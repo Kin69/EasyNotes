@@ -1,9 +1,14 @@
 package com.kin.easynotes.presentation.navigation
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.runtime.Composable
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDeepLink
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kin.easynotes.presentation.screens.edit.EditNoteView
 import com.kin.easynotes.presentation.screens.home.HomeView
@@ -11,8 +16,6 @@ import com.kin.easynotes.presentation.screens.search.SearchScreen
 import com.kin.easynotes.presentation.screens.settings.SettingsView
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
-
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navController: NavHostController = rememberNavController()) {
     NavHost(navController, startDestination = startDestination) {
@@ -33,3 +36,4 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navC
         }
     }
 }
+
