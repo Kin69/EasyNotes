@@ -14,8 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.TitleText
@@ -36,7 +38,7 @@ fun SearchScreen(
             TopAppBar(
                 navigationIcon = { NavigationIcon { onBackNavClicked() } },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-                title = { TitleText(titleText = "Search") },
+                title = { TitleText(titleText = stringResource(R.string.screen_search)) },
             )
         },
         content = {
@@ -45,7 +47,7 @@ fun SearchScreen(
                 CustomTextField(
                     value = viewModel.value.value,
                     onValueChange = {viewModel.updateValue(it)},
-                    placeholder = "Search...",
+                    placeholder = stringResource(R.string.search) + "...",
                     shape = RoundedCornerShape(24.dp),
                     modifier = Modifier
                         .focusRequester(focusRequester)

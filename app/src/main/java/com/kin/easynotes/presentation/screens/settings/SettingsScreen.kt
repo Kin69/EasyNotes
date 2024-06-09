@@ -29,8 +29,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.TitleText
@@ -52,7 +54,7 @@ fun SettingsView(
             key(settingsModel.darkTheme,settingsModel.dynamicTheme,settingsModel.amoledTheme) {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-                    title = { TitleText(titleText = "Settings") },
+                    title = { TitleText(titleText = stringResource(R.string.screen_settings)) },
                     navigationIcon = { NavigationIcon() { navController.navigateUp() } }
                 )
             }
@@ -64,9 +66,9 @@ fun SettingsView(
                 modifier = Modifier.padding(16.dp, 0.dp,16.dp,16.dp)
             ) {
                 item {
-                    SettingSection(sectionName = "Display") {
+                    SettingSection(sectionName = stringResource(R.string.display)) {
                         SettingsBox(
-                            title = "Dark Theme",
+                            title = stringResource(R.string.dark_theme),
                             icon = Icons.Rounded.Palette,
                             variable = settingsModel.darkTheme,
                             radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp)
@@ -74,7 +76,7 @@ fun SettingsView(
                             settingsModel.darkTheme = settingsModel.updateSetting("dark_theme",settingsModel.darkTheme)
                         }
                         SettingsBox(
-                            title = "Dynamic Colors",
+                            title = stringResource(R.string.dynamic_colors),
                             icon = Icons.Rounded.Colorize,
                             variable = settingsModel.dynamicTheme,
                             radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp)
@@ -82,7 +84,7 @@ fun SettingsView(
                             settingsModel.dynamicTheme = settingsModel.updateSetting("dynamic_theme",settingsModel.dynamicTheme)
                         }
                         SettingsBox(
-                            title = "Amoled Colors",
+                            title = stringResource(R.string.amoled_colors),
                             icon = Icons.Rounded.DarkMode,
                             variable = settingsModel.amoledTheme,
                             radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp)
@@ -92,7 +94,7 @@ fun SettingsView(
                     }
                 }
                 item {
-                    SettingSection(sectionName = "Database") {
+                    SettingSection(sectionName = stringResource(R.string.database)) {
                         SettingsBox(
                             title = "Notes",
                             icon = Icons.AutoMirrored.Rounded.Message,
@@ -101,6 +103,7 @@ fun SettingsView(
                                 Text(text = notesCount.toString())
                             }
                         )
+                        val not_supported = stringResource(R.string.not_supported)
                         Spacer(modifier = Modifier.height(16.dp))
                         SettingsBox(
                             title = "Backup",
@@ -109,11 +112,11 @@ fun SettingsView(
                             customAction = {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
-                                    contentDescription = "Backup"
+                                    contentDescription = stringResource(R.string.backup)
                                 )
                             }
                         ) {
-                            Toast.makeText(context, "Not Supported yet", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, not_supported, Toast.LENGTH_SHORT).show()
                         }
                         SettingsBox(
                             title = "Restore",
@@ -122,18 +125,19 @@ fun SettingsView(
                             customAction = {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
-                                    contentDescription = "Restore"
+                                    contentDescription = null
                                 )
                             })
                         {
-                            Toast.makeText(context, "Not Supported yet", Toast.LENGTH_SHORT).show()
+
+                            Toast.makeText(context, not_supported, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
                 item {
-                    SettingSection(sectionName = "About") {
+                    SettingSection(sectionName = stringResource(R.string.about)) {
                         SettingsBox(
-                            title = "Version",
+                            title = stringResource(R.string.version),
                             icon = Icons.Rounded.Info,
                             radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
                             customAction = {
@@ -141,38 +145,38 @@ fun SettingsView(
                             }
                         )
                         SettingsBox(
-                            title = "Latest Release",
+                            title = stringResource(R.string.latest_release),
                             icon = Icons.Rounded.SecurityUpdate,
                             radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
                             customAction = {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
-                                    contentDescription = "Latest Release"
+                                    contentDescription = null
                                 )
                             }) {
                             uriHandler.openUri("https://github.com/Kin69/EasyNotes/releases")
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                         SettingsBox(
-                            title = "Star Project",
+                            title = stringResource(R.string.start_project),
                             icon = Icons.Rounded.Star,
                             radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
                             customAction = {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
-                                    contentDescription = "Support Us"
+                                    contentDescription = null
                                 )
                             }) {
                             uriHandler.openUri("https://github.com/Kin69/EasyNotes")
                         }
                         SettingsBox(
-                            title = "Donate me",
+                            title = stringResource(R.string.donate_me),
                             icon = Icons.Rounded.AttachMoney,
                             radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
                             customAction = {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
-                                    contentDescription = "Donate me :)"
+                                    contentDescription = null
                                 )
                             }) {
                             uriHandler.openUri("https://ko-fi.com/kin69_")

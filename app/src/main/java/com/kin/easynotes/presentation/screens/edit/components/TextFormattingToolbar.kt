@@ -34,19 +34,19 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         IconButton(onClick = { viewModel.insertText("- ") }) {
-            Icon(Icons.AutoMirrored.Rounded.FormatListBulleted, contentDescription = "bullet")
+            Icon(Icons.AutoMirrored.Rounded.FormatListBulleted, contentDescription = null)
         }
         IconButton(onClick = { viewModel.insertText("```\n\n```",-4) }) {
-            Icon(Icons.Rounded.Code, contentDescription = "Code Block")
+            Icon(Icons.Rounded.Code, contentDescription = null)
         }
         IconButton(onClick = { viewModel.insertText("# ") }) {
-            Icon(Icons.Rounded.HMobiledata, contentDescription = "Size")
+            Icon(Icons.Rounded.HMobiledata, contentDescription = null)
         }
         IconButton(onClick = { viewModel.insertText("> ") }) {
-            Icon(Icons.Rounded.FormatQuote, contentDescription = "Quote")
+            Icon(Icons.Rounded.FormatQuote, contentDescription = null)
         }
         IconButton(onClick = { viewModel.insertText("[ ] ") }) {
-            Icon(Icons.Rounded.CheckBox, contentDescription = "CheckBox")
+            Icon(Icons.Rounded.CheckBox, contentDescription = null)
         }
     }
 }

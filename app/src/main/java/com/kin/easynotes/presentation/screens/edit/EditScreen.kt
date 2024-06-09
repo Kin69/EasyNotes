@@ -17,10 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.*
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.*
+import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.*
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.*
@@ -117,7 +119,7 @@ fun BottomModal(viewModel: EditViewModel) {
     ) {
         Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
             SettingsBox(
-                title = "Created Time",
+                title = stringResource(R.string.created_time),
                 icon = Icons.Rounded.Numbers,
                 radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
                 customAction = {
@@ -126,7 +128,7 @@ fun BottomModal(viewModel: EditViewModel) {
                 }
             )
             SettingsBox(
-                title = "Words",
+                title = stringResource(R.string.words),
                 icon = Icons.Rounded.Numbers,
                 radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp),
                 customAction = {
@@ -134,7 +136,7 @@ fun BottomModal(viewModel: EditViewModel) {
                 }
             )
             SettingsBox(
-                title = "Characters",
+                title = stringResource(R.string.characters),
                 icon = Icons.Rounded.Numbers,
                 radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
                 customAction = {
@@ -152,13 +154,13 @@ fun EditScreen(viewModel: EditViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding()
-            .padding(top = 16.dp, start = 16.dp,end = 16.dp)
+            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
             .imePadding()
     ) {
         CustomTextField(
             value = viewModel.noteName.value,
             onValueChange = { viewModel.updateNoteName(it) },
-            placeholder = "Name",
+            placeholder = stringResource(R.string.name),
             shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
             modifier = Modifier.heightIn(max = 128.dp)
         )
@@ -166,7 +168,7 @@ fun EditScreen(viewModel: EditViewModel) {
         CustomTextField(
             value = viewModel.noteDescription.value,
             onValueChange = { viewModel.updateNoteDescription(it) },
-            placeholder = "Description",
+            placeholder = stringResource(R.string.description),
             shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
             modifier = Modifier
                 .onFocusChanged { isInFocus = it.isFocused }
