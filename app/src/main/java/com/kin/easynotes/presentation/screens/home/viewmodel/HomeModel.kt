@@ -8,6 +8,16 @@ import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.Notes
 import com.kin.easynotes.domain.usecase.NoteUseCase
 
+enum class SortProperty {
+    CREATED_DATE,
+    LAST_UPDATED_DATE
+}
+
+enum class SortOrder {
+    ASCENDING,
+    DESCENDING
+}
+
 open class HomeViewModel() : ViewModel() {
     private val noteRepository = Notes.dataModule.noteRepository
     val noteUseCase = NoteUseCase(noteRepository, viewModelScope)
@@ -17,26 +27,10 @@ open class HomeViewModel() : ViewModel() {
     private var _isDeleteMode = mutableStateOf(false)
     val isDeleteMode: State<Boolean> = _isDeleteMode
 
-    private var _isSelectingMode = mutableStateOf(false)
-    val isSelectingMode: State<Boolean> = _isSelectingMode
-
-    fun toggleIsSelectingMode(enabled: Boolean) {
-        _isSelectingMode.value = enabled
-    }
+    private var _isSortExpanded = mutableStateOf(false)
+    val isSortExpanded: State<Boolean> = _isSortExpanded
 
     fun toggleIsDeleteMode(enabled: Boolean) {
         _isDeleteMode.value = enabled
-    }
-
-    fun toggleNoteSelection(id: Int) {
-        if (selectedNotes.contains(id)) {
-            selectedNotes.remove(id)
-            if (selectedNotes.isEmpty()) {
-                toggleIsDeleteMode(false)
-                toggleIsSelectingMode(false)
-            }
-        } else {
-            selectedNotes.add(id)
-        }
     }
 }

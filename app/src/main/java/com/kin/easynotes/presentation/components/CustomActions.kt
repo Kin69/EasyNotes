@@ -74,7 +74,7 @@ fun SettingsButton(onSettingsClicked: () -> Unit) {
     IconButton(onClick = onSettingsClicked) {
         Icon(
             imageVector = Icons.Rounded.Settings,
-            contentDescription = "settings",
+            contentDescription = "Settings",
             tint = MaterialTheme.colorScheme.onBackground
         )
     }

@@ -20,7 +20,11 @@ import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navController: NavHostController = rememberNavController()) {
     NavHost(navController, startDestination = startDestination) {
         animatedComposable(route = NavRoutes.Home.route) {
-            HomeView(navController = navController)
+            HomeView(
+                onSettingsClicked = { navController.navigate(NavRoutes.Settings.route) },
+                onSearchClicked = { navController.navigate(NavRoutes.Search.route) },
+                onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.route + "/$id") }
+            )
         }
         animatedComposable(route = NavRoutes.Edit.route + "/{id}", arguments = NavRoutes.Edit.navArguments) { entry ->
             val id = entry.arguments?.getInt("id") ?: 0
@@ -32,7 +36,10 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navC
             SettingsView(navController = navController,settingsModel)
         }
         animatedComposable(route = NavRoutes.Search.route) {
-            SearchScreen(navController = navController)
+            SearchScreen(
+                onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.route + "/$id") },
+                onBackNavClicked = { navController.navigateUp() }
+            )
         }
     }
 }

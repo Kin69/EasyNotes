@@ -5,9 +5,6 @@ class MarkdownBuilder(internal val lines: List<String>, private var lineProcesso
 
     internal val content = mutableListOf<MarkdownElement>()
 
-    init {
-        lineProcessors += ImageInsertionProcessor()
-    }
     fun add(element: MarkdownElement) {
         content.add(element)
     }

@@ -1,7 +1,5 @@
 package com.kin.easynotes.presentation.components.markdown
 
-import androidx.core.net.toUri
-
 interface MarkdownLineProcessor {
     fun canProcessLine(line: String): Boolean
     fun processLine(line: String, builder: MarkdownBuilder)
@@ -29,19 +27,6 @@ class CodeBlockProcessor : MarkdownLineProcessor {
         }
 
         builder.add(CodeBlock(codeBlock.toString(), isEnded, line))
-    }
-}
-
-
-
-class ImageInsertionProcessor : MarkdownLineProcessor {
-    override fun canProcessLine(line: String): Boolean {
-        return line.trim().startsWith("!(") && line.trim().endsWith(")")
-    }
-
-    override fun processLine(line: String, builder: MarkdownBuilder) {
-        val photoUri = line.substringAfter("!(", "").substringBefore(")").toUri()
-        builder.add(ImageInsertion(photoUri))
     }
 }
 

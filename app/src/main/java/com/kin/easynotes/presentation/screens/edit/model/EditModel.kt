@@ -55,7 +55,9 @@ class EditViewModel : ViewModel() {
         if (id != 0) {
             viewModelScope.launch {
                 noteUseCase.getNoteById(id).collectLatest { note ->
-                    syncNote(note)
+                    if (note != null) {
+                        syncNote(note)
+                    }
                 }
             }
         }

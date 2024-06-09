@@ -24,5 +24,13 @@ class Preferences(context: Context) {
         get() = instance.getBoolean("amoled_theme", false)
         set(value) = instance.edit { putBoolean("amoled_theme", value) }
 
+    var sortProperty: String
+        get() = instance.getString("sort_property", "CREATED_DATE") ?: "CREATED_DATE"
+        set(value) = instance.edit { putString("sort_property", value) }
+
+    var sortOrder: String
+        get() = instance.getString("sort_order", "ASCENDING") ?: "ASCENDING"
+        set(value) = instance.edit { putString("sort_order", value) }
+
     fun edit(action: SharedPreferences.Editor.() -> Unit) = instance.edit(true, action)
 }

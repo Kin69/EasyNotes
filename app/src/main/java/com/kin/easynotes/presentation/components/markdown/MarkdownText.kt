@@ -185,9 +185,6 @@ fun MarkdownText(
                         )
                     }
                 }
-                is ImageInsertion -> {
-                    LoadImageFromUri(context = LocalContext.current, imageUri = element.photoUri)
-                }
                 is NormalText -> {
                     Text(
                         text = element.text,
@@ -200,33 +197,5 @@ fun MarkdownText(
                 }
             }
         }
-    }
-}
-
-@Composable
-fun LoadImageFromUri(context: Context, imageUri: Uri) {
-    var bitmap by remember { mutableStateOf<Bitmap?>(null) }
-
-    LaunchedEffect(imageUri) {
-        try {
-            val activity : Activity = context as Activity
-            val inputStream = context.contentResolver.openInputStream(imageUri)
-            context.contentResolver.takePersistableUriPermission(imageUri,Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            activity.grantUriPermission(activity.packageName, imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            bitmap = BitmapFactory.decodeStream(inputStream)
-            inputStream?.close()
-        } catch (e: SecurityException) {
-            println(e.stackTraceToString())
-        }
-    }
-
-    bitmap?.let { loadedBitmap ->
-        Image(
-            bitmap = loadedBitmap.asImageBitmap(),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(RoundedCornerShape(16.dp))
-        )
     }
 }

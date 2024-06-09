@@ -24,13 +24,6 @@ data class Quote(val level: Int, val text: String) : MarkdownElement {
     }
 }
 
-data class ImageInsertion(val photoUri: Uri) : MarkdownElement {
-    override fun render(builder: StringBuilder) {
-        builder.append("!($photoUri)\n\n")
-    }
-}
-
-
 data class ListItem(val text: String) : MarkdownElement {
     override fun render(builder: StringBuilder) {
         builder.append("- ${text}\n")

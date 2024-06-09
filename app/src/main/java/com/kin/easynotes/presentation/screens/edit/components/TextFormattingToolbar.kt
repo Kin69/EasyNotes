@@ -28,11 +28,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 
 @Composable
-fun TextFormattingToolbar(
-    viewModel: EditViewModel,
-    activity: Activity = LocalContext.current as Activity,
-    context : Context = LocalContext.current
-) {
+fun TextFormattingToolbar(viewModel: EditViewModel) {
     Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.SpaceEvenly
@@ -52,26 +48,5 @@ fun TextFormattingToolbar(
         IconButton(onClick = { viewModel.insertText("[ ] ") }) {
             Icon(Icons.Rounded.CheckBox, contentDescription = "CheckBox")
         }
-        ImagePicker { photoUri ->
-            activity.grantUriPermission(activity.packageName, photoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            context.contentResolver.takePersistableUriPermission(photoUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            viewModel.insertText("!($photoUri)")
-        }
     }
 }
-
-@Composable
-fun ImagePicker(onImageSelected: (Uri) -> Unit) {
-    var photoUri: Uri? by remember { mutableStateOf(null) }
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-
-        photoUri = uri
-        if (uri != null) {
-            onImageSelected(uri)
-        }
-    }
-    IconButton(onClick = { launcher.launch("image/*") }) {
-        Icon(Icons.Rounded.Image, contentDescription = "Size")
-    }
-}
-
