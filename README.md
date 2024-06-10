@@ -6,7 +6,7 @@
 <br></br>
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/Kin69/EasyNotes?style=for-the-badge&logo=star&logoColor=%23FFFFFF&labelColor=%23332f2f&color=%23fddbd6)
-![GitHub Release](https://img.shields.io/github/v/release/Kin69/EasyNotes?include_prereleases&style=for-the-badge&logo=%239acbff&logoColor=%23101318&labelColor=%23332f2f&color=%23fddbd6)
+![GitHub Release](https://img.shields.io/github/v/release/Kin69/EasyNotes?style=for-the-badge&logo=%239acbff&logoColor=%23101318&labelColor=%23332f2f&color=%23fddbd6)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Kin69/EasyNotes?style=for-the-badge&labelColor=%23332f2f&color=%23fddbd6)
 
 # Easy Notes
@@ -28,6 +28,7 @@ Lightweight android notes app with Material You.
 ## 📥 Download
 [<img src="metadata/en-US/images/icons/github.png" alt="Get it on GitHub" height="80">](https://github.com/Kin69/EasyNotes/releases/latest)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.kin.easynotes/)
+or [Nightly](https://github.com/Kin69/EasyNotes/releases/download/Nightly/EasyNotes-nightly.apk)
 
 --- 
 ## 📢 News
