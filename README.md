@@ -5,12 +5,17 @@
 
 <br></br>
 
-[<img src=".github/github.png" alt="Get it on GitHub" height="60">](https://github.com/Kin69/EasyNotes/releases/latest) &nbsp;
-[<img src=".github/fdroid.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/packages/com.kin.easynotes/) &nbsp;
-[<img src=".github/nightly.png" alt="Get Nightly Build" height="60">](https://github.com/Kin69/EasyNotes/releases/download/Nightly/EasyNotes-nightly.apk) &nbsp;
 
 # Easy Notes
 Lightweight android notes app with Material You.
+
+[<img src=".github/github.png" alt="Get it on GitHub" height="55">](https://github.com/Kin69/EasyNotes/releases/latest) &nbsp; 
+[<img src=".github/fdroid.png" alt="Get it on F-Droid" height="55">](https://f-droid.org/packages/com.kin.easynotes/) &nbsp;
+
+[<img src=".github/nightly.png" alt="Get Nightly Build" height="55">](https://github.com/Kin69/EasyNotes/releases/download/Nightly/EasyNotes-nightly.apk) &nbsp;
+
+---
+
 </div>
 <div align="left">
 
@@ -18,6 +23,7 @@ Lightweight android notes app with Material You.
     <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-settings.jpg" width="20%"  alt=""/>
     <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-home.jpg" width="20%"  alt=""/>
     <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit.jpg" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit-content.jpg" width="20%"  alt=""/>
 </div>
 </div>
 
