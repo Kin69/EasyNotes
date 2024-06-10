@@ -25,4 +25,6 @@
     <string name="latest_release">Najnovšie vydanie</string>
     <string name="start_project">Hviezda projektu</string>
     <string name="donate_me">Podpor Ma :)</string>
+    <string name="restore">Obnoviť</string>
+    <string name="notes">Poznámky</string>
 </resources>
