@@ -96,7 +96,7 @@ fun SettingsView(
                 item {
                     SettingSection(sectionName = stringResource(R.string.database)) {
                         SettingsBox(
-                            title = "Notes",
+                            title = stringResource(R.string.notes),
                             icon = Icons.AutoMirrored.Rounded.Message,
                             radius = arrayOf(16.dp, 16.dp, 16.dp, 16.dp),
                             customAction = {
@@ -106,7 +106,7 @@ fun SettingsView(
                         val not_supported = stringResource(R.string.not_supported)
                         Spacer(modifier = Modifier.height(16.dp))
                         SettingsBox(
-                            title = "Backup",
+                            title = stringResource(id = R.string.backup),
                             icon = Icons.Rounded.Backup,
                             radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
                             customAction = {
@@ -119,7 +119,7 @@ fun SettingsView(
                             Toast.makeText(context, not_supported, Toast.LENGTH_SHORT).show()
                         }
                         SettingsBox(
-                            title = "Restore",
+                            title = stringResource(R.string.restore),
                             icon = Icons.Rounded.SettingsBackupRestore,
                             radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
                             customAction = {

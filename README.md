@@ -5,13 +5,17 @@
 
 <br></br>
 
-![GitHub Repo stars](https://img.shields.io/github/stars/Kin69/EasyNotes?style=for-the-badge&logo=star&logoColor=%23FFFFFF&labelColor=%23332f2f&color=%23fddbd6)
-![GitHub Release](https://img.shields.io/github/v/release/Kin69/EasyNotes?include_prereleases&style=for-the-badge&logo=%239acbff&logoColor=%23101318&labelColor=%23332f2f&color=%23fddbd6)
-![GitHub last commit](https://img.shields.io/github/last-commit/Kin69/EasyNotes?style=for-the-badge&labelColor=%23332f2f&color=%23fddbd6)
 
 # Easy Notes
 Lightweight android notes app with Material You.
-<br></br>
+
+[<img src=".github/github.png" alt="Get it on GitHub" height="55">](https://github.com/Kin69/EasyNotes/releases/latest) &nbsp; 
+[<img src=".github/fdroid.png" alt="Get it on F-Droid" height="55">](https://f-droid.org/packages/com.kin.easynotes/) &nbsp;
+
+[<img src=".github/nightly.png" alt="Get Nightly Build" height="55">](https://github.com/Kin69/EasyNotes/releases/download/Nightly/EasyNotes-nightly.apk) &nbsp;
+
+---
+
 </div>
 <div align="left">
 
@@ -19,21 +23,17 @@ Lightweight android notes app with Material You.
     <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-settings.jpg" width="20%"  alt=""/>
     <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-home.jpg" width="20%"  alt=""/>
     <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit.jpg" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit-content.jpg" width="20%"  alt=""/>
 </div>
-<br>
 </div>
 
----
 
-## 📥 Download
-[<img src="metadata/en-US/images/icons/github.png" alt="Get it on GitHub" height="80">](https://github.com/Kin69/EasyNotes/releases/latest)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.kin.easynotes/)
+
 
 --- 
 ## 📢 News
-- [Join Discord Server](https://discord.gg/ZrP4G8z23H)
-- [Bug with Images Disappearing in New Builds (up from v1.2)](https://github.com/Kin69/EasyNotes/discussions/29)
-- [Vote For Community Server](https://github.com/Kin69/EasyNotes/discussions/22)
+- [Discord Server](https://discord.gg/ZrP4G8z23H)
+- [Images Support Removed](https://github.com/Kin69/EasyNotes/discussions/29)
 
 ---
 
@@ -49,18 +49,7 @@ Lightweight android notes app with Material You.
 ## 💬 Contact Me
 
 -  Email : k1nS4@proton.me
--  Discord : .kin69.
-
-  ---
-## 🛠️ Implementation
-
- For the latest updates and status of the project, please refer to the [STATUS.md](./STATUS.md) file.
-  
-- [x] Initial setup of project
-- [x] Implementation of core features
-- [x] UI design with Material You
-- [x] Integration of Jetpack Compose and MVVM
-- [x] Basic themes support
+-  Discord : [Easy Notes](https://discord.gg/ZrP4G8z23H)
 
 ---
 ## 🌍 Translation
@@ -68,6 +57,7 @@ Lightweight android notes app with Material You.
 
 ---
 ## ⚠️ License
+    Easy Notes
 
     Copyright (c)2024 kin69
     
