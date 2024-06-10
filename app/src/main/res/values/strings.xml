@@ -24,4 +24,6 @@
     <string name="latest_release">Latest Release</string>
     <string name="start_project">Star Project</string>
     <string name="donate_me">Donate Me :)</string>
+    <string name="restore">Restore</string>
+    <string name="notes">Notes</string>
 </resources>

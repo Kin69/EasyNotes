@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Note semplici</string>
+    <string name="home_screen">Note</string>
+    <string name="new_note">Nuova nota</string>
+    <string name="no_created_notes">Nessuna nota creata.</string>
+    <string name="no_found_notes">Nessuna nota trovata.</string>
+    <string name="created_time">Data creazione</string>
+    <string name="words">Parole</string>
+    <string name="characters">Caratteri</string>
+    <string name="name">Nome</string>
+    <string name="description">Descrizione</string>
+    <string name="search">Cerca</string>
+    <string name="screen_search">Cerca</string>
+    <string name="screen_settings">Impostazioni</string>
+    <string name="display">Schermo</string>
+    <string name="dark_theme">Tema scuro</string>
+    <string name="dynamic_colors">Colori dinamici</string>
+    <string name="amoled_colors">Colori amoled</string>
+    <string name="database">Database</string>
+    <string name="backup">Backup</string>
+    <string name="not_supported">Ancora non supportato</string>
+    <string name="about">Informazioni</string>
+    <string name="version">Versione</string>
+    <string name="latest_release">Ultimo rilascio</string>
+    <string name="start_project">Supporta il progetto</string>
+    <string name="donate_me">Donami :)</string>
+    <string name="restore">Ripristina</string>
+    <string name="notes">Note</string>
+</resources>
