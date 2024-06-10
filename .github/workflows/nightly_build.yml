@@ -48,16 +48,18 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
 
+      - name: Rename APK
+        run: mv app/build/outputs/apk/release/app-release-signed.apk EasyNotes-nightly.apk
+
       - name: Upload the APK
         uses: actions/upload-artifact@v4
         with:
           name: EasyNotes-Nightly
-          path: app/build/outputs/apk/release/app-release-signed.apk
+          path: EasyNotes-nightly.apk
 
       - name: Update nightly release
         uses: eine/tip@master
         with:
-         tag: nightly
-         rm: true
+         tag: Nightly
          token: ${{ secrets.TOKEN }}
-         files: app/build/outputs/apk/release/app-release-signed.apk
+         files: EasyNotes-nightly.apk
