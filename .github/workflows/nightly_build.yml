@@ -53,3 +53,11 @@ jobs:
         with:
           name: EasyNotes-Nightly
           path: app/build/outputs/apk/release/app-release-signed.apk
+
+      - name: Update nightly release
+        uses: eine/tip@master
+        with:
+         tag: nightly
+         rm: true
+         token: ${{ secrets.GITHUB_TOKEN }}
+         files: app/build/outputs/apk/release/app-release-signed.apk
