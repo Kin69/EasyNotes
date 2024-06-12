@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.first
 private const val PREFERENCES_NAME = "settings"
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-    name = PREFERENCES_NAME ,
+    name = PREFERENCES_NAME,
     produceMigrations = { context -> listOf(SharedPreferencesMigration(context, "notes")) }
 )
 

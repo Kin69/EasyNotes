@@ -27,13 +27,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val settingsViewModel: SettingsViewModel = viewModel()
 
-            settingsViewModel.apply {
-                if (settings.value.automaticTheme) {
-                    settingsViewModel.update(settingsViewModel.settings.value.copy(dynamicTheme = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S))
-                    settingsViewModel.update(settingsViewModel.settings.value.copy(darkTheme = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S))
-                }
-            }
-
             LeafNotesTheme(settingsViewModel) {
                 Surface(
                     color = MaterialTheme.colorScheme.surfaceContainerLow,

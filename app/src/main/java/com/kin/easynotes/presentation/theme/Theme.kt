@@ -3,6 +3,7 @@ package com.kin.easynotes.presentation.theme
 import android.app.Activity
 import android.content.Context
 import android.os.Build
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
@@ -31,6 +32,11 @@ fun LeafNotesTheme(
     settingsModel: SettingsViewModel,
     content: @Composable () -> Unit
 ) {
+    if (settingsModel.settings.value.automaticTheme) {
+        settingsModel.update(settingsModel.settings.value.copy(dynamicTheme = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S))
+        settingsModel.update(settingsModel.settings.value.copy(darkTheme = isSystemInDarkTheme()))
+    }
+
     val context = LocalContext.current
     val activity = LocalView.current.context as Activity
     WindowCompat.getInsetsController(activity.window, activity.window.decorView).apply {

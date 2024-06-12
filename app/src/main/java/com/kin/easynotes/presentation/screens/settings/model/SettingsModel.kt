@@ -34,6 +34,9 @@ class SettingsViewModel : ViewModel() {
         val loadedSettings = runBlocking(Dispatchers.IO) {
             settingsUseCase.loadSettingsFromRepository()
         }
+        if (loadedSettings.automaticTheme) {
+
+        }
         _settings.value = loadedSettings
     }
 

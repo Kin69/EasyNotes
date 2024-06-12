@@ -33,7 +33,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.kin.easynotes.R
-import com.kin.easynotes.domain.model.Settings
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.TitleText
@@ -53,7 +52,7 @@ fun SettingsView(
 
     NotesScaffold(
         topBar = {
-            key(settingsModel.settings.value.darkTheme,settingsModel.settings.value.dynamicTheme,settingsModel.settings.value.amoledTheme) {
+            key(settingsModel.settings.value) {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
                     title = { TitleText(titleText = stringResource(R.string.screen_settings)) },
@@ -74,14 +73,14 @@ fun SettingsView(
                             icon = Icons.Rounded.Palette,
                             variable = settingsModel.settings.value.darkTheme,
                             radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
-                            onClicked = { value -> settingsModel.update(settingsModel.settings.value.copy(darkTheme = value)) }
+                            onClicked = { value -> settingsModel.update(settingsModel.settings.value.copy(automaticTheme = false, darkTheme = value)) }
                         )
                         SettingsBox(
                             title = stringResource(R.string.dynamic_colors),
                             icon = Icons.Rounded.Colorize,
                             variable = settingsModel.settings.value.dynamicTheme,
                             radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp),
-                            onClicked = { value -> settingsModel.update(settingsModel.settings.value.copy(dynamicTheme = value)) }
+                            onClicked = { value -> settingsModel.update(settingsModel.settings.value.copy(automaticTheme = false, dynamicTheme = value)) }
                         )
 
                         SettingsBox(
@@ -104,7 +103,7 @@ fun SettingsView(
                                 Text(text = notesCount.toString())
                             }
                         )
-                        val not_supported = stringResource(R.string.not_supported)
+                        val notSupported = stringResource(R.string.not_supported)
                         Spacer(modifier = Modifier.height(16.dp))
                         SettingsBox(
                             title = stringResource(id = R.string.backup),
@@ -117,7 +116,7 @@ fun SettingsView(
                                 )
                             }
                         ) {
-                            Toast.makeText(context, not_supported, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, notSupported, Toast.LENGTH_SHORT).show()
                         }
                         SettingsBox(
                             title = stringResource(R.string.restore),
@@ -131,7 +130,7 @@ fun SettingsView(
                             })
                         {
 
-                            Toast.makeText(context, not_supported, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, notSupported, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

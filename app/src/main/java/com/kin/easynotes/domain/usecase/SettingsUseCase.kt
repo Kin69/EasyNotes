@@ -10,19 +10,22 @@ class SettingsUseCase(
 ) {
     suspend fun loadSettingsFromRepository(): Settings {
         val settingsClass = Settings::class.java
-        val settings = settingsClass.newInstance() as Settings
+        val defaultSettings = Settings()
+        val settings = settingsClass.getDeclaredConstructor().newInstance()
+
         settingsClass.declaredFields.forEach { field ->
             field.isAccessible = true
             val settingName = field.name
+            val defaultValue = field.get(defaultSettings)
+            println(settingName)
             val settingValue = when (field.type) {
-                Boolean::class.java -> settingsRepository.getBoolean(settingName) ?: false
-                String::class.java -> settingsRepository.getString(settingName) ?: ""
-                Int::class.java -> settingsRepository.getInt(settingName) ?: 0
+                Boolean::class.java -> settingsRepository.getBoolean(settingName) ?: defaultValue
+                String::class.java -> settingsRepository.getString(settingName) ?: defaultValue
+                Int::class.java -> settingsRepository.getInt(settingName) ?: defaultValue
                 else -> throw IllegalArgumentException("Unsupported setting type: ${field.type}")
             }
             field.set(settings, settingValue)
         }
-
         return settings
     }
 
