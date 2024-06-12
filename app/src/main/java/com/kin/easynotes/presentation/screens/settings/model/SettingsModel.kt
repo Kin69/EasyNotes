@@ -10,7 +10,9 @@ import com.kin.easynotes.domain.model.Settings
 import com.kin.easynotes.domain.repository.NoteRepository
 import com.kin.easynotes.domain.usecase.NoteUseCase
 import com.kin.easynotes.domain.usecase.SettingsUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class SettingsViewModel : ViewModel() {
     private val noteRepository: NoteRepository = Notes.dataModule.noteRepository
@@ -24,8 +26,15 @@ class SettingsViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _settings.value = settingsUseCase.loadSettingsFromRepository()
+            loadSettings()
         }
+    }
+
+    private suspend fun loadSettings() {
+        val loadedSettings = runBlocking(Dispatchers.IO) {
+            settingsUseCase.loadSettingsFromRepository()
+        }
+        _settings.value = loadedSettings
     }
 
     fun update(newSettings: Settings) {
