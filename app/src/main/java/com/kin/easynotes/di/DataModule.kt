@@ -1,37 +1,43 @@
 package com.kin.easynotes.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.data.local.database.NoteDatabase
-import com.kin.easynotes.data.settings.Preferences
+import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.domain.repository.NoteRepository
+import com.kin.easynotes.domain.repository.SettingsRepository
 
 interface DataModule {
     val noteDatabase: NoteDatabase
     val noteRepository: NoteRepository
-    val preferences: Preferences
+    val settingsRepository: SettingsRepository
 }
 
 class DataModuleImpl(
     private val appContext: Context
 ) : DataModule {
+
     override val noteDatabase: NoteDatabase by lazy {
         Room.databaseBuilder(
             appContext.applicationContext,
             NoteDatabase::class.java, "note-list.db"
         )
-        .addMigrations(MIGRATION_1_2)
-        .build()
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
+
     override val noteRepository: NoteRepository by lazy {
         NoteRepositoryImpl(noteDatabase.noteDao())
     }
 
-    override val preferences: Preferences by lazy {
-        Preferences(appContext)
+    override val settingsRepository: SettingsRepository by lazy {
+        SettingsRepositoryImpl(appContext)
     }
 }
 

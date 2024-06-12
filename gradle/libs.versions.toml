@@ -1,5 +1,6 @@
 [versions]
-agp = "8.4.1"
+agp = "8.4.2"
+datastorePreferences = "1.1.1"
 kotlin = "2.0.0"
 ksp = "2.0.0-1.0.21"
 room = "2.6.1"
@@ -9,11 +10,12 @@ coreSplashscreen = "1.0.1"
 compose = "1.6.7"
 material3 = "1.2.1"
 navigationCompose = "2.7.7"
-appcompat = "1.6.1"
+appcompat = "1.7.0"
 
 
 [libraries]
 # Room
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }

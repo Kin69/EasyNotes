@@ -9,6 +9,9 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -31,11 +34,11 @@ fun LeafNotesTheme(
     val context = LocalContext.current
     val activity = LocalView.current.context as Activity
     WindowCompat.getInsetsController(activity.window, activity.window.decorView).apply {
-        isAppearanceLightStatusBars = !(settingsModel.darkTheme || settingsModel.amoledTheme)
+        isAppearanceLightStatusBars = !(settingsModel.settings.value.darkTheme || settingsModel.settings.value.amoledTheme)
     }
 
     MaterialTheme(
-        colorScheme = getColorScheme(context, settingsModel.darkTheme, settingsModel.dynamicTheme, settingsModel.amoledTheme),
+        colorScheme = getColorScheme(context, settingsModel.settings.value.darkTheme, settingsModel.settings.value.dynamicTheme, settingsModel.settings.value.amoledTheme),
         typography = Typography(),
         content = content
     )

@@ -1,39 +1,39 @@
 package com.kin.easynotes.presentation.screens.settings.model
 
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.BuildConfig
 import com.kin.easynotes.Notes
+import com.kin.easynotes.domain.model.Settings
+import com.kin.easynotes.domain.repository.NoteRepository
 import com.kin.easynotes.domain.usecase.NoteUseCase
-import com.kin.easynotes.data.settings.Preferences
+import com.kin.easynotes.domain.usecase.SettingsUseCase
+import kotlinx.coroutines.launch
 
 class SettingsViewModel : ViewModel() {
-    private val noteRepository = Notes.dataModule.noteRepository
+    private val noteRepository: NoteRepository = Notes.dataModule.noteRepository
+    private val settingsRepository = Notes.dataModule.settingsRepository
+
+    val settingsUseCase = SettingsUseCase(settingsRepository)
     val noteUseCase = NoteUseCase(noteRepository, viewModelScope)
 
-    val preferences: Preferences = Notes.dataModule.preferences
+    private val _settings = mutableStateOf(Settings())
+    var settings: State<Settings> = _settings
 
-    var version = BuildConfig.VERSION_NAME
-    var dynamicTheme: Boolean by mutableStateOf(preferences.dynamicTheme)
-    var darkTheme: Boolean by mutableStateOf(preferences.darkTheme)
-    var amoledTheme: Boolean by mutableStateOf(preferences.amoledTheme)
-
-    var sortProperty: String by mutableStateOf(preferences.sortProperty)
-    var sortOrder: String by mutableStateOf(preferences.sortOrder)
-
-    fun updateSetting(variable: String, value: Boolean): Boolean {
-        preferences.edit { putBoolean(variable, value.not()) }
-        preferences.edit { putBoolean("automatic_theme", false) }
-        return value.not()
+    init {
+        viewModelScope.launch {
+            _settings.value = settingsUseCase.loadSettingsFromRepository()
+        }
     }
 
-    fun updateSortSettings(property: String, order: String) {
-        sortProperty = property
-        sortOrder = order
-        preferences.sortProperty = property
-        preferences.sortOrder = order
+    fun update(newSettings: Settings) {
+        _settings.value = newSettings.copy()
+        viewModelScope.launch {
+            settingsUseCase.saveSettingsToRepository(newSettings)
+        }
     }
+
+    val version: String = BuildConfig.VERSION_NAME
 }

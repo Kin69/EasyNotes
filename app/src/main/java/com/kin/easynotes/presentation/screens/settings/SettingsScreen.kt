@@ -33,6 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.kin.easynotes.R
+import com.kin.easynotes.domain.model.Settings
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.TitleText
@@ -46,12 +47,13 @@ fun SettingsView(
     navController: NavController,
     settingsModel: SettingsViewModel
 ) {
+
     val uriHandler = LocalUriHandler.current
     val context = LocalContext.current
 
     NotesScaffold(
         topBar = {
-            key(settingsModel.darkTheme,settingsModel.dynamicTheme,settingsModel.amoledTheme) {
+            key(settingsModel.settings.value.darkTheme,settingsModel.settings.value.dynamicTheme,settingsModel.settings.value.amoledTheme) {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
                     title = { TitleText(titleText = stringResource(R.string.screen_settings)) },
@@ -70,29 +72,28 @@ fun SettingsView(
                         SettingsBox(
                             title = stringResource(R.string.dark_theme),
                             icon = Icons.Rounded.Palette,
-                            variable = settingsModel.darkTheme,
-                            radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp)
-                        ) {
-                            settingsModel.darkTheme = settingsModel.updateSetting("dark_theme",settingsModel.darkTheme)
-                        }
+                            variable = settingsModel.settings.value.darkTheme,
+                            radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
+                            onClicked = { value -> settingsModel.update(settingsModel.settings.value.copy(darkTheme = value)) }
+                        )
                         SettingsBox(
                             title = stringResource(R.string.dynamic_colors),
                             icon = Icons.Rounded.Colorize,
-                            variable = settingsModel.dynamicTheme,
-                            radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp)
-                        ) {
-                            settingsModel.dynamicTheme = settingsModel.updateSetting("dynamic_theme",settingsModel.dynamicTheme)
-                        }
+                            variable = settingsModel.settings.value.dynamicTheme,
+                            radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp),
+                            onClicked = { value -> settingsModel.update(settingsModel.settings.value.copy(dynamicTheme = value)) }
+                        )
+
                         SettingsBox(
                             title = stringResource(R.string.amoled_colors),
                             icon = Icons.Rounded.DarkMode,
-                            variable = settingsModel.amoledTheme,
-                            radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp)
-                        ) {
-                            settingsModel.amoledTheme = settingsModel.updateSetting("amoled_theme",settingsModel.amoledTheme)
-                        }
+                            variable = settingsModel.settings.value.amoledTheme,
+                            radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
+                            onClicked = { value -> settingsModel.update(settingsModel.settings.value.copy(amoledTheme = value)) }
+                        )
                     }
                 }
+
                 item {
                     SettingSection(sectionName = stringResource(R.string.database)) {
                         SettingsBox(

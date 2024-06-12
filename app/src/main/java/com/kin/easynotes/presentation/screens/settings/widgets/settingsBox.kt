@@ -30,13 +30,13 @@ fun SettingsBox(
     variable: Boolean? = null,
     radius: Array<Dp> = arrayOf(0.dp, 0.dp,0.dp,0.dp),
     customAction: @Composable (() -> Unit)? = null,
-    onClicked: () -> Unit = {}
+    onClicked: (Boolean) -> Unit = {}
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .clip(RoundedCornerShape(radius[0], radius[1], radius[2], radius[3]))
-            .clickable { onClicked() }
+            .clickable { onClicked(false) }
             .background(color = MaterialTheme.colorScheme.surfaceContainerHigh,)
             .padding(horizontal = 20.dp, vertical = 4.dp)
     ) {
@@ -51,7 +51,7 @@ fun SettingsBox(
         if (customAction == null && variable != null) {
             Switch(
                 checked = variable,
-                onCheckedChange = { onClicked() },
+                onCheckedChange = { onClicked(it) },
                 modifier = Modifier
                     .scale(0.9f)
                     .padding(0.dp)
