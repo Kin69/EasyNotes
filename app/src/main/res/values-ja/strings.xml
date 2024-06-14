@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Easy Notes</string>
+    <string name="home_screen">ノート</string>
+    <string name="new_note">新しいノート</string>
+    <string name="no_created_notes">作成されたノートがありません。</string>
+    <string name="no_found_notes">ノートが見つかりませんでした。</string>
+    <string name="created_time">作成時間</string>
+    <string name="words">単語</string>
+    <string name="name">名前</string>
+    <string name="description">説明</string>
+    <string name="search">検索</string>
+    <string name="screen_search">検索</string>
+    <string name="screen_settings">設定</string>
+    <string name="display">画面</string>
+    <string name="dark_theme">ダークテーマ</string>
+    <string name="dynamic_colors">ダイナミックカラー</string>
+    <string name="amoled_colors">Amoledカラー</string>
+    <string name="database">データベース</string>
+    <string name="backup">バックアップ</string>
+    <string name="not_supported">サポートされていません</string>
+    <string name="about">詳細</string>
+    <string name="version">バージョン</string>
+    <string name="latest_release">最新のリリース</string>
+    <string name="start_project">プロジェクトにスターを付ける</string>
+    <string name="donate_me">寄付をお願いします :)</string>
+    <string name="restore">復元する</string>
+    <string name="notes">ノート</string>
+</resources>
