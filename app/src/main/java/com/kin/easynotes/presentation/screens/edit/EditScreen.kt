@@ -27,6 +27,7 @@ import com.kin.easynotes.presentation.components.*
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.*
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
+import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
 import kotlinx.coroutines.*
 import java.util.*
@@ -115,33 +116,31 @@ fun ObserveLifecycleEvents(viewModel: EditViewModel) {
 @Composable
 fun BottomModal(viewModel: EditViewModel) {
     ModalBottomSheet(
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
         onDismissRequest = { viewModel.toggleNoteInfoVisibility(false) }
     ) {
-        Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)) {
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+
+        Column(modifier = Modifier.padding(16.dp,0.dp,16.dp,16.dp)) {
             SettingsBox(
                 title = stringResource(R.string.created_time),
                 icon = Icons.Rounded.Numbers,
-                radius = arrayOf(16.dp, 16.dp, 0.dp, 0.dp),
-                customAction = {
-                    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-                    Text(sdf.format(viewModel.noteCreatedTime.value).toString())
-                }
+                shape = RoundedCornerShape(16.dp,16.dp,0.dp,0.dp),
+                actionType = ActionType.TEXT,
+                customText = sdf.format(viewModel.noteCreatedTime.value).toString()
             )
             SettingsBox(
                 title = stringResource(R.string.words),
                 icon = Icons.Rounded.Numbers,
-                radius = arrayOf(0.dp, 0.dp, 0.dp, 0.dp),
-                customAction = {
-                    Text(viewModel.noteDescription.value.text.split("\\s+".toRegex()).size.toString())
-                }
+                actionType = ActionType.TEXT,
+                customText = if (viewModel.noteDescription.value.text != "") viewModel.noteDescription.value.text.split("\\s+".toRegex()).size.toString() else "0"
             )
             SettingsBox(
                 title = stringResource(R.string.characters),
                 icon = Icons.Rounded.Numbers,
-                radius = arrayOf(0.dp, 0.dp, 16.dp, 16.dp),
-                customAction = {
-                    Text(viewModel.noteDescription.value.text.length.toString())
-                }
+                shape = RoundedCornerShape(0.dp,0.dp,16.dp,16.dp),
+                actionType = ActionType.TEXT,
+                customText = viewModel.noteDescription.value.text.length.toString()
             )
         }
     }

@@ -2,6 +2,7 @@ package com.kin.easynotes.presentation.screens.settings.model
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.BuildConfig
@@ -18,7 +19,7 @@ class SettingsViewModel : ViewModel() {
     private val noteRepository: NoteRepository = Notes.dataModule.noteRepository
     private val settingsRepository = Notes.dataModule.settingsRepository
 
-    val settingsUseCase = SettingsUseCase(settingsRepository)
+    private val settingsUseCase = SettingsUseCase(settingsRepository)
     val noteUseCase = NoteUseCase(noteRepository, viewModelScope)
 
     private val _settings = mutableStateOf(Settings())
@@ -33,9 +34,6 @@ class SettingsViewModel : ViewModel() {
     private suspend fun loadSettings() {
         val loadedSettings = runBlocking(Dispatchers.IO) {
             settingsUseCase.loadSettingsFromRepository()
-        }
-        if (loadedSettings.automaticTheme) {
-
         }
         _settings.value = loadedSettings
     }
