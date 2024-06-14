@@ -27,18 +27,21 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navC
                 onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.route + "/$id") }
             )
         }
+
         animatedComposable(route = NavRoutes.Edit.route + "/{id}", arguments = NavRoutes.Edit.navArguments) { entry ->
             val id = entry.arguments?.getInt("id") ?: 0
             EditNoteView(id = id) {
                 navController.navigateUp()
             }
         }
+
         slideInComposable(route = NavRoutes.Settings.route) {
             SettingsView(
                 onBackNavClicked = { navController.navigate(NavRoutes.Home.route) },
                 settingsModel = settingsModel
             )
         }
+
         animatedComposable(route = NavRoutes.Search.route) {
             SearchScreen(
                 onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.route + "/$id") },

@@ -32,6 +32,7 @@ fun NoteCard(
 ) {
     Box(
         modifier = Modifier
+            .padding(bottom = 12.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(containerColor)
             .combinedClickable(
