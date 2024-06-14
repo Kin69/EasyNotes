@@ -9,6 +9,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.kin.easynotes.presentation.screens.edit.EditNoteView
 import com.kin.easynotes.presentation.screens.home.HomeView
@@ -33,7 +34,10 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination : String, navC
             }
         }
         slideInComposable(route = NavRoutes.Settings.route) {
-            SettingsView(navController = navController,settingsModel)
+            SettingsView(
+                onBackNavClicked = { navController.navigate(NavRoutes.Home.route) },
+                settingsModel = settingsModel
+            )
         }
         animatedComposable(route = NavRoutes.Search.route) {
             SearchScreen(

@@ -43,7 +43,7 @@ import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsView(
-    navController: NavController,
+    onBackNavClicked: () -> Unit,
     settingsModel: SettingsViewModel
 ) {
 
@@ -56,7 +56,7 @@ fun SettingsView(
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
                     title = { TitleText(titleText = stringResource(R.string.screen_settings)) },
-                    navigationIcon = { NavigationIcon() { navController.navigateUp() } }
+                    navigationIcon = { NavigationIcon() { onBackNavClicked() } }
                 )
             }
         },
