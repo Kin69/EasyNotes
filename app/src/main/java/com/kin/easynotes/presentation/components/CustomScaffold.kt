@@ -18,7 +18,10 @@ fun NotesScaffold(
         topBar = { topBar() },
         floatingActionButton = { floatingActionButton() },
         content = {
-            Box(modifier = Modifier.padding(top = it.calculateTopPadding())) {
+            Box(modifier = Modifier.padding(
+                top = it.calculateTopPadding(),
+                bottom = it.calculateBottomPadding()
+                )) {
                 content()
             }
         }
