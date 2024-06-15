@@ -1,7 +1,6 @@
 package com.kin.easynotes.presentation.screens.edit.model
 
 import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -12,10 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.Notes
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 class EditViewModel : ViewModel() {
@@ -105,7 +101,7 @@ class EditViewModel : ViewModel() {
         return text[selectionStart - 1] == '\n'
     }
 
-    private fun getCurrentLine(): String {
+    private fun getIntRangeForCurrentLine(): IntRange {
         val text = _noteDescription.value.text
         val selectionStart = _noteDescription.value.selection.start
         val selectionEnd = _noteDescription.value.selection.end
@@ -119,24 +115,30 @@ class EditViewModel : ViewModel() {
         while (lineEnd < text.length && text[lineEnd] != '\n') {
             lineEnd++
         }
-        return text.substring(lineStart, lineEnd)
+        return IntRange(lineStart, lineEnd - 1);
     }
 
     fun insertText(insertText: String, offset: Int = 1) {
         val currentText = _noteDescription.value.text
-        val updatedText = if (getCurrentLine().isNotEmpty()) {
-            if (isSelectorAtStartOfNonEmptyLine()) {
-                val currentLine = getCurrentLine()
-                val newLine = insertText + currentLine
-                currentText.replace(currentLine, newLine)
+        val resultSelectionIndex: Int
+        val rangeOfCurrentLine = getIntRangeForCurrentLine()
+        val updatedText = if (!rangeOfCurrentLine.isEmpty()) {
+            val currentLineContents = currentText.substring(rangeOfCurrentLine)
+            val newLine = if (isSelectorAtStartOfNonEmptyLine()) {
+                insertText + currentLineContents
             } else {
-                "$currentText\n$insertText"
+                currentLineContents + "\n" + insertText
             }
-        } else currentText + insertText
-        println(getCurrentLine())
+            resultSelectionIndex = rangeOfCurrentLine.first + newLine.length - 1
+            currentText.replaceRange(rangeOfCurrentLine, newLine)
+        } else {
+            resultSelectionIndex = (currentText + insertText).length
+            currentText + insertText
+        }
+
         _noteDescription.value = TextFieldValue(
             text = updatedText,
-            selection = TextRange(updatedText.length + offset)
+            selection = TextRange(resultSelectionIndex + offset)
         )
     }
 }
