@@ -38,7 +38,7 @@ class EditViewModel : ViewModel() {
     val isNoteInfoVisible: State<Boolean> get() = _isNoteInfoVisible
 
     fun saveNote(id: Int) {
-        if (noteName.value.text.isNotEmpty() || noteDescription.value.text.isNotEmpty()) {
+        if (noteName.value.text.isNotBlank() || noteDescription.value.text.isNotBlank()) {
             noteUseCase.addNote(Note(id = id, name = noteName.value.text, description = noteDescription.value.text))
         }
     }

@@ -32,7 +32,7 @@ fun NoteFilter(
 
 private fun filterNotes(notes: List<Note>, searchText: String?): List<Note> {
     return searchText?.let { query ->
-        if (query.isEmpty() || searchText == "") {
+        if (query.isBlank()) {
             emptyList()
         } else {
             notes.filter { note ->
