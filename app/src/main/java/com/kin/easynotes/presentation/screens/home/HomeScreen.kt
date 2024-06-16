@@ -60,6 +60,7 @@ fun HomeView(
                 selectedNotes = viewModel.selectedNotes,
                 isDeleteMode = viewModel.isDeleteMode.value,
                 onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },
+                isSelectAvailable = true,
                 onDeleteNote = {
                     viewModel.toggleIsDeleteMode(false)
                     viewModel.noteUseCase.deleteNoteById(it)
