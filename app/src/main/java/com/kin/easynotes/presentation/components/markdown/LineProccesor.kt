@@ -31,7 +31,7 @@ class CodeBlockProcessor : MarkdownLineProcessor {
 }
 
 class CheckboxProcessor : MarkdownLineProcessor {
-    override fun canProcessLine(line: String): Boolean = line.trim().matches(Regex("^\\[[ xX]]( .*)?"))
+    override fun canProcessLine(line: String): Boolean = line.matches(Regex("^\\[[ xX]]( .*)?"))
 
     override fun processLine(line: String, builder: MarkdownBuilder) {
         val checked = line.contains(Regex("^\\[[Xx]]"))
