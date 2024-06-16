@@ -43,7 +43,7 @@ fun NoteCard(
         Column(
             modifier = Modifier.padding(9.dp)
         ) {
-            if (note.name.isNotEmpty()) {
+            if (note.name.isNotBlank()) {
                 MarkdownText(
                     markdown = note.name.replaceFirstChar { it.uppercase() },
                     modifier = Modifier
@@ -53,7 +53,7 @@ fun NoteCard(
                     fontSize = 17.sp
                 )
             }
-            if (note.description.isNotEmpty()) {
+            if (note.description.isNotBlank()) {
                 MarkdownText(
                     markdown = note.description,
                     modifier = Modifier
