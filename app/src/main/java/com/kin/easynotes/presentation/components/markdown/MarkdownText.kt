@@ -122,10 +122,14 @@ fun MarkdownText(
                 is Heading -> {
                     Text(
                         text = element.text,
-                        fontSize = 24.sp,
+                        fontSize = when(element.level) {
+                            in 1..6 -> (28 - (2 * element.level)).sp
+                            else -> fontSize
+                        },
                         overflow = overflow,
                         fontWeight = weight,
                         maxLines = maxLines,
+                        modifier = Modifier.padding(vertical = 5.dp),
                     )
                 }
                 is CheckboxItem -> {
@@ -162,7 +166,7 @@ fun MarkdownText(
                     MarkdownQuote(content = element.text, fontSize = fontSize)
                 }
                 is CodeBlock -> {
-                    if (element.iSEnded) {
+                    if (element.isEnded) {
                         MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
                             Text(
                                 text = element.code.dropLast(1),
@@ -171,7 +175,7 @@ fun MarkdownText(
                                 overflow = overflow,
                                 maxLines = maxLines,
                                 fontFamily = FontFamily.Monospace,
-                                modifier = Modifier.padding(6.dp)
+                                modifier = Modifier.padding(6.dp),
                             )
                         }
                     } else {
@@ -181,7 +185,6 @@ fun MarkdownText(
                             fontSize = fontSize,
                             overflow = overflow,
                             maxLines = maxLines,
-
                         )
                     }
                 }
@@ -192,7 +195,6 @@ fun MarkdownText(
                         fontSize = fontSize,
                         overflow = overflow,
                         maxLines = maxLines,
-
                     )
                 }
             }
