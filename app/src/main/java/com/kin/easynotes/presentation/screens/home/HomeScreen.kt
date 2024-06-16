@@ -23,13 +23,26 @@ fun HomeView(
 ) {
     NotesScaffold(
         topBar = {
+            val isNotesSelected = viewModel.selectedNotes.isNotEmpty()
             TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-                title = { TitleText(titleText = stringResource(id = R.string.home_screen))},
+                navigationIcon = {
+                    if (isNotesSelected) CloseButton { viewModel.selectedNotes.clear() }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = if (isNotesSelected) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
+                ),
+                title = {
+                    TitleText(
+                        titleText = if (isNotesSelected) viewModel.selectedNotes.size.toString() else stringResource(id = R.string.home_screen)
+                    )
+                },
                 actions = {
-                    if (viewModel.selectedNotes.isNotEmpty()) DeleteButton { viewModel.toggleIsDeleteMode(true) }
-                    SearchButton { onSearchClicked() }
-                    SettingsButton { onSettingsClicked() }
+                    if (isNotesSelected) {
+                        DeleteButton { viewModel.toggleIsDeleteMode(true) }
+                    } else {
+                        SearchButton { onSearchClicked() }
+                        SettingsButton { onSettingsClicked() }
+                    }
                 },
             )
         },

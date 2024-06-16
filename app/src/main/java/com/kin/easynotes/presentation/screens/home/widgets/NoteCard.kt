@@ -2,6 +2,7 @@ package com.kin.easynotes.presentation.screens.home.widgets
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import com.kin.easynotes.presentation.components.markdown.MarkdownText
 fun NoteCard(
     note: Note,
     containerColor : Color,
+    borderColor : Color,
     onShortClick : () -> Unit,
     onLongClick : () -> Unit,
     onNoteUpdate: (Note) -> Unit
@@ -35,6 +37,11 @@ fun NoteCard(
             .padding(bottom = 12.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(containerColor)
+            .border(
+                width = 2.dp,
+                color = borderColor,
+                shape = RoundedCornerShape(16.dp)
+            )
             .combinedClickable(
                 onClick = { onShortClick() },
                 onLongClick = { onLongClick() }

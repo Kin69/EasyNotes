@@ -40,6 +40,7 @@ fun NotesGrid(
                     NoteCard(
                         note = note,
                         containerColor = getContainerColor(selectedNotes, note),
+                        borderColor = getBorderColor(selectedNotes, note),
                         onShortClick = { handleShortClick(selectedNotes, note, onNoteClicked) },
                         onNoteUpdate = onNoteUpdate,
                         onLongClick = { handleLongClick(selectedNotes, note) }
@@ -67,6 +68,12 @@ private fun rememberTransitionState(): MutableTransitionState<Boolean> {
 @Composable
 private fun getContainerColor(selectedNotes: MutableList<Int>, note: Note): Color {
     return if (selectedNotes.contains(note.id)) MaterialTheme.colorScheme.surfaceContainerHighest
+    else MaterialTheme.colorScheme.surfaceContainerHigh
+}
+
+@Composable
+private fun getBorderColor(selectedNotes: MutableList<Int>, note: Note): Color {
+    return if (selectedNotes.contains(note.id)) MaterialTheme.colorScheme.primary
     else MaterialTheme.colorScheme.surfaceContainerHigh
 }
 
