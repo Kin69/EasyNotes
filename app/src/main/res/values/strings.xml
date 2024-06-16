@@ -26,4 +26,22 @@
     <string name="donate_me">Donate Me :)</string>
     <string name="restore">Restore</string>
     <string name="notes">Notes</string>
+    <string name="support">Support</string>
+    <string name="color_styles"><![CDATA[Colors & Styles]]></string>
+    <string name="language">Language</string>
+    <string name="markdown">Markdown</string>
+    <string name="tools">Tools</string>
+    <string name="history">History</string>
+    <string name="widgets">Widgets</string>
+    <string name="description_color_styles">Themes • Size • Font</string>
+    <string name="cloud">Cloud</string>
+    <string name="description_language">Font • Language</string>
+    <string name="description_cloud">NextCloud • Local • Encryption</string>
+    <string name="description_about">Version • Developers • License</string>
+    <string name="description_widgets">Widgets • Markdown</string>
+    <string name="description_history">History • Revert</string>
+    <string name="description_tools">Created • Delete All</string>
+    <string name="description_markdown">Support • Images</string>
+    <string name="system_theme">System Theme</string>
+    <string name="support_description">Show your love</string>
 </resources>

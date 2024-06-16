@@ -38,8 +38,12 @@ fun NavGraphBuilder.slideInComposable(
     arguments = arguments,
     deepLinks = deepLinks,
     enterTransition = { slideScreenEnterAnimation() },
-    exitTransition = { slideScreenExitAnimation() },
-    popEnterTransition = { slideScreenEnterAnimation() },
-    popExitTransition = { slideScreenExitAnimation() },
+    exitTransition = { when (targetState.destination.route) {
+            NavRoutes.Home.route -> slideScreenExitAnimation()
+            else -> defaultScreenExitAnimation()
+        }
+    },
+    popEnterTransition = { defaultScreenEnterAnimation() },
+    popExitTransition = { defaultScreenExitAnimation() },
     content = content
 )
