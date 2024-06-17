@@ -15,6 +15,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.*
 import androidx.compose.ui.res.stringResource
@@ -44,10 +45,11 @@ fun EditNoteView(
 
     val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
 
     NotesScaffold(
         topBar = { TopBar(pagerState, coroutineScope,onClickBack, viewModel) },
-        content = { PagerContent(pagerState, viewModel, coroutineScope) }
+        content = { PagerContent(pagerState, viewModel, coroutineScope, focusManager) }
     )
 }
 
@@ -55,28 +57,24 @@ fun EditNoteView(
 @Composable
 fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: EditViewModel) {
     when (pagerState.currentPage) {
-        0 -> {
-            SaveButton { onClickBack() }
-        }
-        1 -> {
-            MoreButton { viewModel.toggleNoteInfoVisibility(true) }
-        }
+        0 -> { SaveButton { onClickBack() } }
+        1 -> { MoreButton { viewModel.toggleNoteInfoVisibility(true) } }
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PagerContent(pagerState: PagerState, viewModel: EditViewModel, coroutineScope: CoroutineScope) {
+fun PagerContent(pagerState: PagerState, viewModel: EditViewModel, coroutineScope: CoroutineScope,focusManager : FocusManager) {
     HorizontalPager(
         state = pagerState,
         modifier = Modifier
-            .fillMaxSize()
             .navigationBarsPadding()
             .imePadding()
     ) { page ->
         when (page) {
             0 -> EditScreen(viewModel)
             1 -> PreviewScreen(viewModel) {
+                focusManager.clearFocus()
                 coroutineScope.launch {
                     pagerState.animateScrollToPage(0)
                 }
@@ -152,27 +150,33 @@ fun EditScreen(viewModel: EditViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .navigationBarsPadding()
             .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-            .imePadding()
     ) {
-        CustomTextField(
-            value = viewModel.noteName.value,
-            onValueChange = { viewModel.updateNoteName(it) },
-            placeholder = stringResource(R.string.name),
-            shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
-            modifier = Modifier.heightIn(max = 128.dp)
+        MarkdownBox(
+            shape = RoundedCornerShape(32.dp,32.dp,6.dp,6.dp),
+            content = {
+                CustomTextField(
+                    value = viewModel.noteName.value,
+                    modifier = Modifier.padding(2.dp,2.dp,2.dp,0.dp),
+                    onValueChange = { viewModel.updateNoteName(it) },
+                    placeholder = stringResource(R.string.name),
+                )
+            }
         )
-        Spacer(modifier = Modifier.height(2.dp))
-        CustomTextField(
-            value = viewModel.noteDescription.value,
-            onValueChange = { viewModel.updateNoteDescription(it) },
-            placeholder = stringResource(R.string.description),
-            shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
+        MarkdownBox(
+            shape = RoundedCornerShape(6.dp,6.dp,32.dp,32.dp),
             modifier = Modifier
                 .onFocusChanged { isInFocus = it.isFocused }
-                .fillMaxHeight(if (isInFocus) 0.90f else 1f)
-                .padding(bottom = if (isInFocus) 0.dp else 16.dp)
+                .fillMaxHeight(if (isInFocus) 0.92f else 1f)
+                .padding(bottom = if (isInFocus) 0.dp else 16.dp),
+            content = {
+                CustomTextField(
+                    value = viewModel.noteDescription.value,
+                    onValueChange = { viewModel.updateNoteDescription(it) },
+                    modifier = Modifier.fillMaxHeight(),
+                    placeholder = stringResource(R.string.description),
+                )
+            }
         )
         TextFormattingToolbar(viewModel)
     }
@@ -180,41 +184,50 @@ fun EditScreen(viewModel: EditViewModel) {
 
 @Composable
 fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
-    val focusManager = LocalFocusManager.current
-    focusManager.clearFocus()
     if (viewModel.isNoteInfoVisible.value) BottomModal(viewModel)
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .heightIn(max = 128.dp)
-            .padding(horizontal = 16.dp, vertical = 16.dp)
-    ) {
-        MarkdownText(
-            markdown = viewModel.noteName.value.text,
-            modifier = Modifier
-                .background(
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
+        MarkdownBox(
+            modifier = Modifier.clickable { onClick() },
+            shape = RoundedCornerShape(32.dp,32.dp,6.dp,6.dp),
+            content = {
+                MarkdownText(
+                    markdown = viewModel.noteName.value.text,
+                    modifier = Modifier.padding(16.dp),
+                    onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
                 )
-                .padding(14.dp)
-                .heightIn(max = 128.dp)
-                .clickable { onClick() },
-            onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
+            }
         )
-        Spacer(modifier = Modifier.height(3.dp))
-        MarkdownText(
-            markdown = viewModel.noteDescription.value.text,
+        MarkdownBox(
+            shape = RoundedCornerShape(6.dp,6.dp,32.dp,32.dp),
             modifier = Modifier
-                .background(
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp)
+                .clickable { onClick() }
+                .fillMaxHeight(),
+            content = {
+                MarkdownText(
+                    markdown = viewModel.noteDescription.value.text,
+                    modifier = Modifier.padding(16.dp),
+                    onContentChange = { viewModel.updateNoteDescription(TextFieldValue(text = it)) }
                 )
-                .padding(16.dp)
-                .fillMaxHeight()
-                .clickable { onClick() },
-            onContentChange = { viewModel.updateNoteDescription(TextFieldValue(text = it)) }
+            }
         )
     }
+}
+
+@Composable
+fun MarkdownBox(
+    modifier: Modifier = Modifier,
+    shape: RoundedCornerShape = RoundedCornerShape(0.dp),
+    content: @Composable () -> Unit,
+) {
+    Box(
+        modifier = modifier
+            .clip(shape)
+            .background(color = MaterialTheme.colorScheme.surfaceContainerHigh,)
+            .heightIn(max = 128.dp, min = 42.dp),
+    ) {
+        content()
+    }
+    Spacer(modifier = Modifier.height(3.dp))
 }
 
 @OptIn(ExperimentalFoundationApi::class)
