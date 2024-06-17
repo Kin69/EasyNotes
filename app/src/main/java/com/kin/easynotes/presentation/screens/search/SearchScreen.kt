@@ -62,6 +62,7 @@ fun SearchScreen(
                     notes = allNotes,
                     selectedNotes = viewModel.selectedNotes,
                     isDeleteMode = viewModel.isDeleteMode.value,
+                    isSelectAvailable = false,
                     onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },
                     onDeleteNote = {
                         viewModel.toggleIsDeleteMode(false)

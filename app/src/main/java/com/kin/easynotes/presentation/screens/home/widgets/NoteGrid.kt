@@ -24,6 +24,7 @@ fun NotesGrid(
     onNoteUpdate: (Note) -> Unit,
     selectedNotes: MutableList<Int>,
     isDeleteClicked: Boolean,
+    isSelectAvailable: Boolean,
     animationFinished: (Int) -> Unit
 ) {
     LazyVerticalStaggeredGrid(
@@ -40,9 +41,10 @@ fun NotesGrid(
                     NoteCard(
                         note = note,
                         containerColor = getContainerColor(selectedNotes, note),
+                        borderColor = getBorderColor(selectedNotes, note),
                         onShortClick = { handleShortClick(selectedNotes, note, onNoteClicked) },
                         onNoteUpdate = onNoteUpdate,
-                        onLongClick = { handleLongClick(selectedNotes, note) }
+                        onLongClick = { if (isSelectAvailable) handleLongClick(selectedNotes, note) }
                     )
                     if (isDeleteClicked && selectedNotes.contains(note.id)) {
                         isAnimationVisible.targetState = false
@@ -67,6 +69,12 @@ private fun rememberTransitionState(): MutableTransitionState<Boolean> {
 @Composable
 private fun getContainerColor(selectedNotes: MutableList<Int>, note: Note): Color {
     return if (selectedNotes.contains(note.id)) MaterialTheme.colorScheme.surfaceContainerHighest
+    else MaterialTheme.colorScheme.surfaceContainerHigh
+}
+
+@Composable
+private fun getBorderColor(selectedNotes: MutableList<Int>, note: Note): Color {
+    return if (selectedNotes.contains(note.id)) MaterialTheme.colorScheme.primary
     else MaterialTheme.colorScheme.surfaceContainerHigh
 }
 

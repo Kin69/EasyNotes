@@ -23,15 +23,38 @@ fun HomeView(
 ) {
     NotesScaffold(
         topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-                title = { TitleText(titleText = stringResource(id = R.string.home_screen))},
-                actions = {
-                    if (viewModel.selectedNotes.isNotEmpty()) DeleteButton { viewModel.toggleIsDeleteMode(true) }
-                    SearchButton { onSearchClicked() }
-                    SettingsButton { onSettingsClicked() }
-                },
-            )
+            when (viewModel.selectedNotes.isNotEmpty()) {
+                true -> TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                    ),
+                    title = {
+                        TitleText(
+                            titleText = viewModel.selectedNotes.size.toString()
+                        )
+                    },
+                    navigationIcon = {
+                        CloseButton { viewModel.selectedNotes.clear() }
+                    },
+                    actions = {
+                        DeleteButton { viewModel.toggleIsDeleteMode(true) }
+                    }
+                )
+                false -> TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+                    ),
+                    title = {
+                        TitleText(
+                            titleText = stringResource(id = R.string.home_screen)
+                        )
+                    },
+                    actions = {
+                        SearchButton { onSearchClicked() }
+                        SettingsButton { onSettingsClicked() }
+                    },
+                )
+            }
         },
         floatingActionButton = {
             NotesButton(
@@ -47,6 +70,7 @@ fun HomeView(
                 selectedNotes = viewModel.selectedNotes,
                 isDeleteMode = viewModel.isDeleteMode.value,
                 onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },
+                isSelectAvailable = true,
                 onDeleteNote = {
                     viewModel.toggleIsDeleteMode(false)
                     viewModel.noteUseCase.deleteNoteById(it)

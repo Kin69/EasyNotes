@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.MoreVert
@@ -17,6 +18,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+@Composable
+fun CloseButton(onCloseClicked:  () -> Unit) {
+    IconButton(onClick = onCloseClicked) {
+        Icon(
+            imageVector = Icons.Rounded.Close,
+            contentDescription = "Close",
+            tint = MaterialTheme.colorScheme.onBackground
+        )
+    }
+}
 
 @Composable
 fun DeleteButton(onDeleteClicked:  () -> Unit) {
