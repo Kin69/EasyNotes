@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="max_description_height">75.dp</dimen>
-    <dimen name="max_name_height">35.dp</dimen>
+    <dimen name="max_description_height">125.dp</dimen>
+    <dimen name="max_name_height">75.dp</dimen>
 </resources>

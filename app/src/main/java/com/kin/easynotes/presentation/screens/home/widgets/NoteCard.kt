@@ -48,23 +48,25 @@ fun NoteCard(
             )
     ) {
         Column(
-            modifier = Modifier.padding(9.dp)
+            modifier = Modifier.padding(16.dp,12.dp,16.dp,12.dp)
         ) {
             if (note.name.isNotBlank()) {
                 MarkdownText(
                     markdown = note.name.replaceFirstChar { it.uppercase() },
                     modifier = Modifier
-                        .heightIn(max = dimensionResource(R.dimen.max_name_height)),
+                        .heightIn(max = dimensionResource(R.dimen.max_name_height))
+                        .padding(bottom = 4.dp),
                     weight = FontWeight.Bold,
+                    spacing = 0.dp,
                     onContentChange = { onNoteUpdate(note.copy(name = it)) },
-                    fontSize = 17.sp
+                    fontSize = 16.sp
                 )
             }
             if (note.description.isNotBlank()) {
                 MarkdownText(
                     markdown = note.description,
-                    modifier = Modifier
-                        .heightIn(max = dimensionResource(R.dimen.max_description_height)),
+                    spacing = 0.dp,
+                    modifier = Modifier.heightIn(max = dimensionResource(R.dimen.max_description_height)),
                     onContentChange = { onNoteUpdate(note.copy(description = it)) },
                     fontSize = 14.sp
                 )
