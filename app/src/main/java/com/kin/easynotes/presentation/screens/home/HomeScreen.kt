@@ -23,28 +23,38 @@ fun HomeView(
 ) {
     NotesScaffold(
         topBar = {
-            val isNotesSelected = viewModel.selectedNotes.isNotEmpty()
-            TopAppBar(
-                navigationIcon = {
-                    if (isNotesSelected) CloseButton { viewModel.selectedNotes.clear() }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = if (isNotesSelected) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.surfaceContainerLow
-                ),
-                title = {
-                    TitleText(
-                        titleText = if (isNotesSelected) viewModel.selectedNotes.size.toString() else stringResource(id = R.string.home_screen)
-                    )
-                },
-                actions = {
-                    if (isNotesSelected) {
+            when (viewModel.selectedNotes.isNotEmpty()) {
+                true -> TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                    ),
+                    title = {
+                        TitleText(
+                            titleText = viewModel.selectedNotes.size.toString()
+                        )
+                    },
+                    navigationIcon = {
+                        CloseButton { viewModel.selectedNotes.clear() }
+                    },
+                    actions = {
                         DeleteButton { viewModel.toggleIsDeleteMode(true) }
-                    } else {
+                    }
+                )
+                false -> TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+                    ),
+                    title = {
+                        TitleText(
+                            titleText = stringResource(id = R.string.home_screen)
+                        )
+                    },
+                    actions = {
                         SearchButton { onSearchClicked() }
                         SettingsButton { onSettingsClicked() }
-                    }
-                },
-            )
+                    },
+                )
+            }
         },
         floatingActionButton = {
             NotesButton(
