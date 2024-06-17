@@ -95,7 +95,9 @@ private fun handleShortClick(
 }
 
 private fun handleLongClick(selectedNotes: MutableList<Int>, note: Note) {
-    selectedNotes.add(note.id)
+    if (!selectedNotes.contains(note.id)) {
+        selectedNotes.add(note.id)
+    }
 }
 
 private fun handleDeleteAnimation(
