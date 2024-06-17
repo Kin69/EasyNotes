@@ -8,7 +8,9 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Numbers
 import androidx.compose.material.icons.rounded.RemoveRedEye
 import androidx.compose.material3.*
@@ -57,8 +59,41 @@ fun EditNoteView(
 @Composable
 fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: EditViewModel) {
     when (pagerState.currentPage) {
-        0 -> { SaveButton { onClickBack() } }
-        1 -> { MoreButton { viewModel.toggleNoteInfoVisibility(true) } }
+        0 -> {
+            SaveButton { onClickBack() }
+        }
+        1 -> {
+            Box {
+                MoreButton {
+                    viewModel.toggleEditMenuVisibility(true)
+                }
+                DropdownMenu(
+                    expanded = viewModel.isEditMenuVisible.value,
+                    onDismissRequest = { viewModel.toggleEditMenuVisibility(false) }
+                ) {
+                    if (viewModel.noteId.value != 0) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.delete)) },
+                            leadingIcon = { Icon(Icons.Rounded.Delete, contentDescription = "Delete")},
+                            onClick = {
+                                viewModel.toggleEditMenuVisibility(false)
+                                viewModel.deleteNote(viewModel.noteId.value)
+                                onClickBack()
+                            }
+                        )
+                    }
+
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.information)) },
+                        leadingIcon = { Icon(Icons.Rounded.Info, contentDescription = "Information")},
+                        onClick = {
+                            viewModel.toggleEditMenuVisibility(false)
+                            viewModel.toggleNoteInfoVisibility(true)
+                        }
+                    )
+                }
+            }
+        }
     }
 }
 

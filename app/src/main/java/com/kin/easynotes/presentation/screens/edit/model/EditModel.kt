@@ -33,10 +33,17 @@ class EditViewModel : ViewModel() {
     private val _isNoteInfoVisible = mutableStateOf(false)
     val isNoteInfoVisible: State<Boolean> get() = _isNoteInfoVisible
 
+    private val _isEditMenuVisible = mutableStateOf(false)
+    val isEditMenuVisible: State<Boolean> get() = _isEditMenuVisible
+
     fun saveNote(id: Int) {
         if (noteName.value.text.isNotBlank() || noteDescription.value.text.isNotBlank()) {
             noteUseCase.addNote(Note(id = id, name = noteName.value.text, description = noteDescription.value.text))
         }
+    }
+
+    fun deleteNote(id: Int) {
+        noteUseCase.deleteNoteById(id = id)
     }
 
     fun syncNote(note: Note) {
@@ -69,6 +76,10 @@ class EditViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun toggleEditMenuVisibility(value: Boolean) {
+        _isEditMenuVisible.value = value
     }
 
     fun toggleNoteInfoVisibility(value: Boolean) {
