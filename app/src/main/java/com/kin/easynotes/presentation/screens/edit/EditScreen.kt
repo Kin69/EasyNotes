@@ -8,7 +8,9 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Numbers
 import androidx.compose.material.icons.rounded.RemoveRedEye
 import androidx.compose.material3.*
@@ -46,7 +48,7 @@ fun EditNoteView(
     val coroutineScope = rememberCoroutineScope()
 
     NotesScaffold(
-        topBar = { TopBar(pagerState, coroutineScope,onClickBack, viewModel) },
+        topBar = { TopBar(pagerState, coroutineScope, onClickBack, viewModel) },
         content = { PagerContent(pagerState, viewModel, coroutineScope) }
     )
 }
@@ -59,7 +61,36 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
             SaveButton { onClickBack() }
         }
         1 -> {
-            MoreButton { viewModel.toggleNoteInfoVisibility(true) }
+            Box {
+                MoreButton {
+                    viewModel.toggleEditMenuVisibility(true)
+                }
+                DropdownMenu(
+                    expanded = viewModel.isEditMenuVisible.value,
+                    onDismissRequest = { viewModel.toggleEditMenuVisibility(false) }
+                ) {
+                    if (viewModel.noteId.value != 0) {
+                        DropdownMenuItem(
+                            text = { Text("Delete") },
+                            leadingIcon = { Icon(Icons.Rounded.Delete, contentDescription = "Delete")},
+                            onClick = {
+                                viewModel.toggleEditMenuVisibility(false)
+                                viewModel.deleteNote(viewModel.noteId.value)
+                                onClickBack()
+                            }
+                        )
+                    }
+
+                    DropdownMenuItem(
+                        text = { Text("Information") },
+                        leadingIcon = { Icon(Icons.Rounded.Info, contentDescription = "Information")},
+                        onClick = {
+                            viewModel.toggleEditMenuVisibility(false)
+                            viewModel.toggleNoteInfoVisibility(true)
+                        }
+                    )
+                }
+            }
         }
     }
 }
