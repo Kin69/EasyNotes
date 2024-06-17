@@ -9,6 +9,8 @@
     <string name="characters">Characters</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
+    <string name="delete">Delete</string>
+    <string name="information">Information</string>
     <string name="search">Search</string>
     <string name="screen_search">Search</string>
     <string name="screen_settings">Settings</string>

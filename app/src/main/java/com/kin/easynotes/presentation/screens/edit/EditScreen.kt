@@ -71,7 +71,7 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
                 ) {
                     if (viewModel.noteId.value != 0) {
                         DropdownMenuItem(
-                            text = { Text("Delete") },
+                            text = { Text(stringResource(R.string.delete)) },
                             leadingIcon = { Icon(Icons.Rounded.Delete, contentDescription = "Delete")},
                             onClick = {
                                 viewModel.toggleEditMenuVisibility(false)
@@ -82,7 +82,7 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
                     }
 
                     DropdownMenuItem(
-                        text = { Text("Information") },
+                        text = { Text(stringResource(R.string.information)) },
                         leadingIcon = { Icon(Icons.Rounded.Info, contentDescription = "Information")},
                         onClick = {
                             viewModel.toggleEditMenuVisibility(false)
