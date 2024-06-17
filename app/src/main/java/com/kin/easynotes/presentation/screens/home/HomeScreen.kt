@@ -50,7 +50,10 @@ fun HomeView(
                         )
                     },
                     actions = {
-                        SearchButton { onSearchClicked() }
+                        if (viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value.isNotEmpty()) {
+                            SearchButton { onSearchClicked() }
+                        }
+
                         SettingsButton { onSettingsClicked() }
                     },
                 )
@@ -64,6 +67,7 @@ fun HomeView(
         },
         content = {
             val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
+
             NoteFilter(
                 onNoteClicked = onNoteClicked,
                 notes = allNotes,
