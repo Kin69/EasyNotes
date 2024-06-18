@@ -166,15 +166,48 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             LazyColumn (
                 modifier = Modifier.clip(RoundedCornerShape(32.dp))
             ) {
-                item { SettingsBox(title = stringResource(id = R.string.system_theme), icon = Icons.Rounded.HdrAuto, actionType = ActionType.SWITCH, variable = settingsViewModel.settings.value.automaticTheme,switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = it))}) }
+                item {
+                    SettingsBox(
+                        title = stringResource(id = R.string.system_theme),
+                        icon = Icons.Rounded.HdrAuto,
+                        actionType = ActionType.SWITCH,
+                        variable = settingsViewModel.settings.value.automaticTheme,
+                        switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = it))}
+                    )
+                }
 
                 if (!settingsViewModel.settings.value.automaticTheme) {
-                    item { SettingsBox(title = stringResource(id = R.string.dark_theme), icon = Icons.Rounded.DarkMode, actionType = ActionType.SWITCH, variable = settingsViewModel.settings.value.darkTheme, switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, darkTheme = it))}) }
-                    item { SettingsBox(title = stringResource(id = R.string.dynamic_colors), icon = Icons.Rounded.Colorize, actionType = ActionType.SWITCH, variable = settingsViewModel.settings.value.dynamicTheme, switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, dynamicTheme = it))}) }
+                    item {
+                        SettingsBox(
+                            title = stringResource(id = R.string.dark_theme),
+                            icon = Icons.Rounded.DarkMode,
+                            actionType = ActionType.SWITCH,
+                            variable = settingsViewModel.settings.value.darkTheme,
+                            switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, darkTheme = it))}
+                        )
+                    }
+
+                    item {
+                        SettingsBox(
+                            title = stringResource(id = R.string.dynamic_colors),
+                            icon = Icons.Rounded.Colorize,
+                            actionType = ActionType.SWITCH,
+                            variable = settingsViewModel.settings.value.dynamicTheme,
+                            switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, dynamicTheme = it))}
+                        )
+                    }
                 }
 
                 if (settingsViewModel.settings.value.darkTheme) {
-                    item { SettingsBox(title = stringResource(id = R.string.amoled_colors), icon = Icons.Rounded.Palette, actionType = ActionType.SWITCH, variable = settingsViewModel.settings.value.amoledTheme, switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(amoledTheme = it))}) }
+                    item {
+                        SettingsBox(
+                            title = stringResource(id = R.string.amoled_colors),
+                            icon = Icons.Rounded.Palette,
+                            actionType = ActionType.SWITCH,
+                            variable = settingsViewModel.settings.value.amoledTheme,
+                            switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(amoledTheme = it))}
+                        )
+                    }
                 }
             }
         }
