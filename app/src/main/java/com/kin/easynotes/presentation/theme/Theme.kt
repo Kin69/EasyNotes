@@ -20,11 +20,25 @@ import androidx.core.view.WindowCompat
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 private fun getColorScheme(context: Context, isDarkTheme: Boolean, isDynamicTheme: Boolean, isAmoledTheme: Boolean): ColorScheme {
-    val colorScheme = if (isDynamicTheme && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        if (isDarkTheme || isAmoledTheme) dynamicDarkColorScheme(context).copy() else dynamicLightColorScheme(context)
-    } else if (isDarkTheme || isAmoledTheme) darkScheme else lightScheme
+    if (isDynamicTheme && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (isDarkTheme) {
+            if (isAmoledTheme) {
+                return dynamicDarkColorScheme(context).copy(surfaceContainerLow = Color.Black, surface = Color.Black)
+            }
 
-    return if (isAmoledTheme) colorScheme.copy(surfaceContainerLow = Color.Black, surface = Color.Black) else colorScheme
+            return dynamicDarkColorScheme(context)
+        } else {
+            return dynamicLightColorScheme(context)
+        }
+    } else if (isDarkTheme) {
+         if (isAmoledTheme) {
+             return darkScheme.copy(surfaceContainerLow = Color.Black, surface = Color.Black)
+         }
+
+        return darkScheme
+    } else {
+        return lightScheme
+    }
 }
 
 @Composable
@@ -40,7 +54,7 @@ fun LeafNotesTheme(
     val context = LocalContext.current
     val activity = LocalView.current.context as Activity
     WindowCompat.getInsetsController(activity.window, activity.window.decorView).apply {
-        isAppearanceLightStatusBars = !(settingsModel.settings.value.darkTheme || settingsModel.settings.value.amoledTheme)
+        isAppearanceLightStatusBars = !settingsModel.settings.value.darkTheme
     }
 
     MaterialTheme(

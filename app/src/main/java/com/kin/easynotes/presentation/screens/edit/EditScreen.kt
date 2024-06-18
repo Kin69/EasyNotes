@@ -154,11 +154,14 @@ fun BottomModal(viewModel: EditViewModel) {
     ) {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 
-        Column(modifier = Modifier.padding(16.dp,0.dp,16.dp,16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp,0.dp,16.dp,16.dp)
+                .clip(RoundedCornerShape(32.dp))
+        ) {
             SettingsBox(
                 title = stringResource(R.string.created_time),
                 icon = Icons.Rounded.Numbers,
-                shape = RoundedCornerShape(16.dp,16.dp,0.dp,0.dp),
                 actionType = ActionType.TEXT,
                 customText = sdf.format(viewModel.noteCreatedTime.value).toString()
             )
@@ -171,7 +174,6 @@ fun BottomModal(viewModel: EditViewModel) {
             SettingsBox(
                 title = stringResource(R.string.characters),
                 icon = Icons.Rounded.Numbers,
-                shape = RoundedCornerShape(0.dp,0.dp,16.dp,16.dp),
                 actionType = ActionType.TEXT,
                 customText = viewModel.noteDescription.value.text.length.toString()
             )

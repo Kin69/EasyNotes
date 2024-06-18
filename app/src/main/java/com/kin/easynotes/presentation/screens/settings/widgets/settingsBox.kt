@@ -29,7 +29,6 @@ fun SettingsBox(
     icon: ImageVector,
     actionType: ActionType,
     variable: Boolean? = null,
-    shape: RoundedCornerShape = RoundedCornerShape(6.dp),
     switchEnabled: (Boolean) -> Unit = {},
     linkClicked: () -> Unit = {},
     customText: String = ""
@@ -37,7 +36,7 @@ fun SettingsBox(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .clip(shape)
+            .clip(RoundedCornerShape(6.dp))
             .clickable { handleAction(actionType, variable, switchEnabled, linkClicked) }
             .background(MaterialTheme.colorScheme.surfaceContainerHigh)
             .padding(horizontal = 20.dp, vertical = 4.dp)
