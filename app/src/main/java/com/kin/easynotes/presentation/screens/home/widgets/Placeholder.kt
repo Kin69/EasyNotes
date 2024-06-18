@@ -30,7 +30,7 @@ fun Placeholder(
 
             Text(
                 text = placeholderText,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.outline,
                 fontSize = 14.sp
             )
         }

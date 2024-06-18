@@ -33,7 +33,7 @@ fun NoteFilter(
                 Icon(
                     getEmptyIcon(searchText),
                     contentDescription = "Placeholder icon",
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = MaterialTheme.colorScheme.outline,
                     modifier = Modifier.size(64.dp)
                 )
             },
