@@ -1,7 +1,15 @@
 package com.kin.easynotes.presentation.screens.home
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.SelectAll
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -39,14 +47,36 @@ fun HomeView(
                     actions = {
                         val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
 
-                        DeleteButton { viewModel.toggleIsDeleteMode(true) }
+                        Box {
+                            MoreButton {
+                                viewModel.toggleMenu(true)
+                            }
 
-                        if (viewModel.selectedNotes.size != allNotes.size) {
-                            SelectAllButton {
-                                allNotes.forEach {
-                                    if (!viewModel.selectedNotes.contains(it.id)) {
-                                        viewModel.selectedNotes.add(it.id)
+                            DropdownMenu(
+                                expanded = viewModel.isMenuOpened.value,
+                                onDismissRequest = { viewModel.toggleMenu(false) }
+                            ) {
+                                DropdownMenuItem(
+                                    leadingIcon = { Icon(Icons.Rounded.Delete, contentDescription = "Delete")},
+                                    text = { Text(stringResource(id = R.string.delete)) },
+                                    onClick = {
+                                        viewModel.toggleMenu(false)
+                                        viewModel.toggleIsDeleteMode(true)
                                     }
+                                )
+
+                                if (viewModel.selectedNotes.size != allNotes.size) {
+                                    DropdownMenuItem(
+                                        leadingIcon = { Icon(Icons.Rounded.SelectAll, contentDescription = "Select all")},
+                                        text = { Text(stringResource(id = R.string.select_all)) },
+                                        onClick = {
+                                            allNotes.forEach {
+                                                if (!viewModel.selectedNotes.contains(it.id)) {
+                                                    viewModel.selectedNotes.add(it.id)
+                                                }
+                                            }
+                                        }
+                                    )
                                 }
                             }
                         }

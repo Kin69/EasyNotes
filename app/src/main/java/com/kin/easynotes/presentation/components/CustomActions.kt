@@ -5,11 +5,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,28 +23,6 @@ fun CloseButton(onCloseClicked:  () -> Unit) {
         Icon(
             imageVector = Icons.Rounded.Close,
             contentDescription = "Close",
-            tint = MaterialTheme.colorScheme.onBackground
-        )
-    }
-}
-
-@Composable
-fun SelectAllButton(onSelectAllClicked:  () -> Unit) {
-    IconButton(onClick = onSelectAllClicked) {
-        Icon(
-            imageVector = Icons.Rounded.SelectAll,
-            contentDescription = "Select all",
-            tint = MaterialTheme.colorScheme.onBackground
-        )
-    }
-}
-
-@Composable
-fun DeleteButton(onDeleteClicked:  () -> Unit) {
-    IconButton(onClick = onDeleteClicked) {
-        Icon(
-            imageVector = Icons.Rounded.Delete,
-            contentDescription = "Delete",
             tint = MaterialTheme.colorScheme.onBackground
         )
     }

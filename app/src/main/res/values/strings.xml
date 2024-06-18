@@ -9,6 +9,7 @@
     <string name="characters">Characters</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
+    <string name="select_all">Select all</string>
     <string name="delete">Delete</string>
     <string name="information">Information</string>
     <string name="search">Search</string>
