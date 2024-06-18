@@ -3,7 +3,10 @@ package com.kin.easynotes.presentation.screens.home
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.GridView
 import androidx.compose.material.icons.rounded.SelectAll
+import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.ViewAgenda
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,22 +52,13 @@ fun HomeView(
 
                         Box {
                             MoreButton {
-                                viewModel.toggleMenu(true)
+                                viewModel.toggleSelectMenu(true)
                             }
 
                             DropdownMenu(
-                                expanded = viewModel.isMenuOpened.value,
-                                onDismissRequest = { viewModel.toggleMenu(false) }
+                                expanded = viewModel.isSelectMenuOpened.value,
+                                onDismissRequest = { viewModel.toggleSelectMenu(false) }
                             ) {
-                                DropdownMenuItem(
-                                    leadingIcon = { Icon(Icons.Rounded.Delete, contentDescription = "Delete")},
-                                    text = { Text(stringResource(id = R.string.delete)) },
-                                    onClick = {
-                                        viewModel.toggleMenu(false)
-                                        viewModel.toggleIsDeleteMode(true)
-                                    }
-                                )
-
                                 if (viewModel.selectedNotes.size != allNotes.size) {
                                     DropdownMenuItem(
                                         leadingIcon = { Icon(Icons.Rounded.SelectAll, contentDescription = "Select all")},
@@ -78,6 +72,15 @@ fun HomeView(
                                         }
                                     )
                                 }
+
+                                DropdownMenuItem(
+                                    leadingIcon = { Icon(Icons.Rounded.Delete, contentDescription = "Delete")},
+                                    text = { Text(stringResource(id = R.string.delete)) },
+                                    onClick = {
+                                        viewModel.toggleSelectMenu(false)
+                                        viewModel.toggleIsDeleteMode(true)
+                                    }
+                                )
                             }
                         }
                     }
@@ -96,7 +99,49 @@ fun HomeView(
                             SearchButton { onSearchClicked() }
                         }
 
-                        SettingsButton { onSettingsClicked() }
+                        Box {
+                            MoreButton {
+                                viewModel.toggleHomeMenu(true)
+                            }
+
+                            DropdownMenu(
+                                expanded = viewModel.isHomeMenuOpened.value,
+                                onDismissRequest = { viewModel.toggleHomeMenu(false) }
+                            ) {
+                                if (viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value.isNotEmpty()) {
+                                    DropdownMenuItem(
+                                        leadingIcon = {
+                                            when(viewModel.viewMode.value) {
+                                                0 -> Icon(Icons.Rounded.GridView, contentDescription = "Grid view")
+                                                1 -> Icon(Icons.Rounded.ViewAgenda, contentDescription = "Column view")
+                                            }
+                                        },
+                                        text = {
+                                            Text(
+                                                when(viewModel.viewMode.value) {
+                                                    0 -> stringResource(id = R.string.grid_view)
+                                                    1 -> stringResource(id = R.string.column_view)
+                                                    else -> ""
+                                                }
+                                            )
+                                        },
+                                        onClick = {
+                                            viewModel.toggleHomeMenu(false)
+                                            viewModel.toggleViewMode()
+                                        }
+                                    )
+                                }
+
+                                DropdownMenuItem(
+                                    leadingIcon = { Icon(Icons.Rounded.Settings, contentDescription = "Settings") },
+                                    text = { Text(stringResource(R.string.screen_settings)) },
+                                    onClick = {
+                                        viewModel.toggleHomeMenu(false)
+                                        onSettingsClicked()
+                                    }
+                                )
+                            }
+                        }
                     },
                 )
             }
@@ -114,6 +159,7 @@ fun HomeView(
                 onNoteClicked = onNoteClicked,
                 notes = allNotes,
                 selectedNotes = viewModel.selectedNotes,
+                viewMode = viewModel.viewMode.value,
                 isDeleteMode = viewModel.isDeleteMode.value,
                 onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },
                 isSelectAvailable = true,

@@ -13,17 +13,34 @@ open class HomeViewModel() : ViewModel() {
 
     var selectedNotes = mutableStateListOf<Int>()
 
-    private var _isMenuOpened = mutableStateOf(false)
-    val isMenuOpened: State<Boolean> = _isMenuOpened
+    private var _isSelectMenuOpened = mutableStateOf(false)
+    val isSelectMenuOpened: State<Boolean> = _isSelectMenuOpened
+
+    private var _isHomeMenuOpened = mutableStateOf(false)
+    val isHomeMenuOpened: State<Boolean> = _isHomeMenuOpened
 
     private var _isDeleteMode = mutableStateOf(false)
     val isDeleteMode: State<Boolean> = _isDeleteMode
+
+    private var _viewMode = mutableStateOf(0)
+    val viewMode: State<Int> = _viewMode
 
     fun toggleIsDeleteMode(enabled: Boolean) {
         _isDeleteMode.value = enabled
     }
 
-    fun toggleMenu(enabled: Boolean) {
-        _isMenuOpened.value = enabled
+    fun toggleSelectMenu(enabled: Boolean) {
+        _isSelectMenuOpened.value = enabled
+    }
+
+    fun toggleHomeMenu(enabled: Boolean) {
+        _isHomeMenuOpened.value = enabled
+    }
+
+    fun toggleViewMode() {
+        when (_viewMode.value.toInt()) {
+            0 -> _viewMode.value = 1
+            1 -> _viewMode.value = 0
+        }
     }
 }
