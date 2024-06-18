@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="home_screen">Notes</string>
+    <string name="no_created_notes">Aucune note créée.</string>
+    <string name="no_found_notes">Aucune note trouvée.</string>
+    <string name="created_time">Date de création</string>
+    <string name="description">Description</string>
+    <string name="select_all">Tout sélectionner</string>
+    <string name="delete">Supprimer</string>
+    <string name="search">Recherche</string>
+    <string name="screen_search">Recherche</string>
+    <string name="screen_settings">Paramètres</string>
+    <string name="display">Afficher</string>
+    <string name="system_theme">Thème du système</string>
+    <string name="dark_theme">Thème sombre</string>
+    <string name="dynamic_colors">Couleurs dynamiques</string>
+    <string name="amoled_colors">Couleurs Amoled</string>
+    <string name="database">Base de données</string>
+    <string name="backup">Sauvegarde</string>
+    <string name="not_supported">Pas encore pris en charge</string>
+    <string name="latest_release">Dernière version</string>
+    <string name="start_project">Projet star</string>
+    <string name="color_styles">Couleurs et styles</string>
+    <string name="support">Assitance</string>
+    <string name="markdown">Markdown</string>
+    <string name="tools">Outils</string>
+    <string name="history">Historique</string>
+    <string name="widgets">Widgets</string>
+    <string name="description_cloud">NextCloud • Local • Chiffrement</string>
+    <string name="description_about">Version • Développeurs • Licence</string>
+    <string name="description_widgets">Widgets • Markdown</string>
+    <string name="description_history">Historique • Revenir</string>
+    <string name="description_tools">Créé • Supprimer tout</string>
+    <string name="support_description">Montre ton amour</string>
+    <string name="app_name">Easy Notes</string>
+    <string name="column_view">Vue en colonnes</string>
+    <string name="new_note">Nouvelle note</string>
+    <string name="grid_view">Vue en grille</string>
+    <string name="characters">Caractères</string>
+    <string name="words">Mots</string>
+    <string name="name">Nom</string>
+    <string name="description_color_styles">Thèmes • Taille • Police</string>
+    <string name="information">Information</string>
+    <string name="donate_me">Faites-moi un don :)</string>
+    <string name="restore">Restaurer</string>
+    <string name="notes">Notes</string>
+    <string name="language">Langue</string>
+    <string name="description_language">Police • Langue</string>
+    <string name="cloud">Cloud</string>
+    <string name="description_markdown">Assistance • Images</string>
+    <string name="about">À propos</string>
+    <string name="version">Version</string>
+</resources>
