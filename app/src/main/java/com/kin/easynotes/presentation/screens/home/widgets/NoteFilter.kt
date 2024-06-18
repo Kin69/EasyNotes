@@ -1,7 +1,16 @@
 package com.kin.easynotes.presentation.screens.home.widgets
 
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Notes
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.kin.easynotes.R
 import com.kin.easynotes.domain.model.Note
 
@@ -11,6 +20,7 @@ fun NoteFilter(
     notes: List<Note>,
     searchText: String? = null,
     selectedNotes: MutableList<Int>,
+    viewMode: Int = 0,
     isDeleteMode: Boolean,
     isSelectAvailable: Boolean,
     onNoteUpdate: (Note) -> Unit,
@@ -18,13 +28,24 @@ fun NoteFilter(
 ) {
     val filteredNotes = filterNotes(notes, searchText)
     if (filteredNotes.isEmpty()) {
-        EmptyNoteList(getEmptyText(searchText))
+        Placeholder(
+            placeholderIcon = {
+                Icon(
+                    getEmptyIcon(searchText),
+                    contentDescription = "Placeholder icon",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(64.dp)
+                )
+            },
+            placeholderText = getEmptyText(searchText)
+        )
     } else {
         NotesGrid(
             onNoteClicked,
             notes = filteredNotes,
             onNoteUpdate = onNoteUpdate,
             selectedNotes = selectedNotes,
+            viewMode = viewMode,
             isDeleteClicked = isDeleteMode,
             isSelectAvailable = isSelectAvailable,
             animationFinished = onDeleteNote
@@ -52,3 +73,13 @@ private fun getEmptyText(searchText: String?): String {
         else -> stringResource(R.string.no_found_notes)
     }
 }
+
+@Composable
+private fun getEmptyIcon(searchText: String?): ImageVector {
+    return when (searchText) {
+        null -> Icons.Rounded.Notes
+        "" -> Icons.Rounded.Search
+        else -> Icons.Rounded.Search
+    }
+}
+

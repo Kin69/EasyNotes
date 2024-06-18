@@ -5,6 +5,8 @@
     <string name="no_created_notes">No created notes.</string>
     <string name="no_found_notes">No notes found.</string>
     <string name="created_time">Created Time</string>
+    <string name="grid_view">Grid view</string>
+    <string name="column_view">Column view</string>
     <string name="words">Words</string>
     <string name="characters">Characters</string>
     <string name="name">Name</string>
@@ -16,6 +18,7 @@
     <string name="screen_search">Search</string>
     <string name="screen_settings">Settings</string>
     <string name="display">Display</string>
+    <string name="system_theme">System Theme</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="dynamic_colors">Dynamic Colors</string>
     <string name="amoled_colors">Amoled Colors</string>
@@ -45,6 +48,5 @@
     <string name="description_history">History • Revert</string>
     <string name="description_tools">Created • Delete All</string>
     <string name="description_markdown">Support • Images</string>
-    <string name="system_theme">System Theme</string>
     <string name="support_description">Show your love</string>
 </resources>
