@@ -20,6 +20,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -162,11 +163,52 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             title = stringResource(id = R.string.color_styles),
             onBackNavClicked = { navController.popBackStack() }
         ) {
-            LazyColumn {
-                item { SettingsBox(title = stringResource(id = R.string.system_theme), icon = Icons.Rounded.HdrAuto, actionType = ActionType.SWITCH, shape = RoundedCornerShape(32.dp, 32.dp, 6.dp, 6.dp), variable = settingsViewModel.settings.value.automaticTheme,switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = it))}) }
-                item { SettingsBox(title = stringResource(id = R.string.dark_theme), icon = Icons.Rounded.Palette, actionType = ActionType.SWITCH, variable = settingsViewModel.settings.value.darkTheme,switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, darkTheme = it))}) }
-                item { SettingsBox(title = stringResource(id = R.string.dynamic_colors), icon = Icons.Rounded.Colorize, actionType = ActionType.SWITCH, variable = settingsViewModel.settings.value.dynamicTheme,switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, dynamicTheme = it))}) }
-                item { SettingsBox(title = stringResource(id = R.string.amoled_colors), icon = Icons.Rounded.DarkMode, actionType = ActionType.SWITCH,shape = RoundedCornerShape(6.dp, 6.dp, 32.dp, 32.dp) ,variable = settingsViewModel.settings.value.amoledTheme,switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, amoledTheme = it))}) }
+            LazyColumn (
+                modifier = Modifier.clip(RoundedCornerShape(32.dp))
+            ) {
+                item {
+                    SettingsBox(
+                        title = stringResource(id = R.string.system_theme),
+                        icon = Icons.Rounded.HdrAuto,
+                        actionType = ActionType.SWITCH,
+                        variable = settingsViewModel.settings.value.automaticTheme,
+                        switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = it))}
+                    )
+                }
+
+                if (!settingsViewModel.settings.value.automaticTheme) {
+                    item {
+                        SettingsBox(
+                            title = stringResource(id = R.string.dark_theme),
+                            icon = Icons.Rounded.DarkMode,
+                            actionType = ActionType.SWITCH,
+                            variable = settingsViewModel.settings.value.darkTheme,
+                            switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, darkTheme = it))}
+                        )
+                    }
+
+                    item {
+                        SettingsBox(
+                            title = stringResource(id = R.string.dynamic_colors),
+                            icon = Icons.Rounded.Colorize,
+                            actionType = ActionType.SWITCH,
+                            variable = settingsViewModel.settings.value.dynamicTheme,
+                            switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, dynamicTheme = it))}
+                        )
+                    }
+                }
+
+                if (settingsViewModel.settings.value.darkTheme) {
+                    item {
+                        SettingsBox(
+                            title = stringResource(id = R.string.amoled_colors),
+                            icon = Icons.Rounded.Palette,
+                            actionType = ActionType.SWITCH,
+                            variable = settingsViewModel.settings.value.amoledTheme,
+                            switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(amoledTheme = it))}
+                        )
+                    }
+                }
             }
         }
     }
