@@ -39,12 +39,17 @@ import com.kin.easynotes.presentation.screens.settings.widgets.SmallSettingCateg
 
 @Composable
 fun SettingsScaffold(
+    settingsViewModel: SettingsViewModel,
     title: String,
     onBackNavClicked: () -> Unit,
     content: @Composable () -> Unit
 ) {
     NotesScaffold(
-        topBar = { TopBar(title, onBackNavClicked, ) },
+        topBar = {
+            key(settingsViewModel.settings.value) {
+                TopBar(title, onBackNavClicked, )
+            }
+        },
         content = {
             Box(Modifier.padding(16.dp, 8.dp, 16.dp, 16.dp)) {
                 content()
@@ -69,8 +74,9 @@ fun TopBar(
 }
 
 @Composable
-fun MainSettings(navController: NavController) {
+fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavController) {
     SettingsScaffold(
+        settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.screen_settings),
         onBackNavClicked = { navController.navigate(NavRoutes.Home.route) }
     ) {
@@ -158,8 +164,8 @@ fun MainSettings(navController: NavController) {
 
 @Composable
 fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-    key(settingsViewModel.settings.value) {
         SettingsScaffold(
+            settingsViewModel = settingsViewModel,
             title = stringResource(id = R.string.color_styles),
             onBackNavClicked = { navController.popBackStack() }
         ) {
@@ -175,48 +181,44 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                         switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = it))}
                     )
                 }
-
-                if (!settingsViewModel.settings.value.automaticTheme) {
-                    item {
-                        SettingsBox(
-                            title = stringResource(id = R.string.dark_theme),
-                            icon = Icons.Rounded.DarkMode,
-                            actionType = ActionType.SWITCH,
-                            variable = settingsViewModel.settings.value.darkTheme,
-                            switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, darkTheme = it))}
-                        )
-                    }
-
-                    item {
-                        SettingsBox(
-                            title = stringResource(id = R.string.dynamic_colors),
-                            icon = Icons.Rounded.Colorize,
-                            actionType = ActionType.SWITCH,
-                            variable = settingsViewModel.settings.value.dynamicTheme,
-                            switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, dynamicTheme = it))}
-                        )
-                    }
+                item {
+                    SettingsBox(
+                        title = stringResource(id = R.string.dark_theme),
+                        isEnabled = !settingsViewModel.settings.value.automaticTheme,
+                        icon = Icons.Rounded.DarkMode,
+                        actionType = ActionType.SWITCH,
+                        variable = settingsViewModel.settings.value.darkTheme,
+                        switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, darkTheme = it))}
+                    )
                 }
-
-                if (settingsViewModel.settings.value.darkTheme) {
-                    item {
-                        SettingsBox(
-                            title = stringResource(id = R.string.amoled_colors),
-                            icon = Icons.Rounded.Palette,
-                            actionType = ActionType.SWITCH,
-                            variable = settingsViewModel.settings.value.amoledTheme,
-                            switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(amoledTheme = it))}
-                        )
-                    }
+                item {
+                    SettingsBox(
+                        title = stringResource(id = R.string.dynamic_colors),
+                        icon = Icons.Rounded.Colorize,
+                        isEnabled = !settingsViewModel.settings.value.automaticTheme,
+                        actionType = ActionType.SWITCH,
+                        variable = settingsViewModel.settings.value.dynamicTheme,
+                        switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, dynamicTheme = it))}
+                    )
+                }
+                item {
+                    SettingsBox(
+                        title = stringResource(id = R.string.amoled_colors),
+                        icon = Icons.Rounded.Palette,
+                        actionType = ActionType.SWITCH,
+                        isEnabled = settingsViewModel.settings.value.darkTheme,
+                        variable = settingsViewModel.settings.value.amoledTheme,
+                        switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(amoledTheme = it))}
+                    )
                 }
             }
         }
-    }
 }
 
 @Composable
 fun LanguageScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
+        settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.language),
         onBackNavClicked = { navController.popBackStack() }
     ) {
@@ -228,6 +230,7 @@ fun LanguageScreen(navController: NavController, settingsViewModel: SettingsView
 @Composable
 fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
+        settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.cloud),
         onBackNavClicked = { navController.popBackStack() }
     ) {
@@ -239,6 +242,7 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
 @Composable
 fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
+        settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.markdown),
         onBackNavClicked = { navController.popBackStack() }
     ) {
@@ -250,6 +254,7 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
 @Composable
 fun ToolsScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
+        settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.tools),
         onBackNavClicked = { navController.popBackStack() }
     ) {
@@ -261,6 +266,7 @@ fun ToolsScreen(navController: NavController, settingsViewModel: SettingsViewMod
 @Composable
 fun HistoryScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
+        settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.history),
         onBackNavClicked = { navController.popBackStack() }
     ) {
@@ -272,6 +278,7 @@ fun HistoryScreen(navController: NavController, settingsViewModel: SettingsViewM
 @Composable
 fun WidgetsScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
+        settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.widgets),
         onBackNavClicked = { navController.popBackStack() }
     ) {
@@ -283,6 +290,7 @@ fun WidgetsScreen(navController: NavController, settingsViewModel: SettingsViewM
 @Composable
 fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
+        settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.about),
         onBackNavClicked = { navController.popBackStack() }
     ) {

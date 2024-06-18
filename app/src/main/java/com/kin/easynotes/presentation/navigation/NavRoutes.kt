@@ -31,7 +31,7 @@ sealed class NavRoutes(val route: String) {
 }
 
 val settingScreens = mapOf<String, @Composable (settingsViewModel: SettingsViewModel, navController : NavController) -> Unit>(
-    NavRoutes.Settings.route to { _, navController -> MainSettings(navController) },
+    NavRoutes.Settings.route to { settings, navController -> MainSettings(settings, navController) },
     NavRoutes.ColorStyles.route to { settings, navController -> ColorStylesScreen(navController,settings) },
     NavRoutes.Language.route to { settings, navController -> LanguageScreen(navController,settings) },
     NavRoutes.Cloud.route to { settings, navController -> CloudScreen(navController,settings) },

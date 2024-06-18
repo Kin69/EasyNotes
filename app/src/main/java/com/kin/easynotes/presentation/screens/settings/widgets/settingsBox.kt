@@ -1,5 +1,6 @@
 package com.kin.easynotes.presentation.screens.settings.widgets
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,6 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Modifier
+import com.kin.easynotes.presentation.components.getNoteEnterAnimation
+import com.kin.easynotes.presentation.components.getNoteExitAnimation
 
 enum class ActionType {
     SWITCH,
@@ -27,28 +30,31 @@ enum class ActionType {
 fun SettingsBox(
     title: String,
     icon: ImageVector,
+    isEnabled : Boolean = true,
     actionType: ActionType,
     variable: Boolean? = null,
     switchEnabled: (Boolean) -> Unit = {},
     linkClicked: () -> Unit = {},
     customText: String = ""
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .clip(RoundedCornerShape(6.dp))
-            .clickable { handleAction(actionType, variable, switchEnabled, linkClicked) }
-            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-            .padding(horizontal = 20.dp, vertical = 4.dp)
-    ) {
-        RenderIcon(icon)
-        Text(
-            text = title,
-            modifier = Modifier.padding(start = 3.dp),
-            fontSize = 16.sp
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText)
+    AnimatedVisibility(visible = isEnabled,) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .clip(RoundedCornerShape(6.dp))
+                .clickable { handleAction(actionType, variable, switchEnabled, linkClicked) }
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                .padding(horizontal = 20.dp, vertical = 4.dp)
+        ) {
+            RenderIcon(icon)
+            Text(
+                text = title,
+                modifier = Modifier.padding(start = 3.dp),
+                fontSize = 16.sp
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText)
+        }
     }
     Spacer(modifier = Modifier.height(2.dp))
 }
