@@ -13,10 +13,17 @@ open class HomeViewModel() : ViewModel() {
 
     var selectedNotes = mutableStateListOf<Int>()
 
+    private var _isMenuOpened = mutableStateOf(false)
+    val isMenuOpened: State<Boolean> = _isMenuOpened
+
     private var _isDeleteMode = mutableStateOf(false)
     val isDeleteMode: State<Boolean> = _isDeleteMode
 
     fun toggleIsDeleteMode(enabled: Boolean) {
         _isDeleteMode.value = enabled
+    }
+
+    fun toggleMenu(enabled: Boolean) {
+        _isMenuOpened.value = enabled
     }
 }
