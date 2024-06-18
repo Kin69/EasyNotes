@@ -9,6 +9,7 @@ import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,6 +25,17 @@ fun CloseButton(onCloseClicked:  () -> Unit) {
         Icon(
             imageVector = Icons.Rounded.Close,
             contentDescription = "Close",
+            tint = MaterialTheme.colorScheme.onBackground
+        )
+    }
+}
+
+@Composable
+fun SelectAllButton(onSelectAllClicked:  () -> Unit) {
+    IconButton(onClick = onSelectAllClicked) {
+        Icon(
+            imageVector = Icons.Rounded.SelectAll,
+            contentDescription = "Select all",
             tint = MaterialTheme.colorScheme.onBackground
         )
     }

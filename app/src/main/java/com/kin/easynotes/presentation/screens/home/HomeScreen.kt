@@ -37,7 +37,19 @@ fun HomeView(
                         CloseButton { viewModel.selectedNotes.clear() }
                     },
                     actions = {
+                        val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
+
                         DeleteButton { viewModel.toggleIsDeleteMode(true) }
+
+                        if (viewModel.selectedNotes.size != allNotes.size) {
+                            SelectAllButton {
+                                allNotes.forEach {
+                                    if (!viewModel.selectedNotes.contains(it.id)) {
+                                        viewModel.selectedNotes.add(it.id)
+                                    }
+                                }
+                            }
+                        }
                     }
                 )
                 false -> TopAppBar(
