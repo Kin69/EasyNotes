@@ -51,6 +51,7 @@ fun SearchScreen(
                     onValueChange = {viewModel.updateValue(it)},
                     placeholder = stringResource(R.string.search) + "...",
                     shape = RoundedCornerShape(24.dp),
+                    singleLine = true,
                     modifier = Modifier
                         .focusRequester(focusRequester)
                         .padding(12.dp, 0.dp, 12.dp, 8.dp)
