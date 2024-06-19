@@ -27,4 +27,27 @@
     <string name="latest_release">Последняя версия</string>
     <string name="restore">Восстановить резервную копию</string>
     <string name="notes">Количество заметок</string>
+    <string name="column_view">Один столбец</string>
+    <string name="delete">Удалить</string>
+    <string name="system_theme">Системная тема</string>
+    <string name="color_styles">Цвета &amp; стили</string>
+    <string name="language">Язык</string>
+    <string name="widgets">Виджеты</string>
+    <string name="description_color_styles">Темы • Размер • Шрифт</string>
+    <string name="cloud">Облако</string>
+    <string name="description_about">Версия • Разработчики • Лицензия</string>
+    <string name="description_widgets">Виджеты • Markdown</string>
+    <string name="description_history">История • Отмена</string>
+    <string name="description_tools">Создано • Удалить все</string>
+    <string name="support_description">Покажите свою любовь</string>
+    <string name="select_all">Выбрать все</string>
+    <string name="grid_view">Несколько столбцов</string>
+    <string name="information">Информация</string>
+    <string name="support">Поддержка</string>
+    <string name="markdown">Markdown</string>
+    <string name="tools">Инструменты</string>
+    <string name="history">История</string>
+    <string name="description_language">Шрифт • Язык</string>
+    <string name="description_cloud">NextCloud • Локальный • Шифрование</string>
+    <string name="description_markdown">Поддержка • Изображения</string>
 </resources>
