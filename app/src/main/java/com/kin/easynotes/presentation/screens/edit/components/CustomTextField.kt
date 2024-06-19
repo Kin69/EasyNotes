@@ -22,6 +22,7 @@ fun CustomTextField(
     placeholder: String,
     shape: RoundedCornerShape = RoundedCornerShape(0.dp),
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
+    singleLine: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     TextField(
@@ -31,6 +32,7 @@ fun CustomTextField(
         modifier = modifier
             .fillMaxWidth()
             .clip(shape),
+        singleLine = singleLine,
         colors = TextFieldDefaults.colors(
             focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
             unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,

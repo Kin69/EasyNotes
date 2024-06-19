@@ -24,6 +24,7 @@ import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.edit.components.CustomTextField
 import com.kin.easynotes.presentation.screens.home.widgets.NoteFilter
 import com.kin.easynotes.presentation.screens.search.viewmodel.SearchViewModel
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,7 +32,8 @@ import com.kin.easynotes.presentation.screens.search.viewmodel.SearchViewModel
 fun SearchScreen(
     onNoteClicked: (Int) -> Unit,
     onBackNavClicked: () -> Unit,
-    viewModel: SearchViewModel = viewModel()
+    viewModel: SearchViewModel = viewModel() ,
+    settingsModel: SettingsViewModel
 ) {
     NotesScaffold(
         topBar = {
@@ -49,6 +51,7 @@ fun SearchScreen(
                     onValueChange = {viewModel.updateValue(it)},
                     placeholder = stringResource(R.string.search) + "...",
                     shape = RoundedCornerShape(24.dp),
+                    singleLine = true,
                     modifier = Modifier
                         .focusRequester(focusRequester)
                         .padding(12.dp, 0.dp, 12.dp, 8.dp)
@@ -61,6 +64,7 @@ fun SearchScreen(
                     onNoteClicked = onNoteClicked,
                     notes = allNotes,
                     selectedNotes = viewModel.selectedNotes,
+                    viewMode = settingsModel.settings.value.viewMode,
                     isDeleteMode = viewModel.isDeleteMode.value,
                     isSelectAvailable = false,
                     onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },

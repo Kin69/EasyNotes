@@ -22,9 +22,6 @@ open class HomeViewModel() : ViewModel() {
     private var _isDeleteMode = mutableStateOf(false)
     val isDeleteMode: State<Boolean> = _isDeleteMode
 
-    private var _viewMode = mutableStateOf(0)
-    val viewMode: State<Int> = _viewMode
-
     fun toggleIsDeleteMode(enabled: Boolean) {
         _isDeleteMode.value = enabled
     }
@@ -35,12 +32,5 @@ open class HomeViewModel() : ViewModel() {
 
     fun toggleHomeMenu(enabled: Boolean) {
         _isHomeMenuOpened.value = enabled
-    }
-
-    fun toggleViewMode() {
-        when (_viewMode.value.toInt()) {
-            0 -> _viewMode.value = 1
-            1 -> _viewMode.value = 0
-        }
     }
 }

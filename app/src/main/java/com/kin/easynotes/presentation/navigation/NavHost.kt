@@ -16,7 +16,8 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination: String, navCo
             HomeView(
                 onSettingsClicked = { navController.navigate(NavRoutes.Settings.route) },
                 onSearchClicked = { navController.navigate(NavRoutes.Search.route) },
-                onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.createRoute(id)) }
+                onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.createRoute(id)) },
+                settingsModel = settingsModel
             )
         }
 
@@ -30,7 +31,8 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination: String, navCo
         animatedComposable(NavRoutes.Search.route) {
             SearchScreen(
                 onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.createRoute(id)) },
-                onBackNavClicked = { navController.navigateUp() }
+                onBackNavClicked = { navController.navigateUp() },
+                settingsModel = settingsModel
             )
         }
 
