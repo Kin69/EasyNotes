@@ -7,6 +7,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
@@ -156,7 +157,7 @@ fun BottomModal(viewModel: EditViewModel) {
 
         Column(
             modifier = Modifier
-                .padding(16.dp,0.dp,16.dp,16.dp)
+                .padding(16.dp, 0.dp, 16.dp, 16.dp)
                 .clip(RoundedCornerShape(32.dp))
         ) {
             SettingsBox(
@@ -226,12 +227,12 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 16.dp)
-            .clip(RoundedCornerShape(32.dp))
+            .clip(RoundedCornerShape(32.dp)),
     ) {
         if (viewModel.noteName.value.text.isNotBlank()) {
             MarkdownBox(
-                modifier = Modifier.clickable { onClick() },
                 shape = RoundedCornerShape(6.dp),
+                isCopyable = true,
                 content = {
                     MarkdownText(
                         markdown = viewModel.noteName.value.text,
@@ -245,8 +246,8 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
         MarkdownBox(
             shape = RoundedCornerShape(6.dp),
             modifier = Modifier
-                .clickable { onClick() }
                 .fillMaxHeight(),
+            isCopyable = true,
             content = {
                 MarkdownText(
                     markdown = viewModel.noteDescription.value.text,
@@ -263,6 +264,7 @@ fun MarkdownBox(
     modifier: Modifier = Modifier,
     shape: RoundedCornerShape = RoundedCornerShape(0.dp),
     content: @Composable () -> Unit,
+    isCopyable: Boolean = false
 ) {
     Box(
         modifier = modifier
@@ -270,7 +272,7 @@ fun MarkdownBox(
             .background(color = MaterialTheme.colorScheme.surfaceContainerHigh)
             .heightIn(max = 128.dp, min = 42.dp),
     ) {
-        content()
+        if (isCopyable) SelectionContainer { content() } else content()
     }
     Spacer(modifier = Modifier.height(3.dp))
 }

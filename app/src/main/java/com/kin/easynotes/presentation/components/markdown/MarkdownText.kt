@@ -118,7 +118,7 @@ fun MarkdownText(
                         overflow = overflow,
                         fontWeight = weight,
                         maxLines = maxLines,
-                        modifier = Modifier.padding(vertical = 5.dp),
+                        modifier = Modifier.padding(vertical = 10.dp)
                     )
                 }
                 is CheckboxItem -> {
