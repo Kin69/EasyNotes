@@ -188,9 +188,10 @@ fun EditScreen(viewModel: EditViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+            .clip(RoundedCornerShape(32.dp))
     ) {
         MarkdownBox(
-            shape = RoundedCornerShape(32.dp,32.dp,6.dp,6.dp),
+            shape = RoundedCornerShape(6.dp),
             content = {
                 CustomTextField(
                     value = viewModel.noteName.value,
@@ -201,7 +202,7 @@ fun EditScreen(viewModel: EditViewModel) {
             }
         )
         MarkdownBox(
-            shape = RoundedCornerShape(6.dp,6.dp,32.dp,32.dp),
+            shape = RoundedCornerShape(6.dp),
             modifier = Modifier
                 .onFocusChanged { isInFocus = it.isFocused }
                 .fillMaxHeight(if (isInFocus) 0.92f else 1f)
@@ -222,20 +223,27 @@ fun EditScreen(viewModel: EditViewModel) {
 @Composable
 fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
     if (viewModel.isNoteInfoVisible.value) BottomModal(viewModel)
-    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 16.dp, vertical = 16.dp)
+            .clip(RoundedCornerShape(32.dp))
+    ) {
+        if (viewModel.noteName.value.text.isNotBlank()) {
+            MarkdownBox(
+                modifier = Modifier.clickable { onClick() },
+                shape = RoundedCornerShape(6.dp),
+                content = {
+                    MarkdownText(
+                        markdown = viewModel.noteName.value.text,
+                        modifier = Modifier.padding(16.dp),
+                        onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
+                    )
+                }
+            )
+        }
+
         MarkdownBox(
-            modifier = Modifier.clickable { onClick() },
-            shape = RoundedCornerShape(32.dp,32.dp,6.dp,6.dp),
-            content = {
-                MarkdownText(
-                    markdown = viewModel.noteName.value.text,
-                    modifier = Modifier.padding(16.dp),
-                    onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
-                )
-            }
-        )
-        MarkdownBox(
-            shape = RoundedCornerShape(6.dp,6.dp,32.dp,32.dp),
+            shape = RoundedCornerShape(6.dp),
             modifier = Modifier
                 .clickable { onClick() }
                 .fillMaxHeight(),
@@ -259,7 +267,7 @@ fun MarkdownBox(
     Box(
         modifier = modifier
             .clip(shape)
-            .background(color = MaterialTheme.colorScheme.surfaceContainerHigh,)
+            .background(color = MaterialTheme.colorScheme.surfaceContainerHigh)
             .heightIn(max = 128.dp, min = 42.dp),
     ) {
         content()
