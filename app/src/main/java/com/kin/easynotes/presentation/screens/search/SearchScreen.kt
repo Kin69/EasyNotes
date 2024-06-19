@@ -72,6 +72,7 @@ fun SearchScreen(
                         viewModel.toggleIsDeleteMode(false)
                         viewModel.noteUseCase.deleteNoteById(it)
                     },
+                    shape = RoundedCornerShape(settingsModel.settings.value.cornerRadius),
                     searchText = viewModel.value.value.text
                 )
             }

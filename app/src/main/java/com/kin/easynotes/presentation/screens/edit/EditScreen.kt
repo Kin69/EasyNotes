@@ -31,6 +31,8 @@ import com.kin.easynotes.presentation.components.*
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.*
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
+import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
 import kotlinx.coroutines.*
@@ -40,6 +42,7 @@ import java.util.*
 @Composable
 fun EditNoteView(
     id: Int,
+    settingsViewModel: SettingsViewModel,
     onClickBack: () -> Unit
 ) {
     val viewModel: EditViewModel = viewModel()
@@ -48,11 +51,10 @@ fun EditNoteView(
 
     val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
-    val focusManager = LocalFocusManager.current
 
     NotesScaffold(
         topBar = { TopBar(pagerState, coroutineScope,onClickBack, viewModel) },
-        content = { PagerContent(pagerState, viewModel, coroutineScope, focusManager) }
+        content = { PagerContent(pagerState, viewModel, settingsViewModel) }
     )
 }
 
@@ -100,7 +102,7 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PagerContent(pagerState: PagerState, viewModel: EditViewModel, coroutineScope: CoroutineScope,focusManager : FocusManager) {
+fun PagerContent(pagerState: PagerState, viewModel: EditViewModel,settingsViewModel: SettingsViewModel) {
     HorizontalPager(
         state = pagerState,
         modifier = Modifier
@@ -108,13 +110,8 @@ fun PagerContent(pagerState: PagerState, viewModel: EditViewModel, coroutineScop
             .imePadding()
     ) { page ->
         when (page) {
-            0 -> EditScreen(viewModel)
-            1 -> PreviewScreen(viewModel) {
-                focusManager.clearFocus()
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(0)
-                }
-            }
+            0 -> EditScreen(viewModel, settingsViewModel)
+            1 -> PreviewScreen(viewModel, settingsViewModel)
         }
     }
 }
@@ -164,11 +161,13 @@ fun BottomModal(viewModel: EditViewModel) {
                 title = stringResource(R.string.created_time),
                 icon = Icons.Rounded.Numbers,
                 actionType = ActionType.TEXT,
+                radius = RoundedCornerShape(32.dp),
                 customText = sdf.format(viewModel.noteCreatedTime.value).toString()
             )
             SettingsBox(
                 title = stringResource(R.string.words),
                 icon = Icons.Rounded.Numbers,
+                radius = RoundedCornerShape(32.dp),
                 actionType = ActionType.TEXT,
                 customText = if (viewModel.noteDescription.value.text != "") viewModel.noteDescription.value.text.split("\\s+".toRegex()).size.toString() else "0"
             )
@@ -176,6 +175,7 @@ fun BottomModal(viewModel: EditViewModel) {
                 title = stringResource(R.string.characters),
                 icon = Icons.Rounded.Numbers,
                 actionType = ActionType.TEXT,
+                radius = RoundedCornerShape(32.dp),
                 customText = viewModel.noteDescription.value.text.length.toString()
             )
         }
@@ -183,16 +183,16 @@ fun BottomModal(viewModel: EditViewModel) {
 }
 
 @Composable
-fun EditScreen(viewModel: EditViewModel) {
+fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel) {
     var isInFocus by remember{ mutableStateOf(false)}
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-            .clip(RoundedCornerShape(32.dp))
+            .clip(shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),)
     ) {
         MarkdownBox(
-            shape = RoundedCornerShape(6.dp),
+            shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
             content = {
                 CustomTextField(
                     value = viewModel.noteName.value,
@@ -203,7 +203,7 @@ fun EditScreen(viewModel: EditViewModel) {
             }
         )
         MarkdownBox(
-            shape = RoundedCornerShape(6.dp),
+            shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
             modifier = Modifier
                 .onFocusChanged { isInFocus = it.isFocused }
                 .fillMaxHeight(if (isInFocus) 0.92f else 1f)
@@ -222,16 +222,20 @@ fun EditScreen(viewModel: EditViewModel) {
 }
 
 @Composable
-fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
+fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) {
     if (viewModel.isNoteInfoVisible.value) BottomModal(viewModel)
+
+    val focusManager = LocalFocusManager.current
+    focusManager.clearFocus()
+
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 16.dp)
-            .clip(RoundedCornerShape(32.dp)),
+            .clip(shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),),
     ) {
         if (viewModel.noteName.value.text.isNotBlank()) {
             MarkdownBox(
-                shape = RoundedCornerShape(6.dp),
+                shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                 isCopyable = true,
                 content = {
                     MarkdownText(
@@ -242,9 +246,8 @@ fun PreviewScreen(viewModel: EditViewModel, onClick: () -> Unit) {
                 }
             )
         }
-
         MarkdownBox(
-            shape = RoundedCornerShape(6.dp),
+            shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
             modifier = Modifier
                 .fillMaxHeight(),
             isCopyable = true,

@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation.screens.home.widgets
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Notes
 import androidx.compose.material.icons.rounded.Search
@@ -17,6 +18,7 @@ import com.kin.easynotes.domain.model.Note
 @Composable
 fun NoteFilter(
     onNoteClicked: (Int) -> Unit,
+    shape: RoundedCornerShape,
     notes: List<Note>,
     searchText: String? = null,
     selectedNotes: MutableList<Int>,
@@ -43,6 +45,7 @@ fun NoteFilter(
         NotesGrid(
             onNoteClicked,
             notes = filteredNotes,
+            shape = shape,
             onNoteUpdate = onNoteUpdate,
             selectedNotes = selectedNotes,
             viewMode = viewMode,

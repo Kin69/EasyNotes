@@ -23,7 +23,10 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination: String, navCo
 
         animatedComposable(NavRoutes.Edit.route) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")?.toIntOrNull() ?: 0
-            EditNoteView(id = id) {
+            EditNoteView(
+                settingsViewModel = settingsModel,
+                id = id
+            ) {
                 navController.navigateUp()
             }
         }

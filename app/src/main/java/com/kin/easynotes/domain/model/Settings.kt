@@ -5,6 +5,8 @@ data class Settings(
     val automaticTheme: Boolean = true,
     val darkTheme: Boolean = false,
     var dynamicTheme: Boolean = false,
-    var amoledTheme: Boolean = false
+    var amoledTheme: Boolean = false,
+
+    var cornerRadius: Int = 32,
 )
 

@@ -31,6 +31,7 @@ import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
+import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingCategory
@@ -88,7 +89,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(R.string.support),
                     subTitle = stringResource(id = R.string.support_description),
                     icon = Icons.Rounded.ArrowForwardIos,
-                    shape = RoundedCornerShape(64.dp),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
                     action = { uriHandler.openUri("https://ko-fi.com/kin69_") })
             }
             item {
@@ -96,7 +97,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.color_styles),
                     subTitle = stringResource(R.string.description_color_styles),
                     icon = Icons.Rounded.Palette,
-                    shape = RoundedCornerShape(32.dp, 32.dp, 6.dp, 6.dp),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     action = { navController.navigate(NavRoutes.ColorStyles.route) })
             }
             item {
@@ -104,7 +105,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.language),
                     subTitle = stringResource(R.string.description_language),
                     icon = Icons.Rounded.Language,
-                    shape = RoundedCornerShape(6.dp, 6.dp, 32.dp, 32.dp),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     isLast = true,
                     action = { navController.navigate(NavRoutes.Language.route) })
             }
@@ -113,7 +114,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.cloud),
                     subTitle = stringResource(R.string.description_cloud),
                     icon = Icons.Rounded.Cloud,
-                    shape = RoundedCornerShape(32.dp, 32.dp, 6.dp, 6.dp),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     action = { navController.navigate(NavRoutes.Cloud.route) })
             }
             item {
@@ -121,7 +122,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.markdown),
                     subTitle = stringResource(id = R.string.description_markdown),
                     icon = Icons.Rounded.TextFields,
-                    shape = RoundedCornerShape(6.dp, 6.dp, 6.dp, 6.dp),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                     action = { navController.navigate(NavRoutes.Markdown.route) })
             }
             item {
@@ -129,7 +130,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.tools),
                     subTitle = stringResource(R.string.description_tools),
                     icon = Icons.Rounded.Work,
-                    shape = RoundedCornerShape(6.dp, 6.dp, 32.dp, 32.dp),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     isLast = true,
                     action = { navController.navigate(NavRoutes.Tools.route) })
             }
@@ -138,7 +139,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.history),
                     subTitle = stringResource(R.string.description_history),
                     icon = Icons.Rounded.History,
-                    shape = RoundedCornerShape(32.dp, 32.dp, 6.dp, 6.dp),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     action = { navController.navigate(NavRoutes.History.route) })
             }
             item {
@@ -146,7 +147,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.widgets),
                     subTitle = stringResource(R.string.description_widgets),
                     icon = Icons.Rounded.Widgets,
-                    shape = RoundedCornerShape(6.dp, 6.dp, 32.dp, 32.dp),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     isLast = true,
                     action = { navController.navigate(NavRoutes.Widgets.route) })
             }
@@ -155,76 +156,11 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.about),
                     subTitle = stringResource(R.string.description_about),
                     icon = Icons.Rounded.Info,
-                    shape = RoundedCornerShape(32.dp, 32.dp, 32.dp, 32.dp),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
                     action = { navController.navigate(NavRoutes.About.route) })
             }
         }
     }
-}
-
-@Composable
-fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-        SettingsScaffold(
-            settingsViewModel = settingsViewModel,
-            title = stringResource(id = R.string.color_styles),
-            onBackNavClicked = { navController.popBackStack() }
-        ) {
-            LazyColumn (
-                modifier = Modifier.clip(RoundedCornerShape(32.dp))
-            ) {
-                item {
-                    SettingsBox(
-                        title = stringResource(id = R.string.system_theme),
-                        icon = Icons.Rounded.HdrAuto,
-                        actionType = ActionType.SWITCH,
-                        variable = settingsViewModel.settings.value.automaticTheme,
-                        switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = it))}
-                    )
-                }
-                item {
-                    SettingsBox(
-                        title = stringResource(id = R.string.dark_theme),
-                        isEnabled = !settingsViewModel.settings.value.automaticTheme,
-                        icon = Icons.Rounded.DarkMode,
-                        actionType = ActionType.SWITCH,
-                        variable = settingsViewModel.settings.value.darkTheme,
-                        switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, darkTheme = it))}
-                    )
-                }
-                item {
-                    SettingsBox(
-                        title = stringResource(id = R.string.dynamic_colors),
-                        icon = Icons.Rounded.Colorize,
-                        isEnabled = !settingsViewModel.settings.value.automaticTheme,
-                        actionType = ActionType.SWITCH,
-                        variable = settingsViewModel.settings.value.dynamicTheme,
-                        switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, dynamicTheme = it))}
-                    )
-                }
-                item {
-                    SettingsBox(
-                        title = stringResource(id = R.string.amoled_colors),
-                        icon = Icons.Rounded.Palette,
-                        actionType = ActionType.SWITCH,
-                        isEnabled = settingsViewModel.settings.value.darkTheme,
-                        variable = settingsViewModel.settings.value.amoledTheme,
-                        switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(amoledTheme = it))}
-                    )
-                }
-            }
-        }
-}
-
-@Composable
-fun LanguageScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-    SettingsScaffold(
-        settingsViewModel = settingsViewModel,
-        title = stringResource(id = R.string.language),
-        onBackNavClicked = { navController.popBackStack() }
-    ) {
-
-    }
-
 }
 
 @Composable

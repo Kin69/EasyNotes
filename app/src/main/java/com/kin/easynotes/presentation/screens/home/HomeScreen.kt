@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation.screens.home
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.GridView
@@ -18,6 +19,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.*
@@ -165,6 +167,7 @@ fun HomeView(
             val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
 
             NoteFilter(
+                shape = RoundedCornerShape(settingsModel.settings.value.cornerRadius.dp),
                 onNoteClicked = onNoteClicked,
                 notes = allNotes,
                 selectedNotes = viewModel.selectedNotes,

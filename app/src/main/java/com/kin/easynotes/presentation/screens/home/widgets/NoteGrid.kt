@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -20,6 +21,7 @@ import com.kin.easynotes.presentation.components.getNoteExitAnimation
 @Composable
 fun NotesGrid(
     onNoteClicked: (Int) -> Unit,
+    shape : RoundedCornerShape,
     notes: List<Note>,
     onNoteUpdate: (Note) -> Unit,
     selectedNotes: MutableList<Int>,
@@ -46,6 +48,7 @@ fun NotesGrid(
                     NoteCard(
                         note = note,
                         containerColor = getContainerColor(selectedNotes, note),
+                        shape = shape,
                         borderColor = getBorderColor(selectedNotes, note),
                         onShortClick = { handleShortClick(selectedNotes, note, onNoteClicked) },
                         onNoteUpdate = onNoteUpdate,

@@ -1,14 +1,22 @@
 package com.kin.easynotes.presentation.screens.settings.widgets
 
+import android.graphics.drawable.shapes.Shape
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
+import androidx.compose.material.icons.automirrored.rounded.ArrowRight
+import androidx.compose.material.icons.automirrored.rounded.ArrowRightAlt
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
@@ -17,32 +25,44 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Modifier
-import com.kin.easynotes.presentation.components.getNoteEnterAnimation
-import com.kin.easynotes.presentation.components.getNoteExitAnimation
 
 enum class ActionType {
     SWITCH,
     LINK,
-    TEXT
+    TEXT,
+    CUSTOM,
 }
 
 @Composable
 fun SettingsBox(
     title: String,
     icon: ImageVector,
+    radius: RoundedCornerShape,
     isEnabled : Boolean = true,
     actionType: ActionType,
     variable: Boolean? = null,
     switchEnabled: (Boolean) -> Unit = {},
     linkClicked: () -> Unit = {},
+    customAction: @Composable (() -> Unit) -> Unit = {},
     customText: String = ""
 ) {
+    var ShowCustomAction by remember { mutableStateOf(false) }
+    if (ShowCustomAction) customAction { ShowCustomAction = !ShowCustomAction }
+
     AnimatedVisibility(visible = isEnabled,) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .clip(RoundedCornerShape(6.dp))
-                .clickable { handleAction(actionType, variable, switchEnabled, linkClicked) }
+                .clip(radius)
+                .clickable {
+                    handleAction(
+                        actionType,
+                        variable,
+                        switchEnabled,
+                        { ShowCustomAction = !ShowCustomAction },
+                        linkClicked
+                    )
+                }
                 .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                 .padding(horizontal = 20.dp, vertical = 4.dp)
         ) {
@@ -63,11 +83,13 @@ private fun handleAction(
     actionType: ActionType,
     variable: Boolean?,
     switchEnabled: (Boolean) -> Unit,
+    customAction: () -> Unit,
     linkClicked: () -> Unit
 ) {
     when (actionType) {
         ActionType.SWITCH -> switchEnabled(!variable!!)
         ActionType.LINK -> linkClicked()
+        ActionType.CUSTOM -> customAction()
         ActionType.TEXT -> { /* No action needed */ }
     }
 }
@@ -93,6 +115,7 @@ private fun RenderActionComponent(
     when (actionType) {
         ActionType.SWITCH -> RenderSwitch(variable, switchEnabled)
         ActionType.LINK -> RenderLink(linkClicked)
+        ActionType.CUSTOM -> CustomIcon()
         ActionType.TEXT -> RenderText(customText)
     }
 }
@@ -120,6 +143,17 @@ private fun RenderLink(linkClicked: () -> Unit) {
 }
 
 @Composable
+private fun CustomIcon() {
+    Icon(
+        imageVector = Icons.AutoMirrored.Rounded.ArrowForwardIos,
+        contentDescription = null,
+        modifier = Modifier
+            .scale(0.6f)
+            .padding(12.dp)
+    )
+}
+
+@Composable
 private fun RenderText(customText: String) {
     Text(
         text = customText,
@@ -133,7 +167,7 @@ fun SettingCategory(
     title: String,
     subTitle: String,
     icon: ImageVector,
-    shape: RoundedCornerShape = RoundedCornerShape(0),
+    shape: RoundedCornerShape,
     isLast: Boolean = false,
     action: () -> Unit = {},
 ) {

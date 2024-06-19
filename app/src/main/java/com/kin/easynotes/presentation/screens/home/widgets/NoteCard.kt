@@ -28,6 +28,7 @@ fun NoteCard(
     note: Note,
     containerColor : Color,
     borderColor : Color,
+    shape: RoundedCornerShape,
     onShortClick : () -> Unit,
     onLongClick : () -> Unit,
     onNoteUpdate: (Note) -> Unit
@@ -35,12 +36,12 @@ fun NoteCard(
     Box(
         modifier = Modifier
             .padding(bottom = 12.dp)
-            .clip(RoundedCornerShape(16.dp))
+            .clip(shape)
             .background(containerColor)
             .border(
                 width = 2.dp,
                 color = borderColor,
-                shape = RoundedCornerShape(16.dp)
+                shape = shape
             )
             .combinedClickable(
                 onClick = { onShortClick() },
