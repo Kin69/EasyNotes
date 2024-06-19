@@ -23,11 +23,13 @@ import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.*
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.NoteFilter
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeView(
     viewModel: HomeViewModel = viewModel(),
+    settingsModel: SettingsViewModel,
     onSettingsClicked: () -> Unit,
     onNoteClicked: (Int) -> Unit,
     onSearchClicked: () -> Unit
@@ -111,14 +113,14 @@ fun HomeView(
                                 if (viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value.isNotEmpty()) {
                                     DropdownMenuItem(
                                         leadingIcon = {
-                                            when(viewModel.viewMode.value) {
+                                            when(settingsModel.settings.value.viewMode) {
                                                 0 -> Icon(Icons.Rounded.GridView, contentDescription = "Grid view")
                                                 1 -> Icon(Icons.Rounded.ViewAgenda, contentDescription = "Column view")
                                             }
                                         },
                                         text = {
                                             Text(
-                                                when(viewModel.viewMode.value) {
+                                                when(settingsModel.settings.value.viewMode) {
                                                     0 -> stringResource(id = R.string.grid_view)
                                                     1 -> stringResource(id = R.string.column_view)
                                                     else -> ""
@@ -127,7 +129,14 @@ fun HomeView(
                                         },
                                         onClick = {
                                             viewModel.toggleHomeMenu(false)
-                                            viewModel.toggleViewMode()
+
+                                            settingsModel.update(settingsModel.settings.value.copy(
+                                                viewMode = when(settingsModel.settings.value.viewMode) {
+                                                    0 -> 1
+                                                    1 -> 0
+                                                    else -> 0
+                                                }
+                                            ))
                                         }
                                     )
                                 }
@@ -159,7 +168,7 @@ fun HomeView(
                 onNoteClicked = onNoteClicked,
                 notes = allNotes,
                 selectedNotes = viewModel.selectedNotes,
-                viewMode = viewModel.viewMode.value,
+                viewMode = settingsModel.settings.value.viewMode,
                 isDeleteMode = viewModel.isDeleteMode.value,
                 onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },
                 isSelectAvailable = true,
