@@ -25,16 +25,15 @@ fun NotesGrid(
     notes: List<Note>,
     onNoteUpdate: (Note) -> Unit,
     selectedNotes: MutableList<Int>,
-    viewMode: Int,
+    viewMode: Boolean,
     isDeleteClicked: Boolean,
     isSelectAvailable: Boolean,
     animationFinished: (Int) -> Unit
 ) {
     LazyVerticalStaggeredGrid(
         columns = when(viewMode) {
-            0 -> StaggeredGridCells.Fixed(2)
-            1 -> StaggeredGridCells.Fixed(1)
-            else -> StaggeredGridCells.Fixed(2)
+            true -> StaggeredGridCells.Fixed(2)
+            false -> StaggeredGridCells.Fixed(1)
         },
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         content = {

@@ -53,6 +53,7 @@ fun SettingsBox(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
+                .padding(bottom = 3.dp)
                 .clip(radius)
                 .clickable {
                     handleAction(
@@ -76,7 +77,6 @@ fun SettingsBox(
             RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText)
         }
     }
-    Spacer(modifier = Modifier.height(2.dp))
 }
 
 private fun handleAction(

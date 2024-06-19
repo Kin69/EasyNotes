@@ -16,11 +16,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Colorize
 import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.FlashOn
+import androidx.compose.material.icons.rounded.GridOff
+import androidx.compose.material.icons.rounded.GridView
 import androidx.compose.material.icons.rounded.HdrAuto
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.RoundedCorner
+import androidx.compose.material.icons.rounded.ViewAgenda
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderColors
@@ -127,7 +131,22 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                         }
                     }
                 )
-                Spacer(modifier = Modifier.height(18.dp))
+            }
+            item {
+                SettingsBox(
+                    title = when(settingsViewModel.settings.value.viewMode) {
+                        true -> stringResource(id = R.string.grid_view)
+                        false -> stringResource(id = R.string.column_view)
+                    },
+                    icon = when(settingsViewModel.settings.value.viewMode) {
+                        true -> Icons.Rounded.GridView
+                        false -> Icons.Rounded.ViewAgenda
+                    },
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                    actionType = ActionType.SWITCH,
+                    variable = settingsViewModel.settings.value.viewMode,
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(viewMode = it))}
+                )
             }
         }
     }

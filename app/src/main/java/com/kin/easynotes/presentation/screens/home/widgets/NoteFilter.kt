@@ -22,7 +22,7 @@ fun NoteFilter(
     notes: List<Note>,
     searchText: String? = null,
     selectedNotes: MutableList<Int>,
-    viewMode: Int = 0,
+    viewMode: Boolean = false,
     isDeleteMode: Boolean,
     isSelectAvailable: Boolean,
     onNoteUpdate: (Note) -> Unit,

@@ -102,56 +102,8 @@ fun HomeView(
                         if (viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value.isNotEmpty()) {
                             SearchButton { onSearchClicked() }
                         }
-
-                        Box {
-                            MoreButton {
-                                viewModel.toggleHomeMenu(true)
-                            }
-
-                            DropdownMenu(
-                                expanded = viewModel.isHomeMenuOpened.value,
-                                onDismissRequest = { viewModel.toggleHomeMenu(false) }
-                            ) {
-                                if (viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value.isNotEmpty()) {
-                                    DropdownMenuItem(
-                                        leadingIcon = {
-                                            when(settingsModel.settings.value.viewMode) {
-                                                0 -> Icon(Icons.Rounded.GridView, contentDescription = "Grid view")
-                                                1 -> Icon(Icons.Rounded.ViewAgenda, contentDescription = "Column view")
-                                            }
-                                        },
-                                        text = {
-                                            Text(
-                                                when(settingsModel.settings.value.viewMode) {
-                                                    0 -> stringResource(id = R.string.grid_view)
-                                                    1 -> stringResource(id = R.string.column_view)
-                                                    else -> ""
-                                                }
-                                            )
-                                        },
-                                        onClick = {
-                                            viewModel.toggleHomeMenu(false)
-
-                                            settingsModel.update(settingsModel.settings.value.copy(
-                                                viewMode = when(settingsModel.settings.value.viewMode) {
-                                                    0 -> 1
-                                                    1 -> 0
-                                                    else -> 0
-                                                }
-                                            ))
-                                        }
-                                    )
-                                }
-
-                                DropdownMenuItem(
-                                    leadingIcon = { Icon(Icons.Rounded.Settings, contentDescription = "Settings") },
-                                    text = { Text(stringResource(R.string.screen_settings)) },
-                                    onClick = {
-                                        viewModel.toggleHomeMenu(false)
-                                        onSettingsClicked()
-                                    }
-                                )
-                            }
+                        SettingsButton {
+                            onSettingsClicked()
                         }
                     },
                 )
