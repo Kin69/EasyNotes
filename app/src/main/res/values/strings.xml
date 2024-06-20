@@ -52,4 +52,5 @@
     <string name="select_font">Font</string>
     <string name="radius">Radius</string>
     <string name="select_radius">Select Radius</string>
+    <string name="minimalistic_mode">Minimalistic Mode</string>
 </resources>

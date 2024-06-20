@@ -6,6 +6,7 @@ data class Settings(
     val darkTheme: Boolean = false,
     var dynamicTheme: Boolean = false,
     var amoledTheme: Boolean = false,
+    var minimalisticMode: Boolean = false,
 
     var cornerRadius: Int = 32,
 )

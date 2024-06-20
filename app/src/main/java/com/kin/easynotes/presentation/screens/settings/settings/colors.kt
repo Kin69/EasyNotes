@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Colorize
 import androidx.compose.material.icons.rounded.DarkMode
+import androidx.compose.material.icons.rounded.DynamicFeed
 import androidx.compose.material.icons.rounded.GridView
 import androidx.compose.material.icons.rounded.HdrAuto
 import androidx.compose.material.icons.rounded.Palette
@@ -120,18 +121,22 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
-                    title = when(settingsViewModel.settings.value.viewMode) {
-                        true -> stringResource(id = R.string.grid_view)
-                        false -> stringResource(id = R.string.column_view)
-                    },
-                    icon = when(settingsViewModel.settings.value.viewMode) {
-                        true -> Icons.Rounded.GridView
-                        false -> Icons.Rounded.ViewAgenda
-                    },
+                    title = if (settingsViewModel.settings.value.viewMode) stringResource(id = R.string.grid_view) else stringResource(id = R.string.column_view),
+                    icon = if (settingsViewModel.settings.value.viewMode) Icons.Rounded.GridView else Icons.Rounded.ViewAgenda,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.viewMode,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(viewMode = it))}
+                )
+            }
+            item {
+                SettingsBox(
+                    title = stringResource(id = R.string.minimalistic_mode),
+                    icon = Icons.Rounded.DynamicFeed,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+                    actionType = ActionType.SWITCH,
+                    variable = settingsViewModel.settings.value.minimalisticMode,
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(minimalisticMode = it))}
                 )
             }
         }

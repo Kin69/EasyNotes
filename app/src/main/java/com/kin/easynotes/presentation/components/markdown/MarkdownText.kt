@@ -91,7 +91,7 @@ fun MarkdownCheck(content: @Composable () -> Unit, checked: Boolean, onCheckedCh
 @Composable
 fun MarkdownText(
     markdown: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth(),
     weight: FontWeight = FontWeight.Normal,
     fontSize: TextUnit = 16.sp,
     overflow: TextOverflow = TextOverflow.Clip,
@@ -104,7 +104,7 @@ fun MarkdownText(
     val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
     markdownBuilder.parse()
 
-    LazyColumn(modifier = modifier.fillMaxWidth()) {
+    LazyColumn(modifier = modifier) {
         items(markdownBuilder.content.size) { index ->
             Spacer(modifier = Modifier.height(spacing))
             when (val element = markdownBuilder.content[index]) {

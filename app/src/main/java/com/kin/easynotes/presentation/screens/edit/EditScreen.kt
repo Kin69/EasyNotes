@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
@@ -41,12 +42,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -85,8 +88,8 @@ fun EditNoteView(
     val coroutineScope = rememberCoroutineScope()
 
     NotesScaffold(
-        topBar = { TopBar(pagerState, coroutineScope,onClickBack, viewModel) },
-        content = { PagerContent(pagerState, viewModel, settingsViewModel) }
+        topBar = { if (!settingsViewModel.settings.value.minimalisticMode) TopBar(pagerState, coroutineScope,onClickBack, viewModel) },
+        content = { PagerContent(pagerState, viewModel, settingsViewModel, onClickBack) }
     )
 }
 
@@ -134,7 +137,7 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PagerContent(pagerState: PagerState, viewModel: EditViewModel,settingsViewModel: SettingsViewModel) {
+fun PagerContent(pagerState: PagerState, viewModel: EditViewModel,settingsViewModel: SettingsViewModel, onClickBack: () -> Unit) {
     HorizontalPager(
         state = pagerState,
         modifier = Modifier
@@ -142,8 +145,8 @@ fun PagerContent(pagerState: PagerState, viewModel: EditViewModel,settingsViewMo
             .imePadding()
     ) { page ->
         when (page) {
-            0 -> EditScreen(viewModel, settingsViewModel)
-            1 -> PreviewScreen(viewModel, settingsViewModel)
+            0 -> EditScreen(viewModel, settingsViewModel, pagerState, onClickBack)
+            1 -> PreviewScreen(viewModel, settingsViewModel, pagerState, onClickBack)
         }
     }
 }
@@ -214,28 +217,61 @@ fun BottomModal(viewModel: EditViewModel) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel) {
+fun MinimalisticMode(
+    alignment : Alignment.Vertical = Alignment.CenterVertically,
+    viewModel: EditViewModel,
+    modifier: Modifier = Modifier,
+    isEnabled: Boolean, pagerState: PagerState,
+    onClickBack: () -> Unit, content: @Composable () -> Unit
+) {
+    Row(
+        verticalAlignment = alignment,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        if (isEnabled) NavigationIcon(onClickBack)
+        content()
+        if (isEnabled) TopBarActions(pagerState,  onClickBack, viewModel)
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pagerState: PagerState,onClickBack: () -> Unit) {
     var isInFocus by remember{ mutableStateOf(false)}
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-            .clip(shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),)
+            .clip(
+                shapeManager(
+                    radius = settingsViewModel.settings.value.cornerRadius,
+                    isBoth = true
+                ),
+            )
     ) {
         MarkdownBox(
             shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
             content = {
-                CustomTextField(
-                    value = viewModel.noteName.value,
-                    modifier = Modifier.padding(2.dp,2.dp,2.dp,0.dp),
-                    onValueChange = { viewModel.updateNoteName(it) },
-                    placeholder = stringResource(R.string.name),
-                )
+                MinimalisticMode(
+                    viewModel = viewModel,
+                    modifier = Modifier.padding(top = 2.dp),
+                    isEnabled = settingsViewModel.settings.value.minimalisticMode,
+                    pagerState = pagerState,
+                    onClickBack = { onClickBack() }
+                ) {
+                    CustomTextField(
+                        value = viewModel.noteName.value,
+                        modifier = Modifier.weight(1f),
+                        onValueChange = { viewModel.updateNoteName(it) },
+                        placeholder = stringResource(R.string.name),
+                    )
+                }
             }
         )
         MarkdownBox(
-            shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+            shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
             modifier = Modifier
                 .onFocusChanged { isInFocus = it.isFocused }
                 .fillMaxHeight(if (isInFocus) 0.92f else 1f)
@@ -253,42 +289,69 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) {
+fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel, pagerState: PagerState, onClickBack: () -> Unit) {
     if (viewModel.isNoteInfoVisible.value) BottomModal(viewModel)
 
     val focusManager = LocalFocusManager.current
     focusManager.clearFocus()
+    val showOnlyDescription = viewModel.noteName.value.text.isNotBlank()
 
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 16.dp)
-            .clip(shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),),
+            .clip(
+                shapeManager(
+                    radius = settingsViewModel.settings.value.cornerRadius,
+                    isBoth = true
+                ),
+            ),
     ) {
-        if (viewModel.noteName.value.text.isNotBlank()) {
+        if (showOnlyDescription) {
             MarkdownBox(
                 shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                 isCopyable = true,
                 content = {
-                    MarkdownText(
-                        markdown = viewModel.noteName.value.text,
-                        modifier = Modifier.padding(16.dp),
-                        onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
-                    )
+                    MinimalisticMode(
+                        viewModel = viewModel,
+                        isEnabled = settingsViewModel.settings.value.minimalisticMode,
+                        pagerState = pagerState,
+                        onClickBack = { onClickBack() }
+                    ) {
+                        MarkdownText(
+                            markdown = viewModel.noteName.value.text,
+                            weight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .weight(1f)
+                                .align(Alignment.CenterHorizontally),
+                            onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
+                        )
+                    }
                 }
             )
         }
         MarkdownBox(
             shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
             modifier = Modifier
-                .fillMaxHeight(),
+                .fillMaxSize(),
             isCopyable = true,
             content = {
-                MarkdownText(
-                    markdown = viewModel.noteDescription.value.text,
-                    modifier = Modifier.padding(16.dp),
-                    onContentChange = { viewModel.updateNoteDescription(TextFieldValue(text = it)) }
-                )
+                MinimalisticMode(
+                    alignment = Alignment.Top,
+                    viewModel = viewModel,
+                    isEnabled = settingsViewModel.settings.value.minimalisticMode && !showOnlyDescription,
+                    pagerState = pagerState,
+                    onClickBack = { onClickBack() }
+                ) {
+                    MarkdownText(
+                        markdown = viewModel.noteDescription.value.text,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .weight(1f),
+                        onContentChange = { viewModel.updateNoteDescription(TextFieldValue(text = it)) })
+                    }
             }
         )
     }
