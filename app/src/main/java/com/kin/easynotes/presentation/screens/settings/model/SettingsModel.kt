@@ -2,7 +2,6 @@ package com.kin.easynotes.presentation.screens.settings.model
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.BuildConfig

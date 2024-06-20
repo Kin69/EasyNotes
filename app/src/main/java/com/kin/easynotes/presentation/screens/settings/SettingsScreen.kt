@@ -1,14 +1,12 @@
 package com.kin.easynotes.presentation.screens.settings
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.Cloud
-import androidx.compose.material.icons.rounded.Colorize
-import androidx.compose.material.icons.rounded.DarkMode
-import androidx.compose.material.icons.rounded.HdrAuto
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Language
@@ -16,11 +14,13 @@ import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.Widgets
 import androidx.compose.material.icons.rounded.Work
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -32,10 +32,7 @@ import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
-import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
-
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingCategory
-import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
 import com.kin.easynotes.presentation.screens.settings.widgets.SmallSettingCategory
 
 @Composable
@@ -88,7 +85,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                 SmallSettingCategory(
                     title = stringResource(R.string.support),
                     subTitle = stringResource(id = R.string.support_description),
-                    icon = Icons.Rounded.ArrowForwardIos,
+                    icon = Icons.AutoMirrored.Rounded.ArrowForwardIos,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
                     action = { uriHandler.openUri("https://ko-fi.com/kin69_") })
             }

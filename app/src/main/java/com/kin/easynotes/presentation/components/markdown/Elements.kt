@@ -1,7 +1,5 @@
 package com.kin.easynotes.presentation.components.markdown
 
-import android.net.Uri
-
 sealed interface MarkdownElement {
     fun render(builder: StringBuilder)
 }

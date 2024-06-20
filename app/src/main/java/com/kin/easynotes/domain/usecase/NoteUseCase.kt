@@ -1,8 +1,6 @@
 package com.kin.easynotes.domain.usecase
 
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.repository.NoteRepository
 import kotlinx.coroutines.CoroutineScope

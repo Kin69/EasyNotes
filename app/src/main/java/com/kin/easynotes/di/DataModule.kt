@@ -1,18 +1,14 @@
 package com.kin.easynotes.di
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.data.local.database.NoteDatabase
+import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.domain.repository.NoteRepository
 import com.kin.easynotes.domain.repository.SettingsRepository
-import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 interface DataModule {
     val noteDatabase: NoteDatabase

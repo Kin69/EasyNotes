@@ -2,8 +2,6 @@ package com.kin.easynotes.domain.usecase
 
 import com.kin.easynotes.domain.model.Settings
 import com.kin.easynotes.domain.repository.SettingsRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 class SettingsUseCase(
     private val settingsRepository: SettingsRepository
