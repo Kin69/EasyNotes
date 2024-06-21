@@ -24,7 +24,6 @@ fun NoteFilter(
     selectedNotes: MutableList<Int>,
     viewMode: Boolean = false,
     isDeleteMode: Boolean,
-    isSelectAvailable: Boolean,
     onNoteUpdate: (Note) -> Unit,
     onDeleteNote: (Int) -> Unit
 ) {
@@ -50,7 +49,6 @@ fun NoteFilter(
             selectedNotes = selectedNotes,
             viewMode = viewMode,
             isDeleteClicked = isDeleteMode,
-            isSelectAvailable = isSelectAvailable,
             animationFinished = onDeleteNote
         )
     }

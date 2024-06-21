@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.Notes
 import com.kin.easynotes.domain.usecase.NoteUseCase
+
 open class HomeViewModel() : ViewModel() {
     private val noteRepository = Notes.dataModule.noteRepository
     val noteUseCase = NoteUseCase(noteRepository, viewModelScope)
@@ -16,11 +17,11 @@ open class HomeViewModel() : ViewModel() {
     private var _isSelectMenuOpened = mutableStateOf(false)
     val isSelectMenuOpened: State<Boolean> = _isSelectMenuOpened
 
-    private var _isHomeMenuOpened = mutableStateOf(false)
-    val isHomeMenuOpened: State<Boolean> = _isHomeMenuOpened
-
     private var _isDeleteMode = mutableStateOf(false)
     val isDeleteMode: State<Boolean> = _isDeleteMode
+
+    private var _searchQuery = mutableStateOf("")
+    val searchQuery: State<String> = _searchQuery
 
     fun toggleIsDeleteMode(enabled: Boolean) {
         _isDeleteMode.value = enabled
@@ -30,7 +31,7 @@ open class HomeViewModel() : ViewModel() {
         _isSelectMenuOpened.value = enabled
     }
 
-    fun toggleHomeMenu(enabled: Boolean) {
-        _isHomeMenuOpened.value = enabled
+    fun changeSearchQuery(newValue: String) {
+        _searchQuery.value = newValue
     }
 }

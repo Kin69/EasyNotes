@@ -7,7 +7,6 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.MoreVert
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,11 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun CloseButton(onCloseClicked:  () -> Unit) {
+fun CloseButton(
+    contentDescription: String = "Close",
+    onCloseClicked:  () -> Unit
+) {
     IconButton(onClick = onCloseClicked) {
         Icon(
             imageVector = Icons.Rounded.Close,
-            contentDescription = "Close",
+            contentDescription = contentDescription,
             tint = MaterialTheme.colorScheme.onBackground
         )
     }
@@ -41,17 +43,6 @@ fun SaveButton(onSaveClicked: () -> Unit) {
         Icon(
             imageVector = Icons.Rounded.Done,
             contentDescription = "Done",
-            tint = MaterialTheme.colorScheme.onBackground
-        )
-    }
-}
-
-@Composable
-fun SearchButton(onSearchClicked: () -> Unit) {
-    IconButton(onClick = onSearchClicked) {
-        Icon(
-            imageVector = Icons.Rounded.Search,
-            contentDescription = "search",
             tint = MaterialTheme.colorScheme.onBackground
         )
     }

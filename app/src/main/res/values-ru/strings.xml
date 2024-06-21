@@ -8,7 +8,6 @@
     <string name="characters">Количество символов</string>
     <string name="description">Описание заметки</string>
     <string name="search">Поиск заметок</string>
-    <string name="screen_search">Поиск</string>
     <string name="screen_settings">Настройки</string>
     <string name="display">Персонализация</string>
     <string name="dark_theme">Тёмная тема</string>
