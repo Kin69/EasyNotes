@@ -10,7 +10,6 @@
     <string name="name">名前</string>
     <string name="description">説明</string>
     <string name="search">検索</string>
-    <string name="screen_search">検索</string>
     <string name="screen_settings">設定</string>
     <string name="display">画面</string>
     <string name="dark_theme">ダークテーマ</string>
