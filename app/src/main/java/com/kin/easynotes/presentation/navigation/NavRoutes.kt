@@ -15,7 +15,6 @@ import com.kin.easynotes.presentation.screens.settings.settings.LanguageScreen
 
 sealed class NavRoutes(val route: String) {
     data object Home : NavRoutes("home")
-    data object Search : NavRoutes("search")
     data object Edit : NavRoutes("edit/{id}") {
         fun createRoute(id: Int) = "edit/$id"
     }

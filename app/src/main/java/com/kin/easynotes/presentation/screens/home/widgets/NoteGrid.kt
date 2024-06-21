@@ -27,7 +27,6 @@ fun NotesGrid(
     selectedNotes: MutableList<Int>,
     viewMode: Boolean,
     isDeleteClicked: Boolean,
-    isSelectAvailable: Boolean,
     animationFinished: (Int) -> Unit
 ) {
     LazyVerticalStaggeredGrid(
@@ -51,7 +50,7 @@ fun NotesGrid(
                         borderColor = getBorderColor(selectedNotes, note),
                         onShortClick = { handleShortClick(selectedNotes, note, onNoteClicked) },
                         onNoteUpdate = onNoteUpdate,
-                        onLongClick = { if (isSelectAvailable) handleLongClick(selectedNotes, note) }
+                        onLongClick = { handleLongClick(selectedNotes, note) }
                     )
                     if (isDeleteClicked && selectedNotes.contains(note.id)) {
                         isAnimationVisible.targetState = false

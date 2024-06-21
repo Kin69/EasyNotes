@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.kin.easynotes.presentation.screens.edit.EditNoteView
 import com.kin.easynotes.presentation.screens.home.HomeView
-import com.kin.easynotes.presentation.screens.search.SearchScreen
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 @Composable
@@ -15,7 +14,6 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination: String, navCo
         animatedComposable(NavRoutes.Home.route) {
             HomeView(
                 onSettingsClicked = { navController.navigate(NavRoutes.Settings.route) },
-                onSearchClicked = { navController.navigate(NavRoutes.Search.route) },
                 onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.createRoute(id)) },
                 settingsModel = settingsModel
             )
@@ -29,14 +27,6 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination: String, navCo
             ) {
                 navController.navigateUp()
             }
-        }
-
-        animatedComposable(NavRoutes.Search.route) {
-            SearchScreen(
-                onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.createRoute(id)) },
-                onBackNavClicked = { navController.navigateUp() },
-                settingsModel = settingsModel
-            )
         }
 
         settingScreens.forEach { (route, screen) ->
