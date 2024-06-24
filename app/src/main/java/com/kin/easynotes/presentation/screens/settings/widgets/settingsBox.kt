@@ -113,7 +113,7 @@ private fun RenderIcon(icon: ImageVector) {
     Icon(
         imageVector = icon,
         contentDescription = null,
-        tint = MaterialTheme.colorScheme.onSurface,
+        tint = MaterialTheme.colorScheme.primary,
         modifier = Modifier.padding(end = 6.dp)
     )
 }
@@ -186,6 +186,7 @@ fun SettingCategory(
     action: () -> Unit = {},
 ) {
     ElevatedCard(
+        shape = shape,
         modifier = Modifier
             .clip(shape)
             .clickable { action() },

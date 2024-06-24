@@ -3,7 +3,6 @@ package com.kin.easynotes.presentation.screens.edit.components
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -19,7 +18,6 @@ fun CustomTextField(
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
     placeholder: String,
-    color: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
     shape: RoundedCornerShape = RoundedCornerShape(0.dp),
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
     singleLine: Boolean = false,
@@ -34,10 +32,10 @@ fun CustomTextField(
             .clip(shape),
         singleLine = singleLine,
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = color,
-            unfocusedContainerColor = color,
-            unfocusedIndicatorColor = color,
-            focusedIndicatorColor = color,
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
         ),
         placeholder = {
             Text(placeholder)

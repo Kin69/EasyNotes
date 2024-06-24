@@ -2,7 +2,6 @@ package com.kin.easynotes.presentation.screens.edit
 
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,9 +26,11 @@ import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Numbers
 import androidx.compose.material.icons.rounded.RemoveRedEye
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -47,7 +48,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
@@ -262,7 +262,6 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
                         value = viewModel.noteName.value,
                         modifier = Modifier.weight(1f),
                         onValueChange = { viewModel.updateNoteName(it) },
-                        color = if(!settingsViewModel.settings.value.extremeAmoledMode) MaterialTheme.colorScheme.surfaceContainerHigh else Color.Black,
                         placeholder = stringResource(R.string.name),
                     )
                 }
@@ -273,14 +272,13 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
             shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
             modifier = Modifier
                 .onFocusChanged { isInFocus = it.isFocused }
-                .fillMaxHeight(if (isInFocus) 0.92f else 1f)
+                .fillMaxHeight(if (isInFocus) 0.91f else 1f)
                 .padding(bottom = if (isInFocus) 0.dp else 16.dp),
             content = {
                 CustomTextField(
                     value = viewModel.noteDescription.value,
                     onValueChange = { viewModel.updateNoteDescription(it) },
                     modifier = Modifier.fillMaxHeight(),
-                    color = if(!settingsViewModel.settings.value.extremeAmoledMode) MaterialTheme.colorScheme.surfaceContainerHigh else Color.Black,
                     placeholder = stringResource(R.string.description),
                 )
             }
@@ -359,17 +357,19 @@ fun MarkdownBox(
     content: @Composable () -> Unit,
     isCopyable: Boolean = false
 ) {
-    Box(
+    ElevatedCard(
+        shape = shape,
         modifier = modifier
             .clip(shape)
-            .background(if (!isExtremeAmoled) MaterialTheme.colorScheme.surfaceContainerHigh else Color.Black)
             .heightIn(max = 128.dp, min = 42.dp)
             .then(
                 if (isExtremeAmoled) {
                     Modifier.border(2.dp, shape = shape, color = MaterialTheme.colorScheme.primary)
                 } else Modifier
             ),
-    ) {
+        elevation = CardDefaults.cardElevation(defaultElevation = if (!isExtremeAmoled) 6.dp else 0.dp),
+
+        ) {
         if (isCopyable) SelectionContainer { content() } else content()
     }
     Spacer(modifier = Modifier.height(3.dp))
@@ -380,36 +380,30 @@ fun MarkdownBox(
 fun ModeButton(pagerState: PagerState,coroutineScope: CoroutineScope) {
     Row {
         CustomIconButton(
+            shape = RoundedCornerShape(topStart = 32.dp, bottomStart = 32.dp),
             onClick = {
                 coroutineScope.launch {
                     pagerState.animateScrollToPage(0)
                 }
             },
             icon = Icons.Rounded.Edit,
-            modifier = Modifier
-                .clip(RoundedCornerShape(topStart = 32.dp, bottomStart = 32.dp))
-                .background(
-                    when (pagerState.currentPage) {
-                        0 -> MaterialTheme.colorScheme.surfaceContainerHighest
-                        else -> MaterialTheme.colorScheme.surfaceContainerHigh
+            elevation = when (pagerState.currentPage) {
+                        0 -> 16.dp
+                        else -> 6.dp
                     }
-                )
         )
         CustomIconButton(
+            shape = RoundedCornerShape(bottomEnd = 32.dp, topEnd = 32.dp),
             onClick = {
                 coroutineScope.launch {
                     pagerState.animateScrollToPage(1)
                 }
             },
             icon = Icons.Rounded.RemoveRedEye,
-            modifier = Modifier
-                .clip(RoundedCornerShape(bottomEnd = 32.dp, topEnd = 32.dp))
-                .background(
-                    when (pagerState.currentPage) {
-                        1 -> MaterialTheme.colorScheme.surfaceContainerHighest
-                        else -> MaterialTheme.colorScheme.surfaceContainerHigh
+            elevation = when (pagerState.currentPage) {
+                        1 -> 16.dp
+                        else -> 6.dp
                     }
-                )
         )
     }
 }

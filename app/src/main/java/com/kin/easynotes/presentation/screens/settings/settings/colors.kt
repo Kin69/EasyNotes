@@ -96,7 +96,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                 SettingsBox(
                     title = stringResource(id = R.string.dynamic_colors),
                     icon = Icons.Rounded.Colorize,
-                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = !(settingsViewModel.settings.value.darkTheme)),
                     isEnabled = !settingsViewModel.settings.value.automaticTheme,
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.dynamicTheme,
