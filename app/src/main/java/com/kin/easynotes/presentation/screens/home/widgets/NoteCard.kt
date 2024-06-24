@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import com.kin.easynotes.presentation.components.markdown.MarkdownText
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteCard(
+    containerColor: Color,
     note: Note,
     isBorderEnabled: Boolean,
     shape: RoundedCornerShape,
@@ -38,7 +40,12 @@ fun NoteCard(
             shape = shape
         )
     } else {
-        Modifier
+        if (containerColor != Color.Black) Modifier else
+            Modifier.border(
+                width = 2.dp,
+                color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                shape = shape
+            )
     }
 
     ElevatedCard(
@@ -50,7 +57,7 @@ fun NoteCard(
                 onLongClick = { onLongClick() }
             )
             .then(borderModifier),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = if (containerColor != Color.Black) 6.dp else 0.dp),
     ) {
         Column(
             modifier = Modifier.padding(16.dp, 12.dp, 16.dp, 12.dp)
@@ -71,7 +78,8 @@ fun NoteCard(
                 MarkdownText(
                     markdown = note.description,
                     spacing = 0.dp,
-                    modifier = Modifier.heightIn(max = dimensionResource(R.dimen.max_description_height)),
+                    modifier = Modifier
+                        .heightIn(max = dimensionResource(R.dimen.max_description_height)),
                     onContentChange = { onNoteUpdate(note.copy(description = it)) },
                     fontSize = 14.sp
                 )

@@ -16,6 +16,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -58,8 +60,9 @@ fun SettingsBox(
     if (ShowCustomAction) customAction { ShowCustomAction = !ShowCustomAction }
 
     AnimatedVisibility(visible = isEnabled,) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
+        ElevatedCard(
+            shape = radius,
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
             modifier = Modifier
                 .padding(bottom = 3.dp)
                 .clip(radius)
@@ -72,17 +75,20 @@ fun SettingsBox(
                         linkClicked
                     )
                 }
-                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                .padding(horizontal = 20.dp, vertical = 4.dp)
         ) {
-            RenderIcon(icon)
-            Text(
-                text = title,
-                modifier = Modifier.padding(start = 3.dp),
-                fontSize = 16.sp
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp)
+            ) {
+                RenderIcon(icon)
+                Text(
+                    text = title,
+                    modifier = Modifier.padding(start = 3.dp),
+                    fontSize = 16.sp
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText)
+            }
         }
     }
 }
@@ -179,17 +185,17 @@ fun SettingCategory(
     isLast: Boolean = false,
     action: () -> Unit = {},
 ) {
-    Box(
+    ElevatedCard(
         modifier = Modifier
             .clip(shape)
-            .clickable { action() }
+            .clickable { action() },
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
     ) {
         Row(
             modifier = Modifier
                 .clip(shape)
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                .padding(24.dp,14.dp,14.dp,14.dp),
+                .padding(24.dp, 14.dp, 14.dp, 14.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {
@@ -252,7 +258,7 @@ fun SmallSettingCategory(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primary)
-                .padding(30.dp,10.dp,18.dp,14.dp)
+                .padding(30.dp, 10.dp, 18.dp, 14.dp)
                 .fillMaxWidth()
         ) {
             Row(

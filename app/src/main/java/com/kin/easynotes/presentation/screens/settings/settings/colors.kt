@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation.screens.settings.settings
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Battery1Bar
 import androidx.compose.material.icons.rounded.Colorize
 import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.DynamicFeed
@@ -54,6 +56,14 @@ fun shapeManager(isBoth: Boolean = false,isLast: Boolean = false,isFirst: Boolea
 }
 
 @Composable
+fun BorderModifier(isExtremeAmoled: Boolean, shape: RoundedCornerShape): Modifier {
+    return when(isExtremeAmoled) {
+        true -> Modifier.border(2.dp,shape = shape,color = MaterialTheme.colorScheme.primary)
+        else -> Modifier
+    }
+}
+
+@Composable
 fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
@@ -94,14 +104,26 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                 )
             }
             item {
+                var value = settingsViewModel.settings.value.amoledTheme
                 SettingsBox(
                     title = stringResource(id = R.string.amoled_colors),
                     icon = Icons.Rounded.DarkMode,
-                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = !value),
                     actionType = ActionType.SWITCH,
                     isEnabled = settingsViewModel.settings.value.darkTheme,
-                    variable = settingsViewModel.settings.value.amoledTheme,
+                    variable = value,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(amoledTheme = it))}
+                )
+            }
+            item {
+                SettingsBox(
+                    title = stringResource(id = R.string.extreme_amoled_mode),
+                    icon = Icons.Rounded.Battery1Bar,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+                    actionType = ActionType.SWITCH,
+                    variable = settingsViewModel.settings.value.extremeAmoledMode,
+                    isEnabled = settingsViewModel.settings.value.amoledTheme && settingsViewModel.settings.value.darkTheme,
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(extremeAmoledMode = it))}
                 )
                 Spacer(modifier = Modifier.height(18.dp))
             }

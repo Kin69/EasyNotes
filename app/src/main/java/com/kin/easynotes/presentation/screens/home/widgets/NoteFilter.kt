@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -17,6 +18,7 @@ import com.kin.easynotes.domain.model.Note
 
 @Composable
 fun NoteFilter(
+    containerColor : Color,
     onNoteClicked: (Int) -> Unit,
     shape: RoundedCornerShape,
     notes: List<Note>,
@@ -42,7 +44,8 @@ fun NoteFilter(
         )
     } else {
         NotesGrid(
-            onNoteClicked,
+            containerColor = containerColor,
+            onNoteClicked = onNoteClicked,
             notes = filteredNotes,
             shape = shape,
             onNoteUpdate = onNoteUpdate,

@@ -3,6 +3,7 @@ package com.kin.easynotes.presentation.screens.edit
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -46,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
@@ -244,15 +246,10 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-            .clip(
-                shapeManager(
-                    radius = settingsViewModel.settings.value.cornerRadius,
-                    isBoth = true
-                ),
-            )
     ) {
         MarkdownBox(
-            shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+            isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
+            shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
             content = {
                 MinimalisticMode(
                     viewModel = viewModel,
@@ -265,12 +262,14 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
                         value = viewModel.noteName.value,
                         modifier = Modifier.weight(1f),
                         onValueChange = { viewModel.updateNoteName(it) },
+                        color = if(!settingsViewModel.settings.value.extremeAmoledMode) MaterialTheme.colorScheme.surfaceContainerHigh else Color.Black,
                         placeholder = stringResource(R.string.name),
                     )
                 }
             }
         )
         MarkdownBox(
+            isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
             shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
             modifier = Modifier
                 .onFocusChanged { isInFocus = it.isFocused }
@@ -281,6 +280,7 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
                     value = viewModel.noteDescription.value,
                     onValueChange = { viewModel.updateNoteDescription(it) },
                     modifier = Modifier.fillMaxHeight(),
+                    color = if(!settingsViewModel.settings.value.extremeAmoledMode) MaterialTheme.colorScheme.surfaceContainerHigh else Color.Black,
                     placeholder = stringResource(R.string.description),
                 )
             }
@@ -299,18 +299,12 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
     val showOnlyDescription = viewModel.noteName.value.text.isNotBlank()
 
     Column(
-        modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 16.dp)
-            .clip(
-                shapeManager(
-                    radius = settingsViewModel.settings.value.cornerRadius,
-                    isBoth = true
-                ),
-            ),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
     ) {
         if (showOnlyDescription) {
             MarkdownBox(
-                shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
+                shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                 isCopyable = true,
                 content = {
                     MinimalisticMode(
@@ -333,9 +327,9 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
             )
         }
         MarkdownBox(
-            shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
-            modifier = Modifier
-                .fillMaxSize(),
+            isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
+            shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = (showOnlyDescription), isBoth = (!showOnlyDescription)),
+            modifier = Modifier.fillMaxSize(),
             isCopyable = true,
             content = {
                 MinimalisticMode(
@@ -359,6 +353,7 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
 
 @Composable
 fun MarkdownBox(
+    isExtremeAmoled: Boolean,
     modifier: Modifier = Modifier,
     shape: RoundedCornerShape = RoundedCornerShape(0.dp),
     content: @Composable () -> Unit,
@@ -367,8 +362,13 @@ fun MarkdownBox(
     Box(
         modifier = modifier
             .clip(shape)
-            .background(color = MaterialTheme.colorScheme.surfaceContainerHigh)
-            .heightIn(max = 128.dp, min = 42.dp),
+            .background(if (!isExtremeAmoled) MaterialTheme.colorScheme.surfaceContainerHigh else Color.Black)
+            .heightIn(max = 128.dp, min = 42.dp)
+            .then(
+                if (isExtremeAmoled) {
+                    Modifier.border(2.dp, shape = shape, color = MaterialTheme.colorScheme.primary)
+                } else Modifier
+            ),
     ) {
         if (isCopyable) SelectionContainer { content() } else content()
     }

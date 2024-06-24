@@ -10,6 +10,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 
@@ -18,6 +19,7 @@ fun CustomTextField(
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
     placeholder: String,
+    color: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
     shape: RoundedCornerShape = RoundedCornerShape(0.dp),
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
     singleLine: Boolean = false,
@@ -32,10 +34,10 @@ fun CustomTextField(
             .clip(shape),
         singleLine = singleLine,
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            unfocusedIndicatorColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            focusedIndicatorColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            focusedContainerColor = color,
+            unfocusedContainerColor = color,
+            unfocusedIndicatorColor = color,
+            focusedIndicatorColor = color,
         ),
         placeholder = {
             Text(placeholder)

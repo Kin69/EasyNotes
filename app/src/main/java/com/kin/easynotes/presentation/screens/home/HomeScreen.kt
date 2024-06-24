@@ -20,6 +20,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -49,7 +50,7 @@ fun HomeView(
             when (viewModel.selectedNotes.isNotEmpty()) {
                 true -> TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+                        containerColor = if (!settingsModel.settings.value.extremeAmoledMode) MaterialTheme.colorScheme.surfaceContainerHigh else Color.Black
                     ),
                     title = {
                         TitleText(
@@ -131,6 +132,7 @@ fun HomeView(
         content = {
             val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
             NoteFilter(
+                containerColor = if (settingsModel.settings.value.extremeAmoledMode) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh,
                 shape = shapeManager(radius = settingsModel.settings.value.cornerRadius/2, isBoth = true),
                 onNoteClicked = onNoteClicked,
                 notes = allNotes,
