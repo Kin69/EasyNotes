@@ -3,10 +3,12 @@ package com.kin.easynotes.presentation.screens.settings.widgets
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -183,19 +185,17 @@ fun SettingCategory(
             .clickable { action() }
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .clip(shape)
+                .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                .padding(horizontal = 30.dp, vertical = 14.dp)
-                .fillMaxWidth()
+                .padding(24.dp,14.dp,14.dp,14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
         ) {
-
-            Row {
-                RenderCategoryText(title, subTitle)
-                Spacer(modifier = Modifier.weight(1f))
-                RenderCategoryIcon(icon)
-            }
+            RenderCategoryText(title, subTitle)
+            Spacer(modifier = Modifier.weight(1f))
+            RenderCategoryIcon(icon)
         }
     }
     Spacer(modifier = Modifier.height(if (isLast) 26.dp else 2.dp))
@@ -219,18 +219,18 @@ private fun RenderCategoryText(title: String, subTitle: String) {
 
 @Composable
 private fun RenderCategoryIcon(icon: ImageVector) {
-    Column(
+    Box(
         modifier = Modifier
             .background(
                 color = MaterialTheme.colorScheme.primary,
                 shape = RoundedCornerShape(50)
-            )
-            .padding(8.dp)
+            ),
     ) {
         Icon(
             imageVector = icon,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.surfaceContainerHigh,
+            modifier = Modifier.padding(9.dp)
         )
     }
 }
@@ -252,7 +252,7 @@ fun SmallSettingCategory(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primary)
-                .padding(horizontal = 30.dp, vertical = 10.dp)
+                .padding(30.dp,10.dp,18.dp,14.dp)
                 .fillMaxWidth()
         ) {
             Row(

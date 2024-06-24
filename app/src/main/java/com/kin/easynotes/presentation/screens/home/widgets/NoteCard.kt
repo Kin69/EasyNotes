@@ -1,18 +1,18 @@
 package com.kin.easynotes.presentation.screens.home.widgets
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,30 +25,35 @@ import com.kin.easynotes.presentation.components.markdown.MarkdownText
 @Composable
 fun NoteCard(
     note: Note,
-    containerColor : Color,
-    borderColor : Color,
+    isBorderEnabled: Boolean,
     shape: RoundedCornerShape,
-    onShortClick : () -> Unit,
-    onLongClick : () -> Unit,
+    onShortClick: () -> Unit,
+    onLongClick: () -> Unit,
     onNoteUpdate: (Note) -> Unit
 ) {
-    Box(
+    val borderModifier = if (isBorderEnabled) {
+        Modifier.border(
+            width = 2.dp,
+            color = MaterialTheme.colorScheme.primary,
+            shape = shape
+        )
+    } else {
+        Modifier
+    }
+
+    ElevatedCard(
         modifier = Modifier
             .padding(bottom = 12.dp)
             .clip(shape)
-            .background(containerColor)
-            .border(
-                width = 2.dp,
-                color = borderColor,
-                shape = shape
-            )
             .combinedClickable(
                 onClick = { onShortClick() },
                 onLongClick = { onLongClick() }
             )
+            .then(borderModifier),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
     ) {
         Column(
-            modifier = Modifier.padding(16.dp,12.dp,16.dp,12.dp)
+            modifier = Modifier.padding(16.dp, 12.dp, 16.dp, 12.dp)
         ) {
             if (note.name.isNotBlank()) {
                 MarkdownText(

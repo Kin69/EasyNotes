@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Search
@@ -34,6 +33,7 @@ import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.NoteFilter
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
+import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,6 +44,7 @@ fun HomeView(
     onNoteClicked: (Int) -> Unit
 ) {
     NotesScaffold(
+        floatingActionButton = { NotesButton(text = stringResource(R.string.new_note)) { onNoteClicked(0) }},
         topBar = {
             when (viewModel.selectedNotes.isNotEmpty()) {
                 true -> TopAppBar(
@@ -99,7 +100,7 @@ fun HomeView(
                 false -> SearchBar(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 12.dp),
+                        .padding(36.dp, 0.dp, 36.dp, 18.dp),
                     query = viewModel.searchQuery.value,
                     placeholder = { Text(stringResource(R.string.search)) },
                     leadingIcon = {
@@ -127,25 +128,15 @@ fun HomeView(
                 ) {}
             }
         },
-        floatingActionButton = {
-            NotesButton(
-                text = stringResource(R.string.new_note),
-                onClick = { onNoteClicked(0) }
-            )
-        },
         content = {
             val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
-
             NoteFilter(
-                shape = RoundedCornerShape(settingsModel.settings.value.cornerRadius.dp),
+                shape = shapeManager(radius = settingsModel.settings.value.cornerRadius/2, isBoth = true),
                 onNoteClicked = onNoteClicked,
                 notes = allNotes,
                 selectedNotes = viewModel.selectedNotes,
                 viewMode = settingsModel.settings.value.viewMode,
-                searchText = when(viewModel.searchQuery.value.isNotBlank()) {
-                    true -> viewModel.searchQuery.value
-                    false -> null
-                },
+                searchText = viewModel.searchQuery.value.ifBlank { null },
                 isDeleteMode = viewModel.isDeleteMode.value,
                 onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },
                 onDeleteNote = {

@@ -8,11 +8,9 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.getNoteEnterAnimation
@@ -45,9 +43,8 @@ fun NotesGrid(
                 ) {
                     NoteCard(
                         note = note,
-                        containerColor = getContainerColor(selectedNotes, note),
                         shape = shape,
-                        borderColor = getBorderColor(selectedNotes, note),
+                        isBorderEnabled = selectedNotes.contains(note.id),
                         onShortClick = { handleShortClick(selectedNotes, note, onNoteClicked) },
                         onNoteUpdate = onNoteUpdate,
                         onLongClick = { handleLongClick(selectedNotes, note) }
@@ -70,18 +67,6 @@ private fun calculateSlideDirection(notes: List<Note>, note: Note): Int {
 @Composable
 private fun rememberTransitionState(): MutableTransitionState<Boolean> {
     return remember { MutableTransitionState(false).apply { targetState = true } }
-}
-
-@Composable
-private fun getContainerColor(selectedNotes: MutableList<Int>, note: Note): Color {
-    return if (selectedNotes.contains(note.id)) MaterialTheme.colorScheme.surfaceContainerHighest
-    else MaterialTheme.colorScheme.surfaceContainerHigh
-}
-
-@Composable
-private fun getBorderColor(selectedNotes: MutableList<Int>, note: Note): Color {
-    return if (selectedNotes.contains(note.id)) MaterialTheme.colorScheme.primary
-    else MaterialTheme.colorScheme.surfaceContainerHigh
 }
 
 private fun handleShortClick(
