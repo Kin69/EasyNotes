@@ -48,6 +48,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
@@ -226,17 +227,41 @@ fun MinimalisticMode(
     viewModel: EditViewModel,
     modifier: Modifier = Modifier,
     isEnabled: Boolean, pagerState: PagerState,
-    onClickBack: () -> Unit, content: @Composable () -> Unit
+    isExtremeAmoled: Boolean,
+    showOnlyDescription: Boolean = false,
+    onClickBack: () -> Unit, content: @Composable () -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
     Row(
         verticalAlignment = alignment,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .then(
+                if (showOnlyDescription) Modifier.padding(top = 8.dp) else Modifier
+            )
     ) {
-        if (isEnabled) NavigationIcon(onClickBack)
-        content()
-        if (isEnabled) TopBarActions(pagerState,  onClickBack, viewModel)
+        if (!showOnlyDescription) {
+            if (isEnabled) NavigationIcon(onClickBack)
+            content()
+            if (isEnabled) ModeButton(pagerState, coroutineScope, isMinimalistic = isEnabled, isExtremeAmoled = isExtremeAmoled)
+            if (isEnabled) TopBarActions(pagerState,  onClickBack, viewModel)
+        } else {
+            Column {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (isEnabled) NavigationIcon(onClickBack)
+                    Spacer(modifier = Modifier.weight(1f))
+                    if (isEnabled) ModeButton(pagerState, coroutineScope, isMinimalistic = isEnabled, isExtremeAmoled = isExtremeAmoled)
+                    if (isEnabled) TopBarActions(pagerState,  onClickBack, viewModel)
+                }
+                content()
+            }
+        }
     }
 }
+
+
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -256,6 +281,7 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
                     modifier = Modifier.padding(top = 2.dp),
                     isEnabled = settingsViewModel.settings.value.minimalisticMode,
                     pagerState = pagerState,
+                    isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
                     onClickBack = { onClickBack() }
                 ) {
                     CustomTextField(
@@ -309,6 +335,7 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                         viewModel = viewModel,
                         isEnabled = settingsViewModel.settings.value.minimalisticMode,
                         pagerState = pagerState,
+                        isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
                         onClickBack = { onClickBack() }
                     ) {
                         MarkdownText(
@@ -333,14 +360,16 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                 MinimalisticMode(
                     alignment = Alignment.Top,
                     viewModel = viewModel,
+                    isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
                     isEnabled = settingsViewModel.settings.value.minimalisticMode && !showOnlyDescription,
                     pagerState = pagerState,
-                    onClickBack = { onClickBack() }
+                    showOnlyDescription = !showOnlyDescription,
+                    onClickBack = { onClickBack() },
                 ) {
                     MarkdownText(
                         markdown = viewModel.noteDescription.value.text,
                         modifier = Modifier
-                            .padding(16.dp)
+                            .padding(16.dp, top = if (showOnlyDescription) 16.dp else 6.dp)
                             .weight(1f),
                         onContentChange = { viewModel.updateNoteDescription(TextFieldValue(text = it)) })
                     }
@@ -355,7 +384,7 @@ fun MarkdownBox(
     modifier: Modifier = Modifier,
     shape: RoundedCornerShape = RoundedCornerShape(0.dp),
     content: @Composable () -> Unit,
-    isCopyable: Boolean = false
+    isCopyable: Boolean = false,
 ) {
     ElevatedCard(
         shape = shape,
@@ -364,7 +393,11 @@ fun MarkdownBox(
             .heightIn(max = 128.dp, min = 42.dp)
             .then(
                 if (isExtremeAmoled) {
-                    Modifier.border(2.dp, shape = shape, color = MaterialTheme.colorScheme.primary)
+                    Modifier.border(
+                        1.5.dp,
+                        shape = shape,
+                        color = MaterialTheme.colorScheme.surfaceContainerHighest
+                    )
                 } else Modifier
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = if (!isExtremeAmoled) 6.dp else 0.dp),
@@ -377,33 +410,60 @@ fun MarkdownBox(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ModeButton(pagerState: PagerState,coroutineScope: CoroutineScope) {
+fun ModeButton(
+    pagerState: PagerState,
+    coroutineScope: CoroutineScope,
+    isMinimalistic: Boolean = false,
+    isExtremeAmoled: Boolean = false,
+) {
     Row {
-        CustomIconButton(
-            shape = RoundedCornerShape(topStart = 32.dp, bottomStart = 32.dp),
-            onClick = {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(0)
-                }
-            },
-            icon = Icons.Rounded.Edit,
-            elevation = when (pagerState.currentPage) {
-                        0 -> 16.dp
-                        else -> 6.dp
-                    }
-        )
-        CustomIconButton(
-            shape = RoundedCornerShape(bottomEnd = 32.dp, topEnd = 32.dp),
-            onClick = {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(1)
-                }
-            },
-            icon = Icons.Rounded.RemoveRedEye,
-            elevation = when (pagerState.currentPage) {
-                        1 -> 16.dp
-                        else -> 6.dp
-                    }
-        )
+        if (!isMinimalistic) {
+            RenderButton(
+                pagerState,
+                coroutineScope,
+                0,
+                Icons.Rounded.Edit,
+                false,
+                isExtremeAmoled
+            )
+            RenderButton(
+                    pagerState,
+            coroutineScope,
+            1,
+            Icons.Rounded.RemoveRedEye,
+            false,
+            isExtremeAmoled
+            )
+        } else {
+            val currentPage = pagerState.currentPage
+            val icon = if (currentPage == 1) Icons.Rounded.Edit else Icons.Rounded.RemoveRedEye
+            RenderButton(pagerState, coroutineScope, if (currentPage == 1) 0 else 1, icon, true, isExtremeAmoled)
+        }
     }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun RenderButton(
+    pagerState: PagerState,
+    coroutineScope: CoroutineScope,
+    pageIndex: Int,
+    icon: ImageVector,
+    isMinimalistic: Boolean,
+    isExtremeAmoled: Boolean
+) {
+    CustomIconButton(
+        shape = if (isMinimalistic) RoundedCornerShape(100) else if (pageIndex == 0) RoundedCornerShape(topStart = 32.dp, bottomStart = 32.dp) else RoundedCornerShape(bottomEnd = 32.dp, topEnd = 32.dp),
+        onClick = {
+            coroutineScope.launch {
+                pagerState.animateScrollToPage(pageIndex)
+            }
+        },
+        icon = icon,
+        elevation = when {
+            isExtremeAmoled || isMinimalistic -> 0.dp
+            pagerState.currentPage != pageIndex -> 6.dp
+            else -> 12.dp
+        }
+    )
 }

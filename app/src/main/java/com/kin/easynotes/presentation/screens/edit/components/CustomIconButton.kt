@@ -32,7 +32,6 @@ fun CustomIconButton(
             imageVector = icon,
             contentDescription = "",
             modifier = Modifier.padding(16.dp),
-            tint = MaterialTheme.colorScheme.primary
         )
     }
 }

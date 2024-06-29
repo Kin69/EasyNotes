@@ -35,15 +35,15 @@ fun NoteCard(
 ) {
     val borderModifier = if (isBorderEnabled) {
         Modifier.border(
-            width = 2.dp,
+            width = 1.5.dp,
             color = MaterialTheme.colorScheme.primary,
             shape = shape
         )
     } else {
         if (containerColor != Color.Black) Modifier else
             Modifier.border(
-                width = 2.dp,
-                color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                width = 1.5.dp,
+                color = MaterialTheme.colorScheme.surfaceContainerHighest,
                 shape = shape
             )
     }
