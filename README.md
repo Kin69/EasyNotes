@@ -52,9 +52,8 @@ Lightweight android notes app with Material You.
 -  Discord : [Easy Notes](https://discord.gg/ZrP4G8z23H)
 
 ---
-## 🌍 Translation
+## 🌍 Translation - [Weblate](https://hosted.weblate.org/projects/easy-notes/) (Your contributions to translations are greatly appreciated)
 ![Translation](https://camo.githubusercontent.com/526e98c20618291eb936c56259e350b74a948a77108c4b7361e3d347e0845092/68747470733a2f2f686f737465642e7765626c6174652e6f72672f7769646765742f656173792d6e6f7465732f656173792d6e6f7465732d6170706c69636174696f6e2f686f72697a6f6e74616c2d6175746f2e737667)
-
 ---
 ## ⚠️ License
     Easy Notes
