@@ -26,4 +26,27 @@
     <string name="donate_me">Mag-abuloy sa Akin :)</string>
     <string name="restore">I-restore</string>
     <string name="notes">Mga Tala</string>
+    <string name="grid_view">Grid na view</string>
+    <string name="column_view">Column na view</string>
+    <string name="description_language">Font • Wika</string>
+    <string name="description_cloud">NextCloud • Lokal • Pag-encrypt</string>
+    <string name="description_about">Bersyon • Mga Developer • Lisensya</string>
+    <string name="description_widgets">Mga Widget • Markdown</string>
+    <string name="description_history">History • I-revert</string>
+    <string name="description_tools">Ginawa • Burahin Lahat</string>
+    <string name="description_markdown">Suporta • Mga Larawan</string>
+    <string name="support_description">Ipakita ang iyong pagmamahal</string>
+    <string name="select_all">Piliin lahat</string>
+    <string name="information">Impormasyon</string>
+    <string name="delete">Burahin</string>
+    <string name="system_theme">Tema ng Sistema</string>
+    <string name="tools">Mga Tool</string>
+    <string name="support">Suportahan</string>
+    <string name="color_styles">Mga Kulay at Istilio</string>
+    <string name="language">Wika</string>
+    <string name="widgets">Mga Widget</string>
+    <string name="markdown">Markdown</string>
+    <string name="history">Kasaysayan</string>
+    <string name="description_color_styles">Mga Tema • Laki • Font</string>
+    <string name="cloud">Cloud</string>
 </resources>
