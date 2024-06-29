@@ -259,7 +259,7 @@ fun SmallSettingCategory(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primary)
-                .padding(30.dp, 10.dp, 18.dp, 14.dp)
+                .padding(30.dp, 10.dp, 18.dp, 10.dp)
                 .fillMaxWidth()
         ) {
             Row(
