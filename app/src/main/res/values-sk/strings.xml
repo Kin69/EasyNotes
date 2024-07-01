@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Jednoduché poznámky</string>
+    <string name="app_name">Easy Notes</string>
     <string name="home_screen">Poznámky</string>
     <string name="new_note">Nová poznámka</string>
     <string name="no_created_notes">Žiadne vytvorené poznámky.</string>
