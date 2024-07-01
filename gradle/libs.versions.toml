@@ -2,7 +2,7 @@
 agp = "8.4.2"
 datastorePreferences = "1.1.1"
 kotlin = "2.0.0"
-ksp = "2.0.0-1.0.21"
+ksp = "2.0.0-1.0.22"
 room = "2.6.1"
 activityCompose = "1.9.0"
 coreKtx = "1.13.1"
