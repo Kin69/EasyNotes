@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Note semplici</string>
+    <string name="app_name">Easy Notes</string>
     <string name="home_screen">Note</string>
     <string name="new_note">Nuova nota</string>
     <string name="no_created_notes">Nessuna nota creata.</string>
