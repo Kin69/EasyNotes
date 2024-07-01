@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Einfache Notizen</string>
+    <string name="app_name">Easy Notes</string>
     <string name="new_note">Neue Notiz</string>
     <string name="no_created_notes">Keine erstellten Notizen.</string>
     <string name="created_time">Erstellungszeit</string>
@@ -45,10 +45,10 @@
     <string name="minimalistic_mode">Minimalistischer Modus</string>
     <string name="extreme_amoled_mode">Extreme Amoled-Farben</string>
     <string name="home_screen">Notizen</string>
-    <string name="grid_view">Gitter-Ausblick</string>
+    <string name="grid_view">Rasteransicht</string>
     <string name="no_found_notes">Keine Notizen gefunden.</string>
     <string name="screen_settings">Einstellungen</string>
-    <string name="column_view">Spalte-Ausblick</string>
+    <string name="column_view">Spaltenansicht</string>
     <string name="characters">Zeichen</string>
     <string name="name">Name</string>
     <string name="words">Wörter</string>
