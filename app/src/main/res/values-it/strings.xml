@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Note semplici</string>
+    <string name="app_name">Easy Notes</string>
     <string name="home_screen">Note</string>
     <string name="new_note">Nuova nota</string>
     <string name="no_created_notes">Nessuna nota creata.</string>
@@ -16,7 +16,7 @@
     <string name="dark_theme">Tema scuro</string>
     <string name="dynamic_colors">Colori dinamici</string>
     <string name="amoled_colors">Colori amoled</string>
-    <string name="database">Database</string>
+    <string name="database">Banca dati</string>
     <string name="backup">Backup</string>
     <string name="not_supported">Ancora non supportato</string>
     <string name="about">Informazioni</string>
@@ -26,4 +26,32 @@
     <string name="donate_me">Donami :)</string>
     <string name="restore">Ripristina</string>
     <string name="notes">Note</string>
+    <string name="system_theme">Tema del sistema</string>
+    <string name="cloud">Cloud</string>
+    <string name="support_description">Mostra il tuo amore</string>
+    <string name="grid_view">Visualizzazione griglia</string>
+    <string name="column_view">Vista colonna</string>
+    <string name="information">Informazione</string>
+    <string name="markdown">Markdown</string>
+    <string name="language">Lingua</string>
+    <string name="support">Supporto</string>
+    <string name="color_styles">Colori e stili</string>
+    <string name="tools">Strumenti</string>
+    <string name="history">Cronologia</string>
+    <string name="widgets">Widget</string>
+    <string name="description_color_styles">Temi • Dimensioni • Caratteri</string>
+    <string name="description_tools">Creato • Elimina tutto</string>
+    <string name="description_history">Cronologia • Revertisci</string>
+    <string name="description_about">Versione • Sviluppatori • Licenza</string>
+    <string name="description_widgets">Widget • Markdown</string>
+    <string name="description_markdown">Supporto • Immagini</string>
+    <string name="description_language">Caratteri • Lingua</string>
+    <string name="description_cloud">NextCloud • locale • Crittografia</string>
+    <string name="select_font">Caratteri</string>
+    <string name="radius">Raggio</string>
+    <string name="select_radius">Seleziona il raggio</string>
+    <string name="minimalistic_mode">Modalità minimalismo</string>
+    <string name="extreme_amoled_mode">Colori Amoled estremi</string>
+    <string name="select_all">Seleziona tutto</string>
+    <string name="delete">Elimina</string>
 </resources>

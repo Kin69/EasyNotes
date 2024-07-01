@@ -49,4 +49,9 @@
     <string name="description_language">Шрифт • Язык</string>
     <string name="description_cloud">NextCloud • Локальный • Шифрование</string>
     <string name="description_markdown">Поддержка • Изображения</string>
+    <string name="select_font">Шрифт</string>
+    <string name="radius">Радиус</string>
+    <string name="select_radius">Выберите радиус</string>
+    <string name="minimalistic_mode">Минималистичный режим</string>
+    <string name="extreme_amoled_mode">Супер натуральный чёрный</string>
 </resources>

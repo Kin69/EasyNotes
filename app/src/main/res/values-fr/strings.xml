@@ -9,7 +9,7 @@
     <string name="delete">Supprimer</string>
     <string name="search">Recherche</string>
     <string name="screen_settings">Paramètres</string>
-    <string name="display">Afficher</string>
+    <string name="display">Affichage</string>
     <string name="system_theme">Thème du système</string>
     <string name="dark_theme">Thème sombre</string>
     <string name="dynamic_colors">Couleurs dynamiques</string>
@@ -18,7 +18,7 @@
     <string name="backup">Sauvegarde</string>
     <string name="not_supported">Pas encore pris en charge</string>
     <string name="latest_release">Dernière version</string>
-    <string name="start_project">Projet star</string>
+    <string name="start_project">Évaluez le projet</string>
     <string name="color_styles">Couleurs et styles</string>
     <string name="support">Assitance</string>
     <string name="markdown">Markdown</string>
@@ -49,4 +49,9 @@
     <string name="description_markdown">Assistance • Images</string>
     <string name="about">À propos</string>
     <string name="version">Version</string>
+    <string name="minimalistic_mode">Mode minimaliste</string>
+    <string name="select_font">Police d\'écriture</string>
+    <string name="radius">Rayon</string>
+    <string name="select_radius">Sélectionnez le rayon</string>
+    <string name="extreme_amoled_mode">Couleurs AMOLED extrêmes</string>
 </resources>

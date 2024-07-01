@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Madaliang Mga Tala</string>
+    <string name="app_name">Easy Notes</string>
     <string name="description">Paglalarawan</string>
     <string name="search">Maghanap</string>
     <string name="screen_settings">Mga Setting</string>
