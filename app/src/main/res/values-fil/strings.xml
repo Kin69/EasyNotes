@@ -49,4 +49,8 @@
     <string name="history">Kasaysayan</string>
     <string name="description_color_styles">Mga Tema • Laki • Font</string>
     <string name="cloud">Cloud</string>
+    <string name="select_font">Font</string>
+    <string name="radius">Radius</string>
+    <string name="select_radius">Pumili ng Radius</string>
+    <string name="extreme_amoled_mode">Pinaka-Amoled na Kulay</string>
 </resources>
