@@ -1,0 +1,5 @@
+• Images removed
+• More Settings
+• Rotation Bug Fix
+• Ui Updates
+• Bugs and typos
