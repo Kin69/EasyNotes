@@ -132,6 +132,7 @@ fun HomeView(
         content = {
             val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
             NoteFilter(
+                settingsViewModel = settingsModel,
                 containerColor = if (settingsModel.settings.value.extremeAmoledMode) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh,
                 shape = shapeManager(radius = settingsModel.settings.value.cornerRadius/2, isBoth = true),
                 onNoteClicked = onNoteClicked,

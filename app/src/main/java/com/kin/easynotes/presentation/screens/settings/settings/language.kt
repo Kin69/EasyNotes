@@ -20,3 +20,4 @@ fun LanguageScreen(navController: NavController, settingsViewModel: SettingsView
         }
     }
 }
+

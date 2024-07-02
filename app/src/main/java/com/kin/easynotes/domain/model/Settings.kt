@@ -8,6 +8,7 @@ data class Settings(
     var amoledTheme: Boolean = false,
     var minimalisticMode: Boolean = false,
     var extremeAmoledMode: Boolean = false,
+    var isMarkdownEnabled: Boolean = true,
 
     var cornerRadius: Int = 32,
 )

@@ -15,9 +15,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.kin.easynotes.R
 import com.kin.easynotes.domain.model.Note
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 @Composable
 fun NoteFilter(
+    settingsViewModel: SettingsViewModel,
     containerColor : Color,
     onNoteClicked: (Int) -> Unit,
     shape: RoundedCornerShape,
@@ -44,6 +46,7 @@ fun NoteFilter(
         )
     } else {
         NotesGrid(
+            settingsViewModel = settingsViewModel,
             containerColor = containerColor,
             onNoteClicked = onNoteClicked,
             notes = filteredNotes,

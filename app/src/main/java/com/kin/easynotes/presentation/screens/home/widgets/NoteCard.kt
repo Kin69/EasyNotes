@@ -21,10 +21,12 @@ import androidx.compose.ui.unit.sp
 import com.kin.easynotes.R
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteCard(
+    settingsViewModel: SettingsViewModel,
     containerColor: Color,
     note: Note,
     isBorderEnabled: Boolean,
@@ -64,6 +66,7 @@ fun NoteCard(
         ) {
             if (note.name.isNotBlank()) {
                 MarkdownText(
+                    isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                     markdown = note.name.replaceFirstChar { it.uppercase() },
                     modifier = Modifier
                         .heightIn(max = dimensionResource(R.dimen.max_name_height))
@@ -77,6 +80,7 @@ fun NoteCard(
             if (note.description.isNotBlank()) {
                 MarkdownText(
                     markdown = note.description,
+                    isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                     spacing = 0.dp,
                     modifier = Modifier
                         .heightIn(max = dimensionResource(R.dimen.max_description_height)),

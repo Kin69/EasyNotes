@@ -23,19 +23,19 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         IconButton(onClick = { viewModel.insertText("- ") }) {
-            Icon(Icons.AutoMirrored.Rounded.FormatListBulleted, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+            Icon(Icons.AutoMirrored.Rounded.FormatListBulleted, contentDescription = null)
         }
         IconButton(onClick = { viewModel.insertText("```\n\n```",-4) }) {
-            Icon(Icons.Rounded.Code, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+            Icon(Icons.Rounded.Code, contentDescription = null)
         }
         IconButton(onClick = { viewModel.insertText("# ") }) {
-            Icon(Icons.Rounded.HMobiledata, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+            Icon(Icons.Rounded.HMobiledata, contentDescription = null)
         }
         IconButton(onClick = { viewModel.insertText("> ") }) {
-            Icon(Icons.Rounded.FormatQuote, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+            Icon(Icons.Rounded.FormatQuote, contentDescription = null)
         }
         IconButton(onClick = { viewModel.insertText("[ ] ") }) {
-            Icon(Icons.Rounded.CheckBox, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+            Icon(Icons.Rounded.CheckBox, contentDescription = null)
         }
     }
 }

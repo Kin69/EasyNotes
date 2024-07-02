@@ -16,9 +16,11 @@ import androidx.compose.ui.unit.dp
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.getNoteEnterAnimation
 import com.kin.easynotes.presentation.components.getNoteExitAnimation
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 @Composable
 fun NotesGrid(
+    settingsViewModel: SettingsViewModel,
     containerColor: Color,
     onNoteClicked: (Int) -> Unit,
     shape : RoundedCornerShape,
@@ -44,6 +46,7 @@ fun NotesGrid(
                     exit = getNoteExitAnimation(calculateSlideDirection(notes, note))
                 ) {
                     NoteCard(
+                        settingsViewModel = settingsViewModel,
                         containerColor = containerColor,
                         note = note,
                         shape = shape,

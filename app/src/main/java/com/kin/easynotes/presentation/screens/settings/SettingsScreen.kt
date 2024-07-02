@@ -97,57 +97,58 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     action = { navController.navigate(NavRoutes.ColorStyles.route) })
             }
-            item {
-                SettingCategory(
-                    title = stringResource(id = R.string.language),
-                    subTitle = stringResource(R.string.description_language),
-                    icon = Icons.Rounded.Language,
-                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-                    isLast = true,
-                    action = { navController.navigate(NavRoutes.Language.route) })
-            }
-            item {
-                SettingCategory(
-                    title = stringResource(id = R.string.cloud),
-                    subTitle = stringResource(R.string.description_cloud),
-                    icon = Icons.Rounded.Cloud,
-                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
-                    action = { navController.navigate(NavRoutes.Cloud.route) })
-            }
+//            item {
+//                SettingCategory(
+//                    title = stringResource(id = R.string.language),
+//                    subTitle = stringResource(R.string.description_language),
+//                    icon = Icons.Rounded.Language,
+//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+//                    isLast = true,
+//                    action = { navController.navigate(NavRoutes.Language.route) })
+//            }
+//            item {
+//                SettingCategory(
+//                    title = stringResource(id = R.string.cloud),
+//                    subTitle = stringResource(R.string.description_cloud),
+//                    icon = Icons.Rounded.Cloud,
+//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
+//                    action = { navController.navigate(NavRoutes.Cloud.route) })
+//            }
             item {
                 SettingCategory(
                     title = stringResource(id = R.string.markdown),
+                    isLast = true,
                     subTitle = stringResource(id = R.string.description_markdown),
                     icon = Icons.Rounded.TextFields,
-                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     action = { navController.navigate(NavRoutes.Markdown.route) })
             }
-            item {
-                SettingCategory(
-                    title = stringResource(id = R.string.tools),
-                    subTitle = stringResource(R.string.description_tools),
-                    icon = Icons.Rounded.Work,
-                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-                    isLast = true,
-                    action = { navController.navigate(NavRoutes.Tools.route) })
-            }
-            item {
-                SettingCategory(
-                    title = stringResource(id = R.string.history),
-                    subTitle = stringResource(R.string.description_history),
-                    icon = Icons.Rounded.History,
-                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
-                    action = { navController.navigate(NavRoutes.History.route) })
-            }
-            item {
-                SettingCategory(
-                    title = stringResource(id = R.string.widgets),
-                    subTitle = stringResource(R.string.description_widgets),
-                    icon = Icons.Rounded.Widgets,
-                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-                    isLast = true,
-                    action = { navController.navigate(NavRoutes.Widgets.route) })
-            }
+//            item {
+//                SettingCategory(
+//                    title = stringResource(id = R.string.tools),
+//                    subTitle = stringResource(R.string.description_tools),
+//                    icon = Icons.Rounded.Work,
+//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+//                    isLast = true,
+//                    action = { navController.navigate(NavRoutes.Tools.route) })
+//            }
+//            item {
+//                SettingCategory(
+//                    title = stringResource(id = R.string.history),
+//                    subTitle = stringResource(R.string.description_history),
+//                    icon = Icons.Rounded.History,
+//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
+//                    action = { navController.navigate(NavRoutes.History.route) })
+//            }
+//            item {
+//                SettingCategory(
+//                    title = stringResource(id = R.string.widgets),
+//                    subTitle = stringResource(R.string.description_widgets),
+//                    icon = Icons.Rounded.Widgets,
+//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+//                    isLast = true,
+//                    action = { navController.navigate(NavRoutes.Widgets.route) })
+//            }
             item {
                 SettingCategory(
                     title = stringResource(id = R.string.about),
@@ -165,18 +166,6 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.cloud),
-        onBackNavClicked = { navController.popBackStack() }
-    ) {
-
-    }
-
-}
-
-@Composable
-fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-    SettingsScaffold(
-        settingsViewModel = settingsViewModel,
-        title = stringResource(id = R.string.markdown),
         onBackNavClicked = { navController.popBackStack() }
     ) {
 
@@ -213,18 +202,6 @@ fun WidgetsScreen(navController: NavController, settingsViewModel: SettingsViewM
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.widgets),
-        onBackNavClicked = { navController.popBackStack() }
-    ) {
-
-    }
-
-}
-
-@Composable
-fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-    SettingsScaffold(
-        settingsViewModel = settingsViewModel,
-        title = stringResource(id = R.string.about),
         onBackNavClicked = { navController.popBackStack() }
     ) {
 
