@@ -1,10 +1,12 @@
 package com.kin.easynotes.domain.usecase
 
+import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.domain.model.Settings
 import com.kin.easynotes.domain.repository.SettingsRepository
+import javax.inject.Inject
 
-class SettingsUseCase(
-    private val settingsRepository: SettingsRepository
+class SettingsUseCase @Inject constructor(
+    private val settingsRepository: SettingsRepositoryImpl
 ) {
     suspend fun loadSettingsFromRepository(): Settings {
         val settingsClass = Settings::class.java

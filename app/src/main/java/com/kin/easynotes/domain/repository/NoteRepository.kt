@@ -1,6 +1,7 @@
 package com.kin.easynotes.domain.repository
 
 import com.kin.easynotes.domain.model.Note
+import dagger.Provides
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {

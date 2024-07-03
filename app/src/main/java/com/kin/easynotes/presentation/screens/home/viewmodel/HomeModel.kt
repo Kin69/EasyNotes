@@ -4,14 +4,14 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.kin.easynotes.Notes
 import com.kin.easynotes.domain.usecase.NoteUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-open class HomeViewModel() : ViewModel() {
-    private val noteRepository = Notes.dataModule.noteRepository
-    val noteUseCase = NoteUseCase(noteRepository, viewModelScope)
-
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    val noteUseCase: NoteUseCase
+) : ViewModel() {
     var selectedNotes = mutableStateListOf<Int>()
 
     private var _isSelectMenuOpened = mutableStateOf(false)

@@ -55,6 +55,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -68,6 +69,7 @@ import com.kin.easynotes.presentation.screens.edit.components.CustomIconButton
 import com.kin.easynotes.presentation.screens.edit.components.CustomTextField
 import com.kin.easynotes.presentation.screens.edit.components.TextFormattingToolbar
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
+import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
@@ -83,7 +85,7 @@ fun EditNoteView(
     settingsViewModel: SettingsViewModel,
     onClickBack: () -> Unit
 ) {
-    val viewModel: EditViewModel = viewModel()
+    val viewModel: EditViewModel = hiltViewModel<EditViewModel>()
     viewModel.setupNoteData(id)
     ObserveLifecycleEvents(viewModel)
 

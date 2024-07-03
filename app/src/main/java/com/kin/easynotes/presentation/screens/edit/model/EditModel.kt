@@ -8,16 +8,18 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kin.easynotes.Notes
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditViewModel : ViewModel() {
-    private val noteRepository = Notes.dataModule.noteRepository
-    val noteUseCase = NoteUseCase(noteRepository, viewModelScope)
 
+@HiltViewModel
+class EditViewModel @Inject constructor(
+    private val noteUseCase: NoteUseCase
+) : ViewModel() {
     private val _noteName = mutableStateOf(TextFieldValue())
     val noteName: State<TextFieldValue> get() = _noteName
 
@@ -46,7 +48,7 @@ class EditViewModel : ViewModel() {
         noteUseCase.deleteNoteById(id = id)
     }
 
-    fun syncNote(note: Note) {
+    private fun syncNote(note: Note) {
         updateNoteName(TextFieldValue(note.name, selection = TextRange(note.name.length)))
         updateNoteDescription(TextFieldValue(note.description, selection = TextRange(note.name.length)))
         updateNoteCreatedTime(note.createdAt)

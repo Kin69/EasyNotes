@@ -5,22 +5,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.BuildConfig
-import com.kin.easynotes.Notes
 import com.kin.easynotes.domain.model.Settings
-import com.kin.easynotes.domain.repository.NoteRepository
 import com.kin.easynotes.domain.usecase.NoteUseCase
 import com.kin.easynotes.domain.usecase.SettingsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-class SettingsViewModel : ViewModel() {
-    private val noteRepository: NoteRepository = Notes.dataModule.noteRepository
-    private val settingsRepository = Notes.dataModule.settingsRepository
-
-    private val settingsUseCase = SettingsUseCase(settingsRepository)
-    val noteUseCase = NoteUseCase(noteRepository, viewModelScope)
-
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    val noteUseCase: NoteUseCase,
+    val settingsUseCase: SettingsUseCase
+) : ViewModel() {
     private val _settings = mutableStateOf(Settings())
     var settings: State<Settings> = _settings
 

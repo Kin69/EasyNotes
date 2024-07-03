@@ -1,6 +1,10 @@
 [versions]
 agp = "8.4.2"
 datastorePreferences = "1.1.1"
+hilt = "2.51"
+hiltCompiler = "1.2.0"
+hiltAndroidCompiler = "2.51.1"
+hiltLifecycleViewmodel = "1.0.0-alpha03"
 kotlin = "2.0.0"
 ksp = "2.0.0-1.0.22"
 room = "2.6.1"
@@ -31,7 +35,15 @@ androidx-compose-material-icons-extended = { group = "androidx.compose.material"
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
+# Hilt
+androidx-hilt-lifecycle-viewmodel = { module = "androidx.hilt:hilt-lifecycle-viewmodel", version.ref = "hiltLifecycleViewmodel" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidCompiler" }
+hilt-compile = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompiler"}
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+
 [plugins]
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

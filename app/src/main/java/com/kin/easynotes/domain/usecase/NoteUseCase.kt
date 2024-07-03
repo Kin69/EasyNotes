@@ -1,6 +1,7 @@
 package com.kin.easynotes.domain.usecase
 
 
+import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.repository.NoteRepository
 import kotlinx.coroutines.CoroutineScope
@@ -9,9 +10,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class NoteUseCase (
-    private val noteRepository: NoteRepository,
+class NoteUseCase @Inject constructor(
+    private val noteRepository: NoteRepositoryImpl,
     private val coroutineScope: CoroutineScope
 ) {
 
