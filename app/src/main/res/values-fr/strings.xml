@@ -20,7 +20,7 @@
     <string name="latest_release">Dernière version</string>
     <string name="start_project">Évaluez le projet</string>
     <string name="color_styles">Couleurs et styles</string>
-    <string name="support">Assitance</string>
+    <string name="support">Soutenir</string>
     <string name="markdown">Markdown</string>
     <string name="tools">Outils</string>
     <string name="history">Historique</string>
@@ -39,7 +39,7 @@
     <string name="words">Mots</string>
     <string name="name">Nom</string>
     <string name="description_color_styles">Thèmes • Taille • Police</string>
-    <string name="information">Information</string>
+    <string name="information">Informations</string>
     <string name="donate_me">Faites-moi un don :)</string>
     <string name="restore">Restaurer</string>
     <string name="notes">Notes</string>

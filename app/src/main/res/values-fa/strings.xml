@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Easy Notes</string>
+    <string name="home_screen">نوشتارها</string>
+    <string name="new_note">نوشته نو</string>
+    <string name="no_created_notes">بدون نوشتار.</string>
+    <string name="no_found_notes">نویسه‌ای یافت نشد.</string>
+    <string name="created_time">زمان ساخته شدن</string>
+</resources>
