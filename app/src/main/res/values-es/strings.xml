@@ -2,7 +2,7 @@
 <resources>
     <string name="no_found_notes">No se encontraron notas.</string>
     <string name="no_created_notes">No hay notas creadas.</string>
-    <string name="app_name">Notas Rápidas</string>
+    <string name="app_name">Easy Notes</string>
     <string name="column_view">Vista de columna</string>
     <string name="description">Descripción</string>
     <string name="select_all">Seleccionar todo</string>
