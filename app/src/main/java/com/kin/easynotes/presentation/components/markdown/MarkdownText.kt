@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -158,33 +159,38 @@ fun MarkdownContent(
     lines: List<String>,
     onContentChange: (String) -> Unit
 ) {
-    if (isPreview) {
-        Column(
-            modifier = modifier
-        ) {
+    SelectionContainer {
+        if (isPreview) {
+            Column(
+                modifier = modifier
+            ) {
 
-            content.take(4).forEach {
-                RenderMarkdownElement(
-                    element = it,
-                    weight = weight,
-                    fontSize = fontSize,
-                    lines = lines,
-                    onContentChange = onContentChange
-                )
+                content.take(4).forEach {
+                    RenderMarkdownElement(
+                        element = it,
+                        weight = weight,
+                        fontSize = fontSize,
+                        lines = lines,
+                        onContentChange = onContentChange
+                    )
+                }
             }
         }
-    }
-    else {
-        LazyColumn(modifier = modifier) {
-            items(content.size) { index ->
-                Spacer(modifier = Modifier.height(spacing))
-                RenderMarkdownElement(
-                    element = content[index],
-                    weight = weight,
-                    fontSize = fontSize,
-                    lines = lines,
-                    onContentChange = onContentChange
-                )
+        else {
+            SelectionContainer {
+
+            }
+            LazyColumn(modifier = modifier) {
+                items(content.size) { index ->
+                    Spacer(modifier = Modifier.height(spacing))
+                    RenderMarkdownElement(
+                        element = content[index],
+                        weight = weight,
+                        fontSize = fontSize,
+                        lines = lines,
+                        onContentChange = onContentChange
+                    )
+                }
             }
         }
     }
@@ -201,7 +207,8 @@ fun RenderMarkdownElement(
     when (element) {
         is Heading -> {
             Text(
-                text = element.text,
+                maxLines = 1,
+                text = element.text + "\n",
                 fontSize = when (element.level) {
                     in 1..6 -> (28 - (2 * element.level)).sp
                     else -> fontSize
@@ -214,7 +221,8 @@ fun RenderMarkdownElement(
             MarkdownCheck(
                 content = {
                     Text(
-                        text = element.text,
+                        maxLines = 1,
+                        text = element.text + "\n",
                         fontSize = fontSize,
                         fontWeight = weight,
                     )
@@ -233,7 +241,8 @@ fun RenderMarkdownElement(
         }
         is ListItem -> {
             Text(
-                text = "• ${element.text}",
+                maxLines = 1,
+                text = "• ${element.text}" + "\n",
                 fontSize = fontSize,
                 fontWeight = weight,
             )
@@ -245,7 +254,8 @@ fun RenderMarkdownElement(
             if (element.isEnded) {
                 MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
                     Text(
-                        text = element.code.dropLast(1),
+                        maxLines = 1,
+                        text = element.code.dropLast(1) + "\n",
                         fontSize = fontSize,
                         fontWeight = weight,
                         fontFamily = FontFamily.Monospace,
@@ -254,7 +264,8 @@ fun RenderMarkdownElement(
                 }
             } else {
                 Text(
-                    text = element.firstLine,
+                    maxLines = 1,
+                    text = element.firstLine + "\n",
                     fontWeight = weight,
                     fontSize = fontSize,
                 )
@@ -262,10 +273,15 @@ fun RenderMarkdownElement(
         }
         is NormalText -> {
             Text(
-                text = element.text,
+                maxLines = 1,
+                text = element.text.ifBlank {"\u00A0"} + "\n",
                 fontWeight = weight,
                 fontSize = fontSize,
             )
         }
     }
+}
+
+fun replaceNonBreakingSpaces(text: String): String {
+    return text.replace("\u00A0", "\n")
 }

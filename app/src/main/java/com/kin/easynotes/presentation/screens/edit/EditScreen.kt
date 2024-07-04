@@ -411,7 +411,7 @@ fun MarkdownBox(
         elevation = CardDefaults.cardElevation(defaultElevation = if (!isExtremeAmoled) 6.dp else 0.dp),
 
         ) {
-        if (isCopyable) SelectionContainer { content() } else content()
+        content()
     }
     Spacer(modifier = Modifier.height(3.dp))
 }
