@@ -3,6 +3,7 @@ package com.kin.easynotes.presentation.screens.edit.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.FormatListBulleted
 import androidx.compose.material.icons.rounded.CheckBox
@@ -19,7 +20,7 @@ import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 @Composable
 fun TextFormattingToolbar(viewModel: EditViewModel) {
     Row(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         IconButton(onClick = { viewModel.insertText("- ") }) {

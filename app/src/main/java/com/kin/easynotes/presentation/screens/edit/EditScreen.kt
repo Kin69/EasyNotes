@@ -2,11 +2,13 @@ package com.kin.easynotes.presentation.screens.edit
 
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +17,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.foundation.layout.windowInsetsEndWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -48,6 +53,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -146,8 +152,8 @@ fun PagerContent(pagerState: PagerState, viewModel: EditViewModel,settingsViewMo
     HorizontalPager(
         state = pagerState,
         modifier = Modifier
-            .navigationBarsPadding()
             .imePadding()
+            .navigationBarsPadding()
     ) { page ->
         when (page) {
             0 -> EditScreen(viewModel, settingsViewModel, pagerState, onClickBack)
@@ -268,11 +274,12 @@ fun MinimalisticMode(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pagerState: PagerState,onClickBack: () -> Unit) {
-    var isInFocus by remember{ mutableStateOf(false)}
+
+    var isInFocus by remember{ mutableStateOf(true)}
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+            .padding(16.dp, 16.dp, 16.dp, if (isInFocus) 3.dp else 16.dp)
     ) {
         MarkdownBox(
             isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
@@ -299,19 +306,18 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
             isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
             shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
             modifier = Modifier
-                .onFocusChanged { isInFocus = it.isFocused }
-                .fillMaxHeight(if (isInFocus) 0.91f else 1f)
-                .padding(bottom = if (isInFocus) 0.dp else 16.dp),
+                .weight(1f)
+                .onFocusChanged { isInFocus = it.isFocused },
             content = {
                 CustomTextField(
                     value = viewModel.noteDescription.value,
                     onValueChange = { viewModel.updateNoteDescription(it) },
-                    modifier = Modifier.fillMaxHeight(),
+                    modifier = Modifier.fillMaxSize(),
                     placeholder = stringResource(R.string.description),
                 )
             }
         )
-        TextFormattingToolbar(viewModel)
+        if (isInFocus) TextFormattingToolbar(viewModel)
     }
 }
 

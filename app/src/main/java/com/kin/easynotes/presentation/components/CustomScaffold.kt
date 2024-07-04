@@ -6,6 +6,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.core.view.WindowCompat
 
 @Composable
 fun NotesScaffold(
@@ -18,10 +21,11 @@ fun NotesScaffold(
         topBar = { topBar() },
         floatingActionButton = { floatingActionButton() },
         content = {
-            Box(modifier = Modifier.padding(
-                top = it.calculateTopPadding(),
-                bottom = it.calculateBottomPadding()
-                )) {
+            Box(modifier = Modifier
+                .padding(
+                    top = it.calculateTopPadding(),
+                )
+            ) {
                 content()
             }
         }
