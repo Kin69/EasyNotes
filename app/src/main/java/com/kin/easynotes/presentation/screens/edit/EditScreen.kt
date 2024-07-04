@@ -191,7 +191,7 @@ fun ObserveLifecycleEvents(viewModel: EditViewModel) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomModal(viewModel: EditViewModel) {
+fun BottomModal(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) {
     ModalBottomSheet(
         containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
         onDismissRequest = { viewModel.toggleNoteInfoVisibility(false) }
@@ -199,21 +199,19 @@ fun BottomModal(viewModel: EditViewModel) {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 
         Column(
-            modifier = Modifier
-                .padding(16.dp, 0.dp, 16.dp, 16.dp)
-                .clip(RoundedCornerShape(32.dp))
+            modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 20.dp)
         ) {
             SettingsBox(
                 title = stringResource(R.string.created_time),
                 icon = Icons.Rounded.Numbers,
                 actionType = ActionType.TEXT,
-                radius = RoundedCornerShape(32.dp),
+                radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
                 customText = sdf.format(viewModel.noteCreatedTime.value).toString()
             )
             SettingsBox(
                 title = stringResource(R.string.words),
                 icon = Icons.Rounded.Numbers,
-                radius = RoundedCornerShape(32.dp),
+                radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                 actionType = ActionType.TEXT,
                 customText = if (viewModel.noteDescription.value.text != "") viewModel.noteDescription.value.text.split("\\s+".toRegex()).size.toString() else "0"
             )
@@ -221,7 +219,7 @@ fun BottomModal(viewModel: EditViewModel) {
                 title = stringResource(R.string.characters),
                 icon = Icons.Rounded.Numbers,
                 actionType = ActionType.TEXT,
-                radius = RoundedCornerShape(32.dp),
+                radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                 customText = viewModel.noteDescription.value.text.length.toString()
             )
         }
@@ -324,7 +322,7 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel, pagerState: PagerState, onClickBack: () -> Unit) {
-    if (viewModel.isNoteInfoVisible.value) BottomModal(viewModel)
+    if (viewModel.isNoteInfoVisible.value) BottomModal(viewModel, settingsViewModel)
 
     val focusManager = LocalFocusManager.current
     focusManager.clearFocus()
