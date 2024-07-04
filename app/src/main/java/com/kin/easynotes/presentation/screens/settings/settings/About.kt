@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.kin.easynotes.R
+import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
@@ -23,7 +24,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.about),
-        onBackNavClicked = { navController.popBackStack() }
+        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
     ) {
         LazyColumn {
             item {

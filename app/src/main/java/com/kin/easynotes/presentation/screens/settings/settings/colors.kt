@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.kin.easynotes.R
+import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
@@ -68,7 +69,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.color_styles),
-        onBackNavClicked = { navController.popBackStack() }
+        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
     ) {
         LazyColumn {
             item {

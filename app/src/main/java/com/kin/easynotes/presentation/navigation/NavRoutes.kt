@@ -2,13 +2,13 @@ package com.kin.easynotes.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.kin.easynotes.presentation.screens.settings.CloudScreen
 import com.kin.easynotes.presentation.screens.settings.HistoryScreen
 import com.kin.easynotes.presentation.screens.settings.MainSettings
 import com.kin.easynotes.presentation.screens.settings.ToolsScreen
 import com.kin.easynotes.presentation.screens.settings.WidgetsScreen
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.AboutScreen
+import com.kin.easynotes.presentation.screens.settings.settings.CloudScreen
 import com.kin.easynotes.presentation.screens.settings.settings.ColorStylesScreen
 import com.kin.easynotes.presentation.screens.settings.settings.LanguageScreen
 import com.kin.easynotes.presentation.screens.settings.settings.MarkdownScreen

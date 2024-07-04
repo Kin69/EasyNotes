@@ -94,7 +94,8 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.color_styles),
                     subTitle = stringResource(R.string.description_color_styles),
                     icon = Icons.Rounded.Palette,
-                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
+                    isLast = true,
                     action = { navController.navigate(NavRoutes.ColorStyles.route) })
             }
 //            item {
@@ -106,14 +107,14 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
 //                    isLast = true,
 //                    action = { navController.navigate(NavRoutes.Language.route) })
 //            }
-//            item {
-//                SettingCategory(
-//                    title = stringResource(id = R.string.cloud),
-//                    subTitle = stringResource(R.string.description_cloud),
-//                    icon = Icons.Rounded.Cloud,
-//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
-//                    action = { navController.navigate(NavRoutes.Cloud.route) })
-//            }
+            item {
+                SettingCategory(
+                    title = stringResource(id = R.string.backup),
+                    subTitle = stringResource(R.string.description_cloud),
+                    icon = Icons.Rounded.Cloud,
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
+                    action = { navController.navigate(NavRoutes.Cloud.route) })
+            }
             item {
                 SettingCategory(
                     title = stringResource(id = R.string.markdown),
@@ -161,24 +162,13 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
     }
 }
 
-@Composable
-fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-    SettingsScaffold(
-        settingsViewModel = settingsViewModel,
-        title = stringResource(id = R.string.cloud),
-        onBackNavClicked = { navController.popBackStack() }
-    ) {
-
-    }
-
-}
 
 @Composable
 fun ToolsScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.tools),
-        onBackNavClicked = { navController.popBackStack() }
+        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
     ) {
 
     }
@@ -190,7 +180,7 @@ fun HistoryScreen(navController: NavController, settingsViewModel: SettingsViewM
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.history),
-        onBackNavClicked = { navController.popBackStack() }
+        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
     ) {
 
     }
@@ -202,7 +192,7 @@ fun WidgetsScreen(navController: NavController, settingsViewModel: SettingsViewM
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.widgets),
-        onBackNavClicked = { navController.popBackStack() }
+        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
     ) {
 
     }

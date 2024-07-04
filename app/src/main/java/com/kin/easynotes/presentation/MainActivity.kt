@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kin.easynotes.R
 import com.kin.easynotes.presentation.navigation.AppNavHost
 import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel

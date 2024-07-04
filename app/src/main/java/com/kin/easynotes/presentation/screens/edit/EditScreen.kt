@@ -373,7 +373,7 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                         markdown = viewModel.noteDescription.value.text,
                         isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                         modifier = Modifier
-                            .padding(16.dp, top = if (showOnlyDescription) 16.dp else 6.dp)
+                            .padding(16.dp, top = if (showOnlyDescription) 16.dp else 6.dp, 16.dp, 16.dp)
                             .weight(1f),
                         onContentChange = { viewModel.updateNoteDescription(TextFieldValue(text = it)) })
                     }

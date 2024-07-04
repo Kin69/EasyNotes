@@ -6,6 +6,7 @@ import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.repository.NoteRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -20,25 +21,25 @@ class NoteUseCase @Inject constructor(
     lateinit var getAllNotes: Flow<List<Note>>
 
     init {
-        coroutineScope.launch(Dispatchers.IO) {
+        coroutineScope.launch(NonCancellable + Dispatchers.IO) {
             getAllNotes = noteRepository.getAllNotes()
         }
     }
 
     fun addNote(note: Note) {
         if (note.id == 0) {
-            coroutineScope.launch(Dispatchers.IO) {
+            coroutineScope.launch(NonCancellable + Dispatchers.IO) {
                 noteRepository.addNote(note)
             }
         } else {
-            coroutineScope.launch(Dispatchers.IO) {
+            coroutineScope.launch(NonCancellable + Dispatchers.IO) {
                 noteRepository.updateNote(note)
             }
         }
     }
 
     fun deleteNoteById(id: Int) {
-        coroutineScope.launch(Dispatchers.IO) {
+        coroutineScope.launch(NonCancellable + Dispatchers.IO) {
             val noteToDelete = noteRepository.getNoteById(id).first()
             noteRepository.deleteNote(noteToDelete)
         }
@@ -49,7 +50,7 @@ class NoteUseCase @Inject constructor(
     }
 
     fun getLastNoteId(onResult: (Long?) -> Unit) {
-        coroutineScope.launch(Dispatchers.IO) {
+        coroutineScope.launch(NonCancellable + Dispatchers.IO) {
             val lastNoteId = noteRepository.getLastNoteId()
             withContext(Dispatchers.Main) {
                 onResult(lastNoteId)
