@@ -66,6 +66,7 @@ fun NoteCard(
         ) {
             if (note.name.isNotBlank()) {
                 MarkdownText(
+                    isPreview = true,
                     isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                     markdown = note.name.replaceFirstChar { it.uppercase() },
                     modifier = Modifier
@@ -79,6 +80,7 @@ fun NoteCard(
             }
             if (note.description.isNotBlank()) {
                 MarkdownText(
+                    isPreview = true,
                     markdown = note.description,
                     isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                     spacing = 0.dp,

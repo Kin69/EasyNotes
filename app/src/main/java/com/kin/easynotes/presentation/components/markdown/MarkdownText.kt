@@ -4,6 +4,7 @@ package com.kin.easynotes.presentation.components.markdown
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -87,118 +88,184 @@ fun MarkdownCheck(content: @Composable () -> Unit, checked: Boolean, onCheckedCh
 }
 
 
-
 @Composable
 fun MarkdownText(
     markdown: String,
+    isPreview: Boolean = false,
     isEnabled: Boolean,
     modifier: Modifier = Modifier.fillMaxWidth(),
     weight: FontWeight = FontWeight.Normal,
     fontSize: TextUnit = 16.sp,
-    overflow: TextOverflow = TextOverflow.Clip,
-    maxLines: Int = Int.MAX_VALUE,
     spacing: Dp = 2.dp,
     onContentChange: (String) -> Unit = {}
 ) {
-    if (isEnabled) {
-        val lines = markdown.lines()
-        val lineProcessors = listOf(HeadingProcessor(), ListItemProcessor(), CodeBlockProcessor(), QuoteProcessor(), CheckboxProcessor())
-        val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
-        markdownBuilder.parse()
+    if (!isEnabled) {
+        StaticMarkdownText(
+            markdown = markdown,
+            modifier = modifier,
+            weight = weight,
+            fontSize = fontSize
+        )
+        return
+    }
 
-        LazyColumn(modifier = modifier) {
-            items(markdownBuilder.content.size) { index ->
-                Spacer(modifier = Modifier.height(spacing))
-                when (val element = markdownBuilder.content[index]) {
-                    is Heading -> {
-                        Text(
-                            text = element.text,
-                            fontSize = when(element.level) {
-                                in 1..6 -> (28 - (2 * element.level)).sp
-                                else -> fontSize
-                            },
-                            overflow = overflow,
-                            fontWeight = weight,
-                            maxLines = maxLines,
-                            modifier = Modifier.padding(vertical = 10.dp)
-                        )
-                    }
-                    is CheckboxItem -> {
-                        MarkdownCheck(
-                            content = {
-                                Text(
-                                    text = element.text,
-                                    fontSize = fontSize,
-                                    overflow = overflow,
-                                    fontWeight = weight,
-                                    maxLines = maxLines,
-                                )
-                            },
-                            checked = element.checked) { newChecked ->
-                            val newMarkdown = lines.toMutableList()
-                            if (newChecked)  {
-                                newMarkdown[element.index] = "[X] ${element.text}"
-                            } else {
-                                newMarkdown[element.index] = "[ ] ${element.text}"
-                            }
-                            onContentChange(newMarkdown.joinToString("\n"))
-                        }
-                    }
-                    is ListItem -> {
-                        Text(
-                            text = "• ${element.text}",
-                            fontSize = fontSize,
-                            overflow = overflow,
-                            fontWeight = weight,
-                            maxLines = maxLines,
-                        )
-                    }
-                    is Quote -> {
-                        MarkdownQuote(content = element.text, fontSize = fontSize)
-                    }
-                    is CodeBlock -> {
-                        if (element.isEnded) {
-                            MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                                Text(
-                                    text = element.code.dropLast(1),
-                                    fontSize = fontSize,
-                                    fontWeight = weight,
-                                    overflow = overflow,
-                                    maxLines = maxLines,
-                                    fontFamily = FontFamily.Monospace,
-                                    modifier = Modifier.padding(6.dp),
-                                )
-                            }
-                        } else {
-                            Text(
-                                text = element.firstLine,
-                                fontWeight = weight,
-                                fontSize = fontSize,
-                                overflow = overflow,
-                                maxLines = maxLines,
-                            )
-                        }
-                    }
-                    is NormalText -> {
-                        Text(
-                            text = element.text,
-                            fontWeight = weight,
-                            fontSize = fontSize,
-                            overflow = overflow,
-                            maxLines = maxLines,
-                        )
-                    }
-                }
+    val lines = markdown.lines()
+    val lineProcessors = listOf(
+        HeadingProcessor(),
+        ListItemProcessor(),
+        CodeBlockProcessor(),
+        QuoteProcessor(),
+        CheckboxProcessor()
+    )
+    val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
+    markdownBuilder.parse()
+
+    MarkdownContent(
+        isPreview = isPreview,
+        content = markdownBuilder.content,
+        modifier = modifier,
+        spacing = spacing,
+        weight = weight,
+        fontSize = fontSize,
+        lines = lines,
+        onContentChange = onContentChange
+    )
+}
+
+@Composable
+fun StaticMarkdownText(
+    markdown: String,
+    modifier: Modifier,
+    weight: FontWeight,
+    fontSize: TextUnit
+) {
+    Text(
+        text = markdown,
+        fontSize = fontSize,
+        fontWeight = weight,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun MarkdownContent(
+    isPreview: Boolean,
+    content: List<MarkdownElement>,
+    modifier: Modifier,
+    spacing: Dp,
+    weight: FontWeight,
+    fontSize: TextUnit,
+    lines: List<String>,
+    onContentChange: (String) -> Unit
+) {
+    if (isPreview) {
+        Column(
+            modifier = modifier
+        ) {
+
+            content.take(4).forEach {
+                RenderMarkdownElement(
+                    element = it,
+                    weight = weight,
+                    fontSize = fontSize,
+                    lines = lines,
+                    onContentChange = onContentChange
+                )
             }
         }
-    } else {
-        Text(
-            text = markdown,
-            fontSize = fontSize,
-            overflow = overflow,
-            fontWeight = weight,
-            maxLines = maxLines,
-            modifier = modifier
-        )
+    }
+    else {
+        LazyColumn(modifier = modifier) {
+            items(content.size) { index ->
+                Spacer(modifier = Modifier.height(spacing))
+                RenderMarkdownElement(
+                    element = content[index],
+                    weight = weight,
+                    fontSize = fontSize,
+                    lines = lines,
+                    onContentChange = onContentChange
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun RenderMarkdownElement(
+    element: MarkdownElement,
+    weight: FontWeight,
+    fontSize: TextUnit,
+    lines: List<String>,
+    onContentChange: (String) -> Unit
+) {
+    when (element) {
+        is Heading -> {
+            Text(
+                text = element.text,
+                fontSize = when (element.level) {
+                    in 1..6 -> (28 - (2 * element.level)).sp
+                    else -> fontSize
+                },
+                fontWeight = weight,
+                modifier = Modifier.padding(vertical = 10.dp)
+            )
+        }
+        is CheckboxItem -> {
+            MarkdownCheck(
+                content = {
+                    Text(
+                        text = element.text,
+                        fontSize = fontSize,
+                        fontWeight = weight,
+                    )
+                },
+                checked = element.checked
+            ) { newChecked ->
+                val newMarkdown = lines.toMutableList().apply {
+                    this[element.index] = if (newChecked) {
+                        "[X] ${element.text}"
+                    } else {
+                        "[ ] ${element.text}"
+                    }
+                }
+                onContentChange(newMarkdown.joinToString("\n"))
+            }
+        }
+        is ListItem -> {
+            Text(
+                text = "• ${element.text}",
+                fontSize = fontSize,
+                fontWeight = weight,
+            )
+        }
+        is Quote -> {
+            MarkdownQuote(content = element.text, fontSize = fontSize)
+        }
+        is CodeBlock -> {
+            if (element.isEnded) {
+                MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                    Text(
+                        text = element.code.dropLast(1),
+                        fontSize = fontSize,
+                        fontWeight = weight,
+                        fontFamily = FontFamily.Monospace,
+                        modifier = Modifier.padding(6.dp),
+                    )
+                }
+            } else {
+                Text(
+                    text = element.firstLine,
+                    fontWeight = weight,
+                    fontSize = fontSize,
+                )
+            }
+        }
+        is NormalText -> {
+            Text(
+                text = element.text,
+                fontWeight = weight,
+                fontSize = fontSize,
+            )
+        }
     }
 }
