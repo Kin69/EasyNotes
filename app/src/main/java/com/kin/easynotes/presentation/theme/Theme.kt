@@ -3,6 +3,7 @@ package com.kin.easynotes.presentation.theme
 import android.app.Activity
 import android.content.Context
 import android.os.Build
+import android.view.WindowManager
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -52,6 +53,11 @@ fun LeafNotesTheme(
     val activity = LocalView.current.context as Activity
     WindowCompat.getInsetsController(activity.window, activity.window.decorView).apply {
         isAppearanceLightStatusBars = !settingsModel.settings.value.darkTheme
+    }
+    if (settingsModel.settings.value.screenProtection) {
+        activity.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    } else {
+        activity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     MaterialTheme(

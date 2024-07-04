@@ -53,4 +53,6 @@
     <string name="select_radius">حدد الاستدارة</string>
     <string name="minimalistic_mode">الوضع البسيط</string>
     <string name="extreme_amoled_mode">ألوان Amoled القصوى</string>
+    <string name="privacy">الخصوصية</string>
+    <string name="screen_protection">حماية محتوى الشاشة</string>
 </resources>
