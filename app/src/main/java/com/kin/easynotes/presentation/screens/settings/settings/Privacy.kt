@@ -24,7 +24,7 @@ fun PrivacyScreen(navController: NavController, settingsViewModel: SettingsViewM
                 SettingsBox(
                     title = stringResource(id = R.string.screen_protection),
                     icon = Icons.Filled.RemoveRedEye,
-                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.screenProtection,
                     switchEnabled = {
