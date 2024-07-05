@@ -1,21 +1,28 @@
 package com.kin.easynotes.presentation.screens.settings
 
+import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.Cloud
+import androidx.compose.material.icons.rounded.Coffee
+import androidx.compose.material.icons.rounded.CurrencyBitcoin
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Language
+import androidx.compose.material.icons.rounded.Numbers
 import androidx.compose.material.icons.rounded.Palette
+import androidx.compose.material.icons.rounded.Payments
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.Widgets
 import androidx.compose.material.icons.rounded.Work
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -28,14 +35,20 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.kin.easynotes.R
+import com.kin.easynotes.core.constant.ConnectionConst
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.navigation.NavRoutes
+import com.kin.easynotes.presentation.screens.edit.BottomModal
+import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
+import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingCategory
+import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
 import com.kin.easynotes.presentation.screens.settings.widgets.SmallSettingCategory
+import java.util.Locale
 
 @Composable
 fun SettingsScaffold(
@@ -80,8 +93,6 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
         title = stringResource(id = R.string.screen_settings),
         onBackNavClicked = { navController.navigate(NavRoutes.Home.route) }
     ) {
-        val uriHandler = LocalUriHandler.current
-
         LazyColumn {
             item {
                 SmallSettingCategory(
@@ -89,7 +100,8 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     subTitle = stringResource(id = R.string.support_description),
                     icon = Icons.AutoMirrored.Rounded.ArrowForwardIos,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
-                    action = { uriHandler.openUri("https://ko-fi.com/kin69_") })
+                    action = { onExit -> BottomModal(navController, settingsViewModel = settingsViewModel) { onExit() } }
+                )
             }
             item {
                 SettingCategory(
@@ -208,4 +220,44 @@ fun WidgetsScreen(navController: NavController, settingsViewModel: SettingsViewM
 
     }
 
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BottomModal(navController: NavController,settingsViewModel: SettingsViewModel, onExit: () -> Unit) {
+    val uriHandler = LocalUriHandler.current
+
+    ModalBottomSheet(
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+        onDismissRequest = { onExit() }
+    ) {
+        Column(
+            modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 20.dp)
+        ) {
+            SettingsBox(
+                title = "Ko-fi",
+                icon = Icons.Rounded.Coffee,
+                isCentered = true,
+                actionType = ActionType.CUSTOM,
+                radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
+                customAction = { uriHandler.openUri(ConnectionConst.SUPPORT_KOFI) }
+            )
+            SettingsBox(
+                title = "Liberapay",
+                isCentered = true,
+                icon = Icons.Rounded.Payments,
+                radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                actionType = ActionType.CUSTOM,
+                customAction = { uriHandler.openUri(ConnectionConst.SUPPORT_LIBERAPAY) }
+            )
+            SettingsBox(
+                title = stringResource(R.string.cryptocurrency),
+                icon = Icons.Rounded.CurrencyBitcoin,
+                isCentered = true,
+                actionType = ActionType.CUSTOM,
+                radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+                customAction = { navController.navigate(NavRoutes.Support.route) }
+            )
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.kin.easynotes.presentation.screens.settings.widgets
 
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
@@ -32,7 +35,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -41,25 +46,30 @@ enum class ActionType {
     LINK,
     TEXT,
     CUSTOM,
+    CLIPBOARD
 }
 
 @Composable
 fun SettingsBox(
     title: String,
-    icon: ImageVector,
+    description: String = "",
+    icon: ImageVector? = null,
     radius: RoundedCornerShape,
-    isEnabled : Boolean = true,
+    isEnabled: Boolean = true,
+    isCentered: Boolean = false,
     actionType: ActionType,
     variable: Boolean? = null,
     switchEnabled: (Boolean) -> Unit = {},
     linkClicked: () -> Unit = {},
     customAction: @Composable (() -> Unit) -> Unit = {},
-    customText: String = ""
+    customText: String = "",
+    clipboardText: String = ""
 ) {
-    var ShowCustomAction by remember { mutableStateOf(false) }
-    if (ShowCustomAction) customAction { ShowCustomAction = !ShowCustomAction }
+    val context = LocalContext.current
+    var showCustomAction by remember { mutableStateOf(false) }
+    if (showCustomAction) customAction { showCustomAction = !showCustomAction }
 
-    AnimatedVisibility(visible = isEnabled,) {
+    AnimatedVisibility(visible = isEnabled) {
         ElevatedCard(
             shape = radius,
             elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -68,45 +78,79 @@ fun SettingsBox(
                 .clip(radius)
                 .clickable {
                     handleAction(
+                        context,
                         actionType,
                         variable,
                         switchEnabled,
-                        { ShowCustomAction = !ShowCustomAction },
-                        linkClicked
+                        { showCustomAction = !showCustomAction },
+                        linkClicked,
+                        clipboardText ?: ""
                     )
                 }
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp)
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = if (description.isNotBlank() || actionType == ActionType.CLIPBOARD) 12.dp else 6.dp)
             ) {
-                RenderIcon(icon)
-                Text(
-                    text = title,
-                    modifier = Modifier.padding(start = 3.dp),
-                    fontSize = 16.sp
-                )
+                if (icon != null) RenderIcon(icon)
+                if (isCentered) Spacer(Modifier.weight(1f))
+                Column {
+                    Text(
+                        text = title,
+                        modifier = Modifier.padding(start = 3.dp),
+                        fontSize = 16.sp
+                    )
+                    if (description.isNotEmpty() || actionType == ActionType.CLIPBOARD) {
+                        Text(
+                            text = if (actionType == ActionType.CLIPBOARD) clipboardText else description,
+                            modifier = Modifier.padding(start = 3.dp),
+                            fontSize = 11.sp,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
                 Spacer(modifier = Modifier.weight(1f))
-                RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText)
+                RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText, clipboardText)
             }
         }
     }
 }
 
 private fun handleAction(
+    context: Context,
     actionType: ActionType,
     variable: Boolean?,
     switchEnabled: (Boolean) -> Unit,
     customAction: () -> Unit,
-    linkClicked: () -> Unit
+    linkClicked: () -> Unit,
+    clipboardText: String
 ) {
     when (actionType) {
         ActionType.SWITCH -> switchEnabled(!variable!!)
         ActionType.LINK -> linkClicked()
         ActionType.CUSTOM -> customAction()
+        ActionType.CLIPBOARD -> copyToClipboard(context, clipboardText)
         ActionType.TEXT -> { /* No action needed */ }
     }
 }
+
+
+
+@Composable
+private fun RenderClipboardAction() {
+    Icon(
+        imageVector = Icons.Default.ContentCopy,
+        contentDescription = null,
+        modifier = Modifier.padding(4.dp)
+    )
+}
+
+fun copyToClipboard(context: Context, clipboardText: String) {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = android.content.ClipData.newPlainText("Copied Text", clipboardText)
+    clipboard.setPrimaryClip(clip)
+}
+
 
 @Composable
 private fun RenderIcon(icon: ImageVector) {
@@ -124,13 +168,15 @@ private fun RenderActionComponent(
     variable: Boolean?,
     switchEnabled: (Boolean) -> Unit,
     linkClicked: () -> Unit,
-    customText: String
+    customText: String,
+    clipboardText: String
 ) {
     when (actionType) {
         ActionType.SWITCH -> RenderSwitch(variable, switchEnabled)
         ActionType.LINK -> RenderLink(linkClicked)
         ActionType.CUSTOM -> CustomIcon()
         ActionType.TEXT -> RenderText(customText)
+        ActionType.CLIPBOARD -> RenderClipboardAction()
     }
 }
 
@@ -242,64 +288,3 @@ private fun RenderCategoryIcon(icon: ImageVector) {
     }
 }
 
-@Composable
-fun SmallSettingCategory(
-    title: String,
-    subTitle: String,
-    icon: ImageVector,
-    shape: RoundedCornerShape = RoundedCornerShape(0),
-    action: () -> Unit = {},
-) {
-    Box(
-        modifier = Modifier
-            .clip(shape)
-            .clickable { action() }
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primary)
-                .padding(30.dp, 10.dp, 18.dp, 10.dp)
-                .fillMaxWidth()
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = title,
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.surfaceContainerLow,
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = subTitle,
-                    fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.surfaceContainerLow,
-                    modifier = Modifier.padding(end = 6.dp)
-                )
-                RenderSmallCategoryIcon(icon)
-            }
-        }
-    }
-    Spacer(modifier = Modifier.height(20.dp))
-}
-
-@Composable
-private fun RenderSmallCategoryIcon(icon: ImageVector) {
-    Row(
-        modifier = Modifier
-            .background(
-                color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                shape = RoundedCornerShape(50)
-            )
-            .padding(8.dp)
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.height(22.dp)
-        )
-    }
-}

@@ -13,6 +13,7 @@ import com.kin.easynotes.presentation.screens.settings.settings.ColorStylesScree
 import com.kin.easynotes.presentation.screens.settings.settings.LanguageScreen
 import com.kin.easynotes.presentation.screens.settings.settings.MarkdownScreen
 import com.kin.easynotes.presentation.screens.settings.settings.PrivacyScreen
+import com.kin.easynotes.presentation.screens.settings.settings.SupportScreen
 
 sealed class NavRoutes(val route: String) {
     data object Home : NavRoutes("home")
@@ -29,6 +30,7 @@ sealed class NavRoutes(val route: String) {
     data object History : NavRoutes("settings/history")
     data object Widgets : NavRoutes("settings/widgets")
     data object About : NavRoutes("settings/about")
+    data object Support : NavRoutes("settings/support")
 }
 
 val settingScreens = mapOf<String, @Composable (settingsViewModel: SettingsViewModel, navController : NavController) -> Unit>(
@@ -41,5 +43,6 @@ val settingScreens = mapOf<String, @Composable (settingsViewModel: SettingsViewM
     NavRoutes.Tools.route to { settings, navController -> ToolsScreen(navController,settings) },
     NavRoutes.History.route to { settings, navController -> HistoryScreen(navController,settings) },
     NavRoutes.Widgets.route to { settings, navController -> WidgetsScreen(navController,settings) },
-    NavRoutes.About.route to { settings, navController -> AboutScreen(navController,settings) }
+    NavRoutes.About.route to { settings, navController -> AboutScreen(navController,settings) },
+    NavRoutes.Support.route to { settings, navController -> SupportScreen(navController,settings) }
 )

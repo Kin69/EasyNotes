@@ -15,4 +15,14 @@ object ConnectionConst {
      * Url of source code on Github.
      */
     const val GITHUB_SOURCE_CODE = "https://github.com/Kin69/EasyNotes"
+
+    /**
+     * Support ko-fi.
+     */
+    const val SUPPORT_KOFI = "https://ko-fi.com/kin69_"
+
+    /**
+     * Support Liberapay.
+     */
+    const val SUPPORT_LIBERAPAY = "https://liberapay.com/Kin69/"
 }
