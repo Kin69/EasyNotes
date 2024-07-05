@@ -66,7 +66,6 @@ fun NoteCard(
         ) {
             if (note.name.isNotBlank()) {
                 MarkdownText(
-                    imageSupport = settingsViewModel.settings.value.imageSupport,
                     isPreview = true,
                     isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                     markdown = note.name.replaceFirstChar { it.uppercase() },
@@ -81,7 +80,6 @@ fun NoteCard(
             }
             if (note.description.isNotBlank()) {
                 MarkdownText(
-                    imageSupport = settingsViewModel.settings.value.imageSupport,
                     isPreview = true,
                     markdown = note.description,
                     isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,

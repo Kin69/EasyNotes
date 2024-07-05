@@ -346,7 +346,6 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                     ) {
                         MarkdownText(
                             markdown = viewModel.noteName.value.text,
-                            imageSupport = settingsViewModel.settings.value.imageSupport,
                             isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                             weight = FontWeight.Bold,
                             modifier = Modifier
@@ -375,7 +374,6 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                     onClickBack = { onClickBack() },
                 ) {
                     MarkdownText(
-                        imageSupport = settingsViewModel.settings.value.imageSupport,
                         markdown = viewModel.noteDescription.value.text,
                         isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                         modifier = Modifier

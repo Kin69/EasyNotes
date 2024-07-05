@@ -62,14 +62,15 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         IconButton(onClick = { viewModel.insertText("[ ] ") }) {
             Icon(Icons.Rounded.CheckBox, contentDescription = null)
         }
-        ImagePicker { photoUri ->
+        ImagePicker(viewModel) { photoUri ->
             viewModel.insertText("!($photoUri)")
+            viewModel.toggleIsInsertingImages(false)
         }
     }
 }
 
 @Composable
-fun ImagePicker(onImageSelected: (Uri) -> Unit) {
+fun ImagePicker(viewModel: EditViewModel, onImageSelected: (Uri) -> Unit) {
     var photoUri: Uri? by remember { mutableStateOf(null) }
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -79,7 +80,10 @@ fun ImagePicker(onImageSelected: (Uri) -> Unit) {
             onImageSelected(savedUri)
         }
     }
-    IconButton(onClick = { launcher.launch("image/*") }) {
+    IconButton(onClick = {
+        viewModel.toggleIsInsertingImages(true)
+        launcher.launch("image/*")
+    }) {
         Icon(Icons.Rounded.Image, contentDescription = "Select Image")
     }
 }

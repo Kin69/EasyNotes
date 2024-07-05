@@ -95,7 +95,6 @@ fun MarkdownCheck(content: @Composable () -> Unit, checked: Boolean, onCheckedCh
 fun MarkdownText(
     markdown: String,
     isPreview: Boolean = false,
-    imageSupport: Boolean = false,
     isEnabled: Boolean,
     modifier: Modifier = Modifier.fillMaxWidth(),
     weight: FontWeight = FontWeight.Normal,
@@ -119,10 +118,9 @@ fun MarkdownText(
         ListItemProcessor(),
         CodeBlockProcessor(),
         QuoteProcessor(),
+        ImageInsertionProcessor(),
         CheckboxProcessor()
-    ).apply {
-        if (imageSupport) this.add(ImageInsertionProcessor())
-    }
+    )
     val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
     markdownBuilder.parse()
 
@@ -286,8 +284,4 @@ fun RenderMarkdownElement(
             )
         }
     }
-}
-
-fun replaceNonBreakingSpaces(text: String): String {
-    return text.replace("\u00A0", "\n")
 }

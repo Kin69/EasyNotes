@@ -23,6 +23,9 @@ class EditViewModel @Inject constructor(
     private val _noteName = mutableStateOf(TextFieldValue())
     val noteName: State<TextFieldValue> get() = _noteName
 
+    private val _isInsertingImage = mutableStateOf(false)
+    val isInsertingImage: State<Boolean> get() = _isInsertingImage
+
     private val _noteDescription = mutableStateOf(TextFieldValue())
     val noteDescription: State<TextFieldValue> get() = _noteDescription
 
@@ -60,7 +63,7 @@ class EditViewModel @Inject constructor(
         if (id != 0) {
             viewModelScope.launch {
                 noteUseCase.getNoteById(id).collectLatest { note ->
-                    if (note != null) {
+                    if (note != null && !isInsertingImage.value) {
                         syncNote(note)
                     }
                 }
@@ -78,6 +81,10 @@ class EditViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun toggleIsInsertingImages(value: Boolean) {
+        _isInsertingImage.value = value
     }
 
     fun toggleEditMenuVisibility(value: Boolean) {
