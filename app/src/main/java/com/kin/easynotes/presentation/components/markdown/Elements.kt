@@ -43,3 +43,9 @@ data class NormalText(val text: String) : MarkdownElement {
         builder.append("$text\n\n")
     }
 }
+
+data class ImageInsertion(val photoUri: String) : MarkdownElement {
+    override fun render(builder: StringBuilder) {
+        builder.append("!($photoUri)\n\n")
+    }
+}

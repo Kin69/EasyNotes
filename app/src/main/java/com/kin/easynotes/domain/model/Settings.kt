@@ -10,6 +10,7 @@ data class Settings(
     var extremeAmoledMode: Boolean = false,
     var isMarkdownEnabled: Boolean = true,
     var screenProtection: Boolean = false,
+    val imageSupport: Boolean = false,
 
     var cornerRadius: Int = 32,
 )

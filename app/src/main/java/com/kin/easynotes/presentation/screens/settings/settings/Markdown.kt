@@ -27,9 +27,19 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
                     title = stringResource(id = R.string.markdown),
                     icon = Icons.Rounded.Style,
                     actionType = ActionType.SWITCH,
-                    radius = shapeManager(isBoth = true, radius = settingsViewModel.settings.value.cornerRadius),
+                    radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
                     variable = settingsViewModel.settings.value.isMarkdownEnabled,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(isMarkdownEnabled = it))}
+                )
+            }
+            item {
+                SettingsBox(
+                    title = stringResource(id = R.string.images_supprot) + " (" + stringResource(id = R.string.unstable_feature) + ")",
+                    icon = Icons.Rounded.Style,
+                    actionType = ActionType.SWITCH,
+                    radius = shapeManager(isLast = true, radius = settingsViewModel.settings.value.cornerRadius),
+                    variable = settingsViewModel.settings.value.imageSupport,
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(imageSupport = it))}
                 )
             }
         }

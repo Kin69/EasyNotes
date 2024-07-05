@@ -1,6 +1,6 @@
 package com.kin.easynotes.presentation.components.markdown
 
-class MarkdownBuilder(internal val lines: List<String>, private var lineProcessors: List<MarkdownLineProcessor>) {
+class MarkdownBuilder(internal val lines: List<String>, private var lineProcessors: MutableList<MarkdownLineProcessor>) {
     var lineIndex = -1
 
     internal val content = mutableListOf<MarkdownElement>()

@@ -55,4 +55,6 @@
     <string name="extreme_amoled_mode">Extreme Amoled Colors</string>
     <string name="privacy">Privacy</string>
     <string name="screen_protection">Screen Protection</string>
+    <string name="images_supprot">Images Support</string>
+    <string name="unstable_feature">Unstable</string>
 </resources>

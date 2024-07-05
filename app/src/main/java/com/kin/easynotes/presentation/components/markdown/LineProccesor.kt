@@ -69,3 +69,14 @@ class ListItemProcessor : MarkdownLineProcessor {
         builder.add(ListItem(text))
     }
 }
+
+class ImageInsertionProcessor : MarkdownLineProcessor {
+    override fun canProcessLine(line: String): Boolean {
+        return line.trim().startsWith("!(") && line.trim().endsWith(")")
+    }
+
+    override fun processLine(line: String, builder: MarkdownBuilder) {
+        val photoUri = line.substringAfter("!(", "").substringBefore(")")
+        builder.add(ImageInsertion(photoUri))
+    }
+}

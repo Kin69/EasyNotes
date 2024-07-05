@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
+import coil.compose.AsyncImage
 
 
 @Composable
@@ -93,6 +95,7 @@ fun MarkdownCheck(content: @Composable () -> Unit, checked: Boolean, onCheckedCh
 fun MarkdownText(
     markdown: String,
     isPreview: Boolean = false,
+    imageSupport: Boolean = false,
     isEnabled: Boolean,
     modifier: Modifier = Modifier.fillMaxWidth(),
     weight: FontWeight = FontWeight.Normal,
@@ -111,13 +114,15 @@ fun MarkdownText(
     }
 
     val lines = markdown.lines()
-    val lineProcessors = listOf(
+    val lineProcessors = mutableListOf(
         HeadingProcessor(),
         ListItemProcessor(),
         CodeBlockProcessor(),
         QuoteProcessor(),
         CheckboxProcessor()
-    )
+    ).apply {
+        if (imageSupport) this.add(ImageInsertionProcessor())
+    }
     val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
     markdownBuilder.parse()
 
@@ -207,8 +212,7 @@ fun RenderMarkdownElement(
     when (element) {
         is Heading -> {
             Text(
-                maxLines = 1,
-                text = element.text + "\n",
+                text = element.text,
                 fontSize = when (element.level) {
                     in 1..6 -> (28 - (2 * element.level)).sp
                     else -> fontSize
@@ -221,8 +225,7 @@ fun RenderMarkdownElement(
             MarkdownCheck(
                 content = {
                     Text(
-                        maxLines = 1,
-                        text = element.text + "\n",
+                        text = element.text,
                         fontSize = fontSize,
                         fontWeight = weight,
                     )
@@ -241,8 +244,7 @@ fun RenderMarkdownElement(
         }
         is ListItem -> {
             Text(
-                maxLines = 1,
-                text = "• ${element.text}" + "\n",
+                text = "• ${element.text}",
                 fontSize = fontSize,
                 fontWeight = weight,
             )
@@ -250,12 +252,18 @@ fun RenderMarkdownElement(
         is Quote -> {
             MarkdownQuote(content = element.text, fontSize = fontSize)
         }
+        is ImageInsertion -> {
+            AsyncImage(
+                model = element.photoUri,
+                contentDescription = "Image",
+                modifier = Modifier.clip(RoundedCornerShape(14.dp))
+            )
+        }
         is CodeBlock -> {
             if (element.isEnded) {
                 MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
                     Text(
-                        maxLines = 1,
-                        text = element.code.dropLast(1) + "\n",
+                        text = element.code.dropLast(1),
                         fontSize = fontSize,
                         fontWeight = weight,
                         fontFamily = FontFamily.Monospace,
@@ -264,8 +272,7 @@ fun RenderMarkdownElement(
                 }
             } else {
                 Text(
-                    maxLines = 1,
-                    text = element.firstLine + "\n",
+                    text = element.firstLine,
                     fontWeight = weight,
                     fontSize = fontSize,
                 )
@@ -273,8 +280,7 @@ fun RenderMarkdownElement(
         }
         is NormalText -> {
             Text(
-                maxLines = 1,
-                text = element.text.ifBlank {"\u00A0"} + "\n",
+                text = element.text,
                 fontWeight = weight,
                 fontSize = fontSize,
             )
