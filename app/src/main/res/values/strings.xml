@@ -53,4 +53,6 @@
     <string name="select_radius">Select Radius</string>
     <string name="minimalistic_mode">Minimalistic Mode</string>
     <string name="extreme_amoled_mode">Extreme Amoled Colors</string>
+    <string name="privacy">Privacy</string>
+    <string name="screen_protection">Screen Protection</string>
 </resources>

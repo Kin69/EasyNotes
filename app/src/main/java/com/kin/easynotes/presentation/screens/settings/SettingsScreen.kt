@@ -21,8 +21,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.kin.easynotes.R
@@ -114,6 +116,15 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     icon = Icons.Rounded.Cloud,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     action = { navController.navigate(NavRoutes.Cloud.route) })
+            }
+            item {
+                SettingCategory(
+                    title = stringResource(id = R.string.privacy),
+                    subTitle = stringResource(id = R.string.screen_protection),
+                    icon = ImageVector.vectorResource(id = R.drawable.incognito_fill),
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                    action = { navController.navigate(NavRoutes.Privacy.route) }
+                )
             }
             item {
                 SettingCategory(
