@@ -6,7 +6,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -83,11 +83,12 @@ fun SettingsBox(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = if (description.isNotBlank() || actionType == ActionType.CLIPBOARD || isBig) 12.dp else 6.dp)
+                modifier = Modifier
+                    .padding(horizontal = 20.dp, vertical = if (description.isNotBlank() || actionType == ActionType.CLIPBOARD || isBig) 12.dp else 6.dp)
+                    .fillMaxWidth()
             ) {
                 if (icon != null) RenderIcon(icon)
-                if (isCentered) Spacer(Modifier.weight(1f))
-                Column {
+                Column(Modifier.weight(1f), horizontalAlignment = if (isCentered) Alignment.CenterHorizontally else Alignment.Start) {
                     Text(
                         text = title,
                         modifier = Modifier.padding(start = 3.dp),
@@ -102,7 +103,6 @@ fun SettingsBox(
                         )
                     }
                 }
-                Spacer(modifier = Modifier.weight(1f))
                 RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText, clipboardText)
             }
         }
@@ -134,7 +134,7 @@ private fun RenderClipboardAction() {
     Icon(
         imageVector = Icons.Default.ContentCopy,
         contentDescription = null,
-        modifier = Modifier.padding(4.dp)
+        modifier = Modifier.padding(12.dp)
     )
 }
 
