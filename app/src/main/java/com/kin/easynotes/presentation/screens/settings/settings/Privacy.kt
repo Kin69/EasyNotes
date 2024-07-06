@@ -17,12 +17,13 @@ fun PrivacyScreen(navController: NavController, settingsViewModel: SettingsViewM
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.privacy),
-        onBackNavClicked = { navController.popBackStack() }
+        onBackNavClicked = { navController.navigateUp() }
     ) {
         LazyColumn {
             item {
                 SettingsBox(
                     title = stringResource(id = R.string.screen_protection),
+                    description = stringResource(id = R.string.screen_protection_description),
                     icon = Icons.Filled.RemoveRedEye,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
                     actionType = ActionType.SWITCH,

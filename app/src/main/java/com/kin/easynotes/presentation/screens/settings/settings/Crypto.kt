@@ -20,7 +20,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.cryptocurrency),
-        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
+        onBackNavClicked = { navController.navigateUp() }
     ) {
         LazyColumn {
             item {

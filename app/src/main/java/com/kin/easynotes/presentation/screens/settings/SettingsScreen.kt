@@ -1,31 +1,25 @@
 package com.kin.easynotes.presentation.screens.settings
 
-import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.Cloud
 import androidx.compose.material.icons.rounded.Coffee
 import androidx.compose.material.icons.rounded.CurrencyBitcoin
-import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Info
-import androidx.compose.material.icons.rounded.Language
-import androidx.compose.material.icons.rounded.Numbers
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.Payments
 import androidx.compose.material.icons.rounded.TextFields
-import androidx.compose.material.icons.rounded.Widgets
-import androidx.compose.material.icons.rounded.Work
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -40,15 +34,11 @@ import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.navigation.NavRoutes
-import com.kin.easynotes.presentation.screens.edit.BottomModal
-import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingCategory
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
-import com.kin.easynotes.presentation.screens.settings.widgets.SmallSettingCategory
-import java.util.Locale
 
 @Composable
 fun SettingsScaffold(
@@ -91,16 +81,18 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.screen_settings),
-        onBackNavClicked = { navController.navigate(NavRoutes.Home.route) }
+        onBackNavClicked = { navController.navigateUp() }
     ) {
         LazyColumn {
             item {
-                SmallSettingCategory(
-                    title = stringResource(R.string.support),
+                SettingCategory(
+                    smallSetting = true,
+                    title = stringResource(id = R.string.support),
                     subTitle = stringResource(id = R.string.support_description),
-                    icon = Icons.AutoMirrored.Rounded.ArrowForwardIos,
+                    icon = Icons.Rounded.ArrowForwardIos,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
-                    action = { onExit -> BottomModal(navController, settingsViewModel = settingsViewModel) { onExit() } }
+                    isLast = true,
+                    composableAction = { onExit -> BottomModal(navController = navController, settingsViewModel = settingsViewModel) { onExit() }}
                 )
             }
             item {
@@ -191,7 +183,7 @@ fun ToolsScreen(navController: NavController, settingsViewModel: SettingsViewMod
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.tools),
-        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
+        onBackNavClicked = { navController.navigateUp() }
     ) {
 
     }
@@ -203,7 +195,7 @@ fun HistoryScreen(navController: NavController, settingsViewModel: SettingsViewM
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.history),
-        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
+        onBackNavClicked = { navController.navigateUp() }
     ) {
 
     }
@@ -215,7 +207,7 @@ fun WidgetsScreen(navController: NavController, settingsViewModel: SettingsViewM
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.widgets),
-        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
+        onBackNavClicked = { navController.navigateUp() }
     ) {
 
     }
@@ -235,6 +227,7 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
             modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 20.dp)
         ) {
             SettingsBox(
+                isBig = false,
                 title = "Ko-fi",
                 icon = Icons.Rounded.Coffee,
                 isCentered = true,
@@ -244,6 +237,7 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
             )
             SettingsBox(
                 title = "Liberapay",
+                isBig = false,
                 isCentered = true,
                 icon = Icons.Rounded.Payments,
                 radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
@@ -252,11 +246,12 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
             )
             SettingsBox(
                 title = stringResource(R.string.cryptocurrency),
+                isBig = false,
                 icon = Icons.Rounded.CurrencyBitcoin,
                 isCentered = true,
                 actionType = ActionType.CUSTOM,
                 radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-                customAction = { navController.navigate(NavRoutes.Support.route) }
+                customAction = { LaunchedEffect(true) { navController.navigate(NavRoutes.Support.route ) } }
             )
         }
     }

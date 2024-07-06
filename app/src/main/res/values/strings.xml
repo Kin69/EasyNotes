@@ -58,4 +58,22 @@
     <string name="images_supprot">Images Support</string>
     <string name="unstable_feature">Unstable</string>
     <string name="cryptocurrency">Cryptocurrency</string>
+    <string name="system_theme_description">Adapts app theme based on system settings</string>
+    <string name="dark_theme_description">Toggle between dark and light color schemes</string>
+    <string name="dynamic_colors_description">Adjusts colors to match your wallpaper</string>
+    <string name="amoled_colors_description">Use black color for background</string>
+    <string name="extreme_amoled_mode_description">Extreme Battery optimization</string>
+    <string name="radius_description">Customize border radius</string>
+    <string name="view_style_description">Select view style</string>
+    <string name="minimalistic_mode_description">Remove top buttons from edit screen</string>
+    <string name="backup_description">Store all notes to file</string>
+    <string name="restore_description">Restore notes from file</string>
+    <string name="markdown_description">Enable markdown in notes</string>
+    <string name="screen_protection_description">Hide screen in recents and disable screenshots</string>
+    <string name="build_type">Build Type</string>
+    <string name="source_code">Source Code</string>
+    <string name="support_list">Supporters List</string>
+    <string name="email">Email</string>
+    <string name="discord">Discord</string>
+    <string name="feature">Feature Request</string>
 </resources>

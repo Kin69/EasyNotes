@@ -57,24 +57,17 @@ fun shapeManager(isBoth: Boolean = false,isLast: Boolean = false,isFirst: Boolea
 }
 
 @Composable
-fun BorderModifier(isExtremeAmoled: Boolean, shape: RoundedCornerShape): Modifier {
-    return when(isExtremeAmoled) {
-        true -> Modifier.border(2.dp,shape = shape,color = MaterialTheme.colorScheme.primary)
-        else -> Modifier
-    }
-}
-
-@Composable
 fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.color_styles),
-        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
+        onBackNavClicked = { navController.navigateUp() }
     ) {
         LazyColumn {
             item {
                 SettingsBox(
                     title = stringResource(id = R.string.system_theme),
+                    description = stringResource(id = R.string.system_theme_description),
                     icon = Icons.Rounded.HdrAuto,
                     actionType = ActionType.SWITCH,
                     radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
@@ -85,6 +78,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             item {
                 SettingsBox(
                     title = stringResource(id = R.string.dark_theme),
+                    description = stringResource(id = R.string.dark_theme_description),
                     isEnabled = !settingsViewModel.settings.value.automaticTheme,
                     icon = Icons.Rounded.Palette,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
@@ -96,6 +90,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             item {
                 SettingsBox(
                     title = stringResource(id = R.string.dynamic_colors),
+                    description = stringResource(id = R.string.dynamic_colors_description),
                     icon = Icons.Rounded.Colorize,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = !(settingsViewModel.settings.value.darkTheme)),
                     isEnabled = !settingsViewModel.settings.value.automaticTheme,
@@ -108,6 +103,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                 var value = settingsViewModel.settings.value.amoledTheme
                 SettingsBox(
                     title = stringResource(id = R.string.amoled_colors),
+                    description = stringResource(id = R.string.amoled_colors_description),
                     icon = Icons.Rounded.DarkMode,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = !value),
                     actionType = ActionType.SWITCH,
@@ -120,6 +116,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                 SettingsBox(
                     title = stringResource(id = R.string.extreme_amoled_mode),
                     icon = Icons.Rounded.Battery1Bar,
+                    description = stringResource(id = R.string.extreme_amoled_mode_description),
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.extremeAmoledMode,
@@ -131,6 +128,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             item {
                 SettingsBox(
                     title = stringResource(id = R.string.radius),
+                    description = stringResource(id = R.string.radius_description),
                     icon = Icons.Rounded.RoundedCorner,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     actionType = ActionType.CUSTOM,
@@ -146,6 +144,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                 SettingsBox(
                     title = if (settingsViewModel.settings.value.viewMode) stringResource(id = R.string.grid_view) else stringResource(id = R.string.column_view),
                     icon = if (settingsViewModel.settings.value.viewMode) Icons.Rounded.GridView else Icons.Rounded.ViewAgenda,
+                    description = stringResource(id = R.string.view_style_description),
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.viewMode,
@@ -155,6 +154,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             item {
                 SettingsBox(
                     title = stringResource(id = R.string.minimalistic_mode),
+                    description = stringResource(id = R.string.minimalistic_mode_description),
                     icon = Icons.Rounded.DynamicFeed,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     actionType = ActionType.SWITCH,

@@ -59,4 +59,5 @@ class SettingsViewModel @Inject constructor(
     }
 
     val version: String = BuildConfig.VERSION_NAME
+    val build: String = BuildConfig.BUILD_TYPE
 }

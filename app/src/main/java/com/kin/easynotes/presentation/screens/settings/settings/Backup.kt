@@ -36,13 +36,14 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
 
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
-        title = stringResource(id = R.string.cloud),
+        title = stringResource(id = R.string.backup),
         onBackNavClicked = { navController.navigateUp() }
     ) {
         LazyColumn {
             item {
                 SettingsBox(
                     title = stringResource(id = R.string.backup),
+                    description = stringResource(id = R.string.backup_description),
                     icon = Icons.Rounded.Backup,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     actionType = ActionType.CUSTOM,
@@ -51,6 +52,7 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
             item {
                 SettingsBox(
                     title = stringResource(id = R.string.restore),
+                    description = stringResource(id = R.string.restore_description),
                     icon = Icons.Rounded.ImportExport,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     actionType = ActionType.CUSTOM,

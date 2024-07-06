@@ -17,6 +17,12 @@ object ConnectionConst {
     const val GITHUB_SOURCE_CODE = "https://github.com/Kin69/EasyNotes"
 
     /**
+     * Feature request github.
+     */
+    const val GITHUB_FEATURE_REQUEST = "https://github.com/Kin69/EasyNotes/issues/new"
+
+
+    /**
      * Support ko-fi.
      */
     const val SUPPORT_KOFI = "https://ko-fi.com/kin69_"

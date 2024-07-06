@@ -3,16 +3,10 @@ package com.kin.easynotes.presentation.screens.settings.widgets
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -36,8 +30,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -52,6 +44,7 @@ enum class ActionType {
 @Composable
 fun SettingsBox(
     title: String,
+    isBig: Boolean = true,
     description: String = "",
     icon: ImageVector? = null,
     radius: RoundedCornerShape,
@@ -90,7 +83,7 @@ fun SettingsBox(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = if (description.isNotBlank() || actionType == ActionType.CLIPBOARD) 12.dp else 6.dp)
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = if (description.isNotBlank() || actionType == ActionType.CLIPBOARD || isBig) 12.dp else 6.dp)
             ) {
                 if (icon != null) RenderIcon(icon)
                 if (isCentered) Spacer(Modifier.weight(1f))
@@ -221,70 +214,3 @@ private fun RenderText(customText: String) {
         modifier = Modifier.padding(12.dp)
     )
 }
-
-@Composable
-fun SettingCategory(
-    title: String,
-    subTitle: String,
-    icon: ImageVector,
-    shape: RoundedCornerShape,
-    isLast: Boolean = false,
-    action: () -> Unit = {},
-) {
-    ElevatedCard(
-        shape = shape,
-        modifier = Modifier
-            .clip(shape)
-            .clickable { action() },
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-    ) {
-        Row(
-            modifier = Modifier
-                .clip(shape)
-                .fillMaxSize()
-                .padding(24.dp, 14.dp, 14.dp, 14.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            RenderCategoryText(title, subTitle)
-            Spacer(modifier = Modifier.weight(1f))
-            RenderCategoryIcon(icon)
-        }
-    }
-    Spacer(modifier = Modifier.height(if (isLast) 26.dp else 2.dp))
-}
-
-@Composable
-private fun RenderCategoryText(title: String, subTitle: String) {
-    Column(
-    ) {
-        Text(
-            text = title,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = subTitle,
-            fontSize = 12.sp,
-        )
-    }
-}
-
-@Composable
-private fun RenderCategoryIcon(icon: ImageVector) {
-    Box(
-        modifier = Modifier
-            .background(
-                color = MaterialTheme.colorScheme.primary,
-                shape = RoundedCornerShape(50)
-            ),
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.surfaceContainerHigh,
-            modifier = Modifier.padding(9.dp)
-        )
-    }
-}
-

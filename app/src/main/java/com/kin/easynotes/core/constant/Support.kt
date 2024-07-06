@@ -32,4 +32,29 @@ object SupportConst {
      * Address of avalanche account
      */
     const val AVALANCHE_ADDRESS =  "0x05D8aC16B2d4C07958E2430d24F7F55d51238C6e"
+
+
+    /**
+     * List of supporters
+     * Order
+     * 1. Donators
+     * 2. Contributors
+     * 3. Translators
+     */
+    val SUPPROTERS_LIST =  listOf(
+        Pair("Derei", "Donate"),
+        Pair("UnitTiff", "Donate"),
+        Pair("Shishkevichd","Contribution"),
+        Pair("Lenni-builder","Contribution"),
+        Pair("IllusionMan1212","Contribution"),
+        Pair("wadeack","Contribution"),
+        Pair("searinminecraft","Language"),
+        Pair("Loco1911","language"),
+        Pair("Maell1","Language"),
+        Pair("kuragehimekurara1","Language"),
+        Pair("Crazy-Unicooorn","language"),
+        Pair("rickdtc","Language"),
+        Pair("Mikropsoft","Language"),
+        Pair("NicKoehler","Language"),
+    )
 }

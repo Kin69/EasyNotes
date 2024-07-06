@@ -1,5 +1,6 @@
 package com.kin.easynotes.presentation.navigation
 
+import androidx.annotation.Nullable
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.runtime.Composable
 import androidx.navigation.NamedNavArgument
@@ -11,6 +12,7 @@ import com.kin.easynotes.presentation.components.defaultScreenEnterAnimation
 import com.kin.easynotes.presentation.components.defaultScreenExitAnimation
 import com.kin.easynotes.presentation.components.slideScreenEnterAnimation
 import com.kin.easynotes.presentation.components.slideScreenExitAnimation
+import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.animatedComposable(
     route: String,
@@ -38,12 +40,8 @@ fun NavGraphBuilder.slideInComposable(
     arguments = arguments,
     deepLinks = deepLinks,
     enterTransition = { slideScreenEnterAnimation() },
-    exitTransition = { when (targetState.destination.route) {
-            NavRoutes.Home.route -> slideScreenExitAnimation()
-            else -> defaultScreenExitAnimation()
-        }
-    },
-    popEnterTransition = { defaultScreenEnterAnimation() },
-    popExitTransition = { defaultScreenExitAnimation() },
+    exitTransition = { defaultScreenExitAnimation() },
+    popEnterTransition = { println(targetState.destination.route.isNullOrEmpty()); defaultScreenEnterAnimation() },
+    popExitTransition = { slideScreenExitAnimation() },
     content = content
 )

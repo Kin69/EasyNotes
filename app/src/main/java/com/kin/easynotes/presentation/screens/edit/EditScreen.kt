@@ -202,6 +202,7 @@ fun BottomModal(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) 
             modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 20.dp)
         ) {
             SettingsBox(
+                isBig = false,
                 title = stringResource(R.string.created_time),
                 icon = Icons.Rounded.Numbers,
                 actionType = ActionType.TEXT,
@@ -209,6 +210,7 @@ fun BottomModal(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) 
                 customText = sdf.format(viewModel.noteCreatedTime.value).toString()
             )
             SettingsBox(
+                isBig = false,
                 title = stringResource(R.string.words),
                 icon = Icons.Rounded.Numbers,
                 radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
@@ -216,6 +218,7 @@ fun BottomModal(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) 
                 customText = if (viewModel.noteDescription.value.text != "") viewModel.noteDescription.value.text.split("\\s+".toRegex()).size.toString() else "0"
             )
             SettingsBox(
+                isBig = false,
                 title = stringResource(R.string.characters),
                 icon = Icons.Rounded.Numbers,
                 actionType = ActionType.TEXT,
@@ -335,7 +338,6 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
             MarkdownBox(
                 isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
                 shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
-                isCopyable = true,
                 content = {
                     MinimalisticMode(
                         viewModel = viewModel,
@@ -350,10 +352,10 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                             weight = FontWeight.Bold,
                             modifier = Modifier
                                 .padding(16.dp)
-                                .weight(1f)
                                 .align(Alignment.CenterHorizontally),
                             onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
                         )
+                        Spacer(modifier = Modifier.weight(1f))
                     }
                 }
             )
@@ -377,7 +379,12 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                         markdown = viewModel.noteDescription.value.text,
                         isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                         modifier = Modifier
-                            .padding(16.dp, top = if (showOnlyDescription) 16.dp else 6.dp, 16.dp, 16.dp)
+                            .padding(
+                                16.dp,
+                                top = if (showOnlyDescription) 16.dp else 6.dp,
+                                16.dp,
+                                16.dp
+                            )
                             .weight(1f),
                         onContentChange = { viewModel.updateNoteDescription(TextFieldValue(text = it)) })
                     }

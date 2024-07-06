@@ -14,7 +14,7 @@ fun LanguageScreen(navController: NavController, settingsViewModel: SettingsView
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.language),
-        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
+        onBackNavClicked = { navController.navigateUp() }
     ) {
         LazyColumn {
 

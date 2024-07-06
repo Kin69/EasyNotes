@@ -180,9 +180,6 @@ fun MarkdownContent(
             }
         }
         else {
-            SelectionContainer {
-
-            }
             LazyColumn(modifier = modifier) {
                 items(content.size) { index ->
                     Spacer(modifier = Modifier.height(spacing))

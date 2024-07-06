@@ -19,15 +19,16 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
     SettingsScaffold(
         settingsViewModel = settingsViewModel,
         title = stringResource(id = R.string.markdown),
-        onBackNavClicked = { navController.navigate(NavRoutes.Settings.route) }
+        onBackNavClicked = { navController.navigateUp() }
     ) {
         LazyColumn {
             item {
                 SettingsBox(
                     title = stringResource(id = R.string.markdown),
+                    description = stringResource(id = R.string.markdown_description),
                     icon = Icons.Rounded.Style,
                     actionType = ActionType.SWITCH,
-                    radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
+                    radius = shapeManager(isBoth = true, radius = settingsViewModel.settings.value.cornerRadius),
                     variable = settingsViewModel.settings.value.isMarkdownEnabled,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(isMarkdownEnabled = it))}
                 )
