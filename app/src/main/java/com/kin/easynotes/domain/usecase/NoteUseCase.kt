@@ -38,6 +38,12 @@ class NoteUseCase @Inject constructor(
         }
     }
 
+    fun pinNote(note: Note) {
+        coroutineScope.launch(NonCancellable + Dispatchers.IO) {
+            noteRepository.updateNote(note)
+        }
+    }
+
     fun deleteNoteById(id: Int) {
         coroutineScope.launch(NonCancellable + Dispatchers.IO) {
             val noteToDelete = noteRepository.getNoteById(id).first()

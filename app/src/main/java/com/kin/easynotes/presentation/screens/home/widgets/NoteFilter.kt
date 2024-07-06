@@ -1,19 +1,23 @@
 package com.kin.easynotes.presentation.screens.home.widgets
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Notes
-import androidx.compose.material.icons.rounded.Notes
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.kin.easynotes.R
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
@@ -26,7 +30,7 @@ fun NoteFilter(
     shape: RoundedCornerShape,
     notes: List<Note>,
     searchText: String? = null,
-    selectedNotes: MutableList<Int>,
+    selectedNotes: MutableList<Note>,
     viewMode: Boolean = false,
     isDeleteMode: Boolean,
     onNoteUpdate: (Note) -> Unit,
@@ -46,18 +50,43 @@ fun NoteFilter(
             placeholderText = getEmptyText(searchText)
         )
     } else {
-        NotesGrid(
-            settingsViewModel = settingsViewModel,
-            containerColor = containerColor,
-            onNoteClicked = onNoteClicked,
-            notes = filteredNotes,
-            shape = shape,
-            onNoteUpdate = onNoteUpdate,
-            selectedNotes = selectedNotes,
-            viewMode = viewMode,
-            isDeleteClicked = isDeleteMode,
-            animationFinished = onDeleteNote
-        )
+        val (pinnedNotes, otherNotes) = filteredNotes.partition { it.pinned }
+
+        Column {
+            if (pinnedNotes.isNotEmpty()) {
+                PinnedNotes(
+                    settingsViewModel = settingsViewModel,
+                    containerColor = containerColor,
+                    onNoteClicked = onNoteClicked,
+                    notes = pinnedNotes,
+                    shape = shape,
+                    onNoteUpdate = onNoteUpdate,
+                    selectedNotes = selectedNotes,
+                    viewMode = viewMode,
+                    isDeleteClicked = isDeleteMode,
+                    animationFinished = onDeleteNote
+                )
+            }
+            Column {
+                Text(
+                    modifier = Modifier.padding(horizontal = 12.dp),
+                    text = stringResource(R.string.others).uppercase(),
+                    style = TextStyle(fontSize = 11.sp, color = MaterialTheme.colorScheme.secondary)
+                )
+                NotesGrid(
+                    settingsViewModel = settingsViewModel,
+                    containerColor = containerColor,
+                    onNoteClicked = onNoteClicked,
+                    notes = otherNotes,
+                    shape = shape,
+                    onNoteUpdate = onNoteUpdate,
+                    selectedNotes = selectedNotes,
+                    viewMode = viewMode,
+                    isDeleteClicked = isDeleteMode,
+                    animationFinished = onDeleteNote
+                )
+            }
+        }
     }
 }
 

@@ -76,4 +76,6 @@
     <string name="email">البريد الإلكتروني</string>
     <string name="discord">Discord</string>
     <string name="feature">طلب الميزات</string>
+    <string name="pinned">مثبتة</string>
+    <string name="others">أخرى</string>
 </resources>

@@ -41,12 +41,16 @@ class EditViewModel @Inject constructor(
     private val _isEditMenuVisible = mutableStateOf(false)
     val isEditMenuVisible: State<Boolean> get() = _isEditMenuVisible
 
+    private val _isPinned = mutableStateOf(false)
+    val isPinned: State<Boolean> get() = _isPinned
+
     fun saveNote(id: Int) {
         if (noteName.value.text.isNotBlank() || noteDescription.value.text.isNotBlank()) {
             noteUseCase.addNote(Note(
                 id = id,
                 name = noteName.value.text,
                 description = noteDescription.value.text,
+                pinned = isPinned.value,
                 createdAt = if (noteCreatedTime.value != 0L) noteCreatedTime.value else System.currentTimeMillis(),
             ))
         }
@@ -61,6 +65,7 @@ class EditViewModel @Inject constructor(
         updateNoteDescription(TextFieldValue(note.description, selection = TextRange(note.name.length)))
         updateNoteCreatedTime(note.createdAt)
         updateNoteId(note.id)
+        updateNotePin(note.pinned)
     }
 
     fun setupNoteData(id : Int = noteId.value) {
@@ -99,12 +104,20 @@ class EditViewModel @Inject constructor(
         _isNoteInfoVisible.value = value
     }
 
+    fun toggleNotePin(value: Boolean) {
+        _isPinned.value = value
+    }
+
     fun updateNoteName(newName: TextFieldValue) {
         _noteName.value = newName
     }
 
     private fun updateNoteCreatedTime(newTime: Long) {
         _noteCreatedTime.longValue = newTime
+    }
+
+    private fun updateNotePin(pinned: Boolean) {
+        _isPinned.value = pinned
     }
 
     fun updateNoteId(newId: Int) {

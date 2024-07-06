@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,7 +13,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     val noteUseCase: NoteUseCase
 ) : ViewModel() {
-    var selectedNotes = mutableStateListOf<Int>()
+    var selectedNotes = mutableStateListOf<Note>()
 
     private var _isSelectMenuOpened = mutableStateOf(false)
     val isSelectMenuOpened: State<Boolean> = _isSelectMenuOpened
@@ -33,5 +34,21 @@ class HomeViewModel @Inject constructor(
 
     fun changeSearchQuery(newValue: String) {
         _searchQuery.value = newValue
+    }
+
+    fun pinOrUnpinNotes() {
+        if (selectedNotes.all { it.pinned }) {
+            selectedNotes.forEach { note ->
+                val updatedNote = note.copy(pinned = false)
+                noteUseCase.pinNote(updatedNote)
+            }
+        } else {
+            selectedNotes.forEach { note ->
+                val updatedNote = note.copy(pinned = true)
+                noteUseCase.pinNote(updatedNote)
+            }
+        }
+
+        selectedNotes.clear()
     }
 }

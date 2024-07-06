@@ -69,6 +69,7 @@ import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.MoreButton
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.PinButton
 import com.kin.easynotes.presentation.components.SaveButton
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.CustomIconButton
@@ -108,11 +109,20 @@ fun EditNoteView(
 @Composable
 fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: EditViewModel) {
     when (pagerState.currentPage) {
+
         0 -> {
-            SaveButton { onClickBack() }
+            Row {
+                PinButton(viewModel.isPinned.value) {
+                    viewModel.toggleNotePin(!viewModel.isPinned.value)
+                }
+                SaveButton { onClickBack() }
+            }
         }
         1 -> {
-            Box {
+            Row {
+                PinButton(viewModel.isPinned.value) {
+                    viewModel.toggleNotePin(!viewModel.isPinned.value)
+                }
                 MoreButton {
                     viewModel.toggleEditMenuVisibility(true)
                 }
