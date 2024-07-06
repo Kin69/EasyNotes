@@ -162,24 +162,22 @@ fun MarkdownContent(
     lines: List<String>,
     onContentChange: (String) -> Unit
 ) {
-    SelectionContainer {
-        if (isPreview) {
-            Column(
-                modifier = modifier
-            ) {
-
-                content.take(4).forEach {
-                    RenderMarkdownElement(
-                        element = it,
-                        weight = weight,
-                        fontSize = fontSize,
-                        lines = lines,
-                        onContentChange = onContentChange
-                    )
-                }
+    if (isPreview) {
+        Column(
+            modifier = modifier
+        ) {
+            content.take(4).forEach {
+                RenderMarkdownElement(
+                    element = it,
+                    weight = weight,
+                    fontSize = fontSize,
+                    lines = lines,
+                    onContentChange = onContentChange
+                )
             }
         }
-        else {
+    } else {
+        SelectionContainer {
             LazyColumn(modifier = modifier) {
                 items(content.size) { index ->
                     Spacer(modifier = Modifier.height(spacing))
