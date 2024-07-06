@@ -43,7 +43,12 @@ class EditViewModel @Inject constructor(
 
     fun saveNote(id: Int) {
         if (noteName.value.text.isNotBlank() || noteDescription.value.text.isNotBlank()) {
-            noteUseCase.addNote(Note(id = id, name = noteName.value.text, description = noteDescription.value.text))
+            noteUseCase.addNote(Note(
+                id = id,
+                name = noteName.value.text,
+                description = noteDescription.value.text,
+                createdAt = if (noteCreatedTime.value != 0L) noteCreatedTime.value else System.currentTimeMillis(),
+            ))
         }
     }
 
@@ -59,7 +64,6 @@ class EditViewModel @Inject constructor(
     }
 
     fun setupNoteData(id : Int = noteId.value) {
-        val note: Note = Note(id = 0, name = "", description = "")
         if (id != 0) {
             viewModelScope.launch {
                 noteUseCase.getNoteById(id).collectLatest { note ->
