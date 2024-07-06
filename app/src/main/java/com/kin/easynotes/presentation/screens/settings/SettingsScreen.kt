@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowForwardIos
+import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.Cloud
 import androidx.compose.material.icons.rounded.Coffee
 import androidx.compose.material.icons.rounded.CurrencyBitcoin
@@ -50,7 +50,7 @@ fun SettingsScaffold(
     NotesScaffold(
         topBar = {
             key(settingsViewModel.settings.value) {
-                TopBar(title, onBackNavClicked, )
+                TopBar(title, onBackNavClicked)
             }
         },
         content = {
@@ -89,7 +89,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     smallSetting = true,
                     title = stringResource(id = R.string.support),
                     subTitle = stringResource(id = R.string.support_description),
-                    icon = Icons.Rounded.ArrowForwardIos,
+                    icon = Icons.AutoMirrored.Rounded.ArrowForwardIos,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
                     isLast = true,
                     composableAction = { onExit -> BottomModal(navController = navController, settingsViewModel = settingsViewModel) { onExit() }}

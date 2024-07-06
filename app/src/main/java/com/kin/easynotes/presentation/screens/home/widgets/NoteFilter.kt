@@ -3,6 +3,7 @@ package com.kin.easynotes.presentation.screens.home.widgets
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.Notes
 import androidx.compose.material.icons.rounded.Notes
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Icon
@@ -84,7 +85,7 @@ private fun getEmptyText(searchText: String?): String {
 @Composable
 private fun getEmptyIcon(searchText: String?): ImageVector {
     return when (searchText) {
-        null -> Icons.Rounded.Notes
+        null -> Icons.AutoMirrored.Rounded.Notes
         "" -> Icons.Rounded.Search
         else -> Icons.Rounded.Search
     }
