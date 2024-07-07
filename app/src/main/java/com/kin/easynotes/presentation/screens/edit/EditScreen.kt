@@ -2,14 +2,11 @@ package com.kin.easynotes.presentation.screens.edit
 
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,15 +14,12 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
-import androidx.compose.foundation.layout.windowInsetsEndWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Info
@@ -53,8 +47,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
@@ -64,7 +58,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.MoreButton
 import com.kin.easynotes.presentation.components.NavigationIcon
@@ -75,11 +68,11 @@ import com.kin.easynotes.presentation.screens.edit.components.CustomIconButton
 import com.kin.easynotes.presentation.screens.edit.components.CustomTextField
 import com.kin.easynotes.presentation.screens.edit.components.TextFormattingToolbar
 import com.kin.easynotes.presentation.screens.edit.model.EditViewModel
-import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
+import com.kin.easynotes.presentation.screens.settings.widgets.copyToClipboard
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -107,6 +100,8 @@ fun EditNoteView(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: EditViewModel) {
+    val context = LocalContext.current
+
     when (pagerState.currentPage) {
         0 -> {
             SaveButton { onClickBack() }
@@ -131,7 +126,13 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
                             }
                         )
                     }
-
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.copy)) },
+                        leadingIcon = { Icon(Icons.Rounded.ContentCopy, contentDescription = "Copy")},
+                        onClick = {
+                            copyToClipboard(context, viewModel.noteDescription.value.text)
+                        }
+                    )
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.information)) },
                         leadingIcon = { Icon(Icons.Rounded.Info, contentDescription = "Information")},
@@ -364,7 +365,6 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
             isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
             shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = (showOnlyDescription), isBoth = (!showOnlyDescription)),
             modifier = Modifier.fillMaxSize(),
-            isCopyable = true,
             content = {
                 MinimalisticMode(
                     alignment = Alignment.Top,
@@ -399,7 +399,6 @@ fun MarkdownBox(
     modifier: Modifier = Modifier,
     shape: RoundedCornerShape = RoundedCornerShape(0.dp),
     content: @Composable () -> Unit,
-    isCopyable: Boolean = false,
 ) {
     ElevatedCard(
         shape = shape,
