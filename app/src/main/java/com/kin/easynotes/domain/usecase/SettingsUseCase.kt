@@ -2,7 +2,6 @@ package com.kin.easynotes.domain.usecase
 
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.domain.model.Settings
-import com.kin.easynotes.domain.repository.SettingsRepository
 import javax.inject.Inject
 
 class SettingsUseCase @Inject constructor(
@@ -17,7 +16,6 @@ class SettingsUseCase @Inject constructor(
             field.isAccessible = true
             val settingName = field.name
             val defaultValue = field.get(defaultSettings)
-            println(settingName)
             val settingValue = when (field.type) {
                 Boolean::class.java -> settingsRepository.getBoolean(settingName) ?: defaultValue
                 String::class.java -> settingsRepository.getString(settingName) ?: defaultValue

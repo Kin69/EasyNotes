@@ -14,7 +14,6 @@ class GalleryObserver(handler: Handler, private val context: Context) : ContentO
         super.onChange(selfChange, uri)
         uri?.let {
             deleteFileIfExists(context, getImageName(uri))
-            println(getImageName(uri))
         }
     }
 }
