@@ -26,12 +26,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.net.toUri
 import coil.compose.AsyncImage
 
 
@@ -167,16 +165,17 @@ fun MarkdownContent(
             Column(
                 modifier = modifier
             ) {
-
-                content.take(4).forEach {
+                content.take(4).forEachIndexed { index, _ ->
                     RenderMarkdownElement(
-                        element = it,
+                        index = index,
+                        content = content,
                         weight = weight,
                         fontSize = fontSize,
                         lines = lines,
                         onContentChange = onContentChange
                     )
                 }
+
             }
         }
         else {
@@ -184,7 +183,8 @@ fun MarkdownContent(
                 items(content.size) { index ->
                     Spacer(modifier = Modifier.height(spacing))
                     RenderMarkdownElement(
-                        element = content[index],
+                        content = content,
+                        index = index,
                         weight = weight,
                         fontSize = fontSize,
                         lines = lines,
@@ -198,86 +198,103 @@ fun MarkdownContent(
 
 @Composable
 fun RenderMarkdownElement(
-    element: MarkdownElement,
+    content: List<MarkdownElement>,
+    index: Int,
     weight: FontWeight,
     fontSize: TextUnit,
     lines: List<String>,
     onContentChange: (String) -> Unit
 ) {
-    when (element) {
-        is Heading -> {
-            Text(
-                text = element.text,
-                fontSize = when (element.level) {
-                    in 1..6 -> (28 - (2 * element.level)).sp
-                    else -> fontSize
-                },
-                fontWeight = weight,
-                modifier = Modifier.padding(vertical = 10.dp)
-            )
-        }
-        is CheckboxItem -> {
-            MarkdownCheck(
-                content = {
-                    Text(
-                        text = element.text,
-                        fontSize = fontSize,
-                        fontWeight = weight,
-                    )
-                },
-                checked = element.checked
-            ) { newChecked ->
-                val newMarkdown = lines.toMutableList().apply {
-                    this[element.index] = if (newChecked) {
-                        "[X] ${element.text}"
-                    } else {
-                        "[ ] ${element.text}"
-                    }
-                }
-                onContentChange(newMarkdown.joinToString("\n"))
-            }
-        }
-        is ListItem -> {
-            Text(
-                text = "• ${element.text}",
-                fontSize = fontSize,
-                fontWeight = weight,
-            )
-        }
-        is Quote -> {
-            MarkdownQuote(content = element.text, fontSize = fontSize)
-        }
-        is ImageInsertion -> {
-            AsyncImage(
-                model = element.photoUri,
-                contentDescription = "Image",
-                modifier = Modifier.clip(RoundedCornerShape(14.dp))
-            )
-        }
-        is CodeBlock -> {
-            if (element.isEnded) {
-                MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                    Text(
-                        text = element.code.dropLast(1),
-                        fontSize = fontSize,
-                        fontWeight = weight,
-                        fontFamily = FontFamily.Monospace,
-                        modifier = Modifier.padding(6.dp),
-                    )
-                }
-            } else {
+    val element = content[index]
+    Row {
+        when (element) {
+            is Heading -> {
                 Text(
-                    text = element.firstLine,
+                    text = element.text,
+                    fontSize = when (element.level) {
+                        in 1..6 -> (28 - (2 * element.level)).sp
+                        else -> fontSize
+                    },
+                    fontWeight = weight,
+                    modifier = Modifier.padding(vertical = 10.dp)
+                )
+            }
+
+            is CheckboxItem -> {
+                MarkdownCheck(
+                    content = {
+                        Text(
+                            text = element.text,
+                            fontSize = fontSize,
+                            fontWeight = weight,
+                        )
+                    },
+                    checked = element.checked
+                ) { newChecked ->
+                    val newMarkdown = lines.toMutableList().apply {
+                        this[element.index] = if (newChecked) {
+                            "[X] ${element.text}"
+                        } else {
+                            "[ ] ${element.text}"
+                        }
+                    }
+                    onContentChange(newMarkdown.joinToString("\n"))
+                }
+            }
+
+            is ListItem -> {
+                Text(
+                    text = "• ${element.text}",
+                    fontSize = fontSize,
+                    fontWeight = weight,
+                )
+            }
+
+            is Quote -> {
+                MarkdownQuote(content = element.text, fontSize = fontSize)
+            }
+
+            is ImageInsertion -> {
+                AsyncImage(
+                    model = element.photoUri,
+                    contentDescription = "Image",
+                    modifier = Modifier.clip(RoundedCornerShape(14.dp))
+                )
+            }
+
+            is CodeBlock -> {
+                if (element.isEnded) {
+                    MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                        Text(
+                            text = element.code.dropLast(1),
+                            fontSize = fontSize,
+                            fontWeight = weight,
+                            fontFamily = FontFamily.Monospace,
+                            modifier = Modifier.padding(6.dp),
+                        )
+                    }
+                } else {
+                    Text(
+                        text = element.firstLine,
+                        fontWeight = weight,
+                        fontSize = fontSize,
+                    )
+                }
+            }
+
+            is NormalText -> {
+                Text(
+                    text = element.text,
                     fontWeight = weight,
                     fontSize = fontSize,
                 )
             }
         }
-        is NormalText -> {
+        // Add new line to selectionContainer but don't render it
+        if (content.lastIndex != index) {
             Text(
-                text = element.text,
-                fontWeight = weight,
-                fontSize = fontSize,
+                text = "\n",
+                maxLines = 1
             )
         }
     }
