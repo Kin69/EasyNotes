@@ -1,12 +1,17 @@
 package com.kin.easynotes.domain.usecase
 
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.domain.model.Note
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -16,12 +21,20 @@ class NoteUseCase @Inject constructor(
     private val noteRepository: NoteRepositoryImpl,
     private val coroutineScope: CoroutineScope
 ) {
+    var notes: List<Note> by mutableStateOf(emptyList())
 
-    lateinit var getAllNotes: Flow<List<Note>>
+    private var observeKeysJob: Job? = null
 
-    init {
-        coroutineScope.launch(NonCancellable + Dispatchers.IO) {
-            getAllNotes = noteRepository.getAllNotes()
+    fun observe() {
+        observeKeys()
+    }
+
+    private fun observeKeys() {
+        observeKeysJob?.cancel()
+        observeKeysJob = coroutineScope.launch {
+            noteRepository.getAllNotes().collectLatest { keys ->
+                this@NoteUseCase.notes = keys
+            }
         }
     }
 

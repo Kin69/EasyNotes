@@ -13,6 +13,11 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     val noteUseCase: NoteUseCase
 ) : ViewModel() {
+
+    init {
+        noteUseCase.observe()
+    }
+
     var selectedNotes = mutableStateListOf<Note>()
 
     private var _isDeleteMode = mutableStateOf(false)

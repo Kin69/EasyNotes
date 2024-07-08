@@ -1,5 +1,6 @@
 package com.kin.easynotes.presentation.screens.home
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -29,6 +29,8 @@ import com.kin.easynotes.presentation.components.PinButton
 import com.kin.easynotes.presentation.components.SelectAllButton
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
+import com.kin.easynotes.presentation.components.defaultScreenEnterAnimation
+import com.kin.easynotes.presentation.components.defaultScreenExitAnimation
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.NoteFilter
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
@@ -45,28 +47,35 @@ fun HomeView(
     NotesScaffold(
         floatingActionButton = { NewNoteButton(onNoteClicked) },
         topBar = {
-            val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
-            if (viewModel.selectedNotes.isNotEmpty()) {
-                SelectedNotesTopAppBar(
-                    selectedNotesCount = viewModel.selectedNotes.size,
-                    allNotes = allNotes,
-                    settingsModel = settingsModel,
-                    onPinClick = { viewModel.pinOrUnpinNotes() },
-                    onDeleteClick = { viewModel.toggleIsDeleteMode(true) },
-                    onSelectAllClick = { selectAllNotes(viewModel, allNotes) },
-                    onCloseClick = { viewModel.selectedNotes.clear() }
-                )
-            } else {
-                NotesSearchBar(
-                    query = viewModel.searchQuery.value,
-                    onQueryChange = { viewModel.changeSearchQuery(it) },
-                    onSettingsClick = onSettingsClicked,
-                    onClearClick = { viewModel.changeSearchQuery("") }
+            AnimatedVisibility(
+                    visible = viewModel.selectedNotes.isNotEmpty(),
+                    enter = defaultScreenEnterAnimation(),
+                    exit = defaultScreenExitAnimation()
+                ) {
+                    SelectedNotesTopAppBar(
+                        selectedNotesCount = viewModel.selectedNotes.size,
+                        allNotes = viewModel.noteUseCase.notes,
+                        settingsModel = settingsModel,
+                        onPinClick = { viewModel.pinOrUnpinNotes() },
+                        onDeleteClick = { viewModel.toggleIsDeleteMode(true) },
+                        onSelectAllClick = { selectAllNotes(viewModel, viewModel.noteUseCase.notes) },
+                        onCloseClick = { viewModel.selectedNotes.clear() }
+                    )
+                }
+                AnimatedVisibility(
+                    viewModel.selectedNotes.isEmpty(),
+                    enter = defaultScreenEnterAnimation(),
+                    exit = defaultScreenExitAnimation()
+                ) {
+                    NotesSearchBar(
+                        query = viewModel.searchQuery.value,
+                        onQueryChange = { viewModel.changeSearchQuery(it) },
+                        onSettingsClick = onSettingsClicked,
+                        onClearClick = { viewModel.changeSearchQuery("") }
                 )
             }
         },
         content = {
-            val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
             NoteFilter(
                 settingsViewModel = settingsModel,
                 containerColor = containerColor,
@@ -75,7 +84,7 @@ fun HomeView(
                     isBoth = true
                 ),
                 onNoteClicked = onNoteClicked,
-                notes = allNotes,
+                notes = viewModel.noteUseCase.notes,
                 selectedNotes = viewModel.selectedNotes,
                 viewMode = settingsModel.settings.value.viewMode,
                 searchText = viewModel.searchQuery.value.ifBlank { null },
@@ -83,6 +92,7 @@ fun HomeView(
                 onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },
                 onDeleteNote = {
                     viewModel.toggleIsDeleteMode(false)
+                    viewModel.noteUseCase.observe()
                     viewModel.noteUseCase.deleteNoteById(it)
                 },
             )

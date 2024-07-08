@@ -10,18 +10,22 @@ import com.kin.easynotes.data.local.dao.NoteDao
 
 class NoteDatabaseProvider(private val application: Application) {
 
+    @Volatile
     private var database: NoteDatabase? = null
 
     @Synchronized
     fun instance(): NoteDatabase {
-        if (database == null) {
-            database = Room.databaseBuilder(application.applicationContext, NoteDatabase::class.java, DatabaseConst.NOTES_DATABASE_FILE_NAME)
-                .addMigrations(MIGRATION_1_2)
-                .addMigrations(MIGRATION_2_3)
-                .build()
+        return database ?: synchronized(this) {
+            database ?: buildDatabase().also { database = it }
         }
+    }
 
-        return database!!
+    private fun buildDatabase(): NoteDatabase {
+        return Room.databaseBuilder(application.applicationContext,
+            NoteDatabase::class.java,
+            DatabaseConst.NOTES_DATABASE_FILE_NAME)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+            .build()
     }
 
     @Synchronized
@@ -34,6 +38,8 @@ class NoteDatabaseProvider(private val application: Application) {
         return instance().noteDao()
     }
 }
+
+
 
 private val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(db: SupportSQLiteDatabase) {

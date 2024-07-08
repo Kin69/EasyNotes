@@ -25,7 +25,7 @@ object ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideKeyDatabaseProvider(application: Application): NoteDatabaseProvider = NoteDatabaseProvider(application)
+    fun provideNoteDatabaseProvider(application: Application): NoteDatabaseProvider = NoteDatabaseProvider(application)
 
     @Provides
     @Singleton
