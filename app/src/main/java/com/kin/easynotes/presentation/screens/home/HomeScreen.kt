@@ -43,6 +43,7 @@ fun HomeView(
     onSettingsClicked: () -> Unit,
     onNoteClicked: (Int) -> Unit
 ) {
+    if (settingsModel.databaseUpdate.value) viewModel.noteUseCase.observe()
     val containerColor = getContainerColor(settingsModel)
     NotesScaffold(
         floatingActionButton = { NewNoteButton(onNoteClicked) },
@@ -92,7 +93,6 @@ fun HomeView(
                 onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },
                 onDeleteNote = {
                     viewModel.toggleIsDeleteMode(false)
-                    viewModel.noteUseCase.observe()
                     viewModel.noteUseCase.deleteNoteById(it)
                 },
             )

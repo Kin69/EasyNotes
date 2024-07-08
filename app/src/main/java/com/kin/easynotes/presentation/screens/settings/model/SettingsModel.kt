@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.BuildConfig
 import com.kin.easynotes.data.repository.BackupRepository
 import com.kin.easynotes.domain.model.Settings
-import com.kin.easynotes.domain.usecase.NoteUseCase
 import com.kin.easynotes.domain.usecase.SettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +17,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    val noteUseCase: NoteUseCase,
     val backup: BackupRepository,
     val settingsUseCase: SettingsUseCase
 ) : ViewModel() {
+    val databaseUpdate = mutableStateOf(false)
+
     private val _settings = mutableStateOf(Settings())
     var settings: State<Settings> = _settings
 
@@ -48,14 +48,14 @@ class SettingsViewModel @Inject constructor(
     fun onExport(uri: Uri) {
         viewModelScope.launch {
             backup.export(uri)
-            noteUseCase.observe()
+            databaseUpdate.value = true
         }
     }
 
     fun onImport(uri: Uri) {
         viewModelScope.launch {
             backup.import(uri)
-            noteUseCase.observe()
+            databaseUpdate.value = true
         }
     }
 

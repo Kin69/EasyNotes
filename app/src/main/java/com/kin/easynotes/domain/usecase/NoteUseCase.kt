@@ -22,6 +22,7 @@ class NoteUseCase @Inject constructor(
     private val coroutineScope: CoroutineScope
 ) {
     var notes: List<Note> by mutableStateOf(emptyList())
+        private set
 
     private var observeKeysJob: Job? = null
 
@@ -32,10 +33,15 @@ class NoteUseCase @Inject constructor(
     private fun observeKeys() {
         observeKeysJob?.cancel()
         observeKeysJob = coroutineScope.launch {
-            noteRepository.getAllNotes().collectLatest { keys ->
+            getAllNotes().collectLatest { keys ->
                 this@NoteUseCase.notes = keys
             }
         }
+    }
+
+
+    fun getAllNotes(): Flow<List<Note>> {
+        return noteRepository.getAllNotes()
     }
 
     fun addNote(note: Note) {
@@ -62,7 +68,7 @@ class NoteUseCase @Inject constructor(
             noteRepository.deleteNote(noteToDelete)
         }
     }
-    
+
     fun getNoteById(id: Int): Flow<Note>  {
         return noteRepository.getNoteById(id)
     }

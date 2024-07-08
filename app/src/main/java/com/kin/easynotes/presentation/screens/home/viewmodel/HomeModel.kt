@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.kin.easynotes.data.repository.BackupRepository
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    val noteUseCase: NoteUseCase
+    val noteUseCase: NoteUseCase,
+    val backupRepository: BackupRepository,
 ) : ViewModel() {
 
     init {
@@ -33,7 +35,6 @@ class HomeViewModel @Inject constructor(
     fun changeSearchQuery(newValue: String) {
         _searchQuery.value = newValue
     }
-
 
     fun pinOrUnpinNotes() {
         if (selectedNotes.all { it.pinned }) {
