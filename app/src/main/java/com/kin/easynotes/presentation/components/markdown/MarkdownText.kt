@@ -175,7 +175,7 @@ fun MarkdownContent(
                     )
                 }
             }
-        } else {
+    } else {
         SelectionContainer {
             LazyColumn(modifier = modifier) {
                 items(content.size) { index ->

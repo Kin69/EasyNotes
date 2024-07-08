@@ -36,6 +36,35 @@ fun NoteFilter(
     onNoteUpdate: (Note) -> Unit,
     onDeleteNote: (Int) -> Unit
 ) {
+    @Composable
+    fun Section(
+        text: String,
+        notes: List<Note>,
+        showText: Boolean,
+    ) {
+        if (notes.isNotEmpty()) {
+            if (showText) {
+                Text(
+                    modifier = Modifier.padding(horizontal = 12.dp),
+                    text = text.uppercase(),
+                    style = TextStyle(fontSize = 11.sp, color = MaterialTheme.colorScheme.secondary)
+                )
+            }
+            NotesGrid(
+                settingsViewModel = settingsViewModel,
+                containerColor = containerColor,
+                onNoteClicked = onNoteClicked,
+                notes = notes,
+                shape = shape,
+                onNoteUpdate = onNoteUpdate,
+                selectedNotes = selectedNotes,
+                viewMode = viewMode,
+                isDeleteClicked = isDeleteMode,
+                animationFinished = onDeleteNote
+            )
+        }
+    }
+
     val filteredNotes = filterNotes(notes, searchText)
     if (filteredNotes.isEmpty()) {
         Placeholder(
@@ -51,72 +80,40 @@ fun NoteFilter(
         )
     } else {
         val (pinnedNotes, otherNotes) = filteredNotes.partition { it.pinned }
-
         Column {
-            if (pinnedNotes.isNotEmpty()) {
-                PinnedNotes(
-                    settingsViewModel = settingsViewModel,
-                    containerColor = containerColor,
-                    onNoteClicked = onNoteClicked,
-                    notes = pinnedNotes,
-                    shape = shape,
-                    onNoteUpdate = onNoteUpdate,
-                    selectedNotes = selectedNotes,
-                    viewMode = viewMode,
-                    isDeleteClicked = isDeleteMode,
-                    animationFinished = onDeleteNote
-                )
-            }
-            Column {
-                Text(
-                    modifier = Modifier.padding(horizontal = 12.dp),
-                    text = stringResource(R.string.others).uppercase(),
-                    style = TextStyle(fontSize = 11.sp, color = MaterialTheme.colorScheme.secondary)
-                )
-                NotesGrid(
-                    settingsViewModel = settingsViewModel,
-                    containerColor = containerColor,
-                    onNoteClicked = onNoteClicked,
-                    notes = otherNotes,
-                    shape = shape,
-                    onNoteUpdate = onNoteUpdate,
-                    selectedNotes = selectedNotes,
-                    viewMode = viewMode,
-                    isDeleteClicked = isDeleteMode,
-                    animationFinished = onDeleteNote
-                )
-            }
+           Section(
+               text = stringResource(id = R.string.pinned),
+               notes = pinnedNotes,
+               showText = true
+           )
+           Section(
+               text = stringResource(id = R.string.others),
+               notes = otherNotes,
+               showText = pinnedNotes.isNotEmpty())
         }
     }
 }
 
 private fun filterNotes(notes: List<Note>, searchText: String?): List<Note> {
-    return searchText?.let { query ->
-        if (query.isBlank()) {
-            emptyList()
-        } else {
-            notes.filter { note ->
-                note.name.contains(query, ignoreCase = true) || note.description.contains(query, ignoreCase = true)
-            }
+    return searchText?.takeIf { it.isNotBlank() }?.let { query ->
+        notes.filter { note ->
+            note.name.contains(query, ignoreCase = true) || note.description.contains(query, ignoreCase = true)
         }
     } ?: notes
 }
 
 @Composable
 private fun getEmptyText(searchText: String?): String {
-    return when (searchText) {
-        null -> stringResource(R.string.no_created_notes)
-        "" -> stringResource(R.string.no_found_notes)
+    return when {
+        searchText.isNullOrEmpty() -> stringResource(R.string.no_created_notes)
         else -> stringResource(R.string.no_found_notes)
     }
 }
 
 @Composable
 private fun getEmptyIcon(searchText: String?): ImageVector {
-    return when (searchText) {
-        null -> Icons.AutoMirrored.Rounded.Notes
-        "" -> Icons.Rounded.Search
+    return when {
+        searchText.isNullOrEmpty() -> Icons.AutoMirrored.Rounded.Notes
         else -> Icons.Rounded.Search
     }
 }
-

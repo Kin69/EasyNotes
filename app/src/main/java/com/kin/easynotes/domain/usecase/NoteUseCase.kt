@@ -3,7 +3,6 @@ package com.kin.easynotes.domain.usecase
 
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.domain.model.Note
-import com.kin.easynotes.domain.repository.NoteRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -50,8 +49,8 @@ class NoteUseCase @Inject constructor(
             noteRepository.deleteNote(noteToDelete)
         }
     }
-
-    fun getNoteById(id: Int): Flow<Note> {
+    
+    fun getNoteById(id: Int): Flow<Note>  {
         return noteRepository.getNoteById(id)
     }
 

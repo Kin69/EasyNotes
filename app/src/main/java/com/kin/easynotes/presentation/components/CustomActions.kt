@@ -6,9 +6,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.PushPin
+import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -89,5 +91,31 @@ fun TitleText(titleText: String) {
 fun PinButton(isPinned: Boolean, onClick: () -> Unit) {
     IconButton(onClick = { onClick() }) {
         Icon(if (isPinned) Icons.Rounded.PushPin else Icons.Outlined.PushPin, contentDescription = "Pin")
+    }
+}
+
+@Composable
+fun DeleteButton(onClick: () -> Unit) {
+    IconButton(
+        onClick = { onClick() }
+    ) {
+        Icon(
+            imageVector =  Icons.Rounded.Delete,
+            contentDescription = "Delete",
+        )
+    }
+}
+
+@Composable
+fun SelectAllButton(enabled: Boolean, onClick: () -> Unit) {
+    if (enabled) {
+        IconButton(
+            onClick = { onClick() }
+        ) {
+            Icon(
+                imageVector =  Icons.Rounded.SelectAll,
+                contentDescription = "Select All",
+            )
+        }
     }
 }

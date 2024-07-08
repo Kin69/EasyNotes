@@ -3,7 +3,6 @@ package com.kin.easynotes.presentation.screens.edit
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,11 +18,13 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Numbers
+import androidx.compose.material.icons.rounded.PushPin
 import androidx.compose.material.icons.rounded.RemoveRedEye
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -62,7 +63,6 @@ import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.MoreButton
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
-import com.kin.easynotes.presentation.components.PinButton
 import com.kin.easynotes.presentation.components.SaveButton
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.CustomIconButton
@@ -107,17 +107,11 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
 
         0 -> {
             Row {
-                PinButton(viewModel.isPinned.value) {
-                    viewModel.toggleNotePin(!viewModel.isPinned.value)
-                }
                 SaveButton { onClickBack() }
             }
         }
         1 -> {
             Row {
-                PinButton(viewModel.isPinned.value) {
-                    viewModel.toggleNotePin(!viewModel.isPinned.value)
-                }
                 MoreButton {
                     viewModel.toggleEditMenuVisibility(true)
                 }
@@ -135,6 +129,10 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
                                 onClickBack()
                             }
                         )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(id = R.string.pinned)) },
+                            leadingIcon = { Icon(if (viewModel.isPinned.value) Icons.Rounded.PushPin else Icons.Outlined.PushPin, contentDescription = "Pin")},
+                            onClick = { viewModel.toggleNotePin(!viewModel.isPinned.value) })
                     }
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.copy)) },

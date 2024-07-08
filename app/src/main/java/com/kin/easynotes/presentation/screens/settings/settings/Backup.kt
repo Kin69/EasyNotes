@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     val exportLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.CreateDocument("*/*"),
+        contract = ActivityResultContracts.CreateDocument("*/.zip"),
         onResult = { uri ->
             if (uri != null) settingsViewModel.onExport(uri)
         }
@@ -47,7 +47,7 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
                     icon = Icons.Rounded.Backup,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     actionType = ActionType.CUSTOM,
-                    customAction = { LaunchedEffect(true) { exportLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.backup") } })
+                    customAction = { LaunchedEffect(true) { exportLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.zip") } })
             }
             item {
                 SettingsBox(
@@ -56,7 +56,7 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
                     icon = Icons.Rounded.ImportExport,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     actionType = ActionType.CUSTOM,
-                    customAction = { LaunchedEffect(true) { importLauncher.launch(arrayOf("*/*")) } })
+                    customAction = { LaunchedEffect(true) { importLauncher.launch(arrayOf("application/zip")) } })
             }
         }
     }

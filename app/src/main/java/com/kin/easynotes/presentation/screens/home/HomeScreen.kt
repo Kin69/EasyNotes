@@ -1,15 +1,10 @@
 package com.kin.easynotes.presentation.screens.home
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.SelectAll
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -25,11 +20,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kin.easynotes.R
+import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.CloseButton
-import com.kin.easynotes.presentation.components.MoreButton
+import com.kin.easynotes.presentation.components.DeleteButton
 import com.kin.easynotes.presentation.components.NotesButton
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.PinButton
+import com.kin.easynotes.presentation.components.SelectAllButton
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
@@ -37,108 +34,46 @@ import com.kin.easynotes.presentation.screens.home.widgets.NoteFilter
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeView(
-    viewModel: HomeViewModel = hiltViewModel<HomeViewModel>(),
+    viewModel: HomeViewModel = hiltViewModel(),
     settingsModel: SettingsViewModel,
     onSettingsClicked: () -> Unit,
     onNoteClicked: (Int) -> Unit
 ) {
+    val containerColor = getContainerColor(settingsModel)
     NotesScaffold(
-        floatingActionButton = { NotesButton(text = stringResource(R.string.new_note)) { onNoteClicked(0) }},
+        floatingActionButton = { NewNoteButton(onNoteClicked) },
         topBar = {
-            when (viewModel.selectedNotes.isNotEmpty()) {
-                true -> TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = if (!settingsModel.settings.value.extremeAmoledMode) MaterialTheme.colorScheme.surfaceContainerHigh else Color.Black
-                    ),
-                    title = {
-                        TitleText(
-                            titleText = viewModel.selectedNotes.size.toString()
-                        )
-                    },
-                    navigationIcon = {
-                        CloseButton { viewModel.selectedNotes.clear() }
-                    },
-                    actions = {
-                        val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
-
-                        Row {
-                            PinButton(viewModel.selectedNotes.all { it.pinned }) {
-                                viewModel.pinOrUnpinNotes()
-                            }
-                            MoreButton {
-                                viewModel.toggleSelectMenu(true)
-                            }
-
-                            DropdownMenu(
-                                expanded = viewModel.isSelectMenuOpened.value,
-                                onDismissRequest = { viewModel.toggleSelectMenu(false) }
-                            ) {
-                                if (viewModel.selectedNotes.size != allNotes.size && viewModel.searchQuery.value.isBlank()) {
-                                    DropdownMenuItem(
-                                        leadingIcon = { Icon(Icons.Rounded.SelectAll, contentDescription = "Select all")},
-                                        text = { Text(stringResource(id = R.string.select_all)) },
-                                        onClick = {
-                                            allNotes.forEach {
-                                                if (!viewModel.selectedNotes.contains(it)) {
-                                                    viewModel.selectedNotes.add(it)
-                                                }
-                                            }
-                                        }
-                                    )
-                                }
-
-                                DropdownMenuItem(
-                                    leadingIcon = { Icon(Icons.Rounded.Delete, contentDescription = "Delete")},
-                                    text = { Text(stringResource(id = R.string.delete)) },
-                                    onClick = {
-                                        viewModel.toggleSelectMenu(false)
-                                        viewModel.toggleIsDeleteMode(true)
-                                    }
-                                )
-                            }
-                        }
-                    }
+            val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
+            if (viewModel.selectedNotes.isNotEmpty()) {
+                SelectedNotesTopAppBar(
+                    selectedNotesCount = viewModel.selectedNotes.size,
+                    allNotes = allNotes,
+                    settingsModel = settingsModel,
+                    onPinClick = { viewModel.pinOrUnpinNotes() },
+                    onDeleteClick = { viewModel.toggleIsDeleteMode(true) },
+                    onSelectAllClick = { selectAllNotes(viewModel, allNotes) },
+                    onCloseClick = { viewModel.selectedNotes.clear() }
                 )
-                false -> SearchBar(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(36.dp, 0.dp, 36.dp, 18.dp),
+            } else {
+                NotesSearchBar(
                     query = viewModel.searchQuery.value,
-                    placeholder = { Text(stringResource(R.string.search)) },
-                    leadingIcon = {
-                        Icon(Icons.Rounded.Search, contentDescription="search")
-                    },
-                    trailingIcon = {
-                        Row {
-                            if (viewModel.searchQuery.value.isNotBlank()) {
-                                CloseButton (
-                                    contentDescription = "Clear"
-                                ) {
-                                    viewModel.changeSearchQuery("")
-                                }
-                            }
-
-                            SettingsButton {
-                                onSettingsClicked()
-                            }
-                        }
-                    },
-                    onQueryChange = { value -> viewModel.changeSearchQuery(value) },
-                    onSearch = { value -> viewModel.changeSearchQuery(value) },
-                    onActiveChange = {},
-                    active = false,
-                ) {}
+                    onQueryChange = { viewModel.changeSearchQuery(it) },
+                    onSettingsClick = onSettingsClicked,
+                    onClearClick = { viewModel.changeSearchQuery("") }
+                )
             }
         },
         content = {
             val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
             NoteFilter(
                 settingsViewModel = settingsModel,
-                containerColor = if (settingsModel.settings.value.extremeAmoledMode) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh,
-                shape = shapeManager(radius = settingsModel.settings.value.cornerRadius/2, isBoth = true),
+                containerColor = containerColor,
+                shape = shapeManager(
+                    radius = settingsModel.settings.value.cornerRadius / 2,
+                    isBoth = true
+                ),
                 onNoteClicked = onNoteClicked,
                 notes = allNotes,
                 selectedNotes = viewModel.selectedNotes,
@@ -153,4 +88,87 @@ fun HomeView(
             )
         }
     )
+}
+
+@Composable
+private fun getContainerColor(settingsModel: SettingsViewModel): Color {
+    return if (settingsModel.settings.value.extremeAmoledMode) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh
+}
+
+@Composable
+private fun NewNoteButton(onNoteClicked: (Int) -> Unit) {
+    NotesButton(text = stringResource(R.string.new_note)) {
+        onNoteClicked(0)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SelectedNotesTopAppBar(
+    selectedNotesCount: Int,
+    allNotes: List<Note>,
+    settingsModel: SettingsViewModel,
+    onPinClick: () -> Unit,
+    onDeleteClick: () -> Unit,
+    onSelectAllClick: () -> Unit,
+    onCloseClick: () -> Unit
+) {
+    TopAppBar(
+        modifier = Modifier.padding(bottom = 36.dp),
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = if (!settingsModel.settings.value.extremeAmoledMode)
+                MaterialTheme.colorScheme.surfaceContainerLow
+            else Color.Black
+        ),
+        title = { TitleText(titleText = selectedNotesCount.toString()) },
+        navigationIcon = { CloseButton(onCloseClicked = onCloseClick) },
+        actions = {
+            Row {
+                PinButton(isPinned = allNotes.all { it.pinned }, onClick = onPinClick)
+                DeleteButton(onClick = onDeleteClick)
+                SelectAllButton(
+                    enabled = selectedNotesCount != allNotes.size,
+                    onClick = onSelectAllClick
+                )
+            }
+        }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun NotesSearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    onSettingsClick: () -> Unit,
+    onClearClick: () -> Unit
+) {
+    SearchBar(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 36.dp, vertical = 18.dp),
+        query = query,
+        placeholder = { Text(stringResource(R.string.search)) },
+        leadingIcon = { Icon(Icons.Rounded.Search, contentDescription = "Search") },
+        trailingIcon = {
+            Row {
+                if (query.isNotBlank()) {
+                    CloseButton(contentDescription = "Clear", onCloseClicked = onClearClick)
+                }
+                SettingsButton(onSettingsClicked = onSettingsClick)
+            }
+        },
+        onQueryChange = onQueryChange,
+        onSearch = onQueryChange,
+        onActiveChange = {},
+        active = false,
+    ) {}
+}
+
+private fun selectAllNotes(viewModel: HomeViewModel, allNotes: List<Note>) {
+    allNotes.forEach {
+        if (!viewModel.selectedNotes.contains(it)) {
+            viewModel.selectedNotes.add(it)
+        }
+    }
 }

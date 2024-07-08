@@ -15,9 +15,6 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     var selectedNotes = mutableStateListOf<Note>()
 
-    private var _isSelectMenuOpened = mutableStateOf(false)
-    val isSelectMenuOpened: State<Boolean> = _isSelectMenuOpened
-
     private var _isDeleteMode = mutableStateOf(false)
     val isDeleteMode: State<Boolean> = _isDeleteMode
 
@@ -28,13 +25,10 @@ class HomeViewModel @Inject constructor(
         _isDeleteMode.value = enabled
     }
 
-    fun toggleSelectMenu(enabled: Boolean) {
-        _isSelectMenuOpened.value = enabled
-    }
-
     fun changeSearchQuery(newValue: String) {
         _searchQuery.value = newValue
     }
+
 
     fun pinOrUnpinNotes() {
         if (selectedNotes.all { it.pinned }) {
