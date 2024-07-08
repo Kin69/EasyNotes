@@ -55,4 +55,27 @@
     <string name="extreme_amoled_mode">ألوان Amoled القصوى</string>
     <string name="privacy">الخصوصية</string>
     <string name="screen_protection">حماية محتوى الشاشة</string>
+    <string name="images_supprot">دعم الصور</string>
+    <string name="unstable_feature">غير مستقر</string>
+    <string name="cryptocurrency">Cryptocurrency</string>
+    <string name="system_theme_description">تكييف مظهر التطبيق بناءً على إعدادات النظام</string>
+    <string name="dark_theme_description">التبديل بين أنظمة الألوان الداكنة و الفاتحة</string>
+    <string name="dynamic_colors_description">ضبط الألوان لتتناسب مع خلفية هاتفك</string>
+    <string name="amoled_colors_description">استخدم اللون الأسود للخلفية</string>
+    <string name="extreme_amoled_mode_description">تحسين البطارية إلى اقصى حد</string>
+    <string name="radius_description">تعديل الإستدارة حسب الطلب</string>
+    <string name="view_style_description">حدد نمط العرض</string>
+    <string name="minimalistic_mode_description">إزالة الأزرار العلوية من شاشة التحرير</string>
+    <string name="backup_description">تخزين جميع الملاحظات في ملف</string>
+    <string name="restore_description">استعادة الملاحظات من ملف</string>
+    <string name="markdown_description">تمكين Markdown في الملاحظات</string>
+    <string name="screen_protection_description">إخفاء محتوى التطبيق في شاشة التطبيقات الأخيرة و تعطيل لقطات الشاشة</string>
+    <string name="build_type">نوع الإصدار</string>
+    <string name="source_code">كود المصدر</string>
+    <string name="support_list">قائمة الداعمين</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="discord">Discord</string>
+    <string name="feature">طلب الميزات</string>
+    <string name="pinned">مثبتة</string>
+    <string name="others">أخرى</string>
 </resources>

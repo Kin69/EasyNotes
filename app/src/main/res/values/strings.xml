@@ -76,5 +76,7 @@
     <string name="email">Email</string>
     <string name="discord">Discord</string>
     <string name="feature">Feature Request</string>
+    <string name="pinned">Pinned</string>
+    <string name="others">Others</string>
     <string name="copy">Copy</string>
 </resources>

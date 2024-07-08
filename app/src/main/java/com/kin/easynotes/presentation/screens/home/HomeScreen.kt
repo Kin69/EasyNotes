@@ -29,6 +29,7 @@ import com.kin.easynotes.presentation.components.CloseButton
 import com.kin.easynotes.presentation.components.MoreButton
 import com.kin.easynotes.presentation.components.NotesButton
 import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.PinButton
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
@@ -63,7 +64,10 @@ fun HomeView(
                     actions = {
                         val allNotes = viewModel.noteUseCase.getAllNotes.collectAsState(initial = listOf()).value
 
-                        Box {
+                        Row {
+                            PinButton(viewModel.selectedNotes.all { it.pinned }) {
+                                viewModel.pinOrUnpinNotes()
+                            }
                             MoreButton {
                                 viewModel.toggleSelectMenu(true)
                             }
@@ -78,8 +82,8 @@ fun HomeView(
                                         text = { Text(stringResource(id = R.string.select_all)) },
                                         onClick = {
                                             allNotes.forEach {
-                                                if (!viewModel.selectedNotes.contains(it.id)) {
-                                                    viewModel.selectedNotes.add(it.id)
+                                                if (!viewModel.selectedNotes.contains(it)) {
+                                                    viewModel.selectedNotes.add(it)
                                                 }
                                             }
                                         }

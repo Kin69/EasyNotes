@@ -26,7 +26,7 @@ fun NotesGrid(
     shape : RoundedCornerShape,
     notes: List<Note>,
     onNoteUpdate: (Note) -> Unit,
-    selectedNotes: MutableList<Int>,
+    selectedNotes: MutableList<Note>,
     viewMode: Boolean,
     isDeleteClicked: Boolean,
     animationFinished: (Int) -> Unit
@@ -50,12 +50,12 @@ fun NotesGrid(
                         containerColor = containerColor,
                         note = note,
                         shape = shape,
-                        isBorderEnabled = selectedNotes.contains(note.id),
+                        isBorderEnabled = selectedNotes.contains(note),
                         onShortClick = { handleShortClick(selectedNotes, note, onNoteClicked) },
                         onNoteUpdate = onNoteUpdate,
                         onLongClick = { handleLongClick(selectedNotes, note) }
                     )
-                    if (isDeleteClicked && selectedNotes.contains(note.id)) {
+                    if (isDeleteClicked && selectedNotes.contains(note)) {
                         isAnimationVisible.targetState = false
                     }
                 }
@@ -76,35 +76,35 @@ private fun rememberTransitionState(): MutableTransitionState<Boolean> {
 }
 
 private fun handleShortClick(
-    selectedNotes: MutableList<Int>,
+    selectedNotes: MutableList<Note>,
     note: Note,
     onNoteClicked: (Int) -> Unit
 ) {
     if (selectedNotes.isNotEmpty()) {
-        if (selectedNotes.contains(note.id)) {
-            selectedNotes.remove(note.id)
+        if (selectedNotes.contains(note)) {
+            selectedNotes.remove(note)
         } else {
-            selectedNotes.add(note.id)
+            selectedNotes.add(note)
         }
     } else {
         onNoteClicked(note.id)
     }
 }
 
-private fun handleLongClick(selectedNotes: MutableList<Int>, note: Note) {
-    if (!selectedNotes.contains(note.id)) {
-        selectedNotes.add(note.id)
+private fun handleLongClick(selectedNotes: MutableList<Note>, note: Note) {
+    if (!selectedNotes.contains(note)) {
+        selectedNotes.add(note)
     }
 }
 
 private fun handleDeleteAnimation(
-    selectedNotes: MutableList<Int>,
+    selectedNotes: MutableList<Note>,
     note: Note,
     isAnimationVisible: MutableTransitionState<Boolean>,
     animationFinished: (Int) -> Unit
 ) {
-    if (!isAnimationVisible.targetState && !isAnimationVisible.currentState && selectedNotes.contains(note.id)) {
-        selectedNotes.remove(note.id)
+    if (!isAnimationVisible.targetState && !isAnimationVisible.currentState && selectedNotes.contains(note)) {
+        selectedNotes.remove(note)
         isAnimationVisible.targetState = true
         animationFinished(note.id)
     }
