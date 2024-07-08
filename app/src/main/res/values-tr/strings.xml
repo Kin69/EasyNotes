@@ -77,4 +77,12 @@
     <string name="minimalistic_mode_description">Düzenleme ekranından üst düğmeleri kaldırın</string>
     <string name="build_type">Derleme Türü</string>
     <string name="markdown_description">Notlarda markdown\'ı etkinleştirin</string>
+    <string name="pinned">Sabitlendi</string>
+    <string name="others">Diğer</string>
+    <string name="copy">Kopyala</string>
+    <string name="encrypt_databse">Veri Tabanını Şifrele</string>
+    <string name="encrypt_databse_description">Yedekleme sırasında veri tabanını şifreleyin</string>
+    <string name="password_prompt">Parola gir</string>
+    <string name="detabase_restore_error">Parola geçersiz veya veri tabanı şifreli değil</string>
+    <string name="invalid_input">Geçersiz giriş</string>
 </resources>
