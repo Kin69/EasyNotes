@@ -54,4 +54,27 @@
     <string name="select_radius">Выберите радиус</string>
     <string name="minimalistic_mode">Минималистичный режим</string>
     <string name="extreme_amoled_mode">Супер натуральный чёрный</string>
+    <string name="privacy">Приватность</string>
+    <string name="screen_protection">Защита от скриншотов/записи экрана</string>
+    <string name="unstable_feature">Нестабильно</string>
+    <string name="system_theme_description">Адаптирует тему оформления приложения под системные настройки</string>
+    <string name="amoled_colors_description">Использовать чёрный цвет для фона</string>
+    <string name="radius_description">Установите радиус скругления углов</string>
+    <string name="view_style_description">Выберите стиль просмотра заметок</string>
+    <string name="dynamic_colors_description">Адаптирует цвет приложения исходя из ваших обоев</string>
+    <string name="extreme_amoled_mode_description">Экстремальная оптимизация батареи</string>
+    <string name="markdown_description">Включает Markdown для заметок</string>
+    <string name="backup_description">Экспортировать все заметки в файл</string>
+    <string name="build_type">Тип сборки</string>
+    <string name="source_code">Исходный код</string>
+    <string name="support_list">Контрибьюторы</string>
+    <string name="cryptocurrency">Криптовалюта</string>
+    <string name="images_supprot">Поддержка изображений</string>
+    <string name="screen_protection_description">Запрещает скриншоты и запись экрана в приложении</string>
+    <string name="email">Почта</string>
+    <string name="discord">Disсоrd</string>
+    <string name="restore_description">Восстановить заметки из файла</string>
+    <string name="feature">Запрос новой функции</string>
+    <string name="dark_theme_description">Переключение между тёмной и светлой темой оформления</string>
+    <string name="minimalistic_mode_description">Убирает верхние кнопки из экрана редактирования заметок</string>
 </resources>

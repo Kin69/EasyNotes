@@ -1,21 +1,11 @@
 package com.kin.easynotes.presentation.screens.edit.components
 
-import android.app.Activity
-import android.content.ContentResolver
-import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
-import android.database.ContentObserver
 import android.net.Uri
-import android.os.FileObserver
-import android.os.Handler
-import android.os.Looper
-import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.FormatListBulleted
@@ -26,9 +16,7 @@ import androidx.compose.material.icons.rounded.HMobiledata
 import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,10 +32,6 @@ import java.io.InputStream
 
 @Composable
 fun TextFormattingToolbar(viewModel: EditViewModel) {
-    val activity  = LocalContext.current as Activity
-    val context = LocalContext.current
-
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly
@@ -98,7 +82,6 @@ private fun saveImageToAppStorage(context: Context, uri: Uri): Uri {
     if (!appStorageDir.exists()) {
         appStorageDir.mkdirs()
     }
-    println(getImageName(uri))
     val imageFile = File(appStorageDir, getImageName(uri))
 
     val inputStream: InputStream? = context.contentResolver.openInputStream(uri)

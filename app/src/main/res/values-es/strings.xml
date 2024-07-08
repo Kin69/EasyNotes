@@ -54,4 +54,27 @@
     <string name="support_description">Muestra tu amor</string>
     <string name="select_font">Fuente</string>
     <string name="extreme_amoled_mode">Colores Amoled Extremos</string>
+    <string name="unstable_feature">Inestable</string>
+    <string name="cryptocurrency">Criptomoneda</string>
+    <string name="dark_theme_description">Alternar entre esquemas de colores oscuros y claros</string>
+    <string name="amoled_colors_description">Utilice el color negro para el fondo</string>
+    <string name="images_supprot">Imágenes soportadas</string>
+    <string name="radius_description">Personalizar el radio del borde</string>
+    <string name="view_style_description">Seleccionar forma de visualización</string>
+    <string name="minimalistic_mode_description">Eliminar los botones superiores de la pantalla de edición</string>
+    <string name="backup_description">Almacenar todas las notas en un archivo</string>
+    <string name="restore_description">Restaurar notas desde un archivo</string>
+    <string name="markdown_description">Habilitar Markdown en las notas</string>
+    <string name="screen_protection_description">Ocultar la pantalla de recientes y deshabilitar capturas de pantalla</string>
+    <string name="build_type">Tipos de desarrollo</string>
+    <string name="source_code">Código fuente</string>
+    <string name="support_list">Lista de patrocinadores</string>
+    <string name="email">Correo electrónico</string>
+    <string name="privacy">Privacidad</string>
+    <string name="screen_protection">Protección de pantalla</string>
+    <string name="system_theme_description">Adapta el tema de la aplicación según la configuración del sistema</string>
+    <string name="feature">Solicitud de características</string>
+    <string name="dynamic_colors_description">Ajusta los colores para que coincidan con tu fondo de pantalla</string>
+    <string name="extreme_amoled_mode_description">Optimización extrema de la batería</string>
+    <string name="discord">Discord</string>
 </resources>

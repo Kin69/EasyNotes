@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Easy Notes</string>
     <string name="home_screen">Notlar</string>
@@ -53,4 +54,27 @@
     <string name="select_radius">Yarıçap Seç</string>
     <string name="minimalistic_mode">Minimalist Mod</string>
     <string name="extreme_amoled_mode">Ekstrem Amoled Renkler</string>
+    <string name="screen_protection">Ekran Koruması</string>
+    <string name="images_supprot">Görseller Desteği</string>
+    <string name="unstable_feature">Kararsız</string>
+    <string name="cryptocurrency">Kripto Para</string>
+    <string name="dark_theme_description">Koyu ve açık renk düzenleri arasında geçiş yapın</string>
+    <string name="extreme_amoled_mode_description">Aşırı pil iyileştirmesi</string>
+    <string name="radius_description">Kenarlık yarıçapını özelleştirin</string>
+    <string name="view_style_description">Görünüm biçimini seçin</string>
+    <string name="backup_description">Tüm notları dosyaya kaydedin</string>
+    <string name="restore_description">Notları dosyadan geri yükleyin</string>
+    <string name="screen_protection_description">Ekranı son kullanılanlarda gizleyin ve ekran görüntülerini devre dışı bırakın</string>
+    <string name="source_code">Kaynak Kodu</string>
+    <string name="support_list">Destekçiler Listesi</string>
+    <string name="email">E-posta</string>
+    <string name="discord">Discord</string>
+    <string name="feature">Özellik İsteği</string>
+    <string name="privacy">Gizlilik</string>
+    <string name="system_theme_description">Uygulama temasını sistem ayarlarına göre uyarlar</string>
+    <string name="amoled_colors_description">Arka plan için siyah renk kullan</string>
+    <string name="dynamic_colors_description">Renkleri duvar kağıdınıza uyacak şekilde ayarlar</string>
+    <string name="minimalistic_mode_description">Düzenleme ekranından üst düğmeleri kaldırın</string>
+    <string name="build_type">Derleme Türü</string>
+    <string name="markdown_description">Notlarda markdown\'ı etkinleştirin</string>
 </resources>
