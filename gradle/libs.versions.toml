@@ -1,6 +1,6 @@
 [versions]
 agp = "8.4.2"
-core = "4.2.0"
+core = "4.6.2"
 datastorePreferences = "1.1.1"
 hilt = "2.51"
 hiltCompiler = "1.2.0"
