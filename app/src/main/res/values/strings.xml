@@ -79,4 +79,9 @@
     <string name="pinned">Pinned</string>
     <string name="others">Others</string>
     <string name="copy">Copy</string>
+    <string name="encrypt_databse">Encrypt Database</string>
+    <string name="encrypt_databse_description">Encrypt database during backup</string>
+    <string name="password_prompt">Enter password</string>
+    <string name="detabase_restore_error">Password is invalid or the database isn\'t encrypted</string>
+    <string name="invalid_input">Invalid input</string>
 </resources>

@@ -9,10 +9,29 @@ import kotlinx.coroutines.ExecutorCoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.security.InvalidKeyException
+import java.security.SecureRandom
+import java.security.spec.KeySpec
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
+import javax.crypto.BadPaddingException
+import javax.crypto.Cipher
+import javax.crypto.IllegalBlockSizeException
+import javax.crypto.SecretKey
+import javax.crypto.SecretKeyFactory
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.PBEKeySpec
+import javax.crypto.spec.SecretKeySpec
+
+sealed class BackupResult {
+    data class Success(val message: String) : BackupResult()
+    data class Error(val message: String) : BackupResult()
+    object BadPassword : BackupResult()
+}
 
 class BackupRepository(
     private val provider: NoteDatabaseProvider,
@@ -21,51 +40,117 @@ class BackupRepository(
     private val scope: CoroutineScope,
     private val dispatcher: ExecutorCoroutineDispatcher,
 ) {
+    private val salt = ByteArray(16).apply { SecureRandom().nextBytes(this) }
 
-    suspend fun export(uri: Uri) {
-        withContext(dispatcher + scope.coroutineContext) {
-            mutex.withLock {
-                provider.close()
+    private fun generateSecretKey(password: String, salt: ByteArray): SecretKey {
+        val factory: SecretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
+        val spec: KeySpec = PBEKeySpec(password.toCharArray(), salt, 65536, 256)
+        return SecretKeySpec(factory.generateSecret(spec).encoded, "AES")
+    }
 
-                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                    ZipOutputStream(outputStream).use { zipOutputStream ->
+    private fun encrypt(data: ByteArray, secretKey: SecretKey): ByteArray {
+        val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+        val iv = ByteArray(16).apply { SecureRandom().nextBytes(this) }
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey, IvParameterSpec(iv))
+        val encryptedData = cipher.doFinal(data)
+        return iv + encryptedData
+    }
+
+    private fun decrypt(data: ByteArray, secretKey: SecretKey): ByteArray {
+        val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+        val iv = data.copyOfRange(0, 16)
+        val encryptedData = data.copyOfRange(16, data.size)
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(iv))
+        return cipher.doFinal(encryptedData)
+    }
+
+    suspend fun export(uri: Uri, password: String?): BackupResult {
+        return try {
+            withContext(dispatcher + scope.coroutineContext) {
+                mutex.withLock {
+                    provider.close()
+
+                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
                         val databaseFile = context.getDatabasePath(DatabaseConst.NOTES_DATABASE_FILE_NAME)
-                        FileInputStream(databaseFile).use { inputStream ->
-                            val zipEntry = ZipEntry(databaseFile.name)
-                            zipOutputStream.putNextEntry(zipEntry)
-                            inputStream.copyTo(zipOutputStream)
-                            zipOutputStream.closeEntry()
+                        val tempZipFile = File.createTempFile("backup", ".zip", context.cacheDir)
+
+                        ZipOutputStream(FileOutputStream(tempZipFile)).use { zipOutputStream ->
+                            FileInputStream(databaseFile).use { inputStream ->
+                                val zipEntry = ZipEntry(databaseFile.name)
+                                zipOutputStream.putNextEntry(zipEntry)
+                                inputStream.copyTo(zipOutputStream)
+                                zipOutputStream.closeEntry()
+                            }
                         }
+
+                        val zipData = tempZipFile.readBytes()
+                        if (password != null) {
+                            val secretKey = generateSecretKey(password, salt)
+                            val encryptedData = encrypt(zipData, secretKey)
+                            outputStream.write(salt + encryptedData)
+                        } else {
+                            outputStream.write(zipData)
+                        }
+                        tempZipFile.delete()
                     }
                 }
             }
+            BackupResult.Success("Export successful")
+        } catch (e: Exception) {
+            BackupResult.Error("Export failed: ${e.message}")
         }
     }
 
-    suspend fun import(uri: Uri) {
-        withContext(dispatcher +  scope.coroutineContext) {
-            mutex.withLock {
-                provider.close()
+    suspend fun import(uri: Uri, password: String?): BackupResult {
+        return try {
+            withContext(dispatcher + scope.coroutineContext) {
+                mutex.withLock {
+                    provider.close()
 
-                context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                    ZipInputStream(inputStream).use { zipInputStream ->
-                        var entry: ZipEntry?
-                        while (zipInputStream.nextEntry.also { entry = it } != null) {
-                            val dbFile = context.getDatabasePath(DatabaseConst.NOTES_DATABASE_FILE_NAME)
-                            if (dbFile != null) {
-                                dbFile.delete()
+                    context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                        val inputData = inputStream.readBytes()
+                        val data: ByteArray
 
-                                dbFile.outputStream().use { outputStream ->
-                                    zipInputStream.copyTo(outputStream)
-                                }
-                            } else {
-                                throw IllegalStateException("Database file path is null or invalid.")
-                            }
-                            zipInputStream.closeEntry()
-                            println("Writing Backup Finished")
+                        if (password != null) {
+                            val salt = inputData.copyOfRange(0, 16)
+                            val encryptedData = inputData.copyOfRange(16, inputData.size)
+                            val secretKey = generateSecretKey(password, salt)
+                            data = decrypt(encryptedData, secretKey)
+                        } else {
+                            data = inputData
                         }
+
+                        val tempZipFile = File.createTempFile("backup", ".zip", context.cacheDir)
+                        tempZipFile.writeBytes(data)
+
+                        ZipInputStream(FileInputStream(tempZipFile)).use { zipInputStream ->
+                            var entry: ZipEntry?
+                            while (zipInputStream.nextEntry.also { entry = it } != null) {
+                                val dbFile = context.getDatabasePath(DatabaseConst.NOTES_DATABASE_FILE_NAME)
+                                if (dbFile != null) {
+                                    dbFile.delete()
+
+                                    dbFile.outputStream().use { outputStream ->
+                                        zipInputStream.copyTo(outputStream)
+                                    }
+                                } else {
+                                    println("Database is not in backup")
+                                }
+                                zipInputStream.closeEntry()
+                                println("Writing Backup Finished")
+                            }
+                        }
+                        tempZipFile.delete()
                     }
                 }
+            }
+            BackupResult.Success("Import successful")
+        } catch (e: Exception) {
+            when (e) {
+                is BadPaddingException,
+                is IllegalBlockSizeException,
+                is InvalidKeyException -> BackupResult.BadPassword
+                else -> BackupResult.Error("Import failed: ${e.message}")
             }
         }
     }

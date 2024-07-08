@@ -1,17 +1,44 @@
 package com.kin.easynotes.presentation.screens.settings.settings
 
+import android.content.Context
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Backup
+import androidx.compose.material.icons.rounded.EnhancedEncryption
 import androidx.compose.material.icons.rounded.ImportExport
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import com.kin.easynotes.R
 import com.kin.easynotes.core.constant.DatabaseConst
+import com.kin.easynotes.presentation.screens.edit.components.CustomTextField
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
@@ -21,16 +48,18 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
+    val context = LocalContext.current
+
     val exportLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("*/.zip"),
         onResult = { uri ->
-            if (uri != null) settingsViewModel.onExport(uri)
+            if (uri != null) settingsViewModel.onExport(uri, context)
         }
     )
     val importLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.OpenDocument(),
-        onResult = { uri ->
-            if (uri != null) settingsViewModel.onImport(uri)
+    contract = ActivityResultContracts.OpenDocument(),
+    onResult = { uri ->
+        if (uri != null) settingsViewModel.onImport(uri, context)
         }
     )
 
@@ -42,12 +71,42 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
         LazyColumn {
             item {
                 SettingsBox(
+                    title = stringResource(id = R.string.encrypt_databse),
+                    description = stringResource(id = R.string.encrypt_databse_description),
+                    icon = Icons.Rounded.EnhancedEncryption,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
+                    variable = settingsViewModel.settings.value.encryptBackup,
+                    actionType = ActionType.SWITCH,
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(encryptBackup = it)) }
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+            }
+            item {
+                SettingsBox(
                     title = stringResource(id = R.string.backup),
                     description = stringResource(id = R.string.backup_description),
                     icon = Icons.Rounded.Backup,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     actionType = ActionType.CUSTOM,
-                    customAction = { LaunchedEffect(true) { exportLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.zip") } })
+                    customAction = {onExit ->
+                        if (settingsViewModel.settings.value.encryptBackup) {
+                            PasswordPrompt(
+                                context = context,
+                                text = stringResource(id = R.string.backup),
+                                settingsViewModel = settingsViewModel,
+                                onExit = { onExit() },
+                                onBackup = {
+                                    exportLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.zip")
+                                }
+                            )
+                        }
+                        else {
+                            LaunchedEffect(true) {
+                                exportLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.zip")
+                            }
+                        }
+                    }
+                )
             }
             item {
                 SettingsBox(
@@ -56,7 +115,26 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
                     icon = Icons.Rounded.ImportExport,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     actionType = ActionType.CUSTOM,
-                    customAction = { LaunchedEffect(true) { importLauncher.launch(arrayOf("application/zip")) } })
+                    customAction = { onExit ->
+                        if (settingsViewModel.settings.value.encryptBackup) {
+                            PasswordPrompt(
+                                context = context,
+                                text = stringResource(id = R.string.restore),
+                                settingsViewModel = settingsViewModel,
+                                onExit = { onExit() },
+                                onBackup = {
+                                    importLauncher.launch(arrayOf("application/zip"))
+                                }
+                            )
+                        }
+                        else {
+                            LaunchedEffect(true) {
+                                settingsViewModel.password = null
+                                importLauncher.launch(arrayOf("application/zip"))
+                            }
+                        }
+                    }
+                )
             }
         }
     }
@@ -64,8 +142,73 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
 
 fun currentDateTime(): String {
     val currentDateTime = LocalDateTime.now()
-    val formatter = DateTimeFormatter.ofPattern("MM-dd-HH-mm")
+    val formatter = DateTimeFormatter.ofPattern("MM-dd-HH-mm-ms")
     val formattedDateTime = currentDateTime.format(formatter)
 
     return formattedDateTime
 }
+
+@Composable
+fun PasswordPrompt(context: Context, text: String, settingsViewModel: SettingsViewModel, onExit: () -> Unit, onBackup: () -> Unit) {
+    var password by remember { mutableStateOf(TextFieldValue("")) }
+    Dialog(
+        onDismissRequest = { onExit() },
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+    ) {
+        LazyColumn {
+            item {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .fillMaxHeight(0.2f)
+                        .background(
+                            color = MaterialTheme.colorScheme.surfaceContainerLow,
+                            shape = shapeManager(
+                                isBoth = true,
+                                radius = settingsViewModel.settings.value.cornerRadius
+                            )
+                        )
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .padding(12.dp)
+                            .background(
+                                color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                                shape = shapeManager(
+                                    isBoth = true,
+                                    radius = settingsViewModel.settings.value.cornerRadius
+                                )
+                            )
+                    ) {
+                        CustomTextField(
+                            hideContent = true,
+                            value = password,
+                            onValueChange = { password = it },
+                            placeholder = stringResource(id = R.string.password_prompt)
+                        )
+                    }
+                    Button(
+                        modifier = Modifier
+                            .padding(12.dp)
+                            .fillMaxWidth(0.35f)
+                            .align(Alignment.End),
+                        onClick = {
+                            if (password.text.isNotBlank()) {
+                                settingsViewModel.password = password.text
+                                onExit()
+                                onBackup()
+                            } else {
+                                Toast.makeText(context, R.string.invalid_input, Toast.LENGTH_SHORT).show()
+                            }
+                        },
+                        content = {
+                            Text(text)
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+

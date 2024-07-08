@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -21,10 +23,18 @@ fun CustomTextField(
     shape: RoundedCornerShape = RoundedCornerShape(0.dp),
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
     singleLine: Boolean = false,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    hideContent: Boolean = false
 ) {
+    val visualTransformation = if (hideContent) {
+        PasswordVisualTransformation()
+    } else {
+        VisualTransformation.None
+    }
+
     TextField(
         value = value,
+        visualTransformation = visualTransformation,
         onValueChange = onValueChange,
         interactionSource = interactionSource,
         modifier = modifier
