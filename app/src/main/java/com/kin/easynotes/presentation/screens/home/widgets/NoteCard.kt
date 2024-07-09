@@ -71,11 +71,12 @@ fun NoteCard(
                     markdown = note.name.replaceFirstChar { it.uppercase() },
                     modifier = Modifier
                         .heightIn(max = dimensionResource(R.dimen.max_name_height))
-                        .padding(bottom = 4.dp),
+                        .padding(bottom = 9.dp),
                     weight = FontWeight.Bold,
                     spacing = 0.dp,
                     onContentChange = { onNoteUpdate(note.copy(name = it)) },
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    radius = settingsViewModel.settings.value.cornerRadius
                 )
             }
             if (note.description.isNotBlank()) {
@@ -87,7 +88,8 @@ fun NoteCard(
                     modifier = Modifier
                         .heightIn(max = dimensionResource(R.dimen.max_description_height)),
                     onContentChange = { onNoteUpdate(note.copy(description = it)) },
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    radius = settingsViewModel.settings.value.cornerRadius
                 )
             }
         }

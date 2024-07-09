@@ -45,9 +45,9 @@ fun NoteFilter(
         if (notes.isNotEmpty()) {
             if (showText) {
                 Text(
-                    modifier = Modifier.padding(horizontal = 12.dp),
+                    modifier = Modifier.padding(horizontal = 16.dp),
                     text = text.uppercase(),
-                    style = TextStyle(fontSize = 11.sp, color = MaterialTheme.colorScheme.secondary)
+                    style = TextStyle(fontSize = 10.sp, color = MaterialTheme.colorScheme.secondary)
                 )
             }
             NotesGrid(

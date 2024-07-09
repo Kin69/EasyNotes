@@ -2,6 +2,7 @@ package com.kin.easynotes.presentation.components.markdown
 
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 
 
 @Composable
@@ -75,21 +77,21 @@ fun MarkdownCheck(content: @Composable () -> Unit, checked: Boolean, onCheckedCh
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(top = 6.dp)
     ) {
         Checkbox(
             checked = checked,
             onCheckedChange = onCheckedChange,
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier
+                .padding(end = 12.dp)
+                .size(20.dp)
         )
-        Spacer(modifier = Modifier.width(12.dp))
         content()
     }
 }
 
-
 @Composable
 fun MarkdownText(
+    radius: Int,
     markdown: String,
     isPreview: Boolean = false,
     isEnabled: Boolean,
@@ -122,6 +124,7 @@ fun MarkdownText(
     markdownBuilder.parse()
 
     MarkdownContent(
+        radius = radius,
         isPreview = isPreview,
         content = markdownBuilder.content,
         modifier = modifier,
@@ -150,6 +153,7 @@ fun StaticMarkdownText(
 
 @Composable
 fun MarkdownContent(
+    radius: Int,
     isPreview: Boolean,
     content: List<MarkdownElement>,
     modifier: Modifier,
@@ -160,17 +164,16 @@ fun MarkdownContent(
     onContentChange: (String) -> Unit
 ) {
     if (isPreview) {
-        Column(
-            modifier = modifier
-        ) {
+        Column(modifier = modifier) {
              content.take(4).forEachIndexed { index, _ ->
                     RenderMarkdownElement(
+                        radius = radius,
                         index = index,
                         content = content,
                         weight = weight,
                         fontSize = fontSize,
                         lines = lines,
-                        isPreview = isPreview,
+                        isPreview = true,
                         onContentChange = onContentChange
                     )
                 }
@@ -180,6 +183,7 @@ fun MarkdownContent(
             items(content.size) { index ->
                 Spacer(modifier = Modifier.height(spacing))
                 RenderMarkdownElement(
+                    radius = radius,
                     content = content,
                     index = index,
                     weight = weight,
@@ -195,6 +199,7 @@ fun MarkdownContent(
 
 @Composable
 fun RenderMarkdownElement(
+    radius: Int,
     content: List<MarkdownElement>,
     index: Int,
     weight: FontWeight,
@@ -254,10 +259,18 @@ fun RenderMarkdownElement(
             }
 
             is ImageInsertion -> {
+                val modifier = if (isPreview) {
+                    Modifier.clip(shape = shapeManager(radius = radius))
+                } else {
+                    Modifier
+                        .clip(shape = shapeManager(isBoth = true, radius = radius/2))
+                        .clickable { /* Just for animation */ }
+                }
+
                 AsyncImage(
                     model = element.photoUri,
                     contentDescription = "Image",
-                    modifier = Modifier.clip(RoundedCornerShape(14.dp))
+                    modifier = modifier
                 )
             }
 

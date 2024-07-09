@@ -129,11 +129,12 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
                                 onClickBack()
                             }
                         )
-                        DropdownMenuItem(
-                            text = { Text(stringResource(id = R.string.pinned)) },
-                            leadingIcon = { Icon(if (viewModel.isPinned.value) Icons.Rounded.PushPin else Icons.Outlined.PushPin, contentDescription = "Pin")},
-                            onClick = { viewModel.toggleNotePin(!viewModel.isPinned.value) })
                     }
+                    DropdownMenuItem(
+                        text = { Text(stringResource(id = R.string.pinned)) },
+                        leadingIcon = { Icon(if (viewModel.isPinned.value) Icons.Rounded.PushPin else Icons.Outlined.PushPin, contentDescription = "Pin")},
+                        onClick = { viewModel.toggleNotePin(!viewModel.isPinned.value) }
+                    )
                     DropdownMenuItem(
                         text = { Text(stringResource(R.string.copy)) },
                         leadingIcon = { Icon(Icons.Rounded.ContentCopy, contentDescription = "Copy")},
@@ -362,7 +363,8 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                             modifier = Modifier
                                 .padding(16.dp)
                                 .align(Alignment.CenterHorizontally),
-                            onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) }
+                            onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) },
+                            radius = settingsViewModel.settings.value.cornerRadius
                         )
                         Spacer(modifier = Modifier.weight(1f))
                     }
@@ -384,6 +386,7 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                     onClickBack = { onClickBack() },
                 ) {
                     MarkdownText(
+                        radius = settingsViewModel.settings.value.cornerRadius,
                         markdown = viewModel.noteDescription.value.text,
                         isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                         modifier = Modifier

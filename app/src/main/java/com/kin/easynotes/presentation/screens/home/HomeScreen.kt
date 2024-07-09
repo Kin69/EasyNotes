@@ -53,26 +53,26 @@ fun HomeView(
                     enter = defaultScreenEnterAnimation(),
                     exit = defaultScreenExitAnimation()
                 ) {
-                    SelectedNotesTopAppBar(
-                        selectedNotes = viewModel.selectedNotes,
-                        allNotes = viewModel.noteUseCase.notes,
-                        settingsModel = settingsModel,
-                        onPinClick = { viewModel.pinOrUnpinNotes() },
-                        onDeleteClick = { viewModel.toggleIsDeleteMode(true) },
-                        onSelectAllClick = { selectAllNotes(viewModel, viewModel.noteUseCase.notes) },
-                        onCloseClick = { viewModel.selectedNotes.clear() }
-                    )
-                }
-                AnimatedVisibility(
-                    viewModel.selectedNotes.isEmpty(),
-                    enter = defaultScreenEnterAnimation(),
-                    exit = defaultScreenExitAnimation()
-                ) {
-                    NotesSearchBar(
-                        query = viewModel.searchQuery.value,
-                        onQueryChange = { viewModel.changeSearchQuery(it) },
-                        onSettingsClick = onSettingsClicked,
-                        onClearClick = { viewModel.changeSearchQuery("") }
+                SelectedNotesTopAppBar(
+                    selectedNotes = viewModel.selectedNotes,
+                    allNotes = viewModel.noteUseCase.notes,
+                    settingsModel = settingsModel,
+                    onPinClick = { viewModel.pinOrUnpinNotes() },
+                    onDeleteClick = { viewModel.toggleIsDeleteMode(true) },
+                    onSelectAllClick = { selectAllNotes(viewModel, viewModel.noteUseCase.notes) },
+                    onCloseClick = { viewModel.selectedNotes.clear() }
+                )
+            }
+            AnimatedVisibility(
+                viewModel.selectedNotes.isEmpty(),
+                enter = defaultScreenEnterAnimation(),
+                exit = defaultScreenExitAnimation()
+            ) {
+                NotesSearchBar(
+                    query = viewModel.searchQuery.value,
+                    onQueryChange = { viewModel.changeSearchQuery(it) },
+                    onSettingsClick = onSettingsClicked,
+                    onClearClick = { viewModel.changeSearchQuery("") }
                 )
             }
         },
