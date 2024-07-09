@@ -77,4 +77,12 @@
     <string name="dynamic_colors_description">Ajusta los colores para que coincidan con tu fondo de pantalla</string>
     <string name="extreme_amoled_mode_description">Optimización extrema de la batería</string>
     <string name="discord">Discord</string>
+    <string name="pinned">Fijado</string>
+    <string name="copy">Copiar</string>
+    <string name="others">Otros</string>
+    <string name="encrypt_databse">Cifrar base de datos</string>
+    <string name="encrypt_databse_description">Cifrar la base de datos durante la copia de seguridad</string>
+    <string name="password_prompt">Introducir la contraseña</string>
+    <string name="detabase_restore_error">La contraseña no es válida o la base de datos no está cifrada</string>
+    <string name="invalid_input">Entrada inválida</string>
 </resources>

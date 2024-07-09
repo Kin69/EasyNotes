@@ -11,7 +11,7 @@
     <string name="widgets">ابزارک‌ها</string>
     <string name="column_view">نمای رده‌ای</string>
     <string name="grid_view">نمای تکه ای</string>
-    <string name="words">­واژگان</string>
+    <string name="words">واژگان</string>
     <string name="characters">واج‌ها</string>
     <string name="name">نام</string>
     <string name="select_all">گزینش همه</string>
@@ -54,4 +54,27 @@
     <string name="select_radius">گزیدن خمیدگی</string>
     <string name="minimalistic_mode">سبک ساده‌گرا</string>
     <string name="extreme_amoled_mode">رنگ های بسیار تیره</string>
+    <string name="privacy">خوشیک</string>
+    <string name="cryptocurrency">ارز دیجیتال</string>
+    <string name="system_theme_description">همپوش کردن تم برنامه بر اساس پیکر‌بندی‌های دستگاه</string>
+    <string name="screen_protection">محافظت از نمایشگر</string>
+    <string name="images_supprot">پشتیبانی از فرتورها</string>
+    <string name="unstable_feature">ناپایدار</string>
+    <string name="radius_description">سفارشی ساختن خمیدگی گوشه‌ها</string>
+    <string name="view_style_description">گزیدن فتن نمایش</string>
+    <string name="minimalistic_mode_description">برداشتن دکمه‌های بالایی از برگه‌ی ویرایش</string>
+    <string name="restore_description">بازیابی نوشته‌ها از پرونده</string>
+    <string name="dark_theme_description">جهش میان الگو‌های رنگی تیره ‌و روشن</string>
+    <string name="screen_protection_description">پنهان کردن نمایشگر در تازگی‌ها و خاموش کردن نماگرفت‌ها</string>
+    <string name="build_type">سردگ ساخت</string>
+    <string name="source_code">بن‌مایه‌ی دستور</string>
+    <string name="support_list">پهرست پشتیبانان</string>
+    <string name="email">ایمیل</string>
+    <string name="feature">درخواست ویژگی نو</string>
+    <string name="discord">دیسکورد</string>
+    <string name="amoled_colors_description">میان الگو‌های رنگی تیره و روشن جابه‌جا شوید</string>
+    <string name="extreme_amoled_mode_description">بهینه‌سازی بیش‌ازاندازه‌ی باتری</string>
+    <string name="backup_description">انبار کردن همه‌ی نوشته‌ها در یک پرونده</string>
+    <string name="dynamic_colors_description">جورشدن رنگ‌ها با فرتور پس‌زمینه‌ی شما</string>
+    <string name="markdown_description">روشن کردن کارپ نشانه‌گذاری در نوشتارها</string>
 </resources>
