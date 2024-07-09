@@ -12,5 +12,6 @@ data class Settings(
     var screenProtection: Boolean = false,
     var encryptBackup: Boolean = false,
     var cornerRadius: Int = 32,
+    var sortDescending: Boolean = true,
 )
 

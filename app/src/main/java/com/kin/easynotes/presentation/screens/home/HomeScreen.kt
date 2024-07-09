@@ -85,7 +85,7 @@ fun HomeView(
                     isBoth = true
                 ),
                 onNoteClicked = onNoteClicked,
-                notes = viewModel.noteUseCase.notes,
+                notes = viewModel.noteUseCase.notes.sortedWith(sorter(settingsModel.settings.value.sortDescending)),
                 selectedNotes = viewModel.selectedNotes,
                 viewMode = settingsModel.settings.value.viewMode,
                 searchText = viewModel.searchQuery.value.ifBlank { null },
@@ -180,5 +180,13 @@ private fun selectAllNotes(viewModel: HomeViewModel, allNotes: List<Note>) {
         if (!viewModel.selectedNotes.contains(it)) {
             viewModel.selectedNotes.add(it)
         }
+    }
+}
+
+private fun sorter(descending: Boolean): Comparator<Note> {
+    return if (descending) {
+        compareByDescending { it.createdAt }
+    } else {
+        compareBy { it.createdAt }
     }
 }

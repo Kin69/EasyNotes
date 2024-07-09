@@ -84,4 +84,7 @@
     <string name="password_prompt">ادخل كلمة المرور</string>
     <string name="detabase_restore_error">إما كلمة المرور غير صالحة أو قاعدة البيانات ليست مشفرة</string>
     <string name="invalid_input">إدخال غير صالح</string>
+    <string name="sort_ascending">ترتيب تصاعدي</string>
+    <string name="sort_descending">ترتيب تنازلي</string>
+    <string name="sort_description">ترتيب الملاحظات حسب وقت إنشائها</string>
 </resources>
