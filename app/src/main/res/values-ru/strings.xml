@@ -77,4 +77,15 @@
     <string name="feature">Запрос новой функции</string>
     <string name="dark_theme_description">Переключение между тёмной и светлой темой оформления</string>
     <string name="minimalistic_mode_description">Убирает верхние кнопки из экрана редактирования заметок</string>
+    <string name="copy">Скопировать</string>
+    <string name="password_prompt">Введите пароль</string>
+    <string name="detabase_restore_error">Пароль неверный или база данных заметок не зашифрована</string>
+    <string name="others">Остальные заметки</string>
+    <string name="pinned">Закрепленные заметки</string>
+    <string name="encrypt_databse">Шифровать базу данных заметок</string>
+    <string name="encrypt_databse_description">Шифровать базу данных заметок во время резервного копирования</string>
+    <string name="invalid_input">Некорректное значение</string>
+    <string name="sort_ascending">Сортировать по возрастанию</string>
+    <string name="sort_descending">Сортировать по убыванию</string>
+    <string name="sort_description">Сортировать заметки по времени их создания</string>
 </resources>
