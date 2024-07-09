@@ -71,7 +71,7 @@ fun MarkdownQuote(content: String, fontSize: TextUnit) {
 }
 
 @Composable
-fun MarkdownCheck(content: @Composable () -> Unit, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+fun MarkdownCheck(content: @Composable () -> Unit, checked: Boolean, onCheckedChange: ((Boolean) -> Unit)?) {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -170,24 +170,26 @@ fun MarkdownContent(
                         weight = weight,
                         fontSize = fontSize,
                         lines = lines,
+                        isPreview = isPreview,
                         onContentChange = onContentChange
                     )
                 }
             }
     } else {
-            LazyColumn(modifier = modifier) {
-                items(content.size) { index ->
-                    Spacer(modifier = Modifier.height(spacing))
-                    RenderMarkdownElement(
-                        content = content,
-                        index = index,
-                        weight = weight,
-                        fontSize = fontSize,
-                        lines = lines,
-                        onContentChange = onContentChange
-                    )
-                }
+        LazyColumn(modifier = modifier) {
+            items(content.size) { index ->
+                Spacer(modifier = Modifier.height(spacing))
+                RenderMarkdownElement(
+                    content = content,
+                    index = index,
+                    weight = weight,
+                    fontSize = fontSize,
+                    lines = lines,
+                    isPreview = isPreview,
+                    onContentChange = onContentChange
+                )
             }
+        }
     }
 }
 
@@ -198,6 +200,7 @@ fun RenderMarkdownElement(
     weight: FontWeight,
     fontSize: TextUnit,
     lines: List<String>,
+    isPreview: Boolean,
     onContentChange: (String) -> Unit
 ) {
     val element = content[index]
@@ -224,17 +227,18 @@ fun RenderMarkdownElement(
                             fontWeight = weight,
                         )
                     },
-                    checked = element.checked
-                ) { newChecked ->
-                    val newMarkdown = lines.toMutableList().apply {
-                        this[element.index] = if (newChecked) {
-                            "[X] ${element.text}"
-                        } else {
-                            "[ ] ${element.text}"
+                    checked = element.checked,
+                    onCheckedChange = if (isPreview) null else { newChecked ->
+                        val newMarkdown = lines.toMutableList().apply {
+                            this[element.index] = if (newChecked) {
+                                "[X] ${element.text}"
+                            } else {
+                                "[ ] ${element.text}"
+                            }
                         }
+                        onContentChange(newMarkdown.joinToString("\n"))
                     }
-                    onContentChange(newMarkdown.joinToString("\n"))
-                }
+                )
             }
 
             is ListItem -> {
