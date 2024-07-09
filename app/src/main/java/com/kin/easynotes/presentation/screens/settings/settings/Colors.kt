@@ -1,7 +1,6 @@
 package com.kin.easynotes.presentation.screens.settings.settings
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.Sort
 import androidx.compose.material.icons.rounded.Battery1Bar
 import androidx.compose.material.icons.rounded.Colorize
 import androidx.compose.material.icons.rounded.DarkMode
@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.kin.easynotes.R
-import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
@@ -149,6 +148,17 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.viewMode,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(viewMode = it))}
+                )
+            }
+            item {
+                SettingsBox(
+                    title = if (settingsViewModel.settings.value.sortDescending) stringResource(id = R.string.sort_descending) else stringResource(id = R.string.sort_ascending),
+                    description = stringResource(id = R.string.sort_description),
+                    icon = Icons.AutoMirrored.Rounded.Sort,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                    actionType = ActionType.SWITCH,
+                    variable = settingsViewModel.settings.value.sortDescending,
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(sortDescending = it)) }
                 )
             }
             item {

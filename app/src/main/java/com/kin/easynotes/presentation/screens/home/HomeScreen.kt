@@ -54,7 +54,7 @@ fun HomeView(
                     exit = defaultScreenExitAnimation()
                 ) {
                     SelectedNotesTopAppBar(
-                        selectedNotesCount = viewModel.selectedNotes.size,
+                        selectedNotes = viewModel.selectedNotes,
                         allNotes = viewModel.noteUseCase.notes,
                         settingsModel = settingsModel,
                         onPinClick = { viewModel.pinOrUnpinNotes() },
@@ -85,7 +85,7 @@ fun HomeView(
                     isBoth = true
                 ),
                 onNoteClicked = onNoteClicked,
-                notes = viewModel.noteUseCase.notes,
+                notes = viewModel.noteUseCase.notes.sortedWith(sorter(settingsModel.settings.value.sortDescending)),
                 selectedNotes = viewModel.selectedNotes,
                 viewMode = settingsModel.settings.value.viewMode,
                 searchText = viewModel.searchQuery.value.ifBlank { null },
@@ -115,7 +115,7 @@ private fun NewNoteButton(onNoteClicked: (Int) -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SelectedNotesTopAppBar(
-    selectedNotesCount: Int,
+    selectedNotes: List<Note>,
     allNotes: List<Note>,
     settingsModel: SettingsViewModel,
     onPinClick: () -> Unit,
@@ -130,14 +130,14 @@ private fun SelectedNotesTopAppBar(
                 MaterialTheme.colorScheme.surfaceContainerLow
             else Color.Black
         ),
-        title = { TitleText(titleText = selectedNotesCount.toString()) },
+        title = { TitleText(titleText = selectedNotes.size.toString()) },
         navigationIcon = { CloseButton(onCloseClicked = onCloseClick) },
         actions = {
             Row {
-                PinButton(isPinned = allNotes.all { it.pinned }, onClick = onPinClick)
+                PinButton(isPinned = selectedNotes.all { it.pinned }, onClick = onPinClick)
                 DeleteButton(onClick = onDeleteClick)
                 SelectAllButton(
-                    enabled = selectedNotesCount != allNotes.size,
+                    enabled = selectedNotes.size != allNotes.size,
                     onClick = onSelectAllClick
                 )
             }
@@ -180,5 +180,13 @@ private fun selectAllNotes(viewModel: HomeViewModel, allNotes: List<Note>) {
         if (!viewModel.selectedNotes.contains(it)) {
             viewModel.selectedNotes.add(it)
         }
+    }
+}
+
+private fun sorter(descending: Boolean): Comparator<Note> {
+    return if (descending) {
+        compareByDescending { it.createdAt }
+    } else {
+        compareBy { it.createdAt }
     }
 }

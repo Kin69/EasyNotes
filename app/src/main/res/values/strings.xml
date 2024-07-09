@@ -84,4 +84,7 @@
     <string name="password_prompt">Enter password</string>
     <string name="detabase_restore_error">Password is invalid or the database isn\'t encrypted</string>
     <string name="invalid_input">Invalid input</string>
+    <string name="sort_ascending">Sort Ascending</string>
+    <string name="sort_descending">Sort Descending</string>
+    <string name="sort_description">Sort notes by their creation time</string>
 </resources>
