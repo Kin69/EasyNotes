@@ -32,9 +32,9 @@ fun NoteFilter(
     searchText: String? = null,
     selectedNotes: MutableList<Note>,
     viewMode: Boolean = false,
-    isDeleteMode: Boolean,
-    onNoteUpdate: (Note) -> Unit,
-    onDeleteNote: (Int) -> Unit
+    isDeleteMode: Boolean = false,
+    onNoteUpdate: (Note) -> Unit = {},
+    onDeleteNote: (Int) -> Unit = {}
 ) {
     @Composable
     fun Section(

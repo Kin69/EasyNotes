@@ -64,8 +64,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.coil.compose)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.glance.appwidget)
     ksp(libs.androidx.room.compiler)
     ksp(libs.hilt.android.compiler)
     ksp(libs.hilt.compile)

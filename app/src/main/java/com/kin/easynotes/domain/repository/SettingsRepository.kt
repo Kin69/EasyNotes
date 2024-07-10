@@ -1,6 +1,9 @@
 package com.kin.easynotes.domain.repository
 
+import kotlinx.coroutines.flow.Flow
+
 interface SettingsRepository {
+    fun getWidgetNoteId(): Flow<Int>
 
     suspend fun putString(key: String, value: String)
     suspend fun getString(key: String): String?

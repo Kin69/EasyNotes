@@ -1,11 +1,16 @@
 package com.kin.easynotes.domain.usecase
 
+import android.content.Context
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.domain.model.Settings
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 class SettingsUseCase @Inject constructor(
-    private val settingsRepository: SettingsRepositoryImpl
+    private val settingsRepository: SettingsRepositoryImpl,
+    private val coroutineScope: CoroutineScope,
+    @ApplicationContext private val context: Context
 ) {
     suspend fun loadSettingsFromRepository(): Settings {
         val settingsClass = Settings::class.java

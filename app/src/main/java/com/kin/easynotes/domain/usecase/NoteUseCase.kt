@@ -1,11 +1,13 @@
 package com.kin.easynotes.domain.usecase
 
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.domain.model.Note
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,7 +21,8 @@ import javax.inject.Inject
 
 class NoteUseCase @Inject constructor(
     private val noteRepository: NoteRepositoryImpl,
-    private val coroutineScope: CoroutineScope
+    private val coroutineScope: CoroutineScope,
+    @ApplicationContext private val context: Context
 ) {
     var notes: List<Note> by mutableStateOf(emptyList())
         private set
@@ -35,6 +38,7 @@ class NoteUseCase @Inject constructor(
         observeKeysJob = coroutineScope.launch {
             getAllNotes().collectLatest { keys ->
                 this@NoteUseCase.notes = keys
+//                NotesWidgetReceiver.updateBroadcast(context)
             }
         }
     }

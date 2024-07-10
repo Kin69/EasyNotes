@@ -1,8 +1,8 @@
 [versions]
-agp = "8.4.2"
+agp = "8.5.0"
 core = "4.2.0"
 datastorePreferences = "1.1.1"
-hilt = "2.51"
+hilt = "2.51.1"
 hiltCompiler = "1.2.0"
 hiltAndroidCompiler = "2.51.1"
 coilCompose = "2.6.0"
@@ -17,6 +17,8 @@ compose = "1.6.8"
 material3 = "1.2.1"
 navigationCompose = "2.7.7"
 appcompat = "1.7.0"
+glanceAppwidget = "1.1.0"
+glancePreview = "1.1.0"
 
 
 [libraries]
@@ -38,6 +40,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3",
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 #Hilt
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 core = { module = "io.noties.markwon:core", version.ref = "core" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidCompiler" }
 hilt-compile = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompiler"}
@@ -46,6 +49,9 @@ hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", ve
 
 # Coil
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+
+# Glance
+androidx-glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glanceAppwidget" }
 
 [plugins]
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

@@ -10,7 +10,9 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.kin.easynotes.domain.repository.SettingsRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 
 private const val PREFERENCES_NAME = "settings"
 
@@ -20,6 +22,11 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
 )
 
 class SettingsRepositoryImpl (private val context: Context) : SettingsRepository {
+
+    override fun getWidgetNoteId(): Flow<Int> = flow {
+        emit(getInt("widgetNoteId") ?: 0)
+    }
+
     override suspend fun putString(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
         context.dataStore.edit { preferences ->
