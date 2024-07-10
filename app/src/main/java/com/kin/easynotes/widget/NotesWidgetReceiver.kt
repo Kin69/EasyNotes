@@ -10,15 +10,21 @@ import androidx.glance.state.PreferencesGlanceStateDefinition
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
+
+
 class NotesWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = NotesWidget()
+
+    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+        super.onDeleted(context, appWidgetIds)
+        observeData(context, 0)
+    }
 
     companion object {
         private val coroutineScope = MainScope()
 
-        fun observeData(context: Context) {
+        fun observeData(context: Context, noteId: Int = 0) {
             coroutineScope.launch {
-                val noteId = (0..100).random()
                 val glanceId = GlanceAppWidgetManager(context).getGlanceIds(NotesWidget::class.java).firstOrNull()
                 if (glanceId != null) {
                     updateAppWidgetState(context, PreferencesGlanceStateDefinition, glanceId) { prefs ->

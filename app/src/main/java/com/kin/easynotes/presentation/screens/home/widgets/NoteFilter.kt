@@ -30,7 +30,7 @@ fun NoteFilter(
     shape: RoundedCornerShape,
     notes: List<Note>,
     searchText: String? = null,
-    selectedNotes: MutableList<Note>,
+    selectedNotes: MutableList<Note> = mutableListOf(),
     viewMode: Boolean = false,
     isDeleteMode: Boolean = false,
     onNoteUpdate: (Note) -> Unit = {},
