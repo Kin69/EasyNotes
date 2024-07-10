@@ -85,4 +85,7 @@
     <string name="password_prompt">Introducir la contraseña</string>
     <string name="detabase_restore_error">La contraseña no es válida o la base de datos no está cifrada</string>
     <string name="invalid_input">Entrada inválida</string>
+    <string name="sort_ascending">Orden Ascendente</string>
+    <string name="sort_descending">Orden Descendente</string>
+    <string name="sort_description">Ordenar notas por fecha de creación</string>
 </resources>
