@@ -13,19 +13,19 @@ class NotesWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = NotesWidget()
 
     companion object {
-        const val WIDGET_PREFERENCE = "widgetNoteId_"
+        const val WIDGET_PREFERENCE = "widgetNote_"
     }
 }
 
 
-class NotesDataStore(private val context: Context): DataStore<List<Int>> {
-    override val data: Flow<List<Int>>
+class NotesDataStore(private val context: Context): DataStore<List<Pair<Int, Int>>> {
+    override val data: Flow<List<Pair<Int, Int>>>
         get() {
             val settingsRepository = SettingsRepositoryImpl(context)
-            return flow { emit(listOf(settingsRepository.getInt(NotesWidgetReceiver.WIDGET_PREFERENCE) ?: 0))}
+            return flow { emit(settingsRepository.getEveryNotesWidget()) }
         }
 
-    override suspend fun updateData(transform: suspend (t: List<Int>) -> List<Int>): List<Int> {
+    override suspend fun updateData(transform: suspend (t: List<Pair<Int, Int>>) -> List<Pair<Int, Int>>): List<Pair<Int, Int>> {
         throw NotImplementedError("Not implemented")
     }
 }

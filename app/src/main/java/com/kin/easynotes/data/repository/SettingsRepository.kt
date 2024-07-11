@@ -10,9 +10,8 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.kin.easynotes.domain.repository.SettingsRepository
-import kotlinx.coroutines.flow.Flow
+import com.kin.easynotes.widget.NotesWidgetReceiver
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 
 private const val PREFERENCES_NAME = "settings"
 
@@ -22,11 +21,6 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
 )
 
 class SettingsRepositoryImpl (private val context: Context) : SettingsRepository {
-
-    override fun getWidgetNoteId(): Flow<Int> = flow {
-        emit(getInt("widgetNoteId") ?: 0)
-    }
-
     override suspend fun putString(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
         context.dataStore.edit { preferences ->
@@ -64,5 +58,23 @@ class SettingsRepositoryImpl (private val context: Context) : SettingsRepository
         val preferencesKey = booleanPreferencesKey(key)
         val preferences = context.dataStore.data.first()
         return preferences[preferencesKey]
+    }
+
+    override suspend fun getEveryNotesWidget(): List<Pair<Int, Int>> {
+        val preferences = context.dataStore.data.first()
+        val widgetPairs = mutableListOf<Pair<Int, Int>>()
+
+        preferences.asMap().forEach { entry ->
+            val key = entry.key.name
+
+            if (entry.key.name.startsWith(NotesWidgetReceiver.WIDGET_PREFERENCE)) {
+                val widgetId = key.substringAfter(NotesWidgetReceiver.WIDGET_PREFERENCE).toIntOrNull()
+                if (widgetId != null) {
+                    val value = entry.value as? Int ?: 0
+                    widgetPairs.add(widgetId to value)
+                }
+            }
+        }
+        return widgetPairs
     }
 }

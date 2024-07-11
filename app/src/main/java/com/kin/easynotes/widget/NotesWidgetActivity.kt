@@ -58,7 +58,7 @@ class NotesWidgetActivity : ComponentActivity() {
                             shape = shapeManager(radius = settings.settings.value.cornerRadius / 2, isBoth = true),
                             onNoteClicked = { id ->
                                 runBlocking {
-                                    settingsRepository.putInt(NotesWidgetReceiver.WIDGET_PREFERENCE, id)
+                                    settingsRepository.putInt("${NotesWidgetReceiver.WIDGET_PREFERENCE}${appWidgetId}", id)
                                     NotesWidget().updateAll(this@NotesWidgetActivity)
                                     val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                                     setResult(RESULT_OK, resultValue)

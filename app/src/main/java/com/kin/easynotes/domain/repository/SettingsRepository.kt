@@ -1,10 +1,6 @@
 package com.kin.easynotes.domain.repository
 
-import kotlinx.coroutines.flow.Flow
-
 interface SettingsRepository {
-    fun getWidgetNoteId(): Flow<Int>
-
     suspend fun putString(key: String, value: String)
     suspend fun getString(key: String): String?
 
@@ -13,4 +9,6 @@ interface SettingsRepository {
 
     suspend fun putBoolean(key: String, value: Boolean)
     suspend fun getBoolean(key: String): Boolean?
+
+    suspend fun getEveryNotesWidget(): List<Pair<Int, Int>>
 }
