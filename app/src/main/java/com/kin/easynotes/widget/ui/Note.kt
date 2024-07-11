@@ -11,6 +11,7 @@ import androidx.glance.action.clickable
 import androidx.glance.background
 import androidx.glance.layout.Column
 import androidx.glance.layout.fillMaxSize
+import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import com.kin.easynotes.domain.model.Note
@@ -52,7 +53,7 @@ fun SelectedNote(note: Note, noteUseCase: NoteUseCase, widgetId: Int) {
         }
         if(note.description.isNotBlank()) {
             WidgetText(
-                modifier = glanceModifier,
+                modifier = glanceModifier.fillMaxWidth(),
                 markdown = note.description,
                 weight = FontWeight.Normal,
                 fontSize = 12.sp,

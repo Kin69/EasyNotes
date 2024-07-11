@@ -78,7 +78,7 @@ fun MarkdownWidgetContent(
     onContentChange: (String) -> Unit
 ) {
     LazyColumn(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
     ) {
         items(content.size) { index ->
             WidgetMarkdownElement(
@@ -111,7 +111,7 @@ fun WidgetMarkdownElement(
     val context = LocalContext.current
 
     Row(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
     ) {
         when (element) {
             is Heading -> {
