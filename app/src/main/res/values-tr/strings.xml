@@ -85,4 +85,7 @@
     <string name="password_prompt">Parola gir</string>
     <string name="detabase_restore_error">Parola geçersiz veya veri tabanı şifreli değil</string>
     <string name="invalid_input">Geçersiz giriş</string>
+    <string name="sort_ascending">Artan Sıralama</string>
+    <string name="sort_descending">Azalan Sıralama</string>
+    <string name="sort_description">Notları oluşturulma zamanlarına göre sırala</string>
 </resources>
