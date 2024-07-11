@@ -1,8 +1,8 @@
 [versions]
-agp = "8.4.2"
-core = "4.2.0"
+agp = "8.5.0"
 datastorePreferences = "1.1.1"
-hilt = "2.51"
+glance = "1.1.0"
+hilt = "2.51.1"
 hiltCompiler = "1.2.0"
 hiltAndroidCompiler = "2.51.1"
 coilCompose = "2.6.0"
@@ -17,11 +17,14 @@ compose = "1.6.8"
 material3 = "1.2.1"
 navigationCompose = "2.7.7"
 appcompat = "1.7.0"
+glanceAppwidget = "1.1.0"
+
 
 
 [libraries]
 # Room
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-glance = { module = "androidx.glance:glance", version.ref = "glance" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
@@ -38,7 +41,6 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3",
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 #Hilt
-core = { module = "io.noties.markwon:core", version.ref = "core" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidCompiler" }
 hilt-compile = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompiler"}
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
@@ -46,6 +48,9 @@ hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", ve
 
 # Coil
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+
+# Glance
+androidx-glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glanceAppwidget" }
 
 [plugins]
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

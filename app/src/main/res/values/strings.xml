@@ -87,4 +87,6 @@
     <string name="sort_ascending">Sort Ascending</string>
     <string name="sort_descending">Sort Descending</string>
     <string name="sort_description">Sort notes by their creation time</string>
+    <string name="select_note">Select Note</string>
+    <string name="unsuported_image_size">Unsupported Image Size (15mb max)</string>
 </resources>

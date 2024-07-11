@@ -101,7 +101,7 @@ fun HomeView(
 }
 
 @Composable
-private fun getContainerColor(settingsModel: SettingsViewModel): Color {
+fun getContainerColor(settingsModel: SettingsViewModel): Color {
     return if (settingsModel.settings.value.extremeAmoledMode) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh
 }
 
@@ -183,7 +183,7 @@ private fun selectAllNotes(viewModel: HomeViewModel, allNotes: List<Note>) {
     }
 }
 
-private fun sorter(descending: Boolean): Comparator<Note> {
+fun sorter(descending: Boolean): Comparator<Note> {
     return if (descending) {
         compareByDescending { it.createdAt }
     } else {

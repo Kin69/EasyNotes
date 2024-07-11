@@ -64,8 +64,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.glance)
     implementation(libs.coil.compose)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.glance.appwidget)
     ksp(libs.androidx.room.compiler)
     ksp(libs.hilt.android.compiler)
     ksp(libs.hilt.compile)
@@ -80,5 +82,4 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.core)
 }

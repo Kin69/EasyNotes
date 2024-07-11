@@ -12,12 +12,17 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExecutorCoroutineDispatcher
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import java.util.concurrent.Executors
+import javax.inject.Qualifier
 import javax.inject.Singleton
+
+@Qualifier
+annotation class WidgetCoroutineScope
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,11 +30,18 @@ object ApplicationModule {
 
     @Provides
     @Singleton
+    @WidgetCoroutineScope
+    fun providesWidgetCoroutineScope(): CoroutineScope = CoroutineScope(
+        Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
+    )
+
+    @Provides
+    @Singleton
     fun provideNoteDatabaseProvider(application: Application): NoteDatabaseProvider = NoteDatabaseProvider(application)
 
     @Provides
     @Singleton
-    fun provideCoroutineScope(): CoroutineScope = CoroutineScope(SupervisorJob())
+    fun provideCoroutineScope(): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     @Provides
     fun provideMutex(): Mutex = Mutex()
@@ -37,6 +49,7 @@ object ApplicationModule {
     @Provides
     @Singleton
     fun provideExecutorCoroutineDispatcher(): ExecutorCoroutineDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+
 
     @Provides
     @Singleton

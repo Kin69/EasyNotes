@@ -11,7 +11,8 @@ data class Settings(
     var isMarkdownEnabled: Boolean = true,
     var screenProtection: Boolean = false,
     var encryptBackup: Boolean = false,
-    var cornerRadius: Int = 32,
     var sortDescending: Boolean = true,
+
+    var cornerRadius: Int = 32,
 )
 

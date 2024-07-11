@@ -1,7 +1,6 @@
 package com.kin.easynotes.domain.repository
 
 interface SettingsRepository {
-
     suspend fun putString(key: String, value: String)
     suspend fun getString(key: String): String?
 
@@ -10,4 +9,6 @@ interface SettingsRepository {
 
     suspend fun putBoolean(key: String, value: Boolean)
     suspend fun getBoolean(key: String): Boolean?
+
+    suspend fun getEveryNotesWidget(): List<Pair<Int, Int>>
 }
