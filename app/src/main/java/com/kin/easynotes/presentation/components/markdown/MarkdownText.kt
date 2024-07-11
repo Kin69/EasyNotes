@@ -112,7 +112,7 @@ fun MarkdownText(
     }
 
     val lines = markdown.lines()
-    val lineProcessors = mutableListOf(
+    val lineProcessors = listOf(
         HeadingProcessor(),
         ListItemProcessor(),
         CodeBlockProcessor(),
@@ -266,7 +266,6 @@ fun RenderMarkdownElement(
                         .clip(shape = shapeManager(isBoth = true, radius = radius/2))
                         .clickable { /* Just for animation */ }
                 }
-
                 AsyncImage(
                     model = element.photoUri,
                     contentDescription = "Image",

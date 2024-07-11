@@ -59,7 +59,7 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
 }
 
 @Composable
-fun ImagePicker(viewModel: EditViewModel, onImageSelected: (Uri) -> Unit) {
+fun ImagePicker(viewModel: EditViewModel, onImageSelected: (String) -> Unit) {
     var photoUri: Uri? by remember { mutableStateOf(null) }
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -77,7 +77,7 @@ fun ImagePicker(viewModel: EditViewModel, onImageSelected: (Uri) -> Unit) {
     }
 }
 
-private fun saveImageToAppStorage(context: Context, uri: Uri): Uri {
+private fun saveImageToAppStorage(context: Context, uri: Uri): String {
     val appStorageDir = getExternalStorageDir(context)
     if (!appStorageDir.exists()) {
         appStorageDir.mkdirs()
@@ -92,6 +92,5 @@ private fun saveImageToAppStorage(context: Context, uri: Uri): Uri {
     }
 
     inputStream?.close()
-
-    return Uri.fromFile(imageFile)
+    return imageFile.path.toString()
 }

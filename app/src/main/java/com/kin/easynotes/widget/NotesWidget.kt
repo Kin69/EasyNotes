@@ -41,15 +41,16 @@ class NotesWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val noteUseCase = getNoteUseCase(context)
         val widgetId = GlanceAppWidgetManager(context).getAppWidgetId(id)
-        noteUseCase.observe()
 
         provideContent {
             GlanceTheme {
-                val noteId = currentState<List<Pair<Int, Int>>>().filter { it.first == widgetId }.first().second
-                val selectedNote = noteUseCase.notes.filter { it.id == noteId }
-                when {
-                    selectedNote.isEmpty() -> ZeroState(widgetId = widgetId)
-                    else -> SelectedNote(selectedNote.first())
+                currentState<List<Pair<Int, Int>>>().firstOrNull { it.first == widgetId }?.second.let { noteId ->
+                    noteUseCase.observe()
+                    val selectedNote = noteUseCase.notes.filter { it.id == noteId }
+                    when {
+                        selectedNote.isEmpty() -> ZeroState(widgetId = widgetId)
+                        else -> SelectedNote(selectedNote.first(), noteUseCase, widgetId = widgetId)
+                    }
                 }
             }
         }
