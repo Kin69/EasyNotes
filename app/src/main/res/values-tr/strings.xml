@@ -88,4 +88,6 @@
     <string name="sort_ascending">Artan Sıralama</string>
     <string name="sort_descending">Azalan Sıralama</string>
     <string name="sort_description">Notları oluşturulma zamanlarına göre sırala</string>
+    <string name="select_note">Not Seç</string>
+    <string name="unsuported_image_size">Desteklenmeyen Görsel Boyutu (en fazla 15mb)</string>
 </resources>
