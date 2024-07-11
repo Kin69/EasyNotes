@@ -1,6 +1,8 @@
 package com.kin.easynotes.presentation.navigation
 
+import android.app.Activity
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -9,8 +11,10 @@ import com.kin.easynotes.presentation.screens.home.HomeView
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 @Composable
-fun AppNavHost(settingsModel: SettingsViewModel, startDestination: String, navController: NavHostController = rememberNavController()) {
-    NavHost(navController, startDestination = startDestination) {
+fun AppNavHost(settingsModel: SettingsViewModel,navController: NavHostController = rememberNavController(), noteId: Int) {
+    val activity = (LocalContext.current as? Activity)
+
+    NavHost(navController, startDestination = if (noteId == -1) NavRoutes.Home.route else NavRoutes.Edit.route) {
         animatedComposable(NavRoutes.Home.route) {
             HomeView(
                 onSettingsClicked = { navController.navigate(NavRoutes.Settings.route) },
@@ -23,9 +27,14 @@ fun AppNavHost(settingsModel: SettingsViewModel, startDestination: String, navCo
             val id = backStackEntry.arguments?.getString("id")?.toIntOrNull() ?: 0
             EditNoteView(
                 settingsViewModel = settingsModel,
-                id = id
+                id = if (noteId == -1) id else noteId,
+
             ) {
-                navController.navigateUp()
+                if (noteId == -1) {
+                    navController.navigateUp()
+                } else {
+                    activity?.finish()
+                }
             }
         }
 

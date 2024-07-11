@@ -24,7 +24,8 @@
         </receiver>
         <activity
             android:name=".widget.NotesWidgetActivity"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.UPDATE_WIDGETS">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

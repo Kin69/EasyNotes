@@ -87,6 +87,7 @@ fun EditNoteView(
 ) {
     val viewModel: EditViewModel = hiltViewModel<EditViewModel>()
     viewModel.setupNoteData(id)
+    println(id)
     ObserveLifecycleEvents(viewModel)
 
     val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })

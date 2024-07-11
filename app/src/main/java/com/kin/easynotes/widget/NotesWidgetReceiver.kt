@@ -1,40 +1,31 @@
 package com.kin.easynotes.widget
 
 import android.content.Context
-import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.core.DataStore
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
-import androidx.glance.appwidget.state.updateAppWidgetState
-import androidx.glance.state.PreferencesGlanceStateDefinition
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-
+import com.kin.easynotes.data.repository.SettingsRepositoryImpl
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 
 class NotesWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = NotesWidget()
 
-    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
-        super.onDeleted(context, appWidgetIds)
-        observeData(context, 0)
-    }
-
     companion object {
-        private val coroutineScope = MainScope()
+        const val WIDGET_PREFERENCE = "widgetNoteId_"
+    }
+}
 
-        fun observeData(context: Context, noteId: Int = 0) {
-            coroutineScope.launch {
-                val glanceId = GlanceAppWidgetManager(context).getGlanceIds(NotesWidget::class.java).firstOrNull()
-                if (glanceId != null) {
-                    updateAppWidgetState(context, PreferencesGlanceStateDefinition, glanceId) { prefs ->
-                        prefs.toMutablePreferences().apply {
-                            this[intPreferencesKey("widgetNoteId")] = noteId
-                        }
-                    }
-                    NotesWidget().update(context, glanceId)
-                }
-            }
+
+class NotesDataStore(private val context: Context): DataStore<List<Int>> {
+    override val data: Flow<List<Int>>
+        get() {
+            val settingsRepository = SettingsRepositoryImpl(context)
+            return flow { emit(listOf(settingsRepository.getInt(NotesWidgetReceiver.WIDGET_PREFERENCE) ?: 0))}
         }
+
+    override suspend fun updateData(transform: suspend (t: List<Int>) -> List<Int>): List<Int> {
+        throw NotImplementedError("Not implemented")
     }
 }

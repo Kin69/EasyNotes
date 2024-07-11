@@ -64,7 +64,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.glance)
     implementation(libs.coil.compose)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.androidx.glance.appwidget)
