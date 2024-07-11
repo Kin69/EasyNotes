@@ -137,7 +137,9 @@ fun WidgetMarkdownElement(
                             provider = ImageProvider(bitmap),
                             contentDescription = null,
                             contentScale = ContentScale.Fit,
-                            modifier = GlanceModifier.wrapContentHeight()
+                            modifier = GlanceModifier
+                                .padding(6.dp)
+                                .wrapContentHeight()
                         )
                     } else {
                         Text(

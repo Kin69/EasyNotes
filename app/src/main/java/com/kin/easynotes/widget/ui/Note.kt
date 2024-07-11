@@ -2,6 +2,7 @@ package com.kin.easynotes.widget.ui
 
 import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
@@ -10,6 +11,7 @@ import androidx.glance.action.clickable
 import androidx.glance.background
 import androidx.glance.layout.Column
 import androidx.glance.layout.fillMaxSize
+import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
@@ -33,6 +35,7 @@ fun SelectedNote(note: Note, noteUseCase: NoteUseCase, widgetId: Int) {
         modifier = glanceModifier
             .background(GlanceTheme.colors.background)
             .fillMaxSize()
+            .padding(6.dp)
     ) {
         if(note.name.isNotBlank()) {
             WidgetText(
