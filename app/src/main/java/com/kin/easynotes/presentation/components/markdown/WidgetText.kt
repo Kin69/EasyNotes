@@ -9,6 +9,7 @@ import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.Image
 import androidx.glance.ImageProvider
+import androidx.glance.LocalContext
 import androidx.glance.appwidget.CheckBox
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.lazy.LazyColumn
@@ -22,11 +23,13 @@ import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.layout.width
+import androidx.glance.layout.wrapContentHeight
 import androidx.glance.text.FontFamily
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
+import com.kin.easynotes.R
 import java.io.File
 
 
@@ -105,6 +108,7 @@ fun WidgetMarkdownElement(
     onContentChange: (String) -> Unit
 ) {
     val element = content[index]
+    val context = LocalContext.current
 
     Row(
         modifier = modifier.fillMaxWidth()
@@ -126,14 +130,28 @@ fun WidgetMarkdownElement(
             is ImageInsertion -> {
                 val file = File(element.photoUri)
                 if (file.exists()) {
-                    Image(
-                        provider = ImageProvider(BitmapFactory.decodeFile(element.photoUri)),
-                        contentDescription = null,
-                        contentScale = ContentScale.Fit,
-                        modifier = GlanceModifier.cornerRadius(6.dp)
-                    )
+                    var bitmap = BitmapFactory.decodeFile(element.photoUri)
+                    val maxFileSize = 15552000
+                    if (bitmap.byteCount < maxFileSize)  {
+                        Image(
+                            provider = ImageProvider(bitmap),
+                            contentDescription = null,
+                            contentScale = ContentScale.Fit,
+                            modifier = GlanceModifier.wrapContentHeight()
+                        )
+                    } else {
+                        Text(
+                            text = context.getString(R.string.unsuported_image_size),
+                            style = TextStyle(
+                                fontSize = fontSize,
+                                fontWeight = weight,
+                                color = GlanceTheme.colors.error
+                            )
+                        )
+                    }
                 }
             }
+
             is NormalText -> {
                 Text(
                     text = element.text,
