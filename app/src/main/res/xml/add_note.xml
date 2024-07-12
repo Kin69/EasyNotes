@@ -4,5 +4,6 @@
     android:minHeight="50.dp"
     android:minWidth="100.dp"
     android:resizeMode="none"
+    android:previewImage="@drawable/widget_preview_2"
     android:widgetCategory="home_screen">
 </appwidget-provider>

@@ -5,8 +5,10 @@ import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.glance.appwidget.updateAll
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.domain.model.Note
+import com.kin.easynotes.widget.NotesWidget
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,13 +40,13 @@ class NoteUseCase @Inject constructor(
         observeKeysJob = coroutineScope.launch {
             getAllNotes().collectLatest { keys ->
                 this@NoteUseCase.notes = keys
-//                NotesWidgetReceiver.updateBroadcast(context)
+                NotesWidget().updateAll(context)
             }
         }
     }
 
 
-    fun getAllNotes(): Flow<List<Note>> {
+    private fun getAllNotes(): Flow<List<Note>> {
         return noteRepository.getAllNotes()
     }
 

@@ -2,9 +2,9 @@
 <appwidget-provider
     android:configure="com.kin.easynotes.widget.NotesWidgetActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minHeight="100.dp"
-    android:minWidth="200.dp"
+    android:minHeight="50.dp"
+    android:minWidth="100.dp"
     android:resizeMode="horizontal|vertical"
-    android:previewImage="@drawable/widgetpreview2"
+    android:previewImage="@drawable/widget_preview_1"
     android:widgetCategory="home_screen">
 </appwidget-provider>
