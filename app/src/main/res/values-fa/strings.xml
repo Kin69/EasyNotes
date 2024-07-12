@@ -88,4 +88,6 @@
     <string name="detabase_restore_error">گذرواژه نادرست است یا پایگاه‌ داده‌ها رمزگذاری نشده است</string>
     <string name="sort_ascending">چینش فرازی</string>
     <string name="sort_description">چینش نوشتار‌ها بر اساس زمان ساخت‌شان</string>
+    <string name="select_note">گزیدن نوشتار</string>
+    <string name="unsuported_image_size">اندازه‌ی فرتور پشتیبانی نمی‌شود (بیشینه ۱۵ م.ب)</string>
 </resources>
