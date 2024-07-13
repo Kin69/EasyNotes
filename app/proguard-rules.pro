@@ -21,3 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class com.google.errorprone.annotations.** { *; }
+-dontwarn javax.lang.model.element.Modifier
