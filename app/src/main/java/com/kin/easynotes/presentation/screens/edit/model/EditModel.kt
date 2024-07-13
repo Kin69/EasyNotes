@@ -1,5 +1,6 @@
 package com.kin.easynotes.presentation.screens.edit.model
 
+import android.content.Context
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
+import com.kin.easynotes.presentation.components.EncryptionHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -43,13 +45,24 @@ class EditViewModel @Inject constructor(
     private val _isPinned = mutableStateOf(false)
     val isPinned: State<Boolean> get() = _isPinned
 
-    fun saveNote(id: Int) {
-        if (noteName.value.text.isNotBlank() || noteDescription.value.text.isNotBlank()) {
+    fun saveNote(id: Int, encrypted: Boolean, context: Context) {
+        if (encrypted) {
+            val encryption = EncryptionHelper(context = context)
+            noteUseCase.addNote(Note(
+                id = id,
+                name = encryption.encrypt(noteName.value.text),
+                description = encryption.encrypt(noteDescription.value.text),
+                pinned = isPinned.value,
+                encrypted = true,
+                createdAt = if (noteCreatedTime.value != 0L) noteCreatedTime.value else System.currentTimeMillis(),
+            ))
+        } else {
             noteUseCase.addNote(Note(
                 id = id,
                 name = noteName.value.text,
                 description = noteDescription.value.text,
                 pinned = isPinned.value,
+                encrypted = false,
                 createdAt = if (noteCreatedTime.value != 0L) noteCreatedTime.value else System.currentTimeMillis(),
             ))
         }
@@ -59,32 +72,42 @@ class EditViewModel @Inject constructor(
         noteUseCase.deleteNoteById(id = id)
     }
 
-    private fun syncNote(note: Note) {
-        updateNoteName(TextFieldValue(note.name, selection = TextRange(note.name.length)))
-        updateNoteDescription(TextFieldValue(note.description, selection = TextRange(note.name.length)))
+    private fun syncNote(note: Note, encrypted: Boolean, context: Context) {
+        if (encrypted) {
+            val encrypt = EncryptionHelper(context)
+            val name = encrypt.decrypt(note.name)
+            val description = encrypt.decrypt(note.description)
+
+            updateNoteName(TextFieldValue(name, selection = TextRange(name.length)))
+            updateNoteDescription(TextFieldValue(description, selection = TextRange(description.length)))
+        } else {
+            updateNoteName(TextFieldValue(note.name, selection = TextRange(note.name.length)))
+            updateNoteDescription(TextFieldValue(note.description, selection = TextRange(note.description.length)))
+        }
+
         updateNoteCreatedTime(note.createdAt)
         updateNoteId(note.id)
         updateNotePin(note.pinned)
     }
 
-    fun setupNoteData(id : Int = noteId.value) {
+    fun setupNoteData(id : Int = noteId.value, encrypted: Boolean, context: Context) {
         if (id != 0) {
             viewModelScope.launch {
                 noteUseCase.getNoteById(id).collectLatest { note ->
                     if (note != null && !isInsertingImage.value) {
-                        syncNote(note)
+                        syncNote(note, encrypted, context)
                     }
                 }
             }
         }
     }
 
-    fun fetchLastNoteAndUpdate() {
+    fun fetchLastNoteAndUpdate(encrypted: Boolean, context: Context) {
         if (noteId.value == 0) {
             viewModelScope.launch {
                 noteUseCase.getLastNoteId { lastId ->
                     viewModelScope.launch {
-                        setupNoteData(lastId?.toInt() ?: 1)
+                        setupNoteData(lastId?.toInt() ?: 1, encrypted, context)
                     }
                 }
             }

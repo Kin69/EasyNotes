@@ -85,10 +85,10 @@ fun EditNoteView(
     settingsViewModel: SettingsViewModel,
     onClickBack: () -> Unit
 ) {
+    val context = LocalContext.current
     val viewModel: EditViewModel = hiltViewModel<EditViewModel>()
-    viewModel.setupNoteData(id)
-    println(id)
-    ObserveLifecycleEvents(viewModel)
+    viewModel.setupNoteData(id, settingsViewModel.settings.value.vaultEnabled, context)
+    ObserveLifecycleEvents(viewModel, settingsViewModel)
 
     val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
@@ -185,14 +185,14 @@ fun TopBar(pagerState: PagerState,coroutineScope: CoroutineScope, onClickBack: (
 }
 
 @Composable
-fun ObserveLifecycleEvents(viewModel: EditViewModel) {
+fun ObserveLifecycleEvents(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) {
+    val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) {
-                viewModel.saveNote(viewModel.noteId.value)
-                viewModel.fetchLastNoteAndUpdate()
+                viewModel.saveNote(viewModel.noteId.value, settingsViewModel.settings.value.vaultEnabled, context)
+                viewModel.fetchLastNoteAndUpdate(settingsViewModel.settings.value.vaultEnabled, context)
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)

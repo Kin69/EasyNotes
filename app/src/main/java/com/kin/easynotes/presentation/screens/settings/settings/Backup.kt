@@ -43,6 +43,7 @@ import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
+import org.w3c.dom.Text
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -94,7 +95,12 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
                                 context = context,
                                 text = stringResource(id = R.string.backup),
                                 settingsViewModel = settingsViewModel,
-                                onExit = { onExit() },
+                                onExit = { password ->
+                                    if (password != null) {
+                                        settingsViewModel.password = password.text
+                                    }
+                                    onExit()
+                                },
                                 onBackup = {
                                     exportLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.zip")
                                 }
@@ -121,7 +127,12 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
                                 context = context,
                                 text = stringResource(id = R.string.restore),
                                 settingsViewModel = settingsViewModel,
-                                onExit = { onExit() },
+                                onExit = { password ->
+                                    if (password != null) {
+                                        settingsViewModel.password = password.text
+                                    }
+                                    onExit()
+                                },
                                 onBackup = {
                                     importLauncher.launch(arrayOf("application/zip"))
                                 }
@@ -149,10 +160,10 @@ fun currentDateTime(): String {
 }
 
 @Composable
-fun PasswordPrompt(context: Context, text: String, settingsViewModel: SettingsViewModel, onExit: () -> Unit, onBackup: () -> Unit) {
+fun PasswordPrompt(context: Context, text: String, settingsViewModel: SettingsViewModel, onExit: (TextFieldValue?) -> Unit, onBackup: () -> Unit = {}) {
     var password by remember { mutableStateOf(TextFieldValue("")) }
     Dialog(
-        onDismissRequest = { onExit() },
+        onDismissRequest = { onExit(null) },
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
         LazyColumn {
@@ -195,8 +206,7 @@ fun PasswordPrompt(context: Context, text: String, settingsViewModel: SettingsVi
                             .align(Alignment.End),
                         onClick = {
                             if (password.text.isNotBlank()) {
-                                settingsViewModel.password = password.text
-                                onExit()
+                                onExit(password)
                                 onBackup()
                             } else {
                                 Toast.makeText(context, R.string.invalid_input, Toast.LENGTH_SHORT).show()

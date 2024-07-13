@@ -16,8 +16,11 @@ abstract class NoteDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract fun addNote(note: Note)
 
-    @Query("SELECT * FROM `notes-table`")
+    @Query("SELECT * FROM `notes-table` WHERE encrypted = 0")
     abstract fun getAllNotes(): Flow<List<Note>>
+
+    @Query("SELECT * FROM `notes-table` WHERE encrypted = 1")
+    abstract fun getAllEncryptedNotes(): Flow<List<Note>>
 
     @Update
     abstract suspend fun updateNote(note: Note)

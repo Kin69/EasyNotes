@@ -12,6 +12,15 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.kin.easynotes.domain.repository.SettingsRepository
 import com.kin.easynotes.widget.NotesWidgetReceiver
 import kotlinx.coroutines.flow.first
+import android.util.Base64
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
+import java.security.KeyStore
+import java.security.SecureRandom
+import javax.crypto.Cipher
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
+import javax.crypto.spec.GCMParameterSpec
 
 private const val PREFERENCES_NAME = "settings"
 

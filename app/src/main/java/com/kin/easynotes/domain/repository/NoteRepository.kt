@@ -5,6 +5,7 @@ import dagger.Provides
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {
+    fun getAllEncryptedNotes(): Flow<List<Note>>
     fun getAllNotes(): Flow<List<Note>>
     suspend fun addNote(note: Note)
     suspend fun updateNote(note: Note)

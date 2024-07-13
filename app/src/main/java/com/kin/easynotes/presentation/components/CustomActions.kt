@@ -8,6 +8,9 @@ import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Done
+import androidx.compose.material.icons.rounded.Link
+import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material.icons.rounded.LockOpen
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.PushPin
 import androidx.compose.material.icons.rounded.SelectAll
@@ -69,6 +72,17 @@ fun SettingsButton(onSettingsClicked: () -> Unit) {
         Icon(
             imageVector = Icons.Rounded.Settings,
             contentDescription = "Settings",
+            tint = MaterialTheme.colorScheme.onBackground
+        )
+    }
+}
+
+@Composable
+fun VaultButton(vaultEnabled: Boolean,onVaultButtonClicked: () -> Unit) {
+    IconButton(onClick = onVaultButtonClicked) {
+        Icon(
+            imageVector = if (vaultEnabled) Icons.Rounded.Lock else Icons.Rounded.LockOpen,
+            contentDescription = "Vault",
             tint = MaterialTheme.colorScheme.onBackground
         )
     }

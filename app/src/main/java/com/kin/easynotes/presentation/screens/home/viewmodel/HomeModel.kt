@@ -13,7 +13,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     val noteUseCase: NoteUseCase,
-    val backupRepository: BackupRepository,
 ) : ViewModel() {
 
     init {
@@ -25,11 +24,25 @@ class HomeViewModel @Inject constructor(
     private var _isDeleteMode = mutableStateOf(false)
     val isDeleteMode: State<Boolean> = _isDeleteMode
 
+    private var _isPasswordPromptVisible = mutableStateOf(false)
+    val isPasswordPromptVisible: State<Boolean> = _isPasswordPromptVisible
+
+    private var _isVaultMode = mutableStateOf(false)
+    val isVaultMode: State<Boolean> = _isVaultMode
+
     private var _searchQuery = mutableStateOf("")
     val searchQuery: State<String> = _searchQuery
 
     fun toggleIsDeleteMode(enabled: Boolean) {
         _isDeleteMode.value = enabled
+    }
+
+    fun toggleIsVaultMode(enabled: Boolean) {
+        _isVaultMode.value = enabled
+    }
+
+    fun toggleIsPasswordPromptVisible(enabled: Boolean) {
+        _isPasswordPromptVisible.value = enabled
     }
 
     fun changeSearchQuery(newValue: String) {

@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.glance.appwidget.updateAll
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.domain.model.Note
+import com.kin.easynotes.presentation.components.EncryptionHelper
 import com.kin.easynotes.widget.NotesWidget
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -31,20 +32,36 @@ class NoteUseCase @Inject constructor(
 
     private var observeKeysJob: Job? = null
 
-    fun observe() {
-        observeKeys()
+    fun observe(encrypted: Boolean = false) {
+        observeNotes(encrypted)
     }
 
-    private fun observeKeys() {
+    private fun observeNotes(encrypted: Boolean) {
         observeKeysJob?.cancel()
         observeKeysJob = coroutineScope.launch {
-            getAllNotes().collectLatest { keys ->
-                this@NoteUseCase.notes = keys
-                NotesWidget().updateAll(context)
+            if (!encrypted) {
+                getAllNotes().collectLatest { notes ->
+                    this@NoteUseCase.notes = notes
+                    NotesWidget().updateAll(context)
+                }
+            } else {
+                getAllEncryptedNotes().collectLatest { encryptedNotes ->
+                    val decryptedNotes = encryptedNotes.map { note ->
+                        val encryptionHelper = EncryptionHelper(context)
+                        val name = encryptionHelper.decrypt(note.name)
+                        val description = encryptionHelper.decrypt(note.description)
+                        note.copy(name = name, description = description)
+                    }
+                    this@NoteUseCase.notes = decryptedNotes
+                }
             }
         }
     }
 
+    /* Return only encrypted notes */
+    private fun getAllEncryptedNotes(): Flow<List<Note>> {
+        return noteRepository.getAllEncryptedNotes()
+    }
 
     private fun getAllNotes(): Flow<List<Note>> {
         return noteRepository.getAllNotes()

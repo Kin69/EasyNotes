@@ -1,5 +1,10 @@
 package com.kin.easynotes.presentation.screens.home
 
+
+import android.app.KeyguardManager
+import android.content.Context
+import android.content.Context.KEYGUARD_SERVICE
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +21,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -23,18 +29,22 @@ import com.kin.easynotes.R
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.CloseButton
 import com.kin.easynotes.presentation.components.DeleteButton
+import com.kin.easynotes.presentation.components.EncryptionHelper
 import com.kin.easynotes.presentation.components.NotesButton
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.PinButton
 import com.kin.easynotes.presentation.components.SelectAllButton
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
+import com.kin.easynotes.presentation.components.VaultButton
 import com.kin.easynotes.presentation.components.defaultScreenEnterAnimation
 import com.kin.easynotes.presentation.components.defaultScreenExitAnimation
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
 import com.kin.easynotes.presentation.screens.home.widgets.NoteFilter
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
+import com.kin.easynotes.presentation.screens.settings.settings.PasswordPrompt
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
+
 
 @Composable
 fun HomeView(
@@ -43,6 +53,34 @@ fun HomeView(
     onSettingsClicked: () -> Unit,
     onNoteClicked: (Int) -> Unit
 ) {
+    val context = LocalContext.current
+    if (viewModel.isPasswordPromptVisible.value) {
+        PasswordPrompt(
+            context = context,
+            text = stringResource(id = R.string.password_continue),
+            settingsViewModel = settingsModel,
+            onExit = { password ->
+                println(password)
+                if (password != null) {
+                    if (password.text.isNotBlank()) {
+                        val encryptionHelper = EncryptionHelper(context, password.text)
+                        if (encryptionHelper.checkPassword(password.text)) {
+                            settingsModel.update(settingsModel.settings.value.copy(vaultEnabled = true))
+                            viewModel.noteUseCase.observe(true)
+                        } else {
+                            Toast.makeText(
+                                context,
+                                context.getString(R.string.invalid_input),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+                viewModel.toggleIsPasswordPromptVisible(false)
+            }
+        )
+    }
+
     if (settingsModel.databaseUpdate.value) viewModel.noteUseCase.observe()
     val containerColor = getContainerColor(settingsModel)
     NotesScaffold(
@@ -69,10 +107,21 @@ fun HomeView(
                 exit = defaultScreenExitAnimation()
             ) {
                 NotesSearchBar(
+                    settingsModel = settingsModel,
                     query = viewModel.searchQuery.value,
                     onQueryChange = { viewModel.changeSearchQuery(it) },
                     onSettingsClick = onSettingsClicked,
-                    onClearClick = { viewModel.changeSearchQuery("") }
+                    onClearClick = { viewModel.changeSearchQuery("") },
+                    viewModel = viewModel,
+                    onVaultClicked = {
+                        viewModel.toggleIsVaultMode(viewModel.isVaultMode.value.not())
+                        if (viewModel.isVaultMode.value) {
+                            viewModel.toggleIsPasswordPromptVisible(true)
+                        } else {
+                            settingsModel.update(settingsModel.settings.value.copy(vaultEnabled = false))
+                            viewModel.noteUseCase.observe()
+                        }
+                    }
                 )
             }
         },
@@ -148,9 +197,12 @@ private fun SelectedNotesTopAppBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun NotesSearchBar(
+    settingsModel: SettingsViewModel,
+    viewModel: HomeViewModel,
     query: String,
     onQueryChange: (String) -> Unit,
     onSettingsClick: () -> Unit,
+    onVaultClicked: () -> Unit,
     onClearClick: () -> Unit
 ) {
     SearchBar(
@@ -164,6 +216,9 @@ private fun NotesSearchBar(
             Row {
                 if (query.isNotBlank()) {
                     CloseButton(contentDescription = "Clear", onCloseClicked = onClearClick)
+                }
+                if (settingsModel.settings.value.vaultSettingEnabled) {
+                    VaultButton(settingsModel.settings.value.vaultEnabled) { onVaultClicked() }
                 }
                 SettingsButton(onSettingsClicked = onSettingsClick)
             }

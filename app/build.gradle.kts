@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.androidx.glance.appwidget)
+    implementation(libs.androidx.security.crypto.ktx)
     ksp(libs.androidx.room.compiler)
     ksp(libs.hilt.android.compiler)
     ksp(libs.hilt.compile)

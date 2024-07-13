@@ -1,10 +1,15 @@
 package com.kin.easynotes.presentation.screens.settings.settings
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.RemoveRedEye
+import androidx.compose.material.icons.rounded.Security
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
@@ -28,13 +33,19 @@ fun PrivacyScreen(navController: NavController, settingsViewModel: SettingsViewM
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.screenProtection,
-                    switchEnabled = {
-                        settingsViewModel.update(
-                            settingsViewModel.settings.value.copy(
-                                screenProtection = it
-                            )
-                        )
-                    },
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(screenProtection = it)) },
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+            }
+            item {
+                SettingsBox(
+                    title = stringResource(id = R.string.vault),
+                    description = stringResource(id = R.string.vault_description),
+                    icon = Icons.Rounded.Security,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
+                    actionType = ActionType.SWITCH,
+                    variable = settingsViewModel.settings.value.vaultSettingEnabled,
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(vaultSettingEnabled = it)) },
                 )
             }
         }
