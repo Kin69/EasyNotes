@@ -88,4 +88,6 @@
     <string name="sort_ascending">Сортировать по возрастанию</string>
     <string name="sort_descending">Сортировать по убыванию</string>
     <string name="sort_description">Сортировать заметки по времени их создания</string>
+    <string name="unsuported_image_size">Слишком высокий размер изображения (максимальный размер – 15MB)</string>
+    <string name="select_note">Выберите заметку</string>
 </resources>
