@@ -24,7 +24,7 @@ class NoteDatabaseProvider(private val application: Application) {
         return Room.databaseBuilder(application.applicationContext,
             NoteDatabase::class.java,
             DatabaseConst.NOTES_DATABASE_FILE_NAME)
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_2_4)
             .build()
     }
 
@@ -55,6 +55,13 @@ private val MIGRATION_2_3 = object : Migration(2, 3) {
 
 private val MIGRATION_3_4 = object : Migration(2, 3) {
     override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE `notes-table` ADD COLUMN `encrypted` INTEGER NOT NULL DEFAULT 0")
+    }
+}
+
+private val MIGRATION_2_4 = object : Migration(2, 4) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE `notes-table` ADD COLUMN `pinned` INTEGER NOT NULL DEFAULT 0")
         db.execSQL("ALTER TABLE `notes-table` ADD COLUMN `encrypted` INTEGER NOT NULL DEFAULT 0")
     }
 }
