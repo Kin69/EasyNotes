@@ -2,8 +2,10 @@ package com.kin.easynotes.presentation.components
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
+import androidx.security.crypto.MasterKey
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import javax.crypto.Cipher
@@ -39,9 +41,6 @@ class EncryptionHelper(context: Context, key: String? = null) {
 
     fun decrypt(data: String): String {
         val split = data.split(":")
-        if (split.size != 2) {
-            throw IllegalArgumentException("Invalid encrypted data format")
-        }
         val ivBytes = android.util.Base64.decode(split[0], android.util.Base64.DEFAULT)
         val encryptedBytes = android.util.Base64.decode(split[1], android.util.Base64.DEFAULT)
         val secretKey = generateSecretKey()
@@ -69,17 +68,31 @@ class EncryptionHelper(context: Context, key: String? = null) {
     }
 
     private fun getEncryptedSharedPreferences(context: Context): SharedPreferences {
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        val masterKeyAlias = MasterKey.Builder(context, MASTER_KEY_ALIAS)
+            .setKeyGenParameterSpec(keyGenParameterSpec)
+            .build()
+
         return EncryptedSharedPreferences.create(
+            context,
             SHARED_PREF_FILE_NAME,
             masterKeyAlias,
-            context,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
 
     companion object {
+        const val MASTER_KEY_ALIAS = "yourKeyAlias"
+        const val KEY_SIZE = 256
+
+        private val keyGenParameterSpec = KeyGenParameterSpec.Builder(
+            MASTER_KEY_ALIAS,
+            KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+        ).setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+            .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+            .setKeySize(KEY_SIZE)
+            .build()
+
         private const val SHARED_PREF_FILE_NAME = "encryption_preferences"
         private const val KEY_PASSWORD = "password"
     }

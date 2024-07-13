@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ContactSupport
 import androidx.compose.material.icons.rounded.BugReport
 import androidx.compose.material.icons.rounded.Build
 import androidx.compose.material.icons.rounded.Coffee
@@ -105,7 +106,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
                 SettingsBox(
                     isBig = true,
                     title = stringResource(id = R.string.discord),
-                    icon = Icons.Rounded.ContactSupport,
+                    icon = Icons.AutoMirrored.Rounded.ContactSupport,
                     actionType = ActionType.LINK,
                     linkClicked = { uriHandler.openUri(ConnectionConst.SUPPORT_DISCORD) },
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
