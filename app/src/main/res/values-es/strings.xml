@@ -88,4 +88,6 @@
     <string name="sort_ascending">Orden Ascendente</string>
     <string name="sort_descending">Orden Descendente</string>
     <string name="sort_description">Ordenar notas por fecha de creación</string>
+    <string name="select_note">Seleccionar nota</string>
+    <string name="unsuported_image_size">Tamaño de imagen no compatible (máximo 15 MB)</string>
 </resources>
