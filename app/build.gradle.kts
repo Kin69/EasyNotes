@@ -64,6 +64,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.error.prone.annotations)
     implementation(libs.androidx.glance)
     implementation(libs.coil.compose)
     implementation(libs.hilt.navigation.compose)
