@@ -90,4 +90,7 @@
     <string name="sort_description">چینش نوشتار‌ها بر اساس زمان ساخت‌شان</string>
     <string name="select_note">گزیدن نوشتار</string>
     <string name="unsuported_image_size">اندازه‌ی فرتور پشتیبانی نمی‌شود (بیشینه ۱۵ م.ب)</string>
+    <string name="password_continue">ادامه</string>
+    <string name="vault">گنجه</string>
+    <string name="vault_description">روشن کردن گنجه‌ی نوشتار‌های رمزگذاری‌شده</string>
 </resources>
