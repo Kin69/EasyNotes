@@ -90,4 +90,7 @@
     <string name="sort_description">Notları oluşturulma zamanlarına göre sırala</string>
     <string name="select_note">Not Seç</string>
     <string name="unsuported_image_size">Desteklenmeyen Görsel Boyutu (en fazla 15mb)</string>
+    <string name="vault">Kasa</string>
+    <string name="vault_description">Şifreli not kasasını etkinleştir</string>
+    <string name="password_continue">devam et</string>
 </resources>
