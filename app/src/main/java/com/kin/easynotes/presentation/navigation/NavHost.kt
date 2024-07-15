@@ -18,17 +18,19 @@ fun AppNavHost(settingsModel: SettingsViewModel,navController: NavHostController
         animatedComposable(NavRoutes.Home.route) {
             HomeView(
                 onSettingsClicked = { navController.navigate(NavRoutes.Settings.route) },
-                onNoteClicked = { id -> navController.navigate(NavRoutes.Edit.createRoute(id)) },
+                onNoteClicked = { id, encrypted -> navController.navigate(NavRoutes.Edit.createRoute(id, encrypted)) },
                 settingsModel = settingsModel
             )
         }
 
         animatedComposable(NavRoutes.Edit.route) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")?.toIntOrNull() ?: 0
+            val encrypted = backStackEntry.arguments?.getString("encrypted").toBoolean()
+            println(encrypted)
             EditNoteView(
                 settingsViewModel = settingsModel,
                 id = if (noteId == -1) id else noteId,
-
+                encrypted = encrypted
             ) {
                 if (noteId == -1) {
                     navController.navigateUp()

@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
@@ -38,6 +39,14 @@ class MainActivity : AppCompatActivity() {
                     AppNavHost(settingsViewModel, noteId = noteId)
                 }
             }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        setContent {
+            val settingsViewModel: SettingsViewModel = hiltViewModel<SettingsViewModel>()
+            settingsViewModel.update(settingsViewModel.settings.value.copy(vaultEnabled = false))
         }
     }
 }

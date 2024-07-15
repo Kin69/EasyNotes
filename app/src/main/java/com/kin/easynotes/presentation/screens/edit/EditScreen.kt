@@ -83,12 +83,13 @@ import java.util.Locale
 fun EditNoteView(
     id: Int,
     settingsViewModel: SettingsViewModel,
+    encrypted: Boolean = false,
     onClickBack: () -> Unit
 ) {
     val context = LocalContext.current
     val viewModel: EditViewModel = hiltViewModel<EditViewModel>()
-    viewModel.setupNoteData(id, settingsViewModel.settings.value.vaultEnabled, context)
-    ObserveLifecycleEvents(viewModel, settingsViewModel)
+    viewModel.setupNoteData(id, encrypted, context)
+    ObserveLifecycleEvents(viewModel, encrypted)
 
     val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
@@ -183,14 +184,14 @@ fun TopBar(pagerState: PagerState,coroutineScope: CoroutineScope, onClickBack: (
 }
 
 @Composable
-fun ObserveLifecycleEvents(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) {
+fun ObserveLifecycleEvents(viewModel: EditViewModel, encrypted: Boolean) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) {
-                viewModel.saveNote(viewModel.noteId.value, settingsViewModel.settings.value.vaultEnabled, context)
-                viewModel.fetchLastNoteAndUpdate(settingsViewModel.settings.value.vaultEnabled, context)
+                viewModel.saveNote(viewModel.noteId.value, encrypted, context)
+                viewModel.fetchLastNoteAndUpdate(encrypted, context)
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)

@@ -17,8 +17,8 @@ import com.kin.easynotes.presentation.screens.settings.settings.SupportScreen
 
 sealed class NavRoutes(val route: String) {
     data object Home : NavRoutes("home")
-    data object Edit : NavRoutes("edit/{id}") {
-        fun createRoute(id: Int) = "edit/$id"
+    data object Edit : NavRoutes("edit/{id}/{encrypted}") {
+        fun createRoute(id: Int, encrypted : Boolean) = "edit/$id/$encrypted"
     }
     data object Settings : NavRoutes("settings")
     data object ColorStyles : NavRoutes("settings/color_styles")

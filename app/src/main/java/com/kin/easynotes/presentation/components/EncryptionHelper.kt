@@ -40,7 +40,9 @@ class EncryptionHelper(context: Context, key: String? = null) {
     }
 
     fun decrypt(data: String): String {
+        if (data.isBlank()) return "Encrypted data cannot be blank or null."
         val split = data.split(":")
+        if (split.size != 2) return "Invalid encrypted data format."
         val ivBytes = android.util.Base64.decode(split[0], android.util.Base64.DEFAULT)
         val encryptedBytes = android.util.Base64.decode(split[1], android.util.Base64.DEFAULT)
         val secretKey = generateSecretKey()

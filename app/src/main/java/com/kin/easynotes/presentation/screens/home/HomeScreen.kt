@@ -1,9 +1,5 @@
 package com.kin.easynotes.presentation.screens.home
 
-
-import android.app.KeyguardManager
-import android.content.Context
-import android.content.Context.KEYGUARD_SERVICE
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Row
@@ -51,7 +47,7 @@ fun HomeView(
     viewModel: HomeViewModel = hiltViewModel(),
     settingsModel: SettingsViewModel,
     onSettingsClicked: () -> Unit,
-    onNoteClicked: (Int) -> Unit
+    onNoteClicked: (Int, Boolean) -> Unit
 ) {
     val context = LocalContext.current
     if (viewModel.isPasswordPromptVisible.value) {
@@ -64,7 +60,7 @@ fun HomeView(
                     if (password.text.isNotBlank()) {
                         val encryptionHelper = EncryptionHelper(context, password.text)
                         if (encryptionHelper.checkPassword(password.text)) {
-                            settingsModel.update(settingsModel.settings.value.copy(vaultEnabled = true))
+                            viewModel.toggleIsVaultMode(true)
                             viewModel.noteUseCase.observe(true)
                         } else {
                             Toast.makeText(
@@ -83,7 +79,7 @@ fun HomeView(
     if (settingsModel.databaseUpdate.value) viewModel.noteUseCase.observe()
     val containerColor = getContainerColor(settingsModel)
     NotesScaffold(
-        floatingActionButton = { NewNoteButton(onNoteClicked) },
+        floatingActionButton = { NewNoteButton { onNoteClicked(it, viewModel.isVaultMode.value) } },
         topBar = {
             AnimatedVisibility(
                 visible = viewModel.selectedNotes.isNotEmpty(),
@@ -113,11 +109,10 @@ fun HomeView(
                     onClearClick = { viewModel.changeSearchQuery("") },
                     viewModel = viewModel,
                     onVaultClicked = {
-                        viewModel.toggleIsVaultMode(viewModel.isVaultMode.value.not())
-                        if (viewModel.isVaultMode.value) {
+                        if (!viewModel.isVaultMode.value) {
                             viewModel.toggleIsPasswordPromptVisible(true)
                         } else {
-                            settingsModel.update(settingsModel.settings.value.copy(vaultEnabled = false))
+                            viewModel.toggleIsVaultMode(false)
                             viewModel.noteUseCase.observe()
                         }
                     }
@@ -132,7 +127,7 @@ fun HomeView(
                     radius = settingsModel.settings.value.cornerRadius / 2,
                     isBoth = true
                 ),
-                onNoteClicked = onNoteClicked,
+                onNoteClicked = { onNoteClicked(it, viewModel.isVaultMode.value)  },
                 notes = viewModel.noteUseCase.notes.sortedWith(sorter(settingsModel.settings.value.sortDescending)),
                 selectedNotes = viewModel.selectedNotes,
                 viewMode = settingsModel.settings.value.viewMode,
@@ -217,7 +212,7 @@ private fun NotesSearchBar(
                     CloseButton(contentDescription = "Clear", onCloseClicked = onClearClick)
                 }
                 if (settingsModel.settings.value.vaultSettingEnabled) {
-                    VaultButton(settingsModel.settings.value.vaultEnabled) { onVaultClicked() }
+                    VaultButton(viewModel.isVaultMode.value) { onVaultClicked() }
                 }
                 SettingsButton(onSettingsClicked = onSettingsClick)
             }
