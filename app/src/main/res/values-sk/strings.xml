@@ -85,4 +85,12 @@
     <string name="view_style_description">Výber štýlu zobrazenia</string>
     <string name="minimalistic_mode_description">Odstránenie horných tlačidiel z obrazovky úprav</string>
     <string name="build_type">Typ zostavy</string>
+    <string name="sort_ascending">Zoradiť vzostupne</string>
+    <string name="sort_descending">Zoradiť zostupne</string>
+    <string name="sort_description">Zoradiť poznámky podľa času ich vytvorenia</string>
+    <string name="select_note">Vyberte poznámku</string>
+    <string name="unsuported_image_size">Nepodporovaná veľkosť obrázka (max 15 MB)</string>
+    <string name="vault">Trezor</string>
+    <string name="vault_description">Povolenie šifrovaného trezoru poznámok</string>
+    <string name="password_continue">pokračovať</string>
 </resources>

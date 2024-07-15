@@ -90,4 +90,7 @@
     <string name="sort_description">Ordenar notas por fecha de creación</string>
     <string name="select_note">Seleccionar nota</string>
     <string name="unsuported_image_size">Tamaño de imagen no compatible (máximo 15 MB)</string>
+    <string name="vault">Bóveda</string>
+    <string name="vault_description">Habilitar bóveda de notas encriptadas</string>
+    <string name="password_continue">continuar</string>
 </resources>
