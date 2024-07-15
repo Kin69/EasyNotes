@@ -92,4 +92,6 @@
     <string name="vault">Vault</string>
     <string name="vault_description">Enable encrypted notes vault</string>
     <string name="password_continue">continue</string>
+    <string name="language_description">Change the app language</string>
+    <string name="system_language">System Language</string>
 </resources>

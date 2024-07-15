@@ -68,7 +68,7 @@
     <string name="minimalistic_mode_description">إزالة الأزرار العلوية من شاشة التحرير</string>
     <string name="backup_description">تخزين جميع الملاحظات في ملف</string>
     <string name="restore_description">استعادة الملاحظات من ملف</string>
-    <string name="markdown_description">تمكين Markdown في الملاحظات</string>
+    <string name="markdown_description">تفعيل Markdown في الملاحظات</string>
     <string name="screen_protection_description">إخفاء محتوى التطبيق في شاشة التطبيقات الأخيرة و تعطيل لقطات الشاشة</string>
     <string name="build_type">نوع الإصدار</string>
     <string name="source_code">كود المصدر</string>
@@ -87,4 +87,11 @@
     <string name="sort_ascending">ترتيب تصاعدي</string>
     <string name="sort_descending">ترتيب تنازلي</string>
     <string name="sort_description">ترتيب الملاحظات حسب وقت إنشائها</string>
+    <string name="select_note">إختر ملاحظة</string>
+    <string name="unsuported_image_size">حجم الصورة غير مدعوم (15 ميجابايت كحد أقصى)</string>
+    <string name="vault">الخزنة</string>
+    <string name="vault_description">تفعيل خزنة الملاحظات المشفرة</string>
+    <string name="password_continue">اكمل</string>
+    <string name="language_description">تغيير لغة التطبيق</string>
+    <string name="system_language">اتبع لغة النظام</string>
 </resources>
