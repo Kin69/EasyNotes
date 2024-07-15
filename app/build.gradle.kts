@@ -19,6 +19,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // https://developer.android.com/guide/topics/resources/app-languages#gradle-config
+        resourceConfigurations.plus(
+            listOf("en", "ar", "de", "es", "fa", "fil", "fr", "hi", "it", "ja", "ru", "sk", "tr")
+        )
     }
 
     buildTypes {

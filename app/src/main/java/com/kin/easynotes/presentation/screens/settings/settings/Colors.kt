@@ -1,7 +1,11 @@
 package com.kin.easynotes.presentation.screens.settings.settings
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,9 +22,11 @@ import androidx.compose.material.icons.rounded.GridView
 import androidx.compose.material.icons.rounded.HdrAuto
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.RoundedCorner
+import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.material.icons.rounded.ViewAgenda
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
@@ -29,13 +35,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.core.os.LocaleListCompat
 import androidx.navigation.NavController
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
@@ -126,6 +135,21 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
+                    title = stringResource(id = R.string.language),
+                    description = stringResource(id = R.string.language_description),
+                    icon = Icons.Rounded.Translate,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
+                    actionType = ActionType.CUSTOM,
+                    customAction = {
+                        onExit -> OnLanguageClicked(settingsViewModel) {
+                            onExit()
+                        }
+                    }
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+            }
+            item {
+                SettingsBox(
                     title = stringResource(id = R.string.radius),
                     description = stringResource(id = R.string.radius_description),
                     icon = Icons.Rounded.RoundedCorner,
@@ -171,6 +195,67 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                     variable = settingsViewModel.settings.value.minimalisticMode,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(minimalisticMode = it))}
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun OnLanguageClicked(settingsViewModel: SettingsViewModel, onExit: () -> Unit) {
+    val context = LocalContext.current
+    val languages = settingsViewModel.getSupportedLanguages(context)
+
+    @Composable
+    fun Language(displayName: String, selected: Boolean, onClick: () -> Unit) {
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .clickable { onClick() }) {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp, horizontal = 24.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(displayName)
+                RadioButton(
+                    selected = selected,
+                    onClick = null,
+                )
+            }
+        }
+    }
+
+    Dialog(onDismissRequest = onExit) {
+        Card(shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius)) {
+            Text(
+                text = stringResource(R.string.language),
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 16.dp)
+            )
+            LazyColumn {
+                item {
+                    Language(
+                        displayName = stringResource(R.string.system_language),
+                        selected = AppCompatDelegate.getApplicationLocales().isEmpty
+                    ) {
+                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+                    }
+                }
+                for ((name, tag) in languages) {
+                    item {
+                        Language(
+                            displayName = name,
+                            selected = AppCompatDelegate.getApplicationLocales()[0]?.language == tag
+                        ) {
+                            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
+                        }
+                    }
+                }
             }
         }
     }
