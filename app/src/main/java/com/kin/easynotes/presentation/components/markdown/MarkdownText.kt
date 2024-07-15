@@ -290,7 +290,7 @@ fun RenderMarkdownElement(
                 if (element.isEnded) {
                     MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
                         Text(
-                            text = buildString(element.code.dropLast(1), weight),
+                            text = element.code.dropLast(1),
                             fontSize = fontSize,
                             fontWeight = weight,
                             fontFamily = FontFamily.Monospace,
