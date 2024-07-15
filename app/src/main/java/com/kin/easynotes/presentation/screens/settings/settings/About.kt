@@ -32,6 +32,7 @@ import com.kin.easynotes.core.constant.SupportConst
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
+import com.kin.easynotes.presentation.screens.settings.widgets.ListDialog
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
 
 
@@ -50,7 +51,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
                     icon = Icons.Rounded.Coffee,
                     actionType = ActionType.CUSTOM,
                     radius = shapeManager(isBoth = true, radius = settingsViewModel.settings.value.cornerRadius),
-                    customAction = { onExit -> ListDialog(list = SupportConst.SUPPROTERS_LIST, settingsViewModel = settingsViewModel) { onExit() } }
+                    customAction = { onExit -> ContributorsClicked(list = SupportConst.SUPPROTERS_LIST, settingsViewModel = settingsViewModel) { onExit() } }
                 )
                 Spacer(modifier = Modifier.height(18.dp))
             }
@@ -128,39 +129,26 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
 }
 
 @Composable
-fun ListDialog( list: List<Pair<String,String>>, settingsViewModel: SettingsViewModel, onExit: () -> Unit) {
-    Dialog(
-        onDismissRequest = { onExit() },
-        properties = DialogProperties(usePlatformDefaultWidth = false),
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .background(
-                    color = MaterialTheme.colorScheme.surfaceContainerLow,
-                    shape = shapeManager(isBoth = true, radius = settingsViewModel.settings.value.cornerRadius)
-                )
-                .padding(14.dp)
-                .fillMaxSize(.8f)
-
-        ) {
-            itemsIndexed(list) { index, (name, githubUrl) ->
-                val isFirstItem = index == 0
-                val isLastItem = index == list.lastIndex
-
-                SettingsBox(
-                    title = name,
-                    description = githubUrl,
-                    radius = shapeManager(
-                        isFirst = isFirstItem,
-                        isLast = isLastItem,
-                        radius = settingsViewModel.settings.value.cornerRadius
-                    ),
-                    actionType = ActionType.TEXT,
-                    customText = "❤"
-                )
-            }
-        }
-
+fun ContributorsClicked(
+    list: List<Pair<String, String>>,
+    settingsViewModel: SettingsViewModel,
+    onExit: () -> Unit
+) {
+    ListDialog(
+        text = stringResource(R.string.support_list),
+        list = list,
+        settingsViewModel = settingsViewModel,
+        onExit = onExit,
+        extractDisplayData = { it }
+    ) { isFirstItem, isLastItem, displayData ->
+        SettingsBox(
+            title = displayData.first,
+            description = displayData.second,
+            radius = shapeManager(isFirst = isFirstItem, isLast = isLastItem, radius = settingsViewModel.settings.value.cornerRadius),
+            actionType = ActionType.TEXT,
+            customText = "❤"
+        )
     }
 }
+
 

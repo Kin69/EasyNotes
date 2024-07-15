@@ -327,7 +327,7 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
                 )
             }
         )
-        if (isInFocus) TextFormattingToolbar(viewModel)
+        if (isInFocus && settingsViewModel.settings.value.isMarkdownEnabled) TextFormattingToolbar(viewModel)
     }
 }
 

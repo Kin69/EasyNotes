@@ -10,6 +10,7 @@ import androidx.compose.material.icons.rounded.Cloud
 import androidx.compose.material.icons.rounded.Coffee
 import androidx.compose.material.icons.rounded.CurrencyBitcoin
 import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.Payments
 import androidx.compose.material.icons.rounded.TextFields
@@ -100,19 +101,18 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.color_styles),
                     subTitle = stringResource(R.string.description_color_styles),
                     icon = Icons.Rounded.Palette,
-                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
-                    isLast = true,
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     action = { navController.navigate(NavRoutes.ColorStyles.route) })
             }
-//            item {
-//                SettingCategory(
-//                    title = stringResource(id = R.string.language),
-//                    subTitle = stringResource(R.string.description_language),
-//                    icon = Icons.Rounded.Language,
-//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-//                    isLast = true,
-//                    action = { navController.navigate(NavRoutes.Language.route) })
-//            }
+            item {
+                SettingCategory(
+                    title = stringResource(id = R.string.language),
+                    subTitle = stringResource(R.string.description_language),
+                    icon = Icons.Rounded.Language,
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+                    isLast = true,
+                    action = { navController.navigate(NavRoutes.Language.route) })
+            }
             item {
                 SettingCategory(
                     title = stringResource(id = R.string.backup),
@@ -236,7 +236,7 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
                 customAction = { uriHandler.openUri(ConnectionConst.SUPPORT_KOFI) }
             )
             SettingsBox(
-                title = "Liberapay",
+                title = "Libera Pay",
                 isBig = false,
                 isCentered = true,
                 icon = Icons.Rounded.Payments,

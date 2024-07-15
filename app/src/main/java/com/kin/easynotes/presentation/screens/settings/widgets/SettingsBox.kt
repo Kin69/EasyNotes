@@ -14,6 +14,7 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 enum class ActionType {
+    CHECKBOX,
     SWITCH,
     LINK,
     TEXT,
@@ -103,7 +105,7 @@ fun SettingsBox(
                         )
                     }
                 }
-                RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText, clipboardText)
+                RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText)
             }
         }
     }
@@ -119,6 +121,7 @@ private fun handleAction(
     clipboardText: String
 ) {
     when (actionType) {
+        ActionType.CHECKBOX -> switchEnabled(!variable!!)
         ActionType.SWITCH -> switchEnabled(!variable!!)
         ActionType.LINK -> linkClicked()
         ActionType.CUSTOM -> customAction()
@@ -126,8 +129,6 @@ private fun handleAction(
         ActionType.TEXT -> { /* No action needed */ }
     }
 }
-
-
 
 @Composable
 private fun RenderClipboardAction() {
@@ -143,7 +144,6 @@ fun copyToClipboard(context: Context, clipboardText: String) {
     val clip = android.content.ClipData.newPlainText("Copied Text", clipboardText)
     clipboard.setPrimaryClip(clip)
 }
-
 
 @Composable
 private fun RenderIcon(icon: ImageVector) {
@@ -162,15 +162,23 @@ private fun RenderActionComponent(
     switchEnabled: (Boolean) -> Unit,
     linkClicked: () -> Unit,
     customText: String,
-    clipboardText: String
 ) {
     when (actionType) {
+        ActionType.CHECKBOX -> RenderCheckbox(variable, switchEnabled)
         ActionType.SWITCH -> RenderSwitch(variable, switchEnabled)
         ActionType.LINK -> RenderLink(linkClicked)
         ActionType.CUSTOM -> CustomIcon()
         ActionType.TEXT -> RenderText(customText)
         ActionType.CLIPBOARD -> RenderClipboardAction()
     }
+}
+
+@Composable
+private fun RenderCheckbox(variable: Boolean?, switchEnabled: (Boolean) -> Unit) {
+    Checkbox(
+        checked = variable ?: false,
+        onCheckedChange = { switchEnabled(it) },
+    )
 }
 
 @Composable
