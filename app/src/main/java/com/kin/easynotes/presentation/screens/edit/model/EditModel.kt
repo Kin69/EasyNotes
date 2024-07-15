@@ -162,6 +162,7 @@ class EditViewModel @Inject constructor(
         return text[selectionStart - 1] == '\n'
     }
 
+
     private fun getIntRangeForCurrentLine(): IntRange {
         val text = _noteDescription.value.text
         val selectionStart = _noteDescription.value.selection.start
@@ -179,7 +180,7 @@ class EditViewModel @Inject constructor(
         return IntRange(lineStart, lineEnd - 1);
     }
 
-    fun insertText(insertText: String, offset: Int = 1, newLine: Boolean = false) {
+    fun insertText(insertText: String, offset: Int = 1, newLine: Boolean = true) {
         val currentText = _noteDescription.value.text
         val resultSelectionIndex: Int
         val rangeOfCurrentLine = getIntRangeForCurrentLine()
@@ -188,7 +189,11 @@ class EditViewModel @Inject constructor(
             val newLine = if (isSelectorAtStartOfNonEmptyLine()) {
                 insertText + currentLineContents
             } else {
-                currentLineContents + if (newLine) "\n" else "" + insertText
+                if (newLine) {
+                    currentLineContents + "\n" + insertText
+                } else {
+                    currentLineContents + insertText
+                }
             }
             resultSelectionIndex = rangeOfCurrentLine.first + newLine.length - 1
             currentText.replaceRange(rangeOfCurrentLine, newLine)
