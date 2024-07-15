@@ -92,6 +92,8 @@ fun EditNoteView(
     ObserveLifecycleEvents(viewModel, encrypted)
 
     val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
+
+
     val coroutineScope = rememberCoroutineScope()
 
     NotesScaffold(
@@ -163,7 +165,7 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
 fun PagerContent(pagerState: PagerState, viewModel: EditViewModel,settingsViewModel: SettingsViewModel, onClickBack: () -> Unit) {
     HorizontalPager(
         state = pagerState,
-        modifier = Modifier.imePadding()
+        modifier = Modifier.imePadding(),
     ) { page ->
         when (page) {
             0 -> EditScreen(viewModel, settingsViewModel, pagerState, onClickBack)

@@ -26,7 +26,6 @@ fun AppNavHost(settingsModel: SettingsViewModel,navController: NavHostController
         animatedComposable(NavRoutes.Edit.route) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")?.toIntOrNull() ?: 0
             val encrypted = backStackEntry.arguments?.getString("encrypted").toBoolean()
-            println(encrypted)
             EditNoteView(
                 settingsViewModel = settingsModel,
                 id = if (noteId == -1) id else noteId,

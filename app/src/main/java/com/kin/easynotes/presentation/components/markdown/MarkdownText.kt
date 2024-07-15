@@ -1,6 +1,8 @@
 package com.kin.easynotes.presentation.components.markdown
 
 
+import android.text.SpannableString
+import android.widget.TextView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -24,8 +27,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorProducer
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -68,7 +78,10 @@ fun MarkdownQuote(content: String, fontSize: TextUnit) {
                 )
         )
         Spacer(modifier = Modifier.width(6.dp))
-        Text(text = " $content",fontSize = fontSize)
+        Text(
+            text = buildString(" $content"),
+            fontSize = fontSize
+        )
     }
 }
 
@@ -213,7 +226,7 @@ fun RenderMarkdownElement(
         when (element) {
             is Heading -> {
                 Text(
-                    text = element.text,
+                    text = buildString(element.text),
                     fontSize = when (element.level) {
                         in 1..6 -> (28 - (2 * element.level)).sp
                         else -> fontSize
@@ -227,7 +240,7 @@ fun RenderMarkdownElement(
                 MarkdownCheck(
                     content = {
                         Text(
-                            text = element.text,
+                            text = buildString(element.text),
                             fontSize = fontSize,
                             fontWeight = weight,
                         )
@@ -248,7 +261,7 @@ fun RenderMarkdownElement(
 
             is ListItem -> {
                 Text(
-                    text = "• ${element.text}",
+                    text = buildString("• ${element.text}"),
                     fontSize = fontSize,
                     fontWeight = weight,
                 )
@@ -263,7 +276,7 @@ fun RenderMarkdownElement(
                     Modifier.clip(shape = shapeManager(radius = radius))
                 } else {
                     Modifier
-                        .clip(shape = shapeManager(isBoth = true, radius = radius/2))
+                        .clip(shape = shapeManager(isBoth = true, radius = radius / 2))
                         .clickable { /* Just for animation */ }
                 }
                 AsyncImage(
@@ -277,7 +290,7 @@ fun RenderMarkdownElement(
                 if (element.isEnded) {
                     MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
                         Text(
-                            text = element.code.dropLast(1),
+                            text = buildString(element.code.dropLast(1)),
                             fontSize = fontSize,
                             fontWeight = weight,
                             fontFamily = FontFamily.Monospace,
@@ -286,7 +299,7 @@ fun RenderMarkdownElement(
                     }
                 } else {
                     Text(
-                        text = element.firstLine,
+                        text = buildString(element.firstLine),
                         fontWeight = weight,
                         fontSize = fontSize,
                     )
@@ -294,11 +307,7 @@ fun RenderMarkdownElement(
             }
 
             is NormalText -> {
-                Text(
-                    text = element.text,
-                    fontWeight = weight,
-                    fontSize = fontSize,
-                )
+                Text(text = buildString(element.text), fontSize = 16.sp)
             }
         }
         // Add new line to selectionContainer but don't render it

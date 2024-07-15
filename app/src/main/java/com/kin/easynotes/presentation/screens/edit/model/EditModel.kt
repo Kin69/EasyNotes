@@ -179,22 +179,35 @@ class EditViewModel @Inject constructor(
         return IntRange(lineStart, lineEnd - 1);
     }
 
-    fun insertText(insertText: String, offset: Int = 1) {
+    fun insertText(insertText: String, offset: Int = 1, newLine: Boolean = true) {
         val currentText = _noteDescription.value.text
         val resultSelectionIndex: Int
         val rangeOfCurrentLine = getIntRangeForCurrentLine()
         val updatedText = if (!rangeOfCurrentLine.isEmpty()) {
             val currentLineContents = currentText.substring(rangeOfCurrentLine)
-            val newLine = if (isSelectorAtStartOfNonEmptyLine()) {
-                insertText + currentLineContents
+            val newLineContents = if (newLine) {
+                if (isSelectorAtStartOfNonEmptyLine()) {
+                    insertText + "\n" + currentLineContents
+                } else {
+                    currentLineContents + "\n" + insertText
+                }
             } else {
-                currentLineContents + "\n" + insertText
+                if (isSelectorAtStartOfNonEmptyLine()) {
+                    insertText + currentLineContents
+                } else {
+                    currentLineContents + insertText
+                }
             }
-            resultSelectionIndex = rangeOfCurrentLine.first + newLine.length - 1
-            currentText.replaceRange(rangeOfCurrentLine, newLine)
+            resultSelectionIndex = rangeOfCurrentLine.first + newLineContents.length - 1
+            currentText.replaceRange(rangeOfCurrentLine, newLineContents)
         } else {
-            resultSelectionIndex = (currentText + insertText).length
-            currentText + insertText
+            val finalInsertText = if (newLine) {
+                "\n" + insertText
+            } else {
+                insertText
+            }
+            resultSelectionIndex = (currentText + finalInsertText).length
+            currentText + finalInsertText
         }
 
         _noteDescription.value = TextFieldValue(
