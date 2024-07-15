@@ -87,10 +87,10 @@ fun HomeView(
         floatingActionButton = { NewNoteButton(onNoteClicked) },
         topBar = {
             AnimatedVisibility(
-                    visible = viewModel.selectedNotes.isNotEmpty(),
-                    enter = defaultScreenEnterAnimation(),
-                    exit = defaultScreenExitAnimation()
-                ) {
+                visible = viewModel.selectedNotes.isNotEmpty(),
+                enter = defaultScreenEnterAnimation(),
+                exit = defaultScreenExitAnimation()
+            ) {
                 SelectedNotesTopAppBar(
                     selectedNotes = viewModel.selectedNotes,
                     allNotes = viewModel.noteUseCase.notes,
