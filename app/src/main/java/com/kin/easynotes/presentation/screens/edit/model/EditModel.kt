@@ -46,6 +46,8 @@ class EditViewModel @Inject constructor(
     val isPinned: State<Boolean> get() = _isPinned
 
     fun saveNote(id: Int, encrypted: Boolean, context: Context) {
+        if (noteName.value.text.isEmpty() && noteDescription.value.text.isEmpty()) return
+
         if (encrypted) {
             val encryption = EncryptionHelper(context = context)
             noteUseCase.addNote(Note(

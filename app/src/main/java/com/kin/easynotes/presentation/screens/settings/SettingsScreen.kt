@@ -54,7 +54,7 @@ fun SettingsScaffold(
             }
         },
         content = {
-            Box(Modifier.padding(16.dp, 8.dp, 16.dp, 16.dp)) {
+            Box(Modifier.padding(16.dp, 8.dp, 16.dp)) {
                 content()
             }
         }

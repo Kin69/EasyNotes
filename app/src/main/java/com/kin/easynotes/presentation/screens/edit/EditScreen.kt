@@ -162,9 +162,7 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
 fun PagerContent(pagerState: PagerState, viewModel: EditViewModel,settingsViewModel: SettingsViewModel, onClickBack: () -> Unit) {
     HorizontalPager(
         state = pagerState,
-        modifier = Modifier
-            .imePadding()
-            .navigationBarsPadding()
+        modifier = Modifier.imePadding()
     ) { page ->
         when (page) {
             0 -> EditScreen(viewModel, settingsViewModel, pagerState, onClickBack)
@@ -343,7 +341,7 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
     val showOnlyDescription = viewModel.noteName.value.text.isNotBlank()
 
     Column(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+        modifier = Modifier.padding(16.dp),
     ) {
         if (showOnlyDescription) {
             MarkdownBox(
