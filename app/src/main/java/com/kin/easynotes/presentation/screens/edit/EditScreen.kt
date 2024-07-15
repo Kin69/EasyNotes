@@ -261,7 +261,7 @@ fun MinimalisticMode(
         if (!showOnlyDescription) {
             if (isEnabled) NavigationIcon(onClickBack)
             content()
-            if (isEnabled) ModeButton(pagerState, coroutineScope, isMinimalistic = isEnabled, isExtremeAmoled = isExtremeAmoled)
+            if (isEnabled) ModeButton(pagerState, coroutineScope, isMinimalistic = true, isExtremeAmoled = isExtremeAmoled)
             if (isEnabled) TopBarActions(pagerState,  onClickBack, viewModel)
         } else {
             Column {
@@ -270,7 +270,7 @@ fun MinimalisticMode(
                 ) {
                     if (isEnabled) NavigationIcon(onClickBack)
                     Spacer(modifier = Modifier.weight(1f))
-                    if (isEnabled) ModeButton(pagerState, coroutineScope, isMinimalistic = isEnabled, isExtremeAmoled = isExtremeAmoled)
+                    if (isEnabled) ModeButton(pagerState, coroutineScope, isMinimalistic = true, isExtremeAmoled = isExtremeAmoled)
                     if (isEnabled) TopBarActions(pagerState,  onClickBack, viewModel)
                 }
                 content()

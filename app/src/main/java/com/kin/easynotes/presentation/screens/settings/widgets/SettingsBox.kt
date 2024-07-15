@@ -99,9 +99,10 @@ fun SettingsBox(
                     if (description.isNotEmpty() || actionType == ActionType.CLIPBOARD) {
                         Text(
                             text = if (actionType == ActionType.CLIPBOARD) clipboardText else description,
-                            modifier = Modifier.padding(start = 3.dp),
-                            fontSize = 11.sp,
-                            color = MaterialTheme.colorScheme.primary
+                            modifier = Modifier.padding(start = 3.dp, end = 5.dp),
+                            fontSize = 12.sp,
+                            color = MaterialTheme.colorScheme.primary,
+                            lineHeight = 20.sp
                         )
                     }
                 }

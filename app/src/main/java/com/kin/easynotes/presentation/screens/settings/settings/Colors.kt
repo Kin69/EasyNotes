@@ -3,6 +3,7 @@ package com.kin.easynotes.presentation.screens.settings.settings
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -95,7 +96,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                     description = stringResource(id = R.string.system_theme_description),
                     icon = Icons.Rounded.HdrAuto,
                     actionType = ActionType.SWITCH,
-                    radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
+                    radius = shapeManager(isFirst = true ,isBoth = (!isSystemInDarkTheme() && settingsViewModel.settings.value.automaticTheme), radius = settingsViewModel.settings.value.cornerRadius),
                     variable = settingsViewModel.settings.value.automaticTheme,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = it))}
                 )
@@ -216,7 +217,7 @@ fun OnRadiusClicked( settingsViewModel: SettingsViewModel,onExit: (Int) -> Unit)
             modifier = Modifier
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainerLow,
-                    shape = RoundedCornerShape(realRadius/3)
+                    shape = RoundedCornerShape(realRadius / 3)
                 )
                 .fillMaxWidth()
                 .fillMaxSize(0.38f)

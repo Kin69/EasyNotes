@@ -60,7 +60,6 @@ fun HomeView(
             text = stringResource(id = R.string.password_continue),
             settingsViewModel = settingsModel,
             onExit = { password ->
-                println(password)
                 if (password != null) {
                     if (password.text.isNotBlank()) {
                         val encryptionHelper = EncryptionHelper(context, password.text)
