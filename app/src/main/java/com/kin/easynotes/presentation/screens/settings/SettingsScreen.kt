@@ -14,6 +14,7 @@ import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.Payments
 import androidx.compose.material.icons.rounded.TextFields
+import androidx.compose.material.icons.rounded.Work
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -109,9 +110,17 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     title = stringResource(id = R.string.language),
                     subTitle = stringResource(R.string.description_language),
                     icon = Icons.Rounded.Language,
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                    action = { navController.navigate(NavRoutes.Language.route) })
+            }
+            item {
+                SettingCategory(
+                    title = stringResource(id = R.string.tools),
+                    subTitle = stringResource(R.string.description_tools),
+                    icon = Icons.Rounded.Work,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     isLast = true,
-                    action = { navController.navigate(NavRoutes.Language.route) })
+                    action = { navController.navigate(NavRoutes.Tools.route) })
             }
             item {
                 SettingCategory(
@@ -139,32 +148,6 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     action = { navController.navigate(NavRoutes.Markdown.route) })
             }
-//            item {
-//                SettingCategory(
-//                    title = stringResource(id = R.string.tools),
-//                    subTitle = stringResource(R.string.description_tools),
-//                    icon = Icons.Rounded.Work,
-//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-//                    isLast = true,
-//                    action = { navController.navigate(NavRoutes.Tools.route) })
-//            }
-//            item {
-//                SettingCategory(
-//                    title = stringResource(id = R.string.history),
-//                    subTitle = stringResource(R.string.description_history),
-//                    icon = Icons.Rounded.History,
-//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
-//                    action = { navController.navigate(NavRoutes.History.route) })
-//            }
-//            item {
-//                SettingCategory(
-//                    title = stringResource(id = R.string.widgets),
-//                    subTitle = stringResource(R.string.description_widgets),
-//                    icon = Icons.Rounded.Widgets,
-//                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-//                    isLast = true,
-//                    action = { navController.navigate(NavRoutes.Widgets.route) })
-//            }
             item {
                 SettingCategory(
                     title = stringResource(id = R.string.about),
@@ -175,19 +158,6 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
             }
         }
     }
-}
-
-
-@Composable
-fun ToolsScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-    SettingsScaffold(
-        settingsViewModel = settingsViewModel,
-        title = stringResource(id = R.string.tools),
-        onBackNavClicked = { navController.navigateUp() }
-    ) {
-
-    }
-
 }
 
 @Composable

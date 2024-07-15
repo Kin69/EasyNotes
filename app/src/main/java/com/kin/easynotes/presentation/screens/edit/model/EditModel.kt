@@ -179,35 +179,22 @@ class EditViewModel @Inject constructor(
         return IntRange(lineStart, lineEnd - 1);
     }
 
-    fun insertText(insertText: String, offset: Int = 1, newLine: Boolean = true) {
+    fun insertText(insertText: String, offset: Int = 1, newLine: Boolean = false) {
         val currentText = _noteDescription.value.text
         val resultSelectionIndex: Int
         val rangeOfCurrentLine = getIntRangeForCurrentLine()
         val updatedText = if (!rangeOfCurrentLine.isEmpty()) {
             val currentLineContents = currentText.substring(rangeOfCurrentLine)
-            val newLineContents = if (newLine) {
-                if (isSelectorAtStartOfNonEmptyLine()) {
-                    insertText + "\n" + currentLineContents
-                } else {
-                    currentLineContents + "\n" + insertText
-                }
+            val newLine = if (isSelectorAtStartOfNonEmptyLine()) {
+                insertText + currentLineContents
             } else {
-                if (isSelectorAtStartOfNonEmptyLine()) {
-                    insertText + currentLineContents
-                } else {
-                    currentLineContents + insertText
-                }
+                currentLineContents + if (newLine) "\n" else "" + insertText
             }
-            resultSelectionIndex = rangeOfCurrentLine.first + newLineContents.length - 1
-            currentText.replaceRange(rangeOfCurrentLine, newLineContents)
+            resultSelectionIndex = rangeOfCurrentLine.first + newLine.length - 1
+            currentText.replaceRange(rangeOfCurrentLine, newLine)
         } else {
-            val finalInsertText = if (newLine) {
-                "\n" + insertText
-            } else {
-                insertText
-            }
-            resultSelectionIndex = (currentText + finalInsertText).length
-            currentText + finalInsertText
+            resultSelectionIndex = (currentText + insertText).length
+            currentText + insertText
         }
 
         _noteDescription.value = TextFieldValue(
@@ -216,3 +203,4 @@ class EditViewModel @Inject constructor(
         )
     }
 }
+

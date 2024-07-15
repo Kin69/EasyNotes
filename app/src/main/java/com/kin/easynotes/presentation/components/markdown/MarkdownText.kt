@@ -226,7 +226,7 @@ fun RenderMarkdownElement(
         when (element) {
             is Heading -> {
                 Text(
-                    text = buildString(element.text),
+                    text = buildString(element.text, weight),
                     fontSize = when (element.level) {
                         in 1..6 -> (28 - (2 * element.level)).sp
                         else -> fontSize
@@ -240,7 +240,7 @@ fun RenderMarkdownElement(
                 MarkdownCheck(
                     content = {
                         Text(
-                            text = buildString(element.text),
+                            text = buildString(element.text, weight),
                             fontSize = fontSize,
                             fontWeight = weight,
                         )
@@ -261,7 +261,7 @@ fun RenderMarkdownElement(
 
             is ListItem -> {
                 Text(
-                    text = buildString("• ${element.text}"),
+                    text = buildString("• ${element.text}", weight),
                     fontSize = fontSize,
                     fontWeight = weight,
                 )
@@ -290,7 +290,7 @@ fun RenderMarkdownElement(
                 if (element.isEnded) {
                     MarkdownCodeBlock(color = MaterialTheme.colorScheme.surfaceContainerLow) {
                         Text(
-                            text = buildString(element.code.dropLast(1)),
+                            text = buildString(element.code.dropLast(1), weight),
                             fontSize = fontSize,
                             fontWeight = weight,
                             fontFamily = FontFamily.Monospace,
@@ -299,7 +299,7 @@ fun RenderMarkdownElement(
                     }
                 } else {
                     Text(
-                        text = buildString(element.firstLine),
+                        text = buildString(element.firstLine, weight),
                         fontWeight = weight,
                         fontSize = fontSize,
                     )
@@ -307,7 +307,7 @@ fun RenderMarkdownElement(
             }
 
             is NormalText -> {
-                Text(text = buildString(element.text), fontSize = 16.sp)
+                Text(text = buildString(element.text, weight), fontSize = 16.sp)
             }
         }
         // Add new line to selectionContainer but don't render it

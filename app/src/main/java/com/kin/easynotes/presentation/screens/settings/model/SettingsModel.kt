@@ -13,6 +13,7 @@ import com.kin.easynotes.R
 import com.kin.easynotes.data.repository.BackupRepository
 import com.kin.easynotes.data.repository.BackupResult
 import com.kin.easynotes.domain.model.Settings
+import com.kin.easynotes.domain.usecase.NoteUseCase
 import com.kin.easynotes.domain.usecase.SettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +27,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     val backup: BackupRepository,
-    val settingsUseCase: SettingsUseCase
+    val settingsUseCase: SettingsUseCase,
+    val noteUseCase: NoteUseCase
 ) : ViewModel() {
     val databaseUpdate = mutableStateOf(false)
     var password : String? = null

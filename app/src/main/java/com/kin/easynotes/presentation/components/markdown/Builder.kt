@@ -76,7 +76,7 @@ fun isInSegments(index: Int, segments: List<Pair<Int, Int>>): Boolean {
 /**
  * Builds an AnnotatedString with styles applied based on markdown-like syntax.
  */
-fun buildString(input: String): AnnotatedString {
+fun buildString(input: String, defaultFontWeight: FontWeight = FontWeight.Normal): AnnotatedString {
     val textStyleSegments: List<TextStyleSegment> = listOf(
         BoldSegment(),
         ItalicSegment(),
@@ -92,7 +92,7 @@ fun buildString(input: String): AnnotatedString {
      */
     fun getSpanStyle(index: Int): SpanStyle {
         val styles = textStyleSegments.filter { segment -> isInSegments(index, allSegments[segment]!!) }
-        return styles.fold(SpanStyle()) { acc, segment -> acc.merge(segment.getSpanStyle()) }
+        return styles.fold(SpanStyle(fontWeight = defaultFontWeight)) { acc, segment -> acc.merge(segment.getSpanStyle()) }
     }
 
     return buildAnnotatedString {
