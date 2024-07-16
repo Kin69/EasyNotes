@@ -18,6 +18,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 enum class ActionType {
-    CHECKBOX,
+    RADIOBUTTON,
     SWITCH,
     LINK,
     TEXT,
@@ -86,7 +87,10 @@ fun SettingsBox(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .padding(horizontal = 20.dp, vertical = if (description.isNotBlank() || actionType == ActionType.CLIPBOARD || isBig) 12.dp else 6.dp)
+                    .padding(
+                        horizontal = 20.dp,
+                        vertical = if (description.isNotBlank() || actionType == ActionType.CLIPBOARD || isBig) 12.dp else 6.dp
+                    )
                     .fillMaxWidth()
             ) {
                 if (icon != null) RenderIcon(icon)
@@ -122,7 +126,7 @@ private fun handleAction(
     clipboardText: String
 ) {
     when (actionType) {
-        ActionType.CHECKBOX -> switchEnabled(!variable!!)
+        ActionType.RADIOBUTTON -> switchEnabled(!variable!!)
         ActionType.SWITCH -> switchEnabled(!variable!!)
         ActionType.LINK -> linkClicked()
         ActionType.CUSTOM -> customAction()
@@ -165,7 +169,7 @@ private fun RenderActionComponent(
     customText: String,
 ) {
     when (actionType) {
-        ActionType.CHECKBOX -> RenderCheckbox(variable, switchEnabled)
+        ActionType.RADIOBUTTON -> RenderRadioBox(variable, switchEnabled)
         ActionType.SWITCH -> RenderSwitch(variable, switchEnabled)
         ActionType.LINK -> RenderLink(linkClicked)
         ActionType.CUSTOM -> CustomIcon()
@@ -175,10 +179,10 @@ private fun RenderActionComponent(
 }
 
 @Composable
-private fun RenderCheckbox(variable: Boolean?, switchEnabled: (Boolean) -> Unit) {
-    Checkbox(
-        checked = variable ?: false,
-        onCheckedChange = { switchEnabled(it) },
+private fun RenderRadioBox(variable: Boolean?, switchEnabled: (Boolean) -> Unit) {
+    RadioButton(
+        selected = variable ?: false,
+        onClick = { switchEnabled(true) }
     )
 }
 

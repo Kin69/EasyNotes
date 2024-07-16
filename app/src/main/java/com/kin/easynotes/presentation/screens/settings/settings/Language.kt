@@ -1,20 +1,15 @@
 package com.kin.easynotes.presentation.screens.settings.settings
 
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import androidx.navigation.NavController
 import com.kin.easynotes.R
-import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
@@ -60,7 +55,7 @@ private fun OnLanguageClicked(settingsViewModel: SettingsViewModel, onExit: () -
                 isBig = false,
                 title = displayData.first,
                 radius = shapeManager(isFirst = isFirstItem, isLast = isLastItem, radius = settingsViewModel.settings.value.cornerRadius),
-                actionType = ActionType.CHECKBOX,
+                actionType = ActionType.RADIOBUTTON,
                 variable = if (displayData.second.isNotBlank()) {
                     AppCompatDelegate.getApplicationLocales()[0]?.language == displayData.second
                 } else {
