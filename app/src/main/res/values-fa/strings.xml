@@ -27,8 +27,8 @@
     <string name="not_supported">هنوز پشتیبانی نمی‌شود</string>
     <string name="database">پایگاه داده</string>
     <string name="about">درباره برنامه</string>
-    <string name="version">نسخه</string>
-    <string name="latest_release">تازه‌ترین نسخه</string>
+    <string name="version">نگارش</string>
+    <string name="latest_release">تازه‌ترین نگارش</string>
     <string name="backup">پشتیبان گیری</string>
     <string name="start_project">ستاره دادن به برنامه</string>
     <string name="donate_me">پیشکشم کنید :)</string>
@@ -44,7 +44,7 @@
     <string name="description_language">کلک • زبان</string>
     <string name="description_cloud">NextCloud • برزنی • رمزگذاری</string>
     <string name="description_widgets">ابزارک‌ها • نشانه‌گذاری</string>
-    <string name="description_about">نسخه • برنامه نویسان • پروانه</string>
+    <string name="description_about">نگارش • برنامه نویسان • پروانه</string>
     <string name="description_history">پیشینه • برگشت</string>
     <string name="description_tools">ساخته شده • پاک‌کردن همه</string>
     <string name="description_markdown">پشتیبانی • فرتور‌ها</string>
@@ -93,4 +93,6 @@
     <string name="password_continue">ادامه</string>
     <string name="vault">گنجه</string>
     <string name="vault_description">روشن کردن گنجه‌ی نوشتار‌های رمزگذاری‌شده</string>
+    <string name="language_description">وَرتاندن زبان برنامه</string>
+    <string name="system_language">زبان سامانه</string>
 </resources>
