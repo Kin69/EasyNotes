@@ -64,13 +64,11 @@ fun <T> ListDialog(
                     }
                 }
                 itemsIndexed(list) { index, content ->
-                    if (initialItem == null || index > 0) {
-                        val isFirstItem = index == 0
-                        val isLastItem = index == list.lastIndex
-                        val displayData = extractDisplayData(content)
-                        setting(isFirstItem, isLastItem, displayData)
-                        if (isLastItem) Spacer(modifier = Modifier.height(20.dp))
-                    }
+                    val isFirstItem = (initialItem == null && index == 0)
+                    val isLastItem = index == list.lastIndex
+                    val displayData = extractDisplayData(content)
+                    setting(isFirstItem, isLastItem, displayData)
+                    if (isLastItem) Spacer(modifier = Modifier.height(20.dp))
                 }
             }
         }
