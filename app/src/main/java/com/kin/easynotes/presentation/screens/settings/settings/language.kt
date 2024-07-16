@@ -48,26 +48,25 @@ fun LanguageScreen(navController: NavController, settingsViewModel: SettingsView
 private fun OnLanguageClicked(settingsViewModel: SettingsViewModel, onExit: () -> Unit) {
     val context = LocalContext.current
     val languages = settingsViewModel.getSupportedLanguages(context).toList()
-    val systemLanguage = context.getString(R.string.system_language)
     ListDialog(
         text = stringResource(R.string.language),
         list = languages,
         settingsViewModel = settingsViewModel,
         onExit = onExit,
         extractDisplayData = { it },
-        initialItem = Pair(systemLanguage, second = ""),
+        initialItem = Pair(context.getString(R.string.system_language), second = ""),
         setting = { isFirstItem, isLastItem, displayData ->
             SettingsBox(
                 isBig = false,
                 title = displayData.first,
                 radius = shapeManager(isFirst = isFirstItem, isLast = isLastItem, radius = settingsViewModel.settings.value.cornerRadius),
                 actionType = ActionType.CHECKBOX,
-                variable = if (displayData.first != systemLanguage) {
+                variable = if (displayData.second.isNotBlank()) {
                     AppCompatDelegate.getApplicationLocales()[0]?.language == displayData.second
                 } else {
                     AppCompatDelegate.getApplicationLocales().isEmpty
                 },
-                switchEnabled = { if (displayData.first != systemLanguage) {
+                switchEnabled = { if (displayData.second.isNotBlank()) {
                     AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(displayData.second))
                     } else {
                     AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
