@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
     val searchQuery: State<String> = _searchQuery
 
     init {
-        noteUseCase.observe(encrypted = isVaultMode.value)
+        noteUseCase.observe(encrypted = false)
     }
 
     fun toggleIsDeleteMode(enabled: Boolean) {
