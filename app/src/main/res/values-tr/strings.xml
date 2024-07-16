@@ -93,4 +93,6 @@
     <string name="vault">Kasa</string>
     <string name="vault_description">Şifreli not kasasını etkinleştir</string>
     <string name="password_continue">devam et</string>
+    <string name="language_description">Uygulama dilini değiştir</string>
+    <string name="system_language">Sistem Dili</string>
 </resources>

@@ -93,4 +93,6 @@
     <string name="vault">Bóveda</string>
     <string name="vault_description">Habilitar bóveda de notas encriptadas</string>
     <string name="password_continue">continuar</string>
+    <string name="language_description">Cambiar el idioma de la aplicación</string>
+    <string name="system_language">Idioma del sistema</string>
 </resources>
