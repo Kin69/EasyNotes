@@ -1,1 +1,1 @@
-A modern notes app with material design
+Private, Material, Markdown supported notes app.

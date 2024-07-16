@@ -10,6 +10,6 @@
 - [x] Note created time
 
 ## In Progress
-- [ ] Add debug builds
-- [ ] Code Refactor (EditScreen finished)
+- [X] Add debug builds
+- [X] Code Refactor (EditScreen finished)
 - [ ] Feature requests

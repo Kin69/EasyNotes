@@ -20,10 +20,10 @@ Lightweight android notes app with Material You.
 <div align="left">
 
 <div align="center">
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-settings.jpg" width="20%"  alt=""/>
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-home.jpg" width="20%"  alt=""/>
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit.jpg" width="20%"  alt=""/>
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit-content.jpg" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-settings.png" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-home.png" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit.png" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit-content.png" width="20%"  alt=""/>
 </div>
 </div>
 
@@ -33,7 +33,7 @@ Lightweight android notes app with Material You.
 --- 
 ## 📢 News
 - [Discord Server](https://discord.gg/ZrP4G8z23H)
-- [Images Support Removed](https://github.com/Kin69/EasyNotes/discussions/29)
+- [Images Support Back!](https://github.com/Kin69/EasyNotes/discussions/29)
 
 ---
 
