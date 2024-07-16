@@ -20,10 +20,9 @@ Lightweight android notes app with Material You.
 <div align="left">
 
 <div align="center">
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-settings.png" width="20%"  alt=""/>
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-home.png" width="20%"  alt=""/>
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit.png" width="20%"  alt=""/>
-    <img src="metadata/en-US/images/phoneScreenshots/screenshot-app-edit-content.png" width="20%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/1_home.png" width="30%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/2_widgets.png" width="30%"  alt=""/>
+    <img src="metadata/en-US/images/phoneScreenshots/3_preview.png" width="30%"  alt=""/>
 </div>
 </div>
 
@@ -38,11 +37,12 @@ Lightweight android notes app with Material You.
 ---
 
 
-## 📝 Overview
-- [x] Material Design 3
-- [x] Jetpack Compose and MVVM
-- [x] Lightweight (~11Mb)
-- [x] Multiple themes
+## 🎉 Features
+- 📝 Sleek, Minimalistic Design
+- 🌟 Full Markdown Support (Images Included)
+- 🔒 Secure, Encrypted Notes Vault
+- 🚀 Constant Updates & Improvements
+- 🔐 Zero Permissions Required
 
 ---
 
