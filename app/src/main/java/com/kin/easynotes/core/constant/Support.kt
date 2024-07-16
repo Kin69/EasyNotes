@@ -42,6 +42,7 @@ object SupportConst {
      * 3. Translators
      */
     val SUPPROTERS_LIST =  listOf(
+        Pair("Axel", "Donate"),
         Pair("Derei", "Donate"),
         Pair("UnitTiff", "Donate"),
         Pair("Shishkevichd","Contribution"),
@@ -49,10 +50,10 @@ object SupportConst {
         Pair("IllusionMan1212","Contribution"),
         Pair("wadeack","Contribution"),
         Pair("searinminecraft","Language"),
-        Pair("Loco1911","language"),
+        Pair("Loco1911","Language"),
         Pair("Maell1","Language"),
         Pair("kuragehimekurara1","Language"),
-        Pair("Crazy-Unicooorn","language"),
+        Pair("Crazy-Unicooorn","Language"),
         Pair("rickdtc","Language"),
         Pair("Mikropsoft","Language"),
         Pair("NicKoehler","Language"),

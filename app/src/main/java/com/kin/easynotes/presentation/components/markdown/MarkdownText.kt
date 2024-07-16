@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -192,19 +193,21 @@ fun MarkdownContent(
                 }
             }
     } else {
-        LazyColumn(modifier = modifier) {
-            items(content.size) { index ->
-                Spacer(modifier = Modifier.height(spacing))
-                RenderMarkdownElement(
-                    radius = radius,
-                    content = content,
-                    index = index,
-                    weight = weight,
-                    fontSize = fontSize,
-                    lines = lines,
-                    isPreview = isPreview,
-                    onContentChange = onContentChange
-                )
+        SelectionContainer {
+            LazyColumn(modifier = modifier) {
+                items(content.size) { index ->
+                    Spacer(modifier = Modifier.height(spacing))
+                    RenderMarkdownElement(
+                        radius = radius,
+                        content = content,
+                        index = index,
+                        weight = weight,
+                        fontSize = fontSize,
+                        lines = lines,
+                        isPreview = isPreview,
+                        onContentChange = onContentChange
+                    )
+                }
             }
         }
     }
