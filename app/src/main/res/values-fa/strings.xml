@@ -4,7 +4,7 @@
     <string name="home_screen">نوشتارها</string>
     <string name="new_note">نوشته‌ی نو</string>
     <string name="no_created_notes">نوشتاری ساخته نشده است.</string>
-    <string name="no_found_notes">نویسه‌ای یافت نشد.</string>
+    <string name="no_found_notes">نوشتاری یافت نشد.</string>
     <string name="created_time">زمان ساخته شدن</string>
     <string name="description">گزارش یادداشت</string>
     <string name="history">پیشینه</string>
@@ -57,7 +57,7 @@
     <string name="privacy">خوشیک</string>
     <string name="cryptocurrency">ارز دیجیتال</string>
     <string name="system_theme_description">همپوش کردن تم برنامه بر اساس پیکر‌بندی‌های دستگاه</string>
-    <string name="screen_protection">محافظت از نمایشگر</string>
+    <string name="screen_protection">پاسداری از نمایشگر</string>
     <string name="images_supprot">پشتیبانی از فرتورها</string>
     <string name="unstable_feature">ناپایدار</string>
     <string name="radius_description">سفارشی ساختن خمیدگی گوشه‌ها</string>

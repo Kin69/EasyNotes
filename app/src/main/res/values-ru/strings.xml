@@ -14,7 +14,7 @@
     <string name="dynamic_colors">Динамические цвета</string>
     <string name="amoled_colors">Натуральный чёрный</string>
     <string name="database">База данных</string>
-    <string name="backup">Создать резервную копию</string>
+    <string name="backup">Экспорт</string>
     <string name="not_supported">Пока не поддерживается</string>
     <string name="start_project">Оценить приложение</string>
     <string name="donate_me">Пожертвование</string>
@@ -24,7 +24,7 @@
     <string name="about">Об приложении</string>
     <string name="version">Версия приложения</string>
     <string name="latest_release">Последняя версия</string>
-    <string name="restore">Восстановить резервную копию</string>
+    <string name="restore">Импорт</string>
     <string name="notes">Количество заметок</string>
     <string name="column_view">Один столбец</string>
     <string name="delete">Удалить</string>
@@ -73,7 +73,7 @@
     <string name="screen_protection_description">Запрещает скриншоты и запись экрана в приложении</string>
     <string name="email">Почта</string>
     <string name="discord">Disсоrd</string>
-    <string name="restore_description">Восстановить заметки из файла</string>
+    <string name="restore_description">Импортировать заметки из файла</string>
     <string name="feature">Запрос новой функции</string>
     <string name="dark_theme_description">Переключение между тёмной и светлой темой оформления</string>
     <string name="minimalistic_mode_description">Убирает верхние кнопки из экрана редактирования заметок</string>
@@ -81,7 +81,7 @@
     <string name="password_prompt">Введите пароль</string>
     <string name="detabase_restore_error">Пароль неверный или база данных заметок не зашифрована</string>
     <string name="others">Остальные заметки</string>
-    <string name="pinned">Закрепленные заметки</string>
+    <string name="pinned">Закреплено</string>
     <string name="encrypt_databse">Шифровать базу данных заметок</string>
     <string name="encrypt_databse_description">Шифровать базу данных заметок во время резервного копирования</string>
     <string name="invalid_input">Некорректное значение</string>
@@ -90,4 +90,9 @@
     <string name="sort_description">Сортировать заметки по времени их создания</string>
     <string name="unsuported_image_size">Слишком высокий размер изображения (максимальный размер – 15MB)</string>
     <string name="select_note">Выберите заметку</string>
+    <string name="password_continue">продолжить</string>
+    <string name="language_description">Сменить язык приложения</string>
+    <string name="system_language">Системный язык</string>
+    <string name="vault_description">Включить защищенное хранилище заметок</string>
+    <string name="vault">Безопасное хранилище</string>
 </resources>
