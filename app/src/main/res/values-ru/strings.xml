@@ -95,4 +95,7 @@
     <string name="system_language">Системный язык</string>
     <string name="vault_description">Включить защищенное хранилище заметок</string>
     <string name="vault">Безопасное хранилище</string>
+    <string name="Behavior">Действия</string>
+    <string name="always_edit">Приоритет режиму редактирования</string>
+    <string name="always_edit_description">Просматривать заметку в режиме редактирования</string>
 </resources>
