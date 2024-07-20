@@ -54,7 +54,7 @@ data class ToolbarItem(
 
 @Composable
 fun TextFormattingToolbar(viewModel: EditViewModel) {
-    val colorArrow = MaterialTheme.colorScheme.outline
+    val colorArrow = MaterialTheme.colorScheme.outlineVariant
     val colorIcon = MaterialTheme.colorScheme.inverseSurface
     var isImagePickerEnabled by remember { mutableStateOf(false) }
     var currentIndex by remember { mutableStateOf(0) }

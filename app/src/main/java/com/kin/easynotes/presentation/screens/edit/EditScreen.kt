@@ -89,7 +89,7 @@ fun EditNoteView(
     viewModel.setupNoteData(id, encrypted, context)
     ObserveLifecycleEvents(viewModel, encrypted)
 
-    val pagerState = rememberPagerState(initialPage = if (id == 0 || isWidget) 0 else 1, pageCount = { 2 })
+    val pagerState = rememberPagerState(initialPage = if (id == 0 || isWidget || settingsViewModel.settings.value.editMode) 0 else 1, pageCount = { 2 })
 
 
     val coroutineScope = rememberCoroutineScope()

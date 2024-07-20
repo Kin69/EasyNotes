@@ -14,6 +14,7 @@ data class Settings(
     var sortDescending: Boolean = true,
     var vaultSettingEnabled: Boolean = false,
     var vaultEnabled: Boolean = false,
+    var editMode: Boolean = false,
 
     var cornerRadius: Int = 32,
 )

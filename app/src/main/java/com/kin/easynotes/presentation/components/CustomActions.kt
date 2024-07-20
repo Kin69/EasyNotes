@@ -62,7 +62,7 @@ fun UndoButton(onUndoClicked: () -> Unit) {
         Icon(
             imageVector = Icons.AutoMirrored.Rounded.Undo,
             contentDescription = "Undo",
-            tint = MaterialTheme.colorScheme.onBackground
+            tint = MaterialTheme.colorScheme.outlineVariant
         )
     }
 }
@@ -73,7 +73,7 @@ fun RedoButton(onRedoClicked: () -> Unit) {
         Icon(
             imageVector = Icons.AutoMirrored.Rounded.Redo,
             contentDescription = "Redo",
-            tint = MaterialTheme.colorScheme.onBackground
+            tint = MaterialTheme.colorScheme.outlineVariant
         )
     }
 }

@@ -95,4 +95,6 @@
     <string name="language_description">Change the app language</string>
     <string name="system_language">System Language</string>
     <string name="Behavior">Behavior</string>
+    <string name="always_edit">Prioritize Editing Mode</string>
+    <string name="always_edit_description">Enter edit mode on exisitng notes</string>
 </resources>
