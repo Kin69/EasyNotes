@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Backup
@@ -43,7 +44,6 @@ import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
-import org.w3c.dom.Text
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -202,7 +202,7 @@ fun PasswordPrompt(context: Context, text: String, settingsViewModel: SettingsVi
                     Button(
                         modifier = Modifier
                             .padding(12.dp)
-                            .fillMaxWidth(0.35f)
+                            .wrapContentWidth()
                             .align(Alignment.End),
                         onClick = {
                             if (password.text.isNotBlank()) {
