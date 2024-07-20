@@ -38,11 +38,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,7 +58,9 @@ import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.MoreButton
 import com.kin.easynotes.presentation.components.NavigationIcon
 import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.RedoButton
 import com.kin.easynotes.presentation.components.SaveButton
+import com.kin.easynotes.presentation.components.UndoButton
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.edit.components.CustomIconButton
 import com.kin.easynotes.presentation.screens.edit.components.CustomTextField
@@ -111,6 +109,9 @@ fun TopBarActions(pagerState: PagerState, onClickBack: () -> Unit, viewModel: Ed
 
         0 -> {
             Row {
+                if (viewModel.isDescriptionInFocus.value) {
+                    RedoButton { viewModel.redo() }
+                }
                 SaveButton { onClickBack() }
             }
         }
@@ -180,7 +181,14 @@ fun TopBar(pagerState: PagerState,coroutineScope: CoroutineScope, onClickBack: (
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         title = { ModeButton(pagerState, coroutineScope) },
-        navigationIcon = { NavigationIcon(onClickBack) },
+        navigationIcon = {
+            Row {
+                NavigationIcon(onClickBack)
+                if (pagerState.currentPage == 0 && viewModel.isDescriptionInFocus.value) {
+                    UndoButton { viewModel.undo() }
+                }
+            }
+     },
         actions = { TopBarActions(pagerState,  onClickBack, viewModel) }
     )
 }
@@ -257,16 +265,14 @@ fun MinimalisticMode(
         verticalAlignment = alignment,
         modifier = modifier
             .fillMaxWidth()
-            .then(
-                if (showOnlyDescription) Modifier.padding(top = 8.dp) else Modifier
-            )
+            .then(if (showOnlyDescription) Modifier.padding(top = 8.dp) else Modifier)
     ) {
         if (!showOnlyDescription) {
             if (isEnabled) NavigationIcon(onClickBack)
+            if (isEnabled && viewModel.isDescriptionInFocus.value) UndoButton { viewModel.undo() }
             content()
-            if (isEnabled) ModeButton(pagerState, coroutineScope, isMinimalistic = true, isExtremeAmoled = isExtremeAmoled)
             if (isEnabled) TopBarActions(pagerState,  onClickBack, viewModel)
-        } else {
+            if (isEnabled) ModeButton(pagerState, coroutineScope, isMinimalistic = true, isExtremeAmoled = isExtremeAmoled) } else {
             Column {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -288,11 +294,10 @@ fun MinimalisticMode(
 @Composable
 fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pagerState: PagerState,onClickBack: () -> Unit) {
 
-    var isInFocus by remember{ mutableStateOf(true)}
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp, 16.dp, 16.dp, if (isInFocus) 3.dp else 16.dp)
+            .padding(16.dp, 16.dp, 16.dp, if (viewModel.isDescriptionInFocus.value) 3.dp else 16.dp)
     ) {
         MarkdownBox(
             isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
@@ -320,7 +325,7 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
             shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
             modifier = Modifier
                 .weight(1f)
-                .onFocusChanged { isInFocus = it.isFocused },
+                .onFocusChanged { viewModel.toggleIsDescriptionInFocus(it.isFocused) },
             content = {
                 CustomTextField(
                     value = viewModel.noteDescription.value,
@@ -330,7 +335,7 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
                 )
             }
         )
-        if (isInFocus && settingsViewModel.settings.value.isMarkdownEnabled) TextFormattingToolbar(viewModel)
+        if (viewModel.isDescriptionInFocus.value && settingsViewModel.settings.value.isMarkdownEnabled) TextFormattingToolbar(viewModel)
     }
 }
 

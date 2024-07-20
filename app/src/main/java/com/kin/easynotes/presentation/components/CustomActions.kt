@@ -4,11 +4,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.Redo
+import androidx.compose.material.icons.automirrored.rounded.Undo
 import androidx.compose.material.icons.outlined.PushPin
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Done
-import androidx.compose.material.icons.rounded.Link
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.LockOpen
 import androidx.compose.material.icons.rounded.MoreVert
@@ -50,6 +51,28 @@ fun SaveButton(onSaveClicked: () -> Unit) {
         Icon(
             imageVector = Icons.Rounded.Done,
             contentDescription = "Done",
+            tint = MaterialTheme.colorScheme.onBackground
+        )
+    }
+}
+
+@Composable
+fun UndoButton(onUndoClicked: () -> Unit) {
+    IconButton(onClick = onUndoClicked) {
+        Icon(
+            imageVector = Icons.AutoMirrored.Rounded.Undo,
+            contentDescription = "Undo",
+            tint = MaterialTheme.colorScheme.onBackground
+        )
+    }
+}
+
+@Composable
+fun RedoButton(onRedoClicked: () -> Unit) {
+    IconButton(onClick = onRedoClicked) {
+        Icon(
+            imageVector = Icons.AutoMirrored.Rounded.Redo,
+            contentDescription = "Redo",
             tint = MaterialTheme.colorScheme.onBackground
         )
     }

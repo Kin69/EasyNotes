@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
 import com.kin.easynotes.presentation.components.EncryptionHelper
+import com.kin.easynotes.presentation.screens.edit.components.UndoRedoState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,6 +27,9 @@ class EditViewModel @Inject constructor(
 
     private val _isInsertingImage = mutableStateOf(false)
     val isInsertingImage: State<Boolean> get() = _isInsertingImage
+
+    private val _isDescriptionInFocus = mutableStateOf(false)
+    val isDescriptionInFocus: State<Boolean> get() = _isDescriptionInFocus
 
     private val _noteDescription = mutableStateOf(TextFieldValue())
     val noteDescription: State<TextFieldValue> get() = _noteDescription
@@ -44,6 +48,8 @@ class EditViewModel @Inject constructor(
 
     private val _isPinned = mutableStateOf(false)
     val isPinned: State<Boolean> get() = _isPinned
+
+    private val undoRedoState = UndoRedoState()
 
     fun saveNote(id: Int, encrypted: Boolean, context: Context) {
         if (noteName.value.text.isEmpty() && noteDescription.value.text.isEmpty()) return
@@ -128,12 +134,22 @@ class EditViewModel @Inject constructor(
         _isNoteInfoVisible.value = value
     }
 
+    fun toggleIsDescriptionInFocus(value: Boolean) {
+        _isDescriptionInFocus.value = value
+    }
+
     fun toggleNotePin(value: Boolean) {
         _isPinned.value = value
     }
 
     fun updateNoteName(newName: TextFieldValue) {
         _noteName.value = newName
+        undoRedoState.onInput(newName)
+    }
+
+    fun updateNoteDescription(newDescription: TextFieldValue) {
+        _noteDescription.value = newDescription
+        undoRedoState.onInput(newDescription)
     }
 
     private fun updateNoteCreatedTime(newTime: Long) {
@@ -148,8 +164,14 @@ class EditViewModel @Inject constructor(
         _noteId.intValue = newId
     }
 
-    fun updateNoteDescription(newDescription: TextFieldValue) {
-        _noteDescription.value = newDescription
+    fun undo() {
+        undoRedoState.undo()
+        _noteDescription.value = undoRedoState.input
+    }
+
+    fun redo() {
+        undoRedoState.redo()
+        _noteDescription.value = undoRedoState.input
     }
 
     private fun isSelectorAtStartOfNonEmptyLine(): Boolean {
