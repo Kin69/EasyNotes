@@ -2,9 +2,7 @@ package com.kin.easynotes.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.kin.easynotes.presentation.screens.settings.HistoryScreen
 import com.kin.easynotes.presentation.screens.settings.MainSettings
-import com.kin.easynotes.presentation.screens.settings.WidgetsScreen
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.AboutScreen
 import com.kin.easynotes.presentation.screens.settings.settings.CloudScreen
@@ -41,8 +39,6 @@ val settingScreens = mapOf<String, @Composable (settingsViewModel: SettingsViewM
     NavRoutes.Privacy.route to { settings, navController -> PrivacyScreen(navController, settings) },
     NavRoutes.Markdown.route to { settings, navController ->  MarkdownScreen(navController,settings) },
     NavRoutes.Tools.route to { settings, navController -> ToolsScreen(navController,settings) },
-    NavRoutes.History.route to { settings, navController -> HistoryScreen(navController,settings) },
-    NavRoutes.Widgets.route to { settings, navController -> WidgetsScreen(navController,settings) },
     NavRoutes.About.route to { settings, navController -> AboutScreen(navController,settings) },
     NavRoutes.Support.route to { settings, navController -> SupportScreen(navController,settings) }
 )

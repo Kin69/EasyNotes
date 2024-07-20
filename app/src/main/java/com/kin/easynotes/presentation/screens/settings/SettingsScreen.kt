@@ -107,20 +107,20 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
             }
             item {
                 SettingCategory(
-                    title = stringResource(id = R.string.language),
-                    subTitle = stringResource(R.string.description_language),
-                    icon = Icons.Rounded.Language,
+                    title = stringResource(id = R.string.Behavior),
+                    subTitle = stringResource(id = R.string.description_markdown),
+                    icon = Icons.Rounded.TextFields,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
-                    action = { navController.navigate(NavRoutes.Language.route) })
+                    action = { navController.navigate(NavRoutes.Markdown.route) })
             }
             item {
                 SettingCategory(
-                    title = stringResource(id = R.string.tools),
-                    subTitle = stringResource(R.string.description_tools),
-                    icon = Icons.Rounded.Work,
-                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+                    title = stringResource(id = R.string.language),
+                    subTitle = stringResource(R.string.description_language),
+                    icon = Icons.Rounded.Language,
                     isLast = true,
-                    action = { navController.navigate(NavRoutes.Tools.route) })
+                    shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+                    action = { navController.navigate(NavRoutes.Language.route) })
             }
             item {
                 SettingCategory(
@@ -141,12 +141,12 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
             }
             item {
                 SettingCategory(
-                    title = stringResource(id = R.string.markdown),
-                    isLast = true,
-                    subTitle = stringResource(id = R.string.description_markdown),
-                    icon = Icons.Rounded.TextFields,
+                    title = stringResource(id = R.string.tools),
+                    subTitle = stringResource(R.string.description_tools),
+                    icon = Icons.Rounded.Work,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-                    action = { navController.navigate(NavRoutes.Markdown.route) })
+                    isLast = true,
+                    action = { navController.navigate(NavRoutes.Tools.route) })
             }
             item {
                 SettingCategory(
@@ -154,34 +154,11 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     subTitle = stringResource(R.string.description_about),
                     icon = Icons.Rounded.Info,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
-                    action = { navController.navigate(NavRoutes.About.route) })
+                    action = { navController.navigate(NavRoutes.About.route) }
+                )
             }
         }
     }
-}
-
-@Composable
-fun HistoryScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-    SettingsScaffold(
-        settingsViewModel = settingsViewModel,
-        title = stringResource(id = R.string.history),
-        onBackNavClicked = { navController.navigateUp() }
-    ) {
-
-    }
-
-}
-
-@Composable
-fun WidgetsScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-    SettingsScaffold(
-        settingsViewModel = settingsViewModel,
-        title = stringResource(id = R.string.widgets),
-        onBackNavClicked = { navController.navigateUp() }
-    ) {
-
-    }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -84,6 +83,7 @@ fun EditNoteView(
     id: Int,
     settingsViewModel: SettingsViewModel,
     encrypted: Boolean = false,
+    isWidget: Boolean = false,
     onClickBack: () -> Unit
 ) {
     val context = LocalContext.current
@@ -91,7 +91,7 @@ fun EditNoteView(
     viewModel.setupNoteData(id, encrypted, context)
     ObserveLifecycleEvents(viewModel, encrypted)
 
-    val pagerState = rememberPagerState(initialPage = if (id == 0) 0 else 1, pageCount = { 2 })
+    val pagerState = rememberPagerState(initialPage = if (id == 0 || isWidget) 0 else 1, pageCount = { 2 })
 
 
     val coroutineScope = rememberCoroutineScope()
