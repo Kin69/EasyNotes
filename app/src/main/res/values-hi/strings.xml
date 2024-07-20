@@ -88,4 +88,11 @@
     <string name="password_prompt">पासवर्ड दर्ज करें</string>
     <string name="detabase_restore_error">पासवर्ड अमान्य है या डेटाबेस कूटलेखित नहीं है</string>
     <string name="invalid_input">अमान्य इनपुट</string>
+    <string name="vault_description">कूटलेखित नोट तिजोरी सक्षम करें</string>
+    <string name="select_note">नोट चुनें</string>
+    <string name="unsuported_image_size">असमर्थित छवि आकार (अधिकतम 15mb)</string>
+    <string name="vault">तिजोरी</string>
+    <string name="password_continue">जारी रखें</string>
+    <string name="language_description">ऐप की भाषा बदलें</string>
+    <string name="system_language">सिस्टम भाषा</string>
 </resources>
