@@ -93,4 +93,6 @@
     <string name="vault">Trezor</string>
     <string name="vault_description">Povolenie šifrovaného trezoru poznámok</string>
     <string name="password_continue">pokračovať</string>
+    <string name="language_description">Zmeňte jazyk aplikácie</string>
+    <string name="system_language">Systémový jazyk</string>
 </resources>
