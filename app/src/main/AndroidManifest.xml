@@ -1,6 +1,23 @@
 <?xml version="1.1" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        tools:node="remove"/>
+
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK"
+        tools:node="remove"/>
+
+    <uses-permission
+        android:name="android.permission.RECEIVE_BOOT_COMPLETED"
+        tools:node="remove"/>
+
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE"
+        tools:node="remove"/>
+
+
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -61,5 +78,4 @@
             <meta-data android:name="autoStoreLocales" android:value="true" />
         </service>
     </application>
-
 </manifest>
