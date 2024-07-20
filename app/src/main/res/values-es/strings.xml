@@ -95,4 +95,7 @@
     <string name="password_continue">continuar</string>
     <string name="language_description">Cambiar el idioma de la aplicación</string>
     <string name="system_language">Idioma del sistema</string>
+    <string name="Behavior">Comportamiento</string>
+    <string name="always_edit">Priorizar el modo de edición</string>
+    <string name="always_edit_description">Ingresar al modo de edición en notas existentes</string>
 </resources>
