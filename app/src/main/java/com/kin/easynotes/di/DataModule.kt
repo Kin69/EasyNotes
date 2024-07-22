@@ -6,6 +6,7 @@ import com.kin.easynotes.data.local.database.NoteDatabaseProvider
 import com.kin.easynotes.data.repository.BackupRepository
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
+import com.kin.easynotes.presentation.components.EncryptionHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,7 +51,6 @@ object ApplicationModule {
     @Singleton
     fun provideExecutorCoroutineDispatcher(): ExecutorCoroutineDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
 
-
     @Provides
     @Singleton
     fun provideNoteRepository(noteDatabaseProvider: NoteDatabaseProvider): NoteRepositoryImpl {
@@ -79,5 +79,17 @@ object ApplicationModule {
             scope = coroutineScope,
             dispatcher = executorCoroutineDispatcher
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideMutableVaultPassword(): StringBuilder {
+        return StringBuilder()
+    }
+
+    @Provides
+    @Singleton
+    fun provideEncryptionHelper(mutableVaultPassword: StringBuilder): EncryptionHelper {
+        return EncryptionHelper(mutableVaultPassword)
     }
 }

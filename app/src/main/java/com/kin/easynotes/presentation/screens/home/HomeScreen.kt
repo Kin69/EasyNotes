@@ -1,6 +1,5 @@
 package com.kin.easynotes.presentation.screens.home
 
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,7 +24,6 @@ import com.kin.easynotes.R
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.CloseButton
 import com.kin.easynotes.presentation.components.DeleteButton
-import com.kin.easynotes.presentation.components.EncryptionHelper
 import com.kin.easynotes.presentation.components.NotesButton
 import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.PinButton
@@ -43,7 +41,7 @@ import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 
 
 @Composable
-fun HomeView(
+fun HomeView (
     viewModel: HomeViewModel = hiltViewModel(),
     settingsModel: SettingsViewModel,
     onSettingsClicked: () -> Unit,
@@ -58,17 +56,8 @@ fun HomeView(
             onExit = { password ->
                 if (password != null) {
                     if (password.text.isNotBlank()) {
-                        val encryptionHelper = EncryptionHelper(context, password.text)
-                        if (encryptionHelper.checkPassword(password.text)) {
-                            viewModel.toggleIsVaultMode(true)
-                            viewModel.noteUseCase.observe(true)
-                        } else {
-                            Toast.makeText(
-                                context,
-                                context.getString(R.string.invalid_input),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                        viewModel.encryptionHelper.setPassword(password.text)
+                        viewModel.toggleIsVaultMode(true)
                     }
                 }
                 viewModel.toggleIsPasswordPromptVisible(false)
@@ -88,11 +77,11 @@ fun HomeView(
             ) {
                 SelectedNotesTopAppBar(
                     selectedNotes = viewModel.selectedNotes,
-                    allNotes = viewModel.noteUseCase.notes,
+                    allNotes = viewModel.getAllNotes(),
                     settingsModel = settingsModel,
                     onPinClick = { viewModel.pinOrUnpinNotes() },
                     onDeleteClick = { viewModel.toggleIsDeleteMode(true) },
-                    onSelectAllClick = { selectAllNotes(viewModel, viewModel.noteUseCase.notes) },
+                    onSelectAllClick = { selectAllNotes(viewModel, viewModel.getAllNotes()) },
                     onCloseClick = { viewModel.selectedNotes.clear() }
                 )
             }
@@ -112,8 +101,8 @@ fun HomeView(
                         if (!viewModel.isVaultMode.value) {
                             viewModel.toggleIsPasswordPromptVisible(true)
                         } else {
+                            viewModel.encryptionHelper.removePassword()
                             viewModel.toggleIsVaultMode(false)
-                            viewModel.noteUseCase.observe()
                         }
                     }
                 )
@@ -128,7 +117,7 @@ fun HomeView(
                     isBoth = true
                 ),
                 onNoteClicked = { onNoteClicked(it, viewModel.isVaultMode.value)  },
-                notes = viewModel.noteUseCase.notes.sortedWith(sorter(settingsModel.settings.value.sortDescending)),
+                notes = viewModel.getAllNotes().sortedWith(sorter(settingsModel.settings.value.sortDescending)),
                 selectedNotes = viewModel.selectedNotes,
                 viewMode = settingsModel.settings.value.viewMode,
                 searchText = viewModel.searchQuery.value.ifBlank { null },

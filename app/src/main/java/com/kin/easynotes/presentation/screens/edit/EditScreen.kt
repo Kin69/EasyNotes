@@ -84,10 +84,10 @@ fun EditNoteView(
     isWidget: Boolean = false,
     onClickBack: () -> Unit
 ) {
-    val context = LocalContext.current
     val viewModel: EditViewModel = hiltViewModel<EditViewModel>()
-    viewModel.setupNoteData(id, encrypted, context)
-    ObserveLifecycleEvents(viewModel, encrypted)
+    viewModel.updateIsEncrypted(encrypted)
+    viewModel.setupNoteData(id)
+    ObserveLifecycleEvents(viewModel)
 
     val pagerState = rememberPagerState(initialPage = if (id == 0 || isWidget || settingsViewModel.settings.value.editMode) 0 else 1, pageCount = { 2 })
 
@@ -194,14 +194,13 @@ fun TopBar(pagerState: PagerState,coroutineScope: CoroutineScope, onClickBack: (
 }
 
 @Composable
-fun ObserveLifecycleEvents(viewModel: EditViewModel, encrypted: Boolean) {
-    val context = LocalContext.current
+fun ObserveLifecycleEvents(viewModel: EditViewModel) {
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) {
-                viewModel.saveNote(viewModel.noteId.value, encrypted, context)
-                viewModel.fetchLastNoteAndUpdate(encrypted, context)
+                viewModel.saveNote(viewModel.noteId.value)
+                viewModel.fetchLastNoteAndUpdate()
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -297,7 +296,7 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp, 16.dp, 16.dp, if (viewModel.isDescriptionInFocus.value) 3.dp else 16.dp)
+            .padding(16.dp, 16.dp, 16.dp, if (viewModel.isDescriptionInFocus.value && settingsViewModel.settings.value.isMarkdownEnabled) 2.dp else 16.dp)
     ) {
         MarkdownBox(
             isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,

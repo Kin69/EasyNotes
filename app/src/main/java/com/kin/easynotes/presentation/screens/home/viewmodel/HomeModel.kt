@@ -4,14 +4,16 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.kin.easynotes.data.repository.BackupRepository
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
+import com.kin.easynotes.presentation.components.DecryptionResult
+import com.kin.easynotes.presentation.components.EncryptionHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    val encryptionHelper: EncryptionHelper,
     val noteUseCase: NoteUseCase,
 ) : ViewModel() {
     var selectedNotes = mutableStateListOf<Note>()
@@ -30,7 +32,7 @@ class HomeViewModel @Inject constructor(
     val searchQuery: State<String> = _searchQuery
 
     init {
-        noteUseCase.observe(encrypted = false)
+        noteUseCase.observe()
     }
 
     fun toggleIsDeleteMode(enabled: Boolean) {
@@ -39,6 +41,7 @@ class HomeViewModel @Inject constructor(
 
     fun toggleIsVaultMode(enabled: Boolean) {
         _isVaultMode.value = enabled
+        noteUseCase.observe()
     }
 
 
@@ -64,5 +67,17 @@ class HomeViewModel @Inject constructor(
         }
 
         selectedNotes.clear()
+    }
+
+    fun getAllNotes(): List<Note> {
+        val allNotes = noteUseCase.notes
+        val filteredNotes = allNotes.filter { it.encrypted == isVaultMode.value }
+        when (noteUseCase.decryptionResult) {
+            DecryptionResult.BAD_PASSWORD -> { encryptionHelper.removePassword() }
+            DecryptionResult.SUCCESS -> { toggleIsVaultMode(true) }
+            DecryptionResult.EMPTY -> {/* Let vault be enabled */}
+            else -> { toggleIsVaultMode(false) }
+        }
+        return filteredNotes
     }
 }
