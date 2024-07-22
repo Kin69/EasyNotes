@@ -27,7 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     val backup: BackupRepository,
-    val settingsUseCase: SettingsUseCase,
+    private val settingsUseCase: SettingsUseCase,
     val noteUseCase: NoteUseCase
 ) : ViewModel() {
     val databaseUpdate = mutableStateOf(false)

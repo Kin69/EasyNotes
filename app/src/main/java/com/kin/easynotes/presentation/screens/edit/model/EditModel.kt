@@ -1,6 +1,5 @@
 package com.kin.easynotes.presentation.screens.edit.model
 
-import android.content.Context
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
@@ -11,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
+import com.kin.easynotes.presentation.components.DecryptionResult
 import com.kin.easynotes.presentation.components.EncryptionHelper
 import com.kin.easynotes.presentation.screens.edit.components.UndoRedoState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditViewModel @Inject constructor(
-    private val noteUseCase: NoteUseCase
+    private val noteUseCase: NoteUseCase,
+    private val encryption: EncryptionHelper
 ) : ViewModel() {
     private val _noteName = mutableStateOf(TextFieldValue())
     val noteName: State<TextFieldValue> get() = _noteName
@@ -30,6 +31,9 @@ class EditViewModel @Inject constructor(
 
     private val _isDescriptionInFocus = mutableStateOf(false)
     val isDescriptionInFocus: State<Boolean> get() = _isDescriptionInFocus
+
+    private val _isEncrypted = mutableStateOf(false)
+    val isEncrypted: State<Boolean> get() = _isEncrypted
 
     private val _noteDescription = mutableStateOf(TextFieldValue())
     val noteDescription: State<TextFieldValue> get() = _noteDescription
@@ -51,28 +55,18 @@ class EditViewModel @Inject constructor(
 
     private val undoRedoState = UndoRedoState()
 
-    fun saveNote(id: Int, encrypted: Boolean, context: Context) {
-        if (noteName.value.text.isEmpty() && noteDescription.value.text.isEmpty()) return
-
-        if (encrypted) {
-            val encryption = EncryptionHelper(context = context)
-            noteUseCase.addNote(Note(
-                id = id,
-                name = encryption.encrypt(noteName.value.text),
-                description = encryption.encrypt(noteDescription.value.text),
-                pinned = isPinned.value,
-                encrypted = true,
-                createdAt = if (noteCreatedTime.value != 0L) noteCreatedTime.value else System.currentTimeMillis(),
-            ))
-        } else {
-            noteUseCase.addNote(Note(
-                id = id,
-                name = noteName.value.text,
-                description = noteDescription.value.text,
-                pinned = isPinned.value,
-                encrypted = false,
-                createdAt = if (noteCreatedTime.value != 0L) noteCreatedTime.value else System.currentTimeMillis(),
-            ))
+    fun saveNote(id: Int) {
+        if (noteName.value.text.isNotEmpty() || noteDescription.value.text.isNotBlank()) {
+            noteUseCase.addNote(
+                Note(
+                    id = id,
+                    name = noteName.value.text,
+                    description = noteDescription.value.text,
+                    pinned = isPinned.value,
+                    encrypted = isEncrypted.value,
+                    createdAt = if (noteCreatedTime.value != 0L) noteCreatedTime.value else System.currentTimeMillis(),
+                )
+            )
         }
     }
 
@@ -80,42 +74,44 @@ class EditViewModel @Inject constructor(
         noteUseCase.deleteNoteById(id = id)
     }
 
-    private fun syncNote(note: Note, encrypted: Boolean, context: Context) {
-        if (encrypted) {
-            val encrypt = EncryptionHelper(context)
-            val name = encrypt.decrypt(note.name)
-            val description = encrypt.decrypt(note.description)
-
-            updateNoteName(TextFieldValue(name, selection = TextRange(name.length)))
-            updateNoteDescription(TextFieldValue(description, selection = TextRange(description.length)))
+    private fun syncNote(note: Note) {
+        if (note.encrypted) {
+            val (name, nameStatus) = encryption.decrypt(note.name)
+            val (description, descriptionStatus) = encryption.decrypt(note.name)
+            if (nameStatus == DecryptionResult.SUCCESS && descriptionStatus == DecryptionResult.SUCCESS) {
+                updateNoteName(TextFieldValue(name!!, selection = TextRange(note.name.length)))
+                updateNoteDescription(TextFieldValue(description!!, selection = TextRange(note.description.length)))
+            }
         } else {
             updateNoteName(TextFieldValue(note.name, selection = TextRange(note.name.length)))
             updateNoteDescription(TextFieldValue(note.description, selection = TextRange(note.description.length)))
         }
-
         updateNoteCreatedTime(note.createdAt)
         updateNoteId(note.id)
         updateNotePin(note.pinned)
+        updateIsEncrypted(note.encrypted)
     }
 
-    fun setupNoteData(id : Int = noteId.value, encrypted: Boolean, context: Context) {
+    fun setupNoteData(id : Int = noteId.value) {
         if (id != 0) {
             viewModelScope.launch {
                 noteUseCase.getNoteById(id).collectLatest { note ->
                     if (note != null && !isInsertingImage.value) {
-                        syncNote(note, encrypted, context)
+                        syncNote(note)
                     }
                 }
             }
         }
     }
 
-    fun fetchLastNoteAndUpdate(encrypted: Boolean, context: Context) {
-        if (noteId.value == 0) {
-            viewModelScope.launch {
-                noteUseCase.getLastNoteId { lastId ->
-                    viewModelScope.launch {
-                        setupNoteData(lastId?.toInt() ?: 1, encrypted, context)
+    fun fetchLastNoteAndUpdate() {
+        if (noteName.value.text.isNotEmpty() || noteDescription.value.text.isNotBlank()) {
+            if (noteId.value == 0) {
+                viewModelScope.launch {
+                    noteUseCase.getLastNoteId { lastId ->
+                        viewModelScope.launch {
+                            setupNoteData(lastId?.toInt() ?: 1)
+                        }
                     }
                 }
             }
@@ -145,6 +141,10 @@ class EditViewModel @Inject constructor(
     fun updateNoteName(newName: TextFieldValue) {
         _noteName.value = newName
         undoRedoState.onInput(newName)
+    }
+
+    fun updateIsEncrypted(value: Boolean) {
+        _isEncrypted.value = value
     }
 
     fun updateNoteDescription(newDescription: TextFieldValue) {
@@ -230,4 +230,3 @@ class EditViewModel @Inject constructor(
         )
     }
 }
-

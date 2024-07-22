@@ -1,6 +1,5 @@
 package com.kin.easynotes.domain.usecase
 
-
 import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.glance.appwidget.updateAll
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.domain.model.Note
+import com.kin.easynotes.presentation.components.DecryptionResult
 import com.kin.easynotes.presentation.components.EncryptionHelper
 import com.kin.easynotes.widget.NotesWidget
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -25,42 +25,65 @@ import javax.inject.Inject
 class NoteUseCase @Inject constructor(
     private val noteRepository: NoteRepositoryImpl,
     private val coroutineScope: CoroutineScope,
+    private val encryptionHelper: EncryptionHelper,
     @ApplicationContext private val context: Context
 ) {
     var notes: List<Note> by mutableStateOf(emptyList())
         private set
 
+    var decryptionResult: DecryptionResult by mutableStateOf(DecryptionResult.LOADING)
+        private set
+
     private var observeKeysJob: Job? = null
 
-    fun observe(encrypted: Boolean = false) {
-        observeNotes(encrypted)
+    fun observe() {
+        observeNotes()
     }
 
-    private fun observeNotes(encrypted: Boolean) {
+    private fun observeNotes() {
         observeKeysJob?.cancel()
         observeKeysJob = coroutineScope.launch {
-            if (!encrypted) {
-                getAllNotes().collectLatest { notes ->
-                    this@NoteUseCase.notes = notes
-                    NotesWidget().updateAll(context)
-                }
-            } else {
-                getAllEncryptedNotes().collectLatest { encryptedNotes ->
-                    val decryptedNotes = encryptedNotes.map { note ->
-                        val encryptionHelper = EncryptionHelper(context)
-                        val name = encryptionHelper.decrypt(note.name)
-                        val description = encryptionHelper.decrypt(note.description)
-                        note.copy(name = name, description = description)
+            getAllNotes().collectLatest { notes ->
+                val hasUnencryptedNotes = notes.any { !it.encrypted }
+                if (!hasUnencryptedNotes) this@NoteUseCase.decryptionResult = DecryptionResult.EMPTY
+                val processedNotes = notes.mapNotNull { note ->
+                    if (note.encrypted) {
+                        val (decryptedNote, status) = decryptNote(note)
+                        this@NoteUseCase.decryptionResult = status
+                        if (status == DecryptionResult.SUCCESS) decryptedNote else null
+                    } else {
+                        note
                     }
-                    this@NoteUseCase.notes = decryptedNotes
                 }
+                this@NoteUseCase.notes = processedNotes
+                NotesWidget().updateAll(context)
             }
         }
     }
 
-    /* Return only encrypted notes */
-    private fun getAllEncryptedNotes(): Flow<List<Note>> {
-        return noteRepository.getAllEncryptedNotes()
+    private fun encryptNote(note: Note): Note {
+        return if (note.encrypted) {
+            note.copy(
+                name = encryptionHelper.encrypt(note.name),
+                description = encryptionHelper.encrypt(note.description),
+                encrypted = true
+            )
+        } else {
+            note
+        }
+    }
+
+    private fun decryptNote(note: Note): Pair<Note,DecryptionResult> {
+        val (decryptedName, nameResult) = encryptionHelper.decrypt(note.name)
+        val (decryptedDescription, descriptionResult) = encryptionHelper.decrypt(note.description)
+        return if (note.encrypted) {
+            Pair(note.copy(
+                name = decryptedName ?: "",
+                description = decryptedDescription ?: "",
+            ), descriptionResult)
+        } else {
+            Pair(note, DecryptionResult.SUCCESS)
+        }
     }
 
     private fun getAllNotes(): Flow<List<Note>> {
@@ -68,20 +91,21 @@ class NoteUseCase @Inject constructor(
     }
 
     fun addNote(note: Note) {
+        val noteToSave = encryptNote(note)
         if (note.id == 0) {
             coroutineScope.launch(NonCancellable + Dispatchers.IO) {
-                noteRepository.addNote(note)
+                noteRepository.addNote(noteToSave)
             }
         } else {
             coroutineScope.launch(NonCancellable + Dispatchers.IO) {
-                noteRepository.updateNote(note)
+                noteRepository.updateNote(noteToSave)
             }
         }
     }
 
     fun pinNote(note: Note) {
         coroutineScope.launch(NonCancellable + Dispatchers.IO) {
-            noteRepository.updateNote(note)
+            addNote(note)
         }
     }
 

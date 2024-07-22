@@ -1,18 +1,16 @@
 package com.kin.easynotes.data.repository
 
-import com.kin.easynotes.data.local.dao.NoteDao
 import com.kin.easynotes.data.local.database.NoteDatabaseProvider
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class NoteRepositoryImpl(private val provider: NoteDatabaseProvider) : NoteRepository {
+class NoteRepositoryImpl @Inject constructor(
+    private val provider: NoteDatabaseProvider
+) : NoteRepository {
     override fun getAllNotes(): Flow<List<Note>> {
         return provider.noteDao().getAllNotes()
-    }
-
-    override fun getAllEncryptedNotes(): Flow<List<Note>> {
-        return provider.noteDao().getAllEncryptedNotes()
     }
 
     override suspend fun addNote(note: Note) {

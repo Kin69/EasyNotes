@@ -19,6 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
--keep class com.google.errorprone.annotations.** { *; }
--dontwarn javax.lang.model.element.Modifier
