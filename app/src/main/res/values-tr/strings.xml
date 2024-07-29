@@ -98,4 +98,5 @@
     <string name="Behavior">Davranış</string>
     <string name="always_edit">Düzenleme Moduna Öncelik Ver</string>
     <string name="always_edit_description">Var olan notlarda düzenleme moduna girin</string>
+    <string name="invalid_password">Geçersiz Şifre</string>
 </resources>
