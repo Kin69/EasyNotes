@@ -95,4 +95,8 @@
     <string name="password_continue">kontynuuj</string>
     <string name="language_description">Zmień język aplikacji</string>
     <string name="system_language">Język Systemowy</string>
+    <string name="Behavior">Zachowanie</string>
+    <string name="always_edit">Preferuj Tryb Edycji</string>
+    <string name="always_edit_description">Wyświetlaj istniejące notatki w trybie edycji</string>
+    <string name="invalid_password">Nieprawidłowe Hasło</string>
 </resources>
