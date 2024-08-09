@@ -47,12 +47,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        setContent {
-            val settingsViewModel: SettingsViewModel = hiltViewModel<SettingsViewModel>()
-            settingsViewModel.update(settingsViewModel.settings.value.copy(vaultEnabled = false))
-        }
-    }
 }

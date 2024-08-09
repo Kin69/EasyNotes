@@ -34,6 +34,7 @@ object SupportConst {
      */
     const val AVALANCHE_ADDRESS = "0x05D8aC16B2d4C07958E2430d24F7F55d51238C6e"
 
+
     /**
      * Provides a map of supporters categorized by their roles using localized strings.
      */

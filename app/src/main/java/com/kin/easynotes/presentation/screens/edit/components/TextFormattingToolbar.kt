@@ -3,6 +3,7 @@ package com.kin.easynotes.presentation.screens.edit.components
 import android.content.Context
 
 import android.net.Uri
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +31,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -56,8 +58,16 @@ data class ToolbarItem(
 fun TextFormattingToolbar(viewModel: EditViewModel) {
     val colorArrow = MaterialTheme.colorScheme.outlineVariant
     val colorIcon = MaterialTheme.colorScheme.inverseSurface
-    var isImagePickerEnabled by remember { mutableStateOf(false) }
-    var currentIndex by remember { mutableStateOf(0) }
+    var currentIndex by remember { mutableIntStateOf(0) }
+    val context = LocalContext.current
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let {
+            val savedUri = saveImageToAppStorage(context, it)
+            viewModel.insertText("!($savedUri)")
+        }
+        viewModel.toggleIsInsertingImages(false)
+    }
+
     val toolbarSets = remember {
         listOf(
             listOf(
@@ -71,8 +81,8 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
                     viewModel.insertText("[ ] ")
                 },
                 ToolbarItem(Icons.Rounded.Image, "Insert Image", color = colorIcon) {
-                    isImagePickerEnabled = true
                     viewModel.toggleIsInsertingImages(true)
+                    launcher.launch("image/*")
                 },
                 ToolbarItem(Icons.AutoMirrored.Rounded.ArrowForwardIos,"Bullet List", color = colorArrow) {
                         currentIndex++
@@ -128,12 +138,7 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
             ),
         )
     }
-    if (isImagePickerEnabled) {
-        ImagePicker(viewModel) { photoUri ->
-            viewModel.insertText("!($photoUri)")
-            viewModel.toggleIsInsertingImages(false)
-        }
-    }
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
@@ -143,9 +148,7 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         toolbarSets.getOrNull(currentIndex)?.let { toolbarItems ->
             toolbarItems.forEach { item ->
                 IconButton(
-                    onClick = {
-                        item.onClickAction.invoke()
-                    },
+                    onClick = { item.onClickAction.invoke() },
                 ) {
                     Icon(
                         item.icon,
@@ -158,24 +161,6 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
         }
     }
 }
-
-@Composable
-fun ImagePicker(viewModel: EditViewModel, onImageSelected: (String) -> Unit) {
-    var photoUri: Uri? by remember { mutableStateOf(null) }
-    val context = LocalContext.current
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        photoUri = uri
-        if (uri != null) {
-            val savedUri = saveImageToAppStorage(context, uri)
-            onImageSelected(savedUri)
-        }
-    }
-    LaunchedEffect(true) {
-        viewModel.toggleIsInsertingImages(true)
-        launcher.launch("image/*")
-    }
-}
-
 
 private fun saveImageToAppStorage(context: Context, uri: Uri): String {
     val appStorageDir = getExternalStorageDir(context)
