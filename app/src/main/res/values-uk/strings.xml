@@ -95,4 +95,8 @@
     <string name="unsuported_image_size">Не підтримуваний розмір зображення (до 15 МБ)</string>
     <string name="vault_description">Увімкнути зашифроване сховище для нотаток</string>
     <string name="system_language">Мова системи</string>
+    <string name="Behavior">Поведінка</string>
+    <string name="always_edit">Надавати пріоритет режиму редагування</string>
+    <string name="always_edit_description">Входити в режим редагування для наявних нотаток</string>
+    <string name="invalid_password">Недійсний пароль</string>
 </resources>
