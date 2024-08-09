@@ -96,6 +96,7 @@ class EditViewModel @Inject constructor(
         if (id != 0) {
             viewModelScope.launch {
                 noteUseCase.getNoteById(id).collectLatest { note ->
+                    // Can be null don't remove
                     if (note != null && !isInsertingImage.value) {
                         syncNote(note)
                     }
