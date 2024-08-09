@@ -34,6 +34,11 @@ object SupportConst {
      */
     const val AVALANCHE_ADDRESS = "0x05D8aC16B2d4C07958E2430d24F7F55d51238C6e"
 
+    /**
+     * Address of avalanche account
+     */
+    const val MONERO_ADDRESS = "45G7Eg5uXaLNb55ykor43aTx2iztYfUAkCT677LiKEuGAcq3AjLdUZnNkt9bGbeAm35Ye2PayYgPsdNH4Tfw8Qx2GSF3nww"
+
 
     /**
      * Provides a map of supporters categorized by their roles using localized strings.

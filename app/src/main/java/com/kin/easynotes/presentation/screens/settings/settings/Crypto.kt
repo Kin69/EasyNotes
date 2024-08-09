@@ -25,15 +25,31 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
         LazyColumn {
             item {
                 SettingsBox(
-                    title = "Ethereum",
+                    title = "Bitcoin (BTC)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
+                    clipboardText = SupportConst.BITCOIN_ADDRESS
+                )
+            }
+            item {
+                SettingsBox(
+                    title = "Monero (XMR)",
+                    actionType = ActionType.CLIPBOARD,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                    clipboardText = SupportConst.MONERO_ADDRESS
+                )
+            }
+            item {
+                SettingsBox(
+                    title = "Ethereum (ETH)",
+                    actionType = ActionType.CLIPBOARD,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                     clipboardText = SupportConst.ETHERIUM_ADDRESS
                 )
             }
             item {
                 SettingsBox(
-                    title = "BNB SMART CHAIN",
+                    title = "BNB SMART CHAIN (BNB)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                     clipboardText = SupportConst.BNB_SMART_ADDRESS
@@ -41,7 +57,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
-                    title = "Tron",
+                    title = "Tron (TRX)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                     clipboardText = SupportConst.TRON_ADDRESS
@@ -49,7 +65,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
-                    title = "Polygon",
+                    title = "Polygon (MATIC)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager( radius = settingsViewModel.settings.value.cornerRadius),
                     clipboardText = SupportConst.POLYGON_ADDRESS
@@ -57,7 +73,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
-                    title = "Avalanche",
+                    title = "Avalanche C-Chain (AVAX)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(isLast = true, radius = settingsViewModel.settings.value.cornerRadius),
                     clipboardText = SupportConst.AVALANCHE_ADDRESS
