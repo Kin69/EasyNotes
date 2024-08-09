@@ -31,7 +31,6 @@ Lightweight android notes app with Material You.
 
 --- 
 ## 📢 News
-- Due to persistent issues with updatin. I need to pause development since I can't release new updates. It has become ineffective. I plan to create a new GitHub account, rebrand, and release new versions. As a result, the F-Droid app will likely be removed.
 - [Discord Server](https://discord.gg/ZrP4G8z23H)
 - [Images Support Back!](https://github.com/Kin69/EasyNotes/discussions/29)
 
@@ -49,7 +48,7 @@ Lightweight android notes app with Material You.
 
 ## 💬 Contact Me
 
--  Email : k1nS4@proton.me
+-  Email : Vexzure@proton.me
 -  Discord : [Easy Notes](https://discord.gg/ZrP4G8z23H)
 
 ---
