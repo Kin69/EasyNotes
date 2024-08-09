@@ -1,20 +1,25 @@
 package com.kin.easynotes.presentation.screens.home.viewmodel
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.kin.easynotes.R
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
 import com.kin.easynotes.presentation.components.DecryptionResult
 import com.kin.easynotes.presentation.components.EncryptionHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     val encryptionHelper: EncryptionHelper,
     val noteUseCase: NoteUseCase,
+    @ApplicationContext private val context: Context,
 ) : ViewModel() {
     var selectedNotes = mutableStateListOf<Note>()
 
@@ -26,7 +31,6 @@ class HomeViewModel @Inject constructor(
 
     private var _isVaultMode = mutableStateOf(false)
     val isVaultMode: State<Boolean> = _isVaultMode
-
 
     private var _searchQuery = mutableStateOf("")
     val searchQuery: State<String> = _searchQuery
@@ -41,6 +45,9 @@ class HomeViewModel @Inject constructor(
 
     fun toggleIsVaultMode(enabled: Boolean) {
         _isVaultMode.value = enabled
+        if (!enabled) {
+            noteUseCase.decryptionResult = DecryptionResult.LOADING
+        }
         noteUseCase.observe()
     }
 
@@ -71,12 +78,20 @@ class HomeViewModel @Inject constructor(
 
     fun getAllNotes(): List<Note> {
         val allNotes = noteUseCase.notes
-        val filteredNotes = allNotes.filter { it.encrypted == isVaultMode.value }
+        val filteredNotes = allNotes.filter { it.encrypted == isVaultMode.value}
         when (noteUseCase.decryptionResult) {
-            DecryptionResult.BAD_PASSWORD -> { encryptionHelper.removePassword() }
-            DecryptionResult.SUCCESS -> { toggleIsVaultMode(true) }
-            DecryptionResult.EMPTY -> {/* Let vault be enabled */}
-            else -> { toggleIsVaultMode(false) }
+            DecryptionResult.LOADING -> { /* Don't do anything */ }
+            DecryptionResult.EMPTY -> {
+                if (!encryptionHelper.isPasswordEmpty()) {
+                    toggleIsVaultMode(true)
+                }
+            }
+            DecryptionResult.BAD_PASSWORD, DecryptionResult.BLANK_DATA, DecryptionResult.INVALID_DATA -> {
+                toggleIsVaultMode(false)
+                Toast.makeText(context, context.getString(R.string.invalid_password), Toast.LENGTH_SHORT).show()
+                encryptionHelper.removePassword()
+            }
+            else -> { toggleIsVaultMode(true) }
         }
         return filteredNotes
     }

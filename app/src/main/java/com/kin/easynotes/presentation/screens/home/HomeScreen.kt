@@ -57,7 +57,7 @@ fun HomeView (
                 if (password != null) {
                     if (password.text.isNotBlank()) {
                         viewModel.encryptionHelper.setPassword(password.text)
-                        viewModel.toggleIsVaultMode(true)
+                        viewModel.noteUseCase.observe()
                     }
                 }
                 viewModel.toggleIsPasswordPromptVisible(false)
@@ -101,8 +101,8 @@ fun HomeView (
                         if (!viewModel.isVaultMode.value) {
                             viewModel.toggleIsPasswordPromptVisible(true)
                         } else {
-                            viewModel.encryptionHelper.removePassword()
                             viewModel.toggleIsVaultMode(false)
+                            viewModel.encryptionHelper.removePassword()
                         }
                     }
                 )

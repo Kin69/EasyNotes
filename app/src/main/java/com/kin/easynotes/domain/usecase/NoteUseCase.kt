@@ -32,7 +32,6 @@ class NoteUseCase @Inject constructor(
         private set
 
     var decryptionResult: DecryptionResult by mutableStateOf(DecryptionResult.LOADING)
-        private set
 
     private var observeKeysJob: Job? = null
 

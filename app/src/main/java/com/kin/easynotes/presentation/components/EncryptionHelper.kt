@@ -10,6 +10,10 @@ import javax.crypto.spec.SecretKeySpec
 
 class EncryptionHelper(private val mutableVaultPassword: StringBuilder) {
 
+    fun isPasswordEmpty(): Boolean {
+        return mutableVaultPassword.isEmpty()
+    }
+
     fun removePassword() {
         mutableVaultPassword.setLength(0)
     }
