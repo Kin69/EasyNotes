@@ -1,12 +1,15 @@
 package com.kin.easynotes.di
 
 import android.app.Application
+import android.os.Handler
 import android.content.Context
+import android.os.Looper
 import com.kin.easynotes.data.local.database.NoteDatabaseProvider
 import com.kin.easynotes.data.repository.BackupRepository
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.presentation.components.EncryptionHelper
+import com.kin.easynotes.presentation.components.GalleryObserver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -91,5 +94,10 @@ object ApplicationModule {
     @Singleton
     fun provideEncryptionHelper(mutableVaultPassword: StringBuilder): EncryptionHelper {
         return EncryptionHelper(mutableVaultPassword)
+    }
+
+    @Provides
+    fun provideHandler(): Handler {
+        return Handler(Looper.getMainLooper())
     }
 }

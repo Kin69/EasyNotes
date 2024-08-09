@@ -101,4 +101,6 @@
     <string name="donators">Donate</string>
     <string name="translators">Translation</string>
     <string name="contributors">Contribution</string>
+    <string name="gallery_sync_description">Deletes images from app storage when they are removed from the gallery</string>
+    <string name="gallery_sync">Gallery Sync</string>
 </resources>

@@ -15,6 +15,7 @@ import com.kin.easynotes.data.repository.BackupResult
 import com.kin.easynotes.domain.model.Settings
 import com.kin.easynotes.domain.usecase.NoteUseCase
 import com.kin.easynotes.domain.usecase.SettingsUseCase
+import com.kin.easynotes.presentation.components.GalleryObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,6 +27,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+    val galleryObserver: GalleryObserver,
     val backup: BackupRepository,
     private val settingsUseCase: SettingsUseCase,
     val noteUseCase: NoteUseCase

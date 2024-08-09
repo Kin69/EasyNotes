@@ -15,6 +15,7 @@ data class Settings(
     var vaultSettingEnabled: Boolean = false,
     var vaultEnabled: Boolean = false,
     var editMode: Boolean = false,
+    var gallerySync: Boolean = true,
 
     var cornerRadius: Int = 32,
 )
