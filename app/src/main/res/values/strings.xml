@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Easy Notes</string>
     <string name="home_screen">Notes</string>
@@ -123,7 +124,7 @@
     <string name="terms_changes_body">We may update these Terms of Service from time to time. Your continued use of Easy Notes after any changes constitutes acceptance of the revised terms.</string>
     <string name="terms_contact_title">9. Contact Us</string>
     <string name="terms_contact_body">For any questions about these Terms of Service or Easy Notes, please contact us at</string>
-    <string name="terms_privacy_title">Privacy Policy</string>
+    <string name="terms_privacy_title">10. Privacy Policy</string>
     <string name="terms_privacy_body">Easy Notes does not collect any personal data. For more information, please refer to our Privacy Policy available at</string>
     <string name="terms_effective_date">Effective Date</string>
     <string name="agree">Agree</string>
