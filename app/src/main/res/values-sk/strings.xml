@@ -106,4 +106,34 @@
     <string name="gallery_sync_description">Odstránenie obrázkov z úložiska aplikácie po ich odstránení z galérie</string>
     <string name="show_only_title">Zobraziť iba názov</string>
     <string name="show_only_title_description">Zobrazenie iba názvu v náhľade</string>
+    <string name="terms_acceptance_body">Stlačením tlačidla Súhlasím a používaním aplikácie Easy Notes súhlasíte s týmito podmienkami služby. Ak s nimi nesúhlasíte, aplikáciu nepoužívajte.</string>
+    <string name="terms_acceptance_title">1. Prijatie podmienok</string>
+    <string name="terms_license_title">2. Licencia</string>
+    <string name="terms_disclaimer_title">5. Zrieknutie sa záruk</string>
+    <string name="terms_contact_title">9. Kontaktujte nás</string>
+    <string name="terms_privacy_title">Zásady ochrany osobných údajov</string>
+    <string name="terms_license_body">Easy Notes sa šíri pod **GNU General Public License (GPL) verzia 3**. To znamená, že:
+\n
+\n- Aplikáciu môžete slobodne používať, upravovať a zdieľať.
+\n- Ak budete aplikáciu alebo jej upravené verzie šíriť, musíte šíriť aj zdrojový kód a zachovať licenciu GPL.</string>
+    <string name="terms_use_title">3. Používanie aplikácie</string>
+    <string name="terms_use_body">Súhlasíte s tým, že budete Easy Notes používať len na zákonné účely a v súlade s týmito podmienkami. Nesmiete**:
+\n
+\n- _používať aplikáciu na akýkoľvek nezákonný účel_
+\n- _porušovať práva iných osôb_
+\n- _Narušovať funkčnosť alebo bezpečnosť aplikácie_</string>
+    <string name="terms_intellectual_property_title">4. Duševné vlastníctvo</string>
+    <string name="terms_intellectual_property_body">Všetky práva duševného vlastníctva v službe Easy Notes vlastníme my alebo naši poskytovatelia licencií. Používanie aplikácie vám neudeľuje vlastníctvo žiadnych práv duševného vlastníctva.</string>
+    <string name="terms_disclaimer_body">Easy Notes sa poskytuje tak, ako je, bez akýchkoľvek záruk. Nezaručujeme, že aplikácia bude bez chýb, bezpečná alebo nepretržitá.</string>
+    <string name="terms_liability_title">6. Obmedzenie zodpovednosti</string>
+    <string name="terms_termination_title">7. Ukončenie</string>
+    <string name="terms_liability_body">Nenesieme zodpovednosť za žiadne škody vyplývajúce z používania aplikácie Easy Notes vrátane nepriamych, náhodných alebo následných škôd.</string>
+    <string name="terms_termination_body">Ak porušíte tieto podmienky, môžeme ukončiť alebo pozastaviť váš prístup k službe Easy Notes. Po ukončení sa vaše právo používať aplikáciu okamžite skončí.</string>
+    <string name="terms_changes_title">8. Zmeny podmienok</string>
+    <string name="terms_changes_body">Tieto Podmienky služby môžeme z času na čas aktualizovať. Vaše ďalšie používanie služby Easy Notes po akýchkoľvek zmenách predstavuje súhlas s revidovanými podmienkami.</string>
+    <string name="terms_contact_body">V prípade akýchkoľvek otázok týkajúcich sa týchto podmienok poskytovania služieb alebo poznámok Easy Notes nás kontaktujte na adrese</string>
+    <string name="terms_privacy_body">Easy Notes nezhromažďuje žiadne osobné údaje. Viac informácií nájdete v našich zásadách ochrany osobných údajov, ktoré sú k dispozícii na adrese</string>
+    <string name="terms_effective_date">Dátum účinnosti</string>
+    <string name="terms_of_service">Podmienky služby</string>
+    <string name="agree">Súhlasím</string>
 </resources>

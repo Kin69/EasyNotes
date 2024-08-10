@@ -106,4 +106,34 @@
     <string name="show_only_title">Mostrar solo el título</string>
     <string name="contributors">Aportaciones</string>
     <string name="show_only_title_description">Mostrar solo el título en la vista previa</string>
+    <string name="terms_intellectual_property_title">4. Propiedad intelectual</string>
+    <string name="terms_liability_title">6. Limitación de la responsabilidad</string>
+    <string name="terms_termination_title">7. Rescisión</string>
+    <string name="terms_contact_title">9. Contacto</string>
+    <string name="terms_privacy_title">Protección de datos</string>
+    <string name="terms_acceptance_title">1. Aceptación de las condiciones</string>
+    <string name="terms_acceptance_body">Al pulsar Acepto y utilizar Easy Notes, aceptas estas Condiciones del servicio. Si no está de acuerdo, no utilices la aplicación.</string>
+    <string name="terms_license_title">2. Licencia</string>
+    <string name="terms_license_body">Easy Notes se distribuye bajo la **Licencia Pública General de GNU (GPL) versión 3**. Esto significa que:
+\n
+\n- Eres libre de utilizar, modificar y compartir la aplicación.
+\n- Si distribuyes la aplicación o cualquier versión modificada, debes distribuir también el código fuente y conservar la licencia GPL.</string>
+    <string name="terms_use_title">3. Uso de la aplicación</string>
+    <string name="terms_use_body">Te comprometes a utilizar Easy Notes únicamente con fines lícitos y de conformidad con las presentes Condiciones. **No debes**:
+\n
+\n- _Utilizar la aplicación para fines ilegales_
+\n- _Violar los derechos de terceros_
+\n- _Perturbar la funcionalidad o la seguridad de la aplicación_</string>
+    <string name="terms_intellectual_property_body">Todos los derechos de propiedad intelectual de Easy Notes nos pertenecen a nosotros o a nuestros licenciantes. El uso de la aplicación no te otorga la titularidad de ningún derecho de propiedad intelectual.</string>
+    <string name="terms_disclaimer_title">5. Descargo de responsabilidad</string>
+    <string name="terms_disclaimer_body">Easy Notes se proporciona como es, sin ninguna garantía. No garantizamos que la aplicación esté libre de errores, sea segura o no tenga interrupciones o cuelgues.</string>
+    <string name="terms_liability_body">No nos hacemos responsables de los daños derivados del uso de Easy Notes, incluidos los daños indirectos, accidentales o consecuentes.</string>
+    <string name="terms_termination_body">Podemos cancelar o suspender tu acceso a Easy Notes si incumples estas Condiciones. Tras la rescisión, tu derecho a utilizar la aplicación terminará inmediatamente.</string>
+    <string name="terms_changes_title">8. Cambios en las condiciones</string>
+    <string name="terms_changes_body">Podemos actualizar estas Condiciones del servicio de vez en cuando. El uso continuado de Easy Notes después de cualquier cambio constituye la aceptación de los nuevos términos , o de la revisión de los términos.</string>
+    <string name="terms_contact_body">Si tienes alguna pregunta sobre estas Condiciones del servicio o de Easy Notes, pónte en contacto con nosotros en</string>
+    <string name="terms_privacy_body">Easy Notes no recopila datos personales. Para más información, consulta nuestra Política de privacidad disponible en</string>
+    <string name="terms_effective_date">Fecha de vigencia de los términos</string>
+    <string name="terms_of_service">Condiciones del servicio</string>
+    <string name="agree">Estoy de acuerdo</string>
 </resources>
