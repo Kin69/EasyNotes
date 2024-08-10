@@ -99,4 +99,11 @@
     <string name="always_edit">Priorizar el modo de edición</string>
     <string name="always_edit_description">Ingresar al modo de edición en notas existentes</string>
     <string name="invalid_password">Contraseña incorrecta</string>
+    <string name="donators">Donar</string>
+    <string name="translators">Traducciones</string>
+    <string name="gallery_sync">Sincronización de la galería</string>
+    <string name="gallery_sync_description">Elimina las imágenes del almacenamiento de la aplicación cuando se eliminan de la galería</string>
+    <string name="show_only_title">Mostrar solo el título</string>
+    <string name="contributors">Aportaciones</string>
+    <string name="show_only_title_description">Mostrar solo el título en la vista previa</string>
 </resources>

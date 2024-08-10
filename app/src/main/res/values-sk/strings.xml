@@ -99,4 +99,11 @@
     <string name="always_edit">Prioritný režim úprav</string>
     <string name="always_edit_description">Vstup do režimu úprav existujúcich poznámok</string>
     <string name="invalid_password">Neplatné heslo</string>
+    <string name="donators">Donate</string>
+    <string name="contributors">Príspevok</string>
+    <string name="gallery_sync">Synchronizácia galérie</string>
+    <string name="translators">Preklad</string>
+    <string name="gallery_sync_description">Odstránenie obrázkov z úložiska aplikácie po ich odstránení z galérie</string>
+    <string name="show_only_title">Zobraziť iba názov</string>
+    <string name="show_only_title_description">Zobrazenie iba názvu v náhľade</string>
 </resources>
