@@ -99,4 +99,13 @@
     <string name="always_edit">Preferuj Tryb Edycji</string>
     <string name="always_edit_description">Wyświetlaj istniejące notatki w trybie edycji</string>
     <string name="invalid_password">Nieprawidłowe Hasło</string>
+    <string name="contributors">Wkład</string>
+    <string name="terms_of_service">Warunki użytkowania</string>
+    <string name="agree">Akceptuję</string>
+    <string name="show_only_title_description">Pokazuj tylko tytuł w podglądzie</string>
+    <string name="donators">Dotacja</string>
+    <string name="translators">Tłumaczenie</string>
+    <string name="gallery_sync_description">Usuwa zdjęcia z pamięci aplikacji kiedy są usunięte z galerii</string>
+    <string name="gallery_sync">Synchronizacja z Galerią</string>
+    <string name="show_only_title">Pokaż tylko tytuł</string>
 </resources>
