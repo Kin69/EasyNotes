@@ -103,4 +103,6 @@
     <string name="contributors">Contribution</string>
     <string name="gallery_sync_description">Deletes images from app storage when they are removed from the gallery</string>
     <string name="gallery_sync">Gallery Sync</string>
+    <string name="show_only_title">Show only title</string>
+    <string name="show_only_title_description">Show only the title in preview</string>
 </resources>

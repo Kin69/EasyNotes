@@ -1,5 +1,6 @@
 package com.kin.easynotes.presentation.screens.settings.settings
 
+import android.provider.MediaStore
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material.icons.rounded.Style
+import androidx.compose.material.icons.rounded.Title
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -65,8 +67,28 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
                     switchEnabled = {
                         if (!it) {
                             unregisterGalleryObserver(context, settingsViewModel.galleryObserver)
+                        } else {
+                            context.contentResolver.registerContentObserver(
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                true,
+                                settingsViewModel.galleryObserver
+                            )
                         }
                         settingsViewModel.update(settingsViewModel.settings.value.copy(gallerySync = it))
+                    }
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(18.dp))
+                SettingsBox(
+                    title = stringResource(id = R.string.show_only_title),
+                    description = stringResource(id = R.string.show_only_title_description),
+                    icon = Icons.Rounded.Title,
+                    actionType = ActionType.SWITCH,
+                    radius = shapeManager(isBoth = true, radius = settingsViewModel.settings.value.cornerRadius),
+                    variable = settingsViewModel.settings.value.showOnlyTitle,
+                    switchEnabled = {
+                        settingsViewModel.update(settingsViewModel.settings.value.copy(showOnlyTitle = it))
                     }
                 )
             }
