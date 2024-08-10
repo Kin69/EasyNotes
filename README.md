@@ -31,6 +31,7 @@ Lightweight android notes app with Material You.
 
 --- 
 ## 📢 News
+- [Telegram](https://t.me/EasyApps69)
 - [Discord Server](https://discord.gg/ZrP4G8z23H)
 - [Images Support Back!](https://github.com/Kin69/EasyNotes/discussions/29)
 
