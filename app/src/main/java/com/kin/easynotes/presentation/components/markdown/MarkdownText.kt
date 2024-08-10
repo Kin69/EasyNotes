@@ -231,7 +231,7 @@ fun RenderMarkdownElement(
                 Text(
                     text = buildString(element.text, weight),
                     fontSize = when (element.level) {
-                        in 1..6 -> (28 - (2 * element.level)).sp
+                        in 1..6 -> (28 - (2 * element.level) - fontSize.value/3).sp
                         else -> fontSize
                     },
                     fontWeight = weight,
@@ -310,7 +310,7 @@ fun RenderMarkdownElement(
             }
 
             is NormalText -> {
-                Text(text = buildString(element.text, weight), fontSize = 16.sp)
+                Text(text = buildString(element.text, weight), fontSize = fontSize)
             }
         }
         // Add new line to selectionContainer but don't render it

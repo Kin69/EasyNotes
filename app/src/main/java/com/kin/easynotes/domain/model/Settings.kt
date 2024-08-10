@@ -17,6 +17,7 @@ data class Settings(
     var editMode: Boolean = false,
     var gallerySync: Boolean = true,
     var showOnlyTitle: Boolean = false,
+    var termsOfService: Boolean = false,
 
     var cornerRadius: Int = 32,
 )

@@ -105,4 +105,27 @@
     <string name="gallery_sync">Gallery Sync</string>
     <string name="show_only_title">Show only title</string>
     <string name="show_only_title_description">Show only the title in preview</string>
+    <string name="terms_acceptance_title">1. Acceptance of Terms</string>
+    <string name="terms_acceptance_body">By pressing "Agree" and using Easy Notes, you accept these Terms of Service. If you do not agree, do not use the application.</string>
+    <string name="terms_license_title">2. License</string>
+    <string name="terms_license_body">Easy Notes is distributed under the **GNU General Public License (GPL) version 3**. This means:\n\n- You are free to use, modify, and share the application.\n- If you distribute the application or any modified versions, you must also distribute the source code and retain the GPL license.</string>
+    <string name="terms_use_title">3. Use of the Application</string>
+    <string name="terms_use_body">You agree to use Easy Notes only for lawful purposes and in accordance with these Terms. You must **not**:\n\n- _Use the app for any unlawful purpose_\n- _Violate the rights of others_\n- _Disrupt the functionality or security of the app_</string>
+    <string name="terms_intellectual_property_title">4. Intellectual Property</string>
+    <string name="terms_intellectual_property_body">All intellectual property rights in Easy Notes are owned by us or our licensors. Your use of the app does not grant you ownership of any intellectual property rights.</string>
+    <string name="terms_disclaimer_title">5. Disclaimer of Warranties</string>
+    <string name="terms_disclaimer_body">Easy Notes is provided "as is," without any warranties. We do not guarantee that the app will be free from errors, secure, or uninterrupted.</string>
+    <string name="terms_liability_title">6. Limitation of Liability</string>
+    <string name="terms_liability_body">We are not liable for any damages resulting from your use of Easy Notes, including indirect, incidental, or consequential damages.</string>
+    <string name="terms_termination_title">7. Termination</string>
+    <string name="terms_termination_body">We may terminate or suspend your access to Easy Notes if you breach these Terms. Upon termination, your right to use the app will end immediately.</string>
+    <string name="terms_changes_title">8. Changes to Terms</string>
+    <string name="terms_changes_body">We may update these Terms of Service from time to time. Your continued use of Easy Notes after any changes constitutes acceptance of the revised terms.</string>
+    <string name="terms_contact_title">9. Contact Us</string>
+    <string name="terms_contact_body">For any questions about these Terms of Service or Easy Notes, please contact us at</string>
+    <string name="terms_privacy_title">Privacy Policy</string>
+    <string name="terms_privacy_body">Easy Notes does not collect any personal data. For more information, please refer to our Privacy Policy available at</string>
+    <string name="terms_effective_date">Effective Date</string>
+    <string name="agree">Agree</string>
+    <string name="terms_of_service">Terms of service</string>
 </resources>

@@ -18,6 +18,7 @@ sealed class NavRoutes(val route: String) {
     data object Edit : NavRoutes("edit/{id}/{encrypted}") {
         fun createRoute(id: Int, encrypted : Boolean) = "edit/$id/$encrypted"
     }
+    data object Terms : NavRoutes("terms")
     data object Settings : NavRoutes("settings")
     data object ColorStyles : NavRoutes("settings/color_styles")
     data object Language : NavRoutes("settings/language")

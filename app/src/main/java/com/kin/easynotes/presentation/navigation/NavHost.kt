@@ -9,17 +9,24 @@ import androidx.navigation.compose.rememberNavController
 import com.kin.easynotes.presentation.screens.edit.EditNoteView
 import com.kin.easynotes.presentation.screens.home.HomeView
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
+import com.kin.easynotes.presentation.screens.terms.TermsScreen
 
 @Composable
 fun AppNavHost(settingsModel: SettingsViewModel,navController: NavHostController = rememberNavController(), noteId: Int) {
     val activity = (LocalContext.current as? Activity)
 
-    NavHost(navController, startDestination = if (noteId == -1) NavRoutes.Home.route else NavRoutes.Edit.route) {
+    NavHost(navController, startDestination = if (!settingsModel.settings.value.termsOfService) NavRoutes.Terms.route else if (noteId == -1) NavRoutes.Home.route else NavRoutes.Edit.route) {
         animatedComposable(NavRoutes.Home.route) {
             HomeView(
                 onSettingsClicked = { navController.navigate(NavRoutes.Settings.route) },
                 onNoteClicked = { id, encrypted -> navController.navigate(NavRoutes.Edit.createRoute(id, encrypted)) },
                 settingsModel = settingsModel
+            )
+        }
+
+        animatedComposable(NavRoutes.Terms.route) {
+            TermsScreen(
+                settingsModel
             )
         }
 

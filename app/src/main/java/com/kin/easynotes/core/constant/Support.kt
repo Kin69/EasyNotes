@@ -39,6 +39,7 @@ object SupportConst {
      */
     const val MONERO_ADDRESS = "45G7Eg5uXaLNb55ykor43aTx2iztYfUAkCT677LiKEuGAcq3AjLdUZnNkt9bGbeAm35Ye2PayYgPsdNH4Tfw8Qx2GSF3nww"
 
+    const val TERMS_EFFECTIVE_DATE = "2024/08/10"
 
     /**
      * Provides a map of supporters categorized by their roles using localized strings.

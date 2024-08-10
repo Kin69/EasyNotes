@@ -3,6 +3,7 @@ package com.kin.easynotes.presentation.components
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -22,6 +23,20 @@ fun NotesButton(
         shape = RoundedCornerShape(24.dp),
         onClick = { onClick() },
         icon = { Icon(Icons.Rounded.Edit, text) },
+        text = { Text(text = text) },
+    )
+}
+
+@Composable
+fun AgreeButton(
+    text: String,
+    onClick: () -> Unit
+) {
+    ExtendedFloatingActionButton(
+        modifier = Modifier.imePadding(),
+        shape = RoundedCornerShape(24.dp),
+        onClick = { onClick() },
+        icon = { Icon(Icons.Rounded.CheckCircle, text) },
         text = { Text(text = text) },
     )
 }
