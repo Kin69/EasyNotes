@@ -77,7 +77,7 @@ class EditViewModel @Inject constructor(
     private fun syncNote(note: Note) {
         if (note.encrypted) {
             val (name, nameStatus) = encryption.decrypt(note.name)
-            val (description, descriptionStatus) = encryption.decrypt(note.name)
+            val (description, descriptionStatus) = encryption.decrypt(note.description)
             if (nameStatus == DecryptionResult.SUCCESS && descriptionStatus == DecryptionResult.SUCCESS) {
                 updateNoteName(TextFieldValue(name!!, selection = TextRange(note.name.length)))
                 updateNoteDescription(TextFieldValue(description!!, selection = TextRange(note.description.length)))
