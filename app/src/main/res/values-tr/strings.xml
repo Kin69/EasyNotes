@@ -99,4 +99,11 @@
     <string name="always_edit">Düzenleme Moduna Öncelik Ver</string>
     <string name="always_edit_description">Var olan notlarda düzenleme moduna girin</string>
     <string name="invalid_password">Geçersiz Şifre</string>
+    <string name="contributors">Katkıda Bulun</string>
+    <string name="gallery_sync_description">Galeriden kaldırıldıklarında görselleri uygulama depolama alanından siler</string>
+    <string name="gallery_sync">Galeri Eşzamanlaması</string>
+    <string name="show_only_title">Yalnızca bağlığı göster</string>
+    <string name="donators">Bağış Yap</string>
+    <string name="translators">Çeviri</string>
+    <string name="show_only_title_description">Ön izlemede yalnızca başlığı göster</string>
 </resources>
