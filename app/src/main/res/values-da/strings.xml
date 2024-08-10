@@ -95,4 +95,8 @@
     <string name="unsuported_image_size">Ikke-understøttet Billedstørrelse (maks. 15 MB)</string>
     <string name="Behavior">Adfærd</string>
     <string name="system_theme">Systemets Tema</string>
+    <string name="app_name">Easy Notes</string>
+    <string name="backup">Sikkerhedskopi</string>
+    <string name="start_project">Stjerneprojekt</string>
+    <string name="invalid_password">Ugyldig adgangskode</string>
 </resources>

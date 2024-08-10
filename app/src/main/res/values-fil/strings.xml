@@ -77,4 +77,26 @@
     <string name="discord">Discord</string>
     <string name="extreme_amoled_mode_description">Extreme na Pag-optimize ng Baterya</string>
     <string name="feature">Hiling sa Feature</string>
+    <string name="Behavior">Pag-uugali</string>
+    <string name="always_edit">Unahin ang Mode ng Pag edit</string>
+    <string name="always_edit_description">Ipasok ang mode ng pag edit sa mga tala ng exisitng</string>
+    <string name="invalid_password">Imbalidong Password</string>
+    <string name="pinned">Pinned</string>
+    <string name="others">Ang iba naman</string>
+    <string name="copy">Kopyahin</string>
+    <string name="encrypt_databse">I-encrypt ang Database</string>
+    <string name="encrypt_databse_description">I-encrypt ang database sa panahon ng backup</string>
+    <string name="password_prompt">Ipasok ang password</string>
+    <string name="detabase_restore_error">Hindi wasto ang password o hindi naka-encrypt ang database</string>
+    <string name="invalid_input">Imbalidong input</string>
+    <string name="sort_ascending">Pag-aayos ng Pag-akyat</string>
+    <string name="sort_descending">Ayusin ang Pagbaba</string>
+    <string name="sort_description">Ayusin ang mga tala ayon sa kanilang oras ng paglikha</string>
+    <string name="select_note">Pumili ng Tala</string>
+    <string name="unsuported_image_size">Hindi suportadong Laki ng Imahe (15mb max)</string>
+    <string name="vault">Vault</string>
+    <string name="vault_description">Paganahin ang naka encrypt na mga tala vault</string>
+    <string name="password_continue">magpatuloy</string>
+    <string name="language_description">Baguhin ang wika ng app</string>
+    <string name="system_language">Sistema ng Wika</string>
 </resources>
