@@ -48,7 +48,7 @@ object SupportConst {
         return mapOf(
             context.getString(R.string.donators) to listOf("Axel", "Derei", "UnitTiff", "Carlos", "Ezpnix", "Benoit"),
             context.getString(R.string.contributors) to listOf("Shishkevichd", "Lenni-builder", "IllusionMan1212", "wadeack"),
-            context.getString(R.string.translators) to listOf("searinminecraft", "Loco1911", "Maell1", "kuragehimekurara1", "Crazy-Unicooorn", "rickdtc", "Mikropsoft", "NicKoehler")
+            context.getString(R.string.translators) to listOf("searinminecraft", "Loco1911", "Maell1", "kuragehimekurara1", "Crazy-Unicooorn", "rickdtc", "Mikropsoft", "NicKoehler", "Koamedev", "Oersen")
         )
     }
 }

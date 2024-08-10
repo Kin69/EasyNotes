@@ -14,15 +14,15 @@ android {
         applicationId = "com.kin.easynotes"
         minSdk = 26
         targetSdk = 34
-        versionCode = 5
-        versionName = "1.3"
+        versionCode = 6
+        versionName = "1.3.5"
         vectorDrawables {
             useSupportLibrary = true
         }
 
         // https://developer.android.com/guide/topics/resources/app-languages#gradle-config
         resourceConfigurations.plus(
-            listOf("en", "ar", "de", "es", "fa", "fil", "fr", "hi", "it", "ja", "ru", "sk", "tr")
+            listOf("en", "ar", "de", "es", "fa", "fil", "fr", "hi", "it", "ja", "ru", "sk", "tr", "da", "nl", "pl", "tr", "uk", "vi")
         )
     }
 
