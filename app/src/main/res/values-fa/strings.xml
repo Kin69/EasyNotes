@@ -95,4 +95,8 @@
     <string name="vault_description">روشن کردن گنجه‌ی نوشتار‌های رمزگذاری‌شده</string>
     <string name="language_description">وَرتاندن زبان برنامه</string>
     <string name="system_language">زبان سامانه</string>
+    <string name="Behavior">رفتار</string>
+    <string name="always_edit">حالت ویرایش را اولویت بندی کنید</string>
+    <string name="always_edit_description">وارد حالت ویرایش در یادداشت های موجود شوید</string>
+    <string name="invalid_password">رمز عبور نامعتبر</string>
 </resources>
