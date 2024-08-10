@@ -95,4 +95,8 @@
     <string name="password_continue">pokračovať</string>
     <string name="language_description">Zmeňte jazyk aplikácie</string>
     <string name="system_language">Systémový jazyk</string>
+    <string name="Behavior">Správanie</string>
+    <string name="always_edit">Prioritný režim úprav</string>
+    <string name="always_edit_description">Vstup do režimu úprav existujúcich poznámok</string>
+    <string name="invalid_password">Neplatné heslo</string>
 </resources>
