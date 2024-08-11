@@ -99,4 +99,41 @@
     <string name="password_continue">continuer</string>
     <string name="language_description">Changer la langue de l\'application</string>
     <string name="system_language">Langue du système</string>
+    <string name="terms_liability_title">6. Limitation de la responsabilité</string>
+    <string name="terms_termination_title">7. Résiliation</string>
+    <string name="terms_changes_title">8. Modifications des conditions</string>
+    <string name="terms_contact_title">9. Nous contacter</string>
+    <string name="terms_contact_body">Pour toute question concernant les présentes conditions de service ou les notes explicatives, veuillez nous contacter à l\'adresse suivante</string>
+    <string name="agree">Accepter</string>
+    <string name="terms_of_service">Conditions d\'utilisation</string>
+    <string name="terms_privacy_title">10. Politique de confidentialité</string>
+    <string name="donators">Faire un don</string>
+    <string name="translators">Traduction</string>
+    <string name="contributors">Contribution</string>
+    <string name="gallery_sync_description">Supprime les images du stockage de l\'application lorsqu\'elles sont retirées de la galerie</string>
+    <string name="terms_acceptance_title">1. Acceptation des conditions</string>
+    <string name="terms_license_title">2. Licence</string>
+    <string name="terms_acceptance_body">En appuyant sur Accepter et en utilisant Easy Notes, vous acceptez les présentes conditions d\'utilisation. Si vous n\'êtes pas d\'accord, n\'utilisez pas l\'application.</string>
+    <string name="terms_license_body">Easy Notes est distribué sous la **GNU General Public License (GPL) version 3**. Cela signifie que :
+\n
+\n- Vous êtes libre d\'utiliser, de modifier et de partager l\'application.
+\n- Si vous distribuez l\'application ou toute version modifiée, vous devez également distribuer le code source et conserver la licence GPL.</string>
+    <string name="terms_use_title">3. Utilisation de l\'application</string>
+    <string name="terms_use_body">Vous acceptez de n\'utiliser Easy Notes qu\'à des fins légales et conformément aux présentes conditions. Vous ne devez **pas** :
+\n
+\n- utiliser l\'application à des fins illégales
+\n- violer les droits d\'autrui
+\n- Perturber les fonctionnalités ou la sécurité de l\'application</string>
+    <string name="terms_intellectual_property_title">4. Propriété intellectuelle</string>
+    <string name="terms_intellectual_property_body">Tous les droits de propriété intellectuelle sur Easy Notes sont détenus par nous ou nos concédants de licence. Votre utilisation de l\'application ne vous confère aucun droit de propriété intellectuelle.</string>
+    <string name="terms_disclaimer_body">Easy Notes est fourni tel quel, sans aucune garantie. Nous ne garantissons pas que l\'application sera exempte d\'erreurs, sécurisée ou ininterrompue.</string>
+    <string name="terms_disclaimer_title">5. Exclusion de garantie</string>
+    <string name="terms_termination_body">Nous pouvons résilier ou suspendre votre accès à Easy Notes si vous ne respectez pas les présentes conditions. En cas de résiliation, votre droit d\'utiliser l\'application prendra fin immédiatement.</string>
+    <string name="terms_changes_body">Nous pouvons mettre à jour ces conditions de service de temps à autre. La poursuite de l\'utilisation d\'Easy Notes après toute modification constitue l\'acceptation des conditions révisées.</string>
+    <string name="terms_liability_body">Nous ne sommes pas responsables des dommages résultant de l\'utilisation d\'Easy Notes, y compris les dommages indirects, accessoires ou consécutifs.</string>
+    <string name="terms_privacy_body">Easy Notes ne collecte aucune donnée personnelle. Pour plus d\'informations, veuillez consulter notre politique de confidentialité disponible à l\'adresse</string>
+    <string name="terms_effective_date">Date d\'entrée en vigueur</string>
+    <string name="gallery_sync">Synchronisation de la galerie</string>
+    <string name="show_only_title">Afficher uniquement le titre</string>
+    <string name="show_only_title_description">Afficher uniquement le titre dans l\'aperçu</string>
 </resources>
