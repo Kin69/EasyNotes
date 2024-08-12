@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Backup
 import androidx.compose.material.icons.rounded.EnhancedEncryption
+import androidx.compose.material.icons.rounded.FileOpen
 import androidx.compose.material.icons.rounded.ImportExport
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -51,16 +52,23 @@ import java.time.format.DateTimeFormatter
 fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
     val context = LocalContext.current
 
-    val exportLauncher = rememberLauncherForActivityResult(
+    val exportBackupLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("*/.zip"),
         onResult = { uri ->
-            if (uri != null) settingsViewModel.onExport(uri, context)
+            if (uri != null) settingsViewModel.onExportBackup(uri, context)
         }
     )
-    val importLauncher = rememberLauncherForActivityResult(
+    val importBackupLauncher = rememberLauncherForActivityResult(
     contract = ActivityResultContracts.OpenDocument(),
     onResult = { uri ->
-        if (uri != null) settingsViewModel.onImport(uri, context)
+        if (uri != null) settingsViewModel.onImportBackup(uri, context)
+        }
+    )
+
+    val importFileLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenMultipleDocuments(),
+        onResult = { uris ->
+            settingsViewModel.onImportFiles(uris, context)
         }
     )
 
@@ -102,13 +110,13 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
                                     onExit()
                                 },
                                 onBackup = {
-                                    exportLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.zip")
+                                    exportBackupLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.zip")
                                 }
                             )
                         }
                         else {
                             LaunchedEffect(true) {
-                                exportLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.zip")
+                                exportBackupLauncher.launch("${DatabaseConst.NOTES_DATABASE_BACKUP_NAME}-${currentDateTime()}.zip")
                             }
                         }
                     }
@@ -134,15 +142,30 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
                                     onExit()
                                 },
                                 onBackup = {
-                                    importLauncher.launch(arrayOf("application/zip"))
+                                    importBackupLauncher.launch(arrayOf("application/zip"))
                                 }
                             )
                         }
                         else {
                             LaunchedEffect(true) {
                                 settingsViewModel.password = null
-                                importLauncher.launch(arrayOf("application/zip"))
+                                importBackupLauncher.launch(arrayOf("application/zip"))
                             }
+                        }
+                    }
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+            }
+            item {
+                SettingsBox(
+                    title = context.getString(R.string.file_import_title),
+                    description = context.getString(R.string.file_import_description),
+                    icon = Icons.Rounded.FileOpen,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
+                    actionType = ActionType.CUSTOM,
+                    customAction = {
+                        LaunchedEffect(true) {
+                            importFileLauncher.launch(arrayOf("text/*"))
                         }
                     }
                 )

@@ -5,11 +5,10 @@ import android.os.Handler
 import android.content.Context
 import android.os.Looper
 import com.kin.easynotes.data.local.database.NoteDatabaseProvider
-import com.kin.easynotes.data.repository.BackupRepository
+import com.kin.easynotes.data.repository.ImportExportRepository
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.presentation.components.EncryptionHelper
-import com.kin.easynotes.presentation.components.GalleryObserver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -74,8 +73,8 @@ object ApplicationModule {
         mutex: Mutex,
         coroutineScope: CoroutineScope,
         executorCoroutineDispatcher: ExecutorCoroutineDispatcher,
-    ): BackupRepository {
-        return BackupRepository(
+    ): ImportExportRepository {
+        return ImportExportRepository(
             provider = noteDatabaseProvider,
             context = application,
             mutex = mutex,

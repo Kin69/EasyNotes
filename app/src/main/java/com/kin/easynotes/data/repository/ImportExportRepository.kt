@@ -2,8 +2,11 @@ package com.kin.easynotes.data.repository
 
 import android.content.Context
 import android.net.Uri
+import android.provider.MediaStore
+import androidx.core.database.getStringOrNull
 import com.kin.easynotes.core.constant.DatabaseConst
 import com.kin.easynotes.data.local.database.NoteDatabaseProvider
+import com.kin.easynotes.domain.model.Note
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExecutorCoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
@@ -12,6 +15,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.IOException
 import java.security.InvalidKeyException
 import java.security.SecureRandom
 import java.security.spec.KeySpec
@@ -33,7 +37,7 @@ sealed class BackupResult {
     object BadPassword : BackupResult()
 }
 
-class BackupRepository(
+class ImportExportRepository(
     private val provider: NoteDatabaseProvider,
     private val context: Context,
     private val mutex: Mutex,
@@ -63,8 +67,7 @@ class BackupRepository(
         cipher.init(Cipher.DECRYPT_MODE, secretKey, IvParameterSpec(iv))
         return cipher.doFinal(encryptedData)
     }
-
-    suspend fun export(uri: Uri, password: String?): BackupResult {
+    suspend fun exportBackup(uri: Uri, password: String?): BackupResult {
         return try {
             withContext(dispatcher + scope.coroutineContext) {
                 mutex.withLock {
@@ -101,7 +104,7 @@ class BackupRepository(
         }
     }
 
-    suspend fun import(uri: Uri, password: String?): BackupResult {
+    suspend fun importBackup(uri: Uri, password: String?): BackupResult {
         return try {
             withContext(dispatcher + scope.coroutineContext) {
                 mutex.withLock {
@@ -153,5 +156,20 @@ class BackupRepository(
                 else -> BackupResult.Error("Import failed: ${e.message}")
             }
         }
+    }
+
+    fun importFile(uri: Uri): Note {
+        val content = context.contentResolver.openInputStream(uri)?.use { fileInputStream ->
+            fileInputStream.reader().buffered().readText()
+        } ?: throw IOException("ContentResolver couldn't open InputStream to import file.")
+
+        val name = context.contentResolver.query(uri, arrayOf(MediaStore.Files.FileColumns.DISPLAY_NAME), null, null)?.use { cursor ->
+            if (cursor.moveToFirst()) cursor.getStringOrNull(0) else ""
+        } ?: ""
+
+        return Note(
+            name = name,
+            description = content,
+        )
     }
 }
