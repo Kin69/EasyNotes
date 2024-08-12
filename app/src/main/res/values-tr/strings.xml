@@ -134,6 +134,6 @@
     <string name="terms_changes_body">Bu Hizmet Koşullarını zaman zaman güncelleyebiliriz. Herhangi bir değişiklikten sonra Easy Notes\'u kullanmaya devam etmeniz, değiştirilen koşulları kabul ettiğiniz anlamına gelir.</string>
     <string name="terms_contact_title">9. Bizimle İletişime Geçin</string>
     <string name="terms_contact_body">Bu Hizmet Koşulları veya Easy Notes ile ilgili sorularınız için lütfen bizimle şu adresten iletişime geçin</string>
-    <string name="terms_privacy_title">Gizlilik Politikası</string>
+    <string name="terms_privacy_title">10. Gizlilik Politikası</string>
     <string name="terms_privacy_body">Easy Notes herhangi bir kişisel veri toplamaz. Daha fazla bilgi için lütfen şu adreste bulunan Gizlilik Politikamıza bakın</string>
 </resources>
