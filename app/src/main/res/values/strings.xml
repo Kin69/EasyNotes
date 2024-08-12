@@ -68,7 +68,7 @@
     <string name="view_style_description">Select view style</string>
     <string name="minimalistic_mode_description">Remove top buttons from edit screen</string>
     <string name="backup_description">Store all notes to file</string>
-    <string name="restore_description">Restore notes from file</string>
+    <string name="restore_description">Restore notes from backup file</string>
     <string name="markdown_description">Enable markdown in notes</string>
     <string name="screen_protection_description">Hide screen in recents and disable screenshots</string>
     <string name="build_type">Build Type</string>
@@ -129,4 +129,9 @@
     <string name="terms_effective_date">Effective Date</string>
     <string name="agree">Agree</string>
     <string name="terms_of_service">Terms of service</string>
+    <string name="file_import_error">Couldn\'t import</string>
+    <string name="file_import_partial_error">Import of some files failed</string>
+    <string name="file_import_success">Successfully imported</string>
+    <string name="file_import_title">Import</string>
+    <string name="file_import_description">Import other text files as notes</string>
 </resources>
