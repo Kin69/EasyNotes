@@ -58,7 +58,7 @@ jobs:
         run: mv app/build/outputs/apk/release/app-release-signed.apk EasyNotes-nightly.apk
 
       - name: Upload the APK
-        uses: actions/upload-artifact@v4.3.5
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: EasyNotes-Nightly
           path: EasyNotes-nightly.apk
