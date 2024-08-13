@@ -73,7 +73,7 @@
     <string name="screen_protection_description">Запрещает скриншоты и запись экрана в приложении</string>
     <string name="email">Почта</string>
     <string name="discord">Disсоrd</string>
-    <string name="restore_description">Импортировать заметки из файла</string>
+    <string name="restore_description">Импортировать заметки из файла резервного копирования</string>
     <string name="feature">Запрос новой функции</string>
     <string name="dark_theme_description">Переключение между тёмной и светлой темой оформления</string>
     <string name="minimalistic_mode_description">Убирает верхние кнопки из экрана редактирования заметок</string>
