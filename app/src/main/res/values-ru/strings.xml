@@ -136,4 +136,9 @@
     <string name="gallery_sync_description">Удалять изображения из хранилища приложения когда они удаляются из галереи</string>
     <string name="gallery_sync">Синхронизация с галереей</string>
     <string name="show_only_title">Показывать только заголовок</string>
+    <string name="file_import_success">Успешно импортировано</string>
+    <string name="file_import_title">Импорт</string>
+    <string name="file_import_description">Импортировать текстовые файлы как заметки</string>
+    <string name="file_import_partial_error">Импортирование некоторых файлов не удалось</string>
+    <string name="file_import_error">Не удалось импортировать</string>
 </resources>
