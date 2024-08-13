@@ -3,6 +3,7 @@ package com.kin.easynotes.domain.usecase
 import android.net.Uri
 import android.util.Log
 import com.kin.easynotes.data.repository.ImportExportRepository
+import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.domain.repository.NoteRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,7 @@ data class ImportResult(
 )
 
 class ImportExportUseCase @Inject constructor(
-    private val noteRepository: NoteRepository,
+    private val noteRepository: NoteRepositoryImpl,
     private val coroutineScope: CoroutineScope,
     private val fileRepository: ImportExportRepository,
 )

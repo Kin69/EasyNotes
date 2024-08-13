@@ -30,7 +30,8 @@ fun NotesButton(
 @Composable
 fun AgreeButton(
     text: String,
-    onClick: () -> Unit
+    modifier: Modifier,
+    onClick: () -> Unit,
 ) {
     ExtendedFloatingActionButton(
         modifier = Modifier.imePadding(),

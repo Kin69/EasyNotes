@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kin.easynotes.R
@@ -22,13 +24,20 @@ import com.kin.easynotes.presentation.components.NotesScaffold
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
+
+
 @Composable
 fun TermsScreen(
     settingsViewModel: SettingsViewModel
 ) {
     NotesScaffold(
         floatingActionButton = {
-            AgreeButton(text = stringResource(id = R.string.agree)) {
+            AgreeButton(
+                text = stringResource(id = R.string.agree),
+                modifier = Modifier.semantics {
+                    contentDescription = "Agree"
+                }
+            ) {
                 settingsViewModel.update(settingsViewModel.settings.value.copy(termsOfService = true))
             }
         },
@@ -54,6 +63,9 @@ fun TermsScreen(
                             color = MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.5f)
                         )
                         .padding(1.dp)
+                        .semantics {
+                            contentDescription = "Terms"
+                        }
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         MarkdownText(
@@ -68,6 +80,7 @@ fun TermsScreen(
         }
     )
 }
+
 
 @Composable
 fun getTermsOfService(): String {
