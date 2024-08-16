@@ -75,7 +75,7 @@
     <string name="view_style_description">दृश्य शैली चुनें</string>
     <string name="minimalistic_mode_description">संपादन स्क्रीन से शीर्ष बटन हटाएं</string>
     <string name="backup_description">सभी नोट्स को फाइल में संग्रहीत करें</string>
-    <string name="restore_description">फाइल से नोट्स पुनर्स्थापित करें</string>
+    <string name="restore_description">बैकअप फाइल से नोट पुनर्स्थापित करें</string>
     <string name="markdown_description">नोट्स में मार्कडाउन सक्षम करें</string>
     <string name="screen_protection_description">हाल ही में स्क्रीन छिपाएं और स्क्रीनशॉट अक्षम करें</string>
     <string name="build_type">बिल्ड प्रकार</string>
@@ -99,4 +99,46 @@
     <string name="always_edit">संपादन मोड को प्राथमिकता दें</string>
     <string name="always_edit_description">मौजूदा नोट्स पर संपादन मोड में प्रवेश करें</string>
     <string name="invalid_password">अमान्य पासवर्ड</string>
+    <string name="terms_acceptance_title">1. शर्तों की स्वीकृति</string>
+    <string name="terms_acceptance_body">सहमत बटन दबाकर और ईज़ी नोट्स का उपयोग करके, आप इन सेवा शर्तों को स्वीकार करते हैं। यदि आप सहमत नहीं हैं, तो एप्लिकेशन का उपयोग न करें।</string>
+    <string name="terms_use_title">3. एप्लीकेशन का उपयोग</string>
+    <string name="terms_intellectual_property_title">4. बौद्धिक संपदा</string>
+    <string name="terms_disclaimer_title">5. वारंटी का अस्वीकरण</string>
+    <string name="terms_disclaimer_body">ईज़ी नोट्स बिना किसी वारंटी के उपलब्ध कराया गया है। हम इस बात की गारंटी नहीं देते कि ऐप में कोई त्रुटि नहीं होगी, यह सुरक्षित होगा या इसमें कोई रुकावट नहीं आएगी।</string>
+    <string name="terms_liability_title">6. दायित्व की सीमा</string>
+    <string name="terms_termination_title">7. समाप्ति</string>
+    <string name="terms_changes_title">8. शर्तों में परिवर्तन</string>
+    <string name="terms_contact_title">9. हमसे संपर्क करें</string>
+    <string name="terms_contact_body">इन सेवा की शर्तों या ईज़ी नोट्स के बारे में किसी भी प्रश्न के लिए, कृपया हमसे संपर्क करें</string>
+    <string name="terms_privacy_body">ईज़ी नोट्स कोई भी व्यक्तिगत डेटा एकत्र नहीं करता है। अधिक जानकारी के लिए, कृपया हमारी गोपनीयता नीति देखें जो यहां उपलब्ध है</string>
+    <string name="terms_effective_date">प्रभावी तिथि</string>
+    <string name="agree">स्वीकारें</string>
+    <string name="terms_privacy_title">10. गोपनीयता नीति</string>
+    <string name="file_import_error">आयात नहीं किया जा सका</string>
+    <string name="file_import_partial_error">कुछ फाइलों का आयात विफल हुआ</string>
+    <string name="file_import_success">सफलतापूर्वक आयातित</string>
+    <string name="donators">दान करें</string>
+    <string name="translators">अनुवाद</string>
+    <string name="gallery_sync_description">गैलरी से हटाए जाने पर ऐप स्टोरेज से छवियां हटा देता है</string>
+    <string name="contributors">योगदान</string>
+    <string name="gallery_sync">गैलरी समन्वयन</string>
+    <string name="show_only_title">केवल शीर्षक दिखाएं</string>
+    <string name="show_only_title_description">पूर्वावलोकन में केवल शीर्षक दिखाएं</string>
+    <string name="terms_license_title">2. लाइसेंस</string>
+    <string name="terms_license_body">ईज़ी नोट्स को **GNU जनरल पब्लिक लाइसेंस (GPL) संस्करण 3** के तहत वितरित किया जाता है। इसका मतलब है:
+\n
+\n- आप एप्लिकेशन का उपयोग करने, उसे संशोधित करने और साझा करने के लिए स्वतंत्र हैं।
+\n- यदि आप एप्लिकेशन या कोई संशोधित संस्करण वितरित करते हैं, तो आपको स्रोत कोड भी वितरित करना होगा और GPL लाइसेंस बनाए रखना होगा।</string>
+    <string name="terms_use_body">आप ईज़ी नोट्स का उपयोग केवल मान्य उद्देश्यों के लिए और इन शर्तों के अनुसार करने के लिए सहमत हैं। आपको **नहीं** करना चाहिए:
+\n
+\n- _किसी भी गैरकानूनी उद्देश्य के लिए ऐप का उपयोग करें_
+\n- _दूसरों के अधिकारों का उल्लंघन करें_
+\n- _ऐप की कार्यक्षमता या सुरक्षा को बाधित करें_</string>
+    <string name="terms_liability_body">आपके द्वारा ईज़ी नोट्स के उपयोग से होने वाली किसी भी क्षति के लिए हम उत्तरदायी नहीं हैं, जिसमें अप्रत्यक्ष, आकस्मिक या परिणामी क्षति शामिल है।</string>
+    <string name="terms_intellectual_property_body">ईज़ी नोट्स में सभी बौद्धिक संपदा अधिकार हमारे या हमारे लाइसेंसधारकों के स्वामित्व में हैं। ऐप का आपका उपयोग आपको किसी भी बौद्धिक संपदा अधिकार का स्वामित्व प्रदान नहीं करता है।</string>
+    <string name="terms_termination_body">यदि आप इन शर्तों का उल्लंघन करते हैं तो हम ईज़ी नोट्स तक आपकी पहुंच को समाप्त या निलंबित कर सकते हैं। समाप्ति पर, ऐप का उपयोग करने का आपका अधिकार तुरंत समाप्त हो जाएगा।</string>
+    <string name="terms_changes_body">हम समय-समय पर इन सेवा शर्तों को अपडेट कर सकते हैं। किसी भी बदलाव के बाद ईज़ी नोट्स का आपका निरंतर उपयोग संशोधित शर्तों की स्वीकृति माना जाएगा।</string>
+    <string name="terms_of_service">सेवा शर्तें</string>
+    <string name="file_import_title">आयात करें</string>
+    <string name="file_import_description">अन्य पाठ फाइलों को नोट्स के रूप में आयात करें</string>
 </resources>
