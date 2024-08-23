@@ -68,7 +68,7 @@
     <string name="view_style_description">Wybierz styl widoku</string>
     <string name="minimalistic_mode_description">Usuń górne przyciski z ekranu edycji</string>
     <string name="backup_description">Zapisz wszystkie notatki do pliku</string>
-    <string name="restore_description">Przywróć notatki z pliku</string>
+    <string name="restore_description">Przywróć notatki z pliku kopii zapasowej</string>
     <string name="markdown_description">Włącz markdown w notatkach</string>
     <string name="screen_protection_description">Schowaj w ekranie Ostatnie i wyłącz zrzuty ekranu</string>
     <string name="build_type">Typ Kompilacji</string>
@@ -108,4 +108,9 @@
     <string name="gallery_sync_description">Usuwa zdjęcia z pamięci aplikacji kiedy są usunięte z galerii</string>
     <string name="gallery_sync">Synchronizacja z Galerią</string>
     <string name="show_only_title">Pokaż tylko tytuł</string>
+    <string name="terms_license_title">2. Licencja</string>
+    <string name="terms_privacy_title">10. Polityka prywatna</string>
+    <string name="file_import_error">Nie można zaimportować</string>
+    <string name="file_import_title">Import</string>
+    <string name="terms_contact_title">9. Skontaktuj się z nami</string>
 </resources>

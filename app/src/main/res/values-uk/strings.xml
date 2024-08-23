@@ -99,4 +99,46 @@
     <string name="always_edit">Надавати пріоритет режиму редагування</string>
     <string name="always_edit_description">Входити в режим редагування для наявних нотаток</string>
     <string name="invalid_password">Недійсний пароль</string>
+    <string name="terms_acceptance_title">1. Прийняття умов</string>
+    <string name="terms_license_title">2. Ліцензія</string>
+    <string name="terms_use_title">3. Використання застосунку</string>
+    <string name="terms_intellectual_property_title">4. Інтелектуальна власність</string>
+    <string name="terms_disclaimer_title">5. Відмова від гарантій</string>
+    <string name="terms_disclaimer_body">Easy Notes надається як є, без жодних гарантій. Ми не гарантуємо, що застосунок буде без помилок, безпечним або безперебійним.</string>
+    <string name="terms_liability_title">6. Обмеження відповідальності</string>
+    <string name="terms_changes_title">8. Зміни до умов</string>
+    <string name="terms_contact_title">9. Зв\'язок з нами</string>
+    <string name="agree">Погоджуюсь</string>
+    <string name="terms_contact_body">З будь-яких питань щодо цих умов надання послуг або Easy Notes, будь ласка, зв\'яжіться з нами за адресою</string>
+    <string name="terms_effective_date">Дата набуття чинності</string>
+    <string name="terms_of_service">Умови надання послуг</string>
+    <string name="file_import_error">Не вдалося імпортувати</string>
+    <string name="file_import_success">Успішно імпортовано</string>
+    <string name="file_import_description">Імпортуйте інші текстові файли як нотатки</string>
+    <string name="translators">Переклад</string>
+    <string name="donators">Пожертвування</string>
+    <string name="contributors">Внесок</string>
+    <string name="gallery_sync">Синхронізація з галереєю</string>
+    <string name="show_only_title">Показувати лише заголовок</string>
+    <string name="gallery_sync_description">Зображення видалятимуться зі сховища застосунку, коли їх видалено з галереї</string>
+    <string name="show_only_title_description">Показувати лише заголовок у попередньому перегляді</string>
+    <string name="file_import_title">Імпорт</string>
+    <string name="terms_license_body">Easy Notes розповсюджується на умовах ліцензії **GNU General Public License (GPL) 3 версії**. Це означає, що:
+\n
+\n- Ви можете вільно використовувати, змінювати та поширювати застосунок.
+\n- Якщо ви поширюєте застосунок або будь-які модифіковані версії, ви також повинні поширювати його джерельний код та залишити ліцензію GPL.</string>
+    <string name="terms_acceptance_body">Натискаючи кнопку «Погоджуюсь» та використовуючи застосунок Easy Notes, ви приймаєте ці умови надання послуг. Якщо ви не згодні, не використовуйте цей застосунок.</string>
+    <string name="terms_use_body">Ви погоджуєтеся використовувати Easy Notes тільки в законних цілях та відповідно до цих умов. Ви **не повинні**:
+\n
+\n- _Використовувати застосунок з будь-якою незаконною метою_
+\n- _Порушувати права інших_
+\n- _Порушувати функціональність або безпеку застосунку_</string>
+    <string name="terms_intellectual_property_body">Всі права інтелектуальної власності на Easy Notes належать нам або нашим ліцензіарам. Використання застосунку не надає вам права власності на будь-які права інтелектуальної власності.</string>
+    <string name="terms_liability_body">Ми не несемо відповідальності за будь-які збитки, пов\'язані з використанням Easy Notes, включаючи непрямі, випадкові або побічні збитки.</string>
+    <string name="terms_termination_title">7. Припинення</string>
+    <string name="terms_termination_body">Ми можемо припинити або призупинити ваш доступ до Easy Notes, якщо ви порушите ці умови. Після припинення ваше право на використання застосунку буде негайно припинено.</string>
+    <string name="terms_changes_body">Ми можемо час від часу оновлювати ці умови надання послуг. Ваше подальше використання Easy Notes після будь-яких змін означає, що ви приймаєте переглянуті умови.</string>
+    <string name="terms_privacy_body">Easy Notes не збирає жодних персональних даних. Для отримання додаткової інформації, зверніться до нашої політики конфіденційності, доступної за посиланням</string>
+    <string name="terms_privacy_title">10. Політика конфіденційності</string>
+    <string name="file_import_partial_error">Не вдалося імпортувати деякі файли</string>
 </resources>
