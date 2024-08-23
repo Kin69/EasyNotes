@@ -65,7 +65,6 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
             val savedUri = saveImageToAppStorage(context, it)
             viewModel.insertText("!($savedUri)")
         }
-        viewModel.toggleIsInsertingImages(false)
     }
 
     val toolbarSets = remember {
@@ -81,7 +80,6 @@ fun TextFormattingToolbar(viewModel: EditViewModel) {
                     viewModel.insertText("[ ] ")
                 },
                 ToolbarItem(Icons.Rounded.Image, "Insert Image", color = colorIcon) {
-                    viewModel.toggleIsInsertingImages(true)
                     launcher.launch("image/*")
                 },
                 ToolbarItem(Icons.AutoMirrored.Rounded.ArrowForwardIos,"Bullet List", color = colorArrow) {

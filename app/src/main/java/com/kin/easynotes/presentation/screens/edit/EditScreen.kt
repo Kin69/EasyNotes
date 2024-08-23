@@ -200,7 +200,6 @@ fun ObserveLifecycleEvents(viewModel: EditViewModel) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) {
                 viewModel.saveNote(viewModel.noteId.value)
-                viewModel.fetchLastNoteAndUpdate()
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)

@@ -26,9 +26,6 @@ class EditViewModel @Inject constructor(
     private val _noteName = mutableStateOf(TextFieldValue())
     val noteName: State<TextFieldValue> get() = _noteName
 
-    private val _isInsertingImage = mutableStateOf(false)
-    val isInsertingImage: State<Boolean> get() = _isInsertingImage
-
     private val _isDescriptionInFocus = mutableStateOf(false)
     val isDescriptionInFocus: State<Boolean> get() = _isDescriptionInFocus
 
@@ -57,16 +54,20 @@ class EditViewModel @Inject constructor(
 
     fun saveNote(id: Int) {
         if (noteName.value.text.isNotEmpty() || noteDescription.value.text.isNotBlank()) {
-            noteUseCase.addNote(
-                Note(
-                    id = id,
-                    name = noteName.value.text,
-                    description = noteDescription.value.text,
-                    pinned = isPinned.value,
-                    encrypted = isEncrypted.value,
-                    createdAt = if (noteCreatedTime.value != 0L) noteCreatedTime.value else System.currentTimeMillis(),
+            viewModelScope.launch {
+                noteUseCase.addNote(
+                    Note(
+                        id = id,
+                        name = noteName.value.text,
+                        description = noteDescription.value.text,
+                        pinned = isPinned.value,
+                        encrypted = isEncrypted.value,
+                        createdAt = if (noteCreatedTime.value != 0L) noteCreatedTime.value else System.currentTimeMillis(),
+                    )
                 )
-            )
+
+                fetchLastNoteAndUpdate()
+            }
         }
     }
 
@@ -96,8 +97,7 @@ class EditViewModel @Inject constructor(
         if (id != 0) {
             viewModelScope.launch {
                 noteUseCase.getNoteById(id).collectLatest { note ->
-                    // Can be null don't remove
-                    if (note != null && !isInsertingImage.value) {
+                    if (note != null) {
                         syncNote(note)
                     }
                 }
@@ -105,7 +105,7 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun fetchLastNoteAndUpdate() {
+    private fun fetchLastNoteAndUpdate() {
         if (noteName.value.text.isNotEmpty() || noteDescription.value.text.isNotBlank()) {
             if (noteId.value == 0) {
                 viewModelScope.launch {
@@ -119,9 +119,6 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun toggleIsInsertingImages(value: Boolean) {
-        _isInsertingImage.value = value
-    }
 
     fun toggleEditMenuVisibility(value: Boolean) {
         _isEditMenuVisible.value = value

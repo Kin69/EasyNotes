@@ -89,16 +89,12 @@ class NoteUseCase @Inject constructor(
         return noteRepository.getAllNotes()
     }
 
-    fun addNote(note: Note) {
+    suspend fun addNote(note: Note) {
         val noteToSave = encryptNote(note)
         if (note.id == 0) {
-            coroutineScope.launch(NonCancellable + Dispatchers.IO) {
-                noteRepository.addNote(noteToSave)
-            }
+            noteRepository.addNote(noteToSave)
         } else {
-            coroutineScope.launch(NonCancellable + Dispatchers.IO) {
-                noteRepository.updateNote(noteToSave)
-            }
+            noteRepository.updateNote(noteToSave)
         }
     }
 

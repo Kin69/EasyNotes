@@ -18,6 +18,9 @@ import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.domain.usecase.NoteUseCase
 import com.kin.easynotes.presentation.MainActivity
 import com.kin.easynotes.presentation.components.markdown.WidgetText
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -46,8 +49,10 @@ fun SelectedNote(note: Note, noteUseCase: NoteUseCase, widgetId: Int) {
                 fontSize = 24.sp,
                 color = GlanceTheme.colors.primary,
                 onContentChange = {
-                    noteUseCase.addNote(note.copy(name = it))
-                    noteUseCase.observe()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        noteUseCase.addNote(note.copy(name = it))
+                        noteUseCase.observe()
+                    }
                 }
             )
         }
@@ -59,8 +64,10 @@ fun SelectedNote(note: Note, noteUseCase: NoteUseCase, widgetId: Int) {
                 fontSize = 12.sp,
                 color = GlanceTheme.colors.primary,
                 onContentChange = {
-                    noteUseCase.addNote(note.copy(description = it))
-                    noteUseCase.observe()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        noteUseCase.addNote(note.copy(description = it))
+                        noteUseCase.observe()
+                    }
                 }
             )
         }

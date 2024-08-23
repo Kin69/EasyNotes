@@ -38,6 +38,9 @@ import com.kin.easynotes.presentation.screens.home.widgets.NoteFilter
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.PasswordPrompt
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -122,7 +125,7 @@ fun HomeView (
                 viewMode = settingsModel.settings.value.viewMode,
                 searchText = viewModel.searchQuery.value.ifBlank { null },
                 isDeleteMode = viewModel.isDeleteMode.value,
-                onNoteUpdate = { note -> viewModel.noteUseCase.addNote(note) },
+                onNoteUpdate = { note -> CoroutineScope(Dispatchers.IO).launch {viewModel.noteUseCase.addNote(note) } },
                 onDeleteNote = {
                     viewModel.toggleIsDeleteMode(false)
                     viewModel.noteUseCase.deleteNoteById(it)
