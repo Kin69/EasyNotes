@@ -18,6 +18,7 @@ data class Settings(
     var gallerySync: Boolean = true,
     var showOnlyTitle: Boolean = false,
     var termsOfService: Boolean = false,
+    var useMonoSpaceFont: Boolean = false,
 
     var cornerRadius: Int = 32,
 )

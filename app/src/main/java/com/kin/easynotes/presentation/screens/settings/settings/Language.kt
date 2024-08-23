@@ -1,12 +1,18 @@
 package com.kin.easynotes.presentation.screens.settings.settings
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Battery1Bar
+import androidx.compose.material.icons.rounded.FontDownload
 import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import androidx.navigation.NavController
 import com.kin.easynotes.R
@@ -33,6 +39,18 @@ fun LanguageScreen(navController: NavController, settingsViewModel: SettingsView
                     actionType = ActionType.CUSTOM,
                     customAction = { onExit -> OnLanguageClicked(settingsViewModel) { onExit() }
                     }
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+            }
+            item {
+                SettingsBox(
+                    title = stringResource(id = R.string.monospace_font),
+                    icon = Icons.Rounded.FontDownload,
+                    description = stringResource(id = R.string.monospace_font_description),
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
+                    actionType = ActionType.SWITCH,
+                    variable = settingsViewModel.settings.value.useMonoSpaceFont,
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(useMonoSpaceFont = it))}
                 )
             }
         }

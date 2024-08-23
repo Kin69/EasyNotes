@@ -134,4 +134,6 @@
     <string name="file_import_success">Successfully imported</string>
     <string name="file_import_title">Import</string>
     <string name="file_import_description">Import other text files as notes</string>
+    <string name="monospace_font_description">Use monospace font while editing note</string>
+    <string name="monospace_font">Monospace font</string>
 </resources>

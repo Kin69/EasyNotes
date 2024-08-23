@@ -78,6 +78,7 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
                     }
                 )
             }
+
             item {
                 Spacer(modifier = Modifier.height(18.dp))
                 SettingsBox(

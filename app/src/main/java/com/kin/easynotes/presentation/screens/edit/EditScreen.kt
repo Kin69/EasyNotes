@@ -309,11 +309,13 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
                     isExtremeAmoled = settingsViewModel.settings.value.extremeAmoledMode,
                     onClickBack = { onClickBack() }
                 ) {
+                    println(settingsViewModel.settings.value.useMonoSpaceFont)
                     CustomTextField(
                         value = viewModel.noteName.value,
                         modifier = Modifier.weight(1f),
                         onValueChange = { viewModel.updateNoteName(it) },
                         placeholder = stringResource(R.string.name),
+                        useMonoSpaceFont = settingsViewModel.settings.value.useMonoSpaceFont
                     )
                 }
             }
@@ -330,6 +332,7 @@ fun EditScreen(viewModel: EditViewModel,settingsViewModel: SettingsViewModel, pa
                     onValueChange = { viewModel.updateNoteDescription(it) },
                     modifier = Modifier.fillMaxSize(),
                     placeholder = stringResource(R.string.description),
+                    useMonoSpaceFont = settingsViewModel.settings.value.useMonoSpaceFont
                 )
             }
         )
