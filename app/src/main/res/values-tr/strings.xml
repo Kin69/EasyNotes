@@ -63,7 +63,7 @@
     <string name="radius_description">Kenarlık yarıçapını özelleştirin</string>
     <string name="view_style_description">Görünüm biçimini seçin</string>
     <string name="backup_description">Tüm notları dosyaya kaydedin</string>
-    <string name="restore_description">Notları dosyadan geri yükleyin</string>
+    <string name="restore_description">Notları yedekleme dosyasından geri yükleyin</string>
     <string name="screen_protection_description">Ekranı son kullanılanlarda gizleyin ve ekran görüntülerini devre dışı bırakın</string>
     <string name="source_code">Kaynak Kodu</string>
     <string name="support_list">Destekçiler Listesi</string>
@@ -136,4 +136,9 @@
     <string name="terms_contact_body">Bu Hizmet Koşulları veya Easy Notes ile ilgili sorularınız için lütfen bizimle şu adresten iletişime geçin</string>
     <string name="terms_privacy_title">10. Gizlilik Politikası</string>
     <string name="terms_privacy_body">Easy Notes herhangi bir kişisel veri toplamaz. Daha fazla bilgi için lütfen şu adreste bulunan Gizlilik Politikamıza bakın</string>
+    <string name="file_import_error">İçe aktarılamadı</string>
+    <string name="file_import_description">Diğer metin dosyalarını not olarak içe aktarın</string>
+    <string name="file_import_partial_error">Bazı dosyalar içe aktarılamadı</string>
+    <string name="file_import_success">Başarıyla içe aktarıldı</string>
+    <string name="file_import_title">İçe aktar</string>
 </resources>
