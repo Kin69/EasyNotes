@@ -141,4 +141,6 @@
     <string name="terms_termination_body">Poderemos encerrar ou suspender seu acesso ao Easy Notes se você violar estes Termos. Após a rescisão, seu direito de usar o aplicativo terminará imediatamente.</string>
     <string name="terms_privacy_body">Easy Notes não coleta nenhum dado pessoal. Para mais informações, consulte a nossa Política de Privacidade disponível em</string>
     <string name="file_import_partial_error">Falha na importação de alguns arquivos</string>
+    <string name="monospace_font_description">Use fonte monoespaçada ao editar notas</string>
+    <string name="monospace_font">Fonte monoespaçada</string>
 </resources>
