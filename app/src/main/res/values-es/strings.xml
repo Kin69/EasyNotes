@@ -97,7 +97,7 @@
     <string name="system_language">Idioma del sistema</string>
     <string name="Behavior">Comportamiento</string>
     <string name="always_edit">Priorizar el modo de edición</string>
-    <string name="always_edit_description">Ingresar al modo de edición en notas existentes</string>
+    <string name="always_edit_description">Acceder al modo de edición de notas ya existentes</string>
     <string name="invalid_password">Contraseña incorrecta</string>
     <string name="donators">Donar</string>
     <string name="translators">Traducciones</string>
@@ -141,4 +141,6 @@
     <string name="file_import_success">Importado exitosamente</string>
     <string name="file_import_title">Importar</string>
     <string name="file_import_description">Importar otros archivos de texto como notas</string>
+    <string name="monospace_font_description">Utilizar una fuente monoespaciada al editar la nota</string>
+    <string name="monospace_font">Fuente monoespaciada</string>
 </resources>
