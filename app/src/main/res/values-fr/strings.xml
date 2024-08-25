@@ -141,4 +141,6 @@
     <string name="file_import_success">Importation réussie</string>
     <string name="file_import_title">Importer</string>
     <string name="file_import_description">Importer d’autres fichiers texte sous forme de notes</string>
+    <string name="monospace_font_description">Utiliser la police monospace lors de l\'édition de la note</string>
+    <string name="monospace_font">Police monospace</string>
 </resources>
