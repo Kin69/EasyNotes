@@ -141,4 +141,6 @@
     <string name="file_import_description">Импортировать текстовые файлы как заметки</string>
     <string name="file_import_partial_error">Импортирование некоторых файлов не удалось</string>
     <string name="file_import_error">Не удалось импортировать</string>
+    <string name="monospace_font">Моноширинный шрифт</string>
+    <string name="monospace_font_description">Использовать моноширинный шрифт при редактировании заметок</string>
 </resources>

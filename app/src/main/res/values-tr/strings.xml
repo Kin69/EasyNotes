@@ -141,4 +141,6 @@
     <string name="file_import_partial_error">Bazı dosyalar içe aktarılamadı</string>
     <string name="file_import_success">Başarıyla içe aktarıldı</string>
     <string name="file_import_title">İçe aktar</string>
+    <string name="monospace_font_description">Notu düzenlerken eş aralıklı yazı tipi kullanın</string>
+    <string name="monospace_font">Eş aralıklı yazı tipi</string>
 </resources>

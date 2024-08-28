@@ -10,7 +10,7 @@
     <string name="Behavior">行为</string>
     <string name="password_continue">继续</string>
     <string name="always_edit">优先编辑模式</string>
-    <string name="always_edit_description">进入现有笔记的编辑模式</string>
+    <string name="always_edit_description">进入现有笔记的默认编辑模式</string>
     <string name="invalid_password">密码无效</string>
     <string name="donators">捐赠</string>
     <string name="translators">翻译</string>
@@ -64,7 +64,8 @@
     <string name="history">历史记录</string>
     <string name="description_tools">已创建 • 删除全部</string>
     <string name="description_markdown">支持 • 图片</string>
-    <string name="support_description">猫猫很可爱,请给猫猫钱</string>
+    <string name="support_description">猫猫很可爱,请给猫猫钱.
+\n快,给钱.不然我就要咬你!/ᐠ. ｡.ᐟ\\ᵐᵉᵒʷˎˊ˗</string>
     <string name="select_font">字体</string>
     <string name="radius">圆角半径</string>
     <string name="select_radius">设置半径</string>
@@ -141,4 +142,6 @@
     <string name="file_import_success">成功导入</string>
     <string name="file_import_title">导入</string>
     <string name="file_import_description">导入其他文本文件作为笔记</string>
+    <string name="monospace_font_description">编辑笔记时使用等宽字体</string>
+    <string name="monospace_font">等宽字体</string>
 </resources>
