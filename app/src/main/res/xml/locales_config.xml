@@ -14,5 +14,14 @@
     <locale android:name="sk" />
     <locale android:name="tr" />
     <locale android:name="zh" />
+    <locale android:name="da" />
+    <locale android:name="nl" />
+    <locale android:name="ota" />
+    <locale android:name="pl" />
+    <locale android:name="pt" />
+    <locale android:name="sr" />
+    <locale android:name="uk" />
+    <locale android:name="vi" />
+
 </locale-config>
 
