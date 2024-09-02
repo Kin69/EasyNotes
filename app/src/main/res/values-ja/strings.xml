@@ -25,4 +25,16 @@
     <string name="donate_me">寄付をお願いします :)</string>
     <string name="restore">復元する</string>
     <string name="notes">ノート</string>
+    <string name="tools">ツール</string>
+    <string name="grid_view">グリッドビュー</string>
+    <string name="column_view">コラムビュー</string>
+    <string name="select_all">すべて選択</string>
+    <string name="delete">削除</string>
+    <string name="system_theme">システムテーマ</string>
+    <string name="information">情報</string>
+    <string name="support">サポート</string>
+    <string name="color_styles">カラー＆スタイル</string>
+    <string name="language">言語</string>
+    <string name="markdown">Markdown</string>
+    <string name="characters">文字</string>
 </resources>
