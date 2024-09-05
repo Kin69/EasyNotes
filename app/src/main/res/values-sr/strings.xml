@@ -57,7 +57,7 @@
     <string name="radius_description">Prilagodite radijus granice</string>
     <string name="view_style_description">Izaberite stil prikaza</string>
     <string name="minimalistic_mode_description">Uklonite gornju dugmad sa ekrana za uređivanje</string>
-    <string name="restore_description">Vrati beleške iz datoteke</string>
+    <string name="restore_description">Vrati beleške iz rezervne kopije</string>
     <string name="markdown_description">Omogućite Markdown u beleškama</string>
     <string name="screen_protection_description">Sakrij ekran u nedavnim i onemogući snimke ekrana</string>
     <string name="build_type">Build Tip Aplikacije</string>
@@ -78,7 +78,7 @@
     <string name="system_language">Sistemski jezik</string>
     <string name="Behavior">Ponašanje</string>
     <string name="always_edit">Daj prioritet režimu uređivanja</string>
-    <string name="always_edit_description">Uđite u režim za uređivanje postojećih beleški</string>
+    <string name="always_edit_description">Uđi u režim za uređivanje postojećih beleški</string>
     <string name="donators">Doniraj</string>
     <string name="translators">Prevod</string>
     <string name="gallery_sync_description">Briše slike iz skladišta aplikacije kada se uklone iz galerije</string>
@@ -136,4 +136,11 @@
     <string name="terms_changes_title">8. Promene Uslova</string>
     <string name="terms_use_title">3. Korišćenje Aplikacije</string>
     <string name="terms_contact_title">9. Kontaktirajte Nas</string>
+    <string name="file_import_error">Nije moguće uvesti</string>
+    <string name="file_import_partial_error">Uvoz nekih fajlova nije uspeo</string>
+    <string name="file_import_success">Uspešno uvezeno</string>
+    <string name="file_import_title">Uvezi</string>
+    <string name="file_import_description">Uvezi druge tekstualne fajlove kao beleške</string>
+    <string name="monospace_font_description">Koristi monospace font dok uređujete belešku</string>
+    <string name="monospace_font">Monospace Font</string>
 </resources>
