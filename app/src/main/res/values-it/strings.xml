@@ -96,7 +96,51 @@
     <string name="others">Altri</string>
     <string name="select_note">Seleziona nota</string>
     <string name="unsuported_image_size">Dimensioni dell\'immagine non supportata (massimo 15mb )</string>
-    <string name="vault">Vault</string>
+    <string name="vault">Cassaforte</string>
     <string name="vault_description">Attiva cifratura delle note nel vault</string>
     <string name="password_continue">continua</string>
+    <string name="terms_acceptance_title">1. Accettazione dei Termini</string>
+    <string name="terms_acceptance_body">Premendo Accetto e utilizzando Easy Notes, si accettano i presenti Termini di servizio. Se non si accettano, non utilizzare l\'applicazione.</string>
+    <string name="terms_license_title">2. Licenza</string>
+    <string name="terms_use_title">3. Utilizzo dell\'applicazione</string>
+    <string name="terms_intellectual_property_title">4. Proprietà Intellettuale</string>
+    <string name="terms_disclaimer_title">5. Esclusione di Garanzia</string>
+    <string name="terms_disclaimer_body">Easy Notes viene fornita così com\'è, senza alcuna garanzia. Non garantiamo che l\'applicazione sia priva di errori, sicura o ininterrotta.</string>
+    <string name="terms_liability_title">6. Limiti di responsabilità</string>
+    <string name="terms_liability_body">Non siamo responsabili di alcun danno che risulti dall\'uso di Easy Notes, inclusi danni diretti, incidentali o consequenziali.</string>
+    <string name="terms_termination_title">7. Terminazione</string>
+    <string name="terms_changes_body">Possiamo aggiornare i presenti Termini di servizio di tanto in tanto. L\'uso continuato di Easy Notes dopo eventuali modifiche costituisce l\'accettazione dei termini rivisti.</string>
+    <string name="terms_contact_title">9. Contattaci</string>
+    <string name="terms_privacy_title">10. Informativa sulla Privacy</string>
+    <string name="terms_effective_date">Data Effettiva</string>
+    <string name="agree">D\'accordo</string>
+    <string name="terms_of_service">Termini di Servizio</string>
+    <string name="file_import_error">Impossibile importare</string>
+    <string name="file_import_partial_error">Importazione di alcuni documenti fallita</string>
+    <string name="file_import_success">Importato correttamente</string>
+    <string name="file_import_title">Importa</string>
+    <string name="file_import_description">Importa altri documenti di testo come note</string>
+    <string name="terms_license_body">Easy Notes è distribuito secondo la **GNU General Public License (GPL) versione 3**. Ciò significa che:
+\n
+\n- L\'utente è libero di utilizzare, modificare e condividere l\'applicazione.
+\n- Se si distribuisce l\'applicazione o qualsiasi versione modificata, è necessario distribuire anche il codice sorgente e mantenere la licenza GPL.</string>
+    <string name="terms_use_body">L\'utente accetta di utilizzare Easy Notes solo per scopi leciti e in conformità alle presenti Condizioni. L\'utente **non deve **:
+\n
+\n- _Utilizzare l\'applicazione per qualsiasi scopo illegale_.
+\n- Violare i diritti degli altri
+\n- _Interrompere la funzionalità o la sicurezza dell\'applicazione_</string>
+    <string name="terms_intellectual_property_body">Tutti i diritti di proprietà intellettuale di Easy Notes sono di nostra proprietà o dei nostri licenziatari. L\'uso dell\'applicazione non conferisce all\'utente la proprietà di alcun diritto di proprietà intellettuale.</string>
+    <string name="terms_termination_body">Potremmo terminare o sospendere l\'accesso a Easy Notes in caso di infrazione di questi Termini. In caso di terminazione, il diritto di utilizzo dell\'app cesserà con effetto immediato.</string>
+    <string name="terms_changes_title">8. Cambiamenti dei Termini</string>
+    <string name="terms_contact_body">Per qualsiasi domanda sui Termini di Servizio o Easy Notes, contattaci a</string>
+    <string name="terms_privacy_body">Easy Notes non conserva alcun dato personale. Per maggiori informazioni, fare riferimento alla nostra Informativa sulla Privacy disponibile a</string>
+    <string name="donators">Dona</string>
+    <string name="translators">Traduzione</string>
+    <string name="contributors">Contributo</string>
+    <string name="gallery_sync_description">Elimina le immagini dalla memoria dell\'app quando vengono rimosse dalla galleria</string>
+    <string name="gallery_sync">Sincronizzazione della galleria</string>
+    <string name="show_only_title">Mostra solo il titolo</string>
+    <string name="show_only_title_description">Mostra il titolo solo nell\'anteprima</string>
+    <string name="monospace_font_description">Utilizzare il carattere monospazio durante la modifica della nota</string>
+    <string name="monospace_font">Carattere monospazio</string>
 </resources>
