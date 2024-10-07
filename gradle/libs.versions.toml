@@ -1,5 +1,5 @@
 [versions]
-agp = "8.5.2"
+agp = "8.7.0"
 datastorePreferences = "1.1.1"
 glance = "1.1.0"
 hilt = "2.52"
