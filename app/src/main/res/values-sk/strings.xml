@@ -64,7 +64,7 @@
     <string name="extreme_amoled_mode_description">Extrémna optimalizácia batérie</string>
     <string name="radius_description">Prispôsobenie zaokrúhľovania</string>
     <string name="backup_description">Uloženie všetkých poznámok do súboru</string>
-    <string name="restore_description">Obnovenie poznámok zo súboru</string>
+    <string name="restore_description">Obnoviť poznámky z záložného súboru</string>
     <string name="markdown_description">Podpora markdown v poznámkach</string>
     <string name="screen_protection_description">Skrytie obrazovky a zakázanie snímok obrazovky</string>
     <string name="source_code">Zdrojový kód</string>
@@ -97,9 +97,9 @@
     <string name="system_language">Systémový jazyk</string>
     <string name="Behavior">Správanie</string>
     <string name="always_edit">Prioritný režim úprav</string>
-    <string name="always_edit_description">Vstup do režimu úprav existujúcich poznámok</string>
+    <string name="always_edit_description">Zadajte režim úprav na existujúcich poznámkach</string>
     <string name="invalid_password">Neplatné heslo</string>
-    <string name="donators">Donate</string>
+    <string name="donators">Darujte</string>
     <string name="contributors">Príspevok</string>
     <string name="gallery_sync">Synchronizácia galérie</string>
     <string name="translators">Preklad</string>
@@ -111,7 +111,7 @@
     <string name="terms_license_title">2. Licencia</string>
     <string name="terms_disclaimer_title">5. Zrieknutie sa záruk</string>
     <string name="terms_contact_title">9. Kontaktujte nás</string>
-    <string name="terms_privacy_title">Zásady ochrany osobných údajov</string>
+    <string name="terms_privacy_title">10. Zásady ochrany osobných údajov</string>
     <string name="terms_license_body">Easy Notes sa šíri pod **GNU General Public License (GPL) verzia 3**. To znamená, že:
 \n
 \n- Aplikáciu môžete slobodne používať, upravovať a zdieľať.
@@ -136,4 +136,11 @@
     <string name="terms_effective_date">Dátum účinnosti</string>
     <string name="terms_of_service">Podmienky služby</string>
     <string name="agree">Súhlasím</string>
+    <string name="file_import_error">Nemohol importovať</string>
+    <string name="file_import_partial_error">Import niektorých súborov zlyhal</string>
+    <string name="file_import_success">Úspešne importované</string>
+    <string name="file_import_title">Import</string>
+    <string name="file_import_description">Importovať ďalšie textové súbory ako poznámky</string>
+    <string name="monospace_font_description">Použite monospace písma pri editácii poznámky</string>
+    <string name="monospace_font">Monospace písmo</string>
 </resources>
