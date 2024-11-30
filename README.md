@@ -49,7 +49,7 @@ Lightweight android notes app with Material You.
 
 ## 💬 Contact Me
 
--  Email : Vexzure@proton.me
+-  Email : contact@easyapps.me
 -  Discord : [Easy Notes](https://discord.gg/ZrP4G8z23H)
 
 ---
