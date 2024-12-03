@@ -147,7 +147,6 @@
     <string name="passcode">Passcode</string>
     <string name="fingerprint">Fingerprint</string>
     <string name="fingerprint_name">Authentication required</string>
-    <string name="cancel">Cancel</string>
     <string name="locked">is Locked</string>
     <string name="uid">UID</string>
     <string name="authorize_fingerprint">Ask for fingerprint on start</string>
