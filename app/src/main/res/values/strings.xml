@@ -136,4 +136,7 @@
     <string name="file_import_description">Import other text files as notes</string>
     <string name="monospace_font_description">Use monospace font while editing note</string>
     <string name="monospace_font">Monospace font</string>
+    <string name="alert_text"> Are you sure you want to delete the selected notes</string>
+    <string name="yes"> Yes</string>
+    <string name="cancel"> Cancel</string>
 </resources>
