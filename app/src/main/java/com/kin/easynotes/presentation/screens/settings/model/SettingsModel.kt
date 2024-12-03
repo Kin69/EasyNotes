@@ -3,6 +3,7 @@ package com.kin.easynotes.presentation.screens.settings.model
 import android.content.Context
 import android.net.Uri
 import android.widget.Toast
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.os.LocaleListCompat
@@ -27,6 +28,18 @@ import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import javax.inject.Inject
 
+enum class ModeType() {
+    LOCK,
+    SETUP
+}
+
+enum class LockTypes() {
+    FINGERPRINT,
+    PASSCODE,
+    PATTER,
+    UNLOCK
+}
+
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     val galleryObserver: GalleryObserver,
@@ -35,17 +48,16 @@ class SettingsViewModel @Inject constructor(
     val noteUseCase: NoteUseCase,
     private val importExportUseCase: ImportExportUseCase,
 ) : ViewModel() {
+
+    fun updateLock() {
+        println(settings.value)
+    }
+
     val databaseUpdate = mutableStateOf(false)
     var password : String? = null
 
     private val _settings = mutableStateOf(Settings())
     var settings: State<Settings> = _settings
-
-    init {
-        viewModelScope.launch {
-            loadSettings()
-        }
-    }
 
     private suspend fun loadSettings() {
         val loadedSettings = runBlocking(Dispatchers.IO) {
@@ -142,4 +154,11 @@ class SettingsViewModel @Inject constructor(
 
     val version: String = BuildConfig.VERSION_NAME
     val build: String = BuildConfig.BUILD_TYPE
+
+    init {
+        runBlocking {
+            loadSettings()
+            updateLock()
+        }
+    }
 }

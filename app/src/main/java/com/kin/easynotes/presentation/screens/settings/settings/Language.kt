@@ -70,7 +70,7 @@ private fun OnLanguageClicked(settingsViewModel: SettingsViewModel, onExit: () -
         initialItem = Pair(context.getString(R.string.system_language), second = ""),
         setting = { isFirstItem, isLastItem, displayData ->
             SettingsBox(
-                isBig = false,
+                size = 8.dp,
                 title = displayData.first,
                 radius = shapeManager(isFirst = isFirstItem, isLast = isLastItem, radius = settingsViewModel.settings.value.cornerRadius),
                 actionType = ActionType.RADIOBUTTON,

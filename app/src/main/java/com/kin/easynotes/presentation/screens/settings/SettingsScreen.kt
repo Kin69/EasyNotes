@@ -174,7 +174,7 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
             modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 20.dp)
         ) {
             SettingsBox(
-                isBig = false,
+                size = 8.dp,
                 title = "Ko-fi",
                 icon = Icons.Rounded.Coffee,
                 isCentered = true,
@@ -184,7 +184,7 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
             )
             SettingsBox(
                 title = "Libera Pay",
-                isBig = false,
+                size = 8.dp,
                 isCentered = true,
                 icon = Icons.Rounded.Payments,
                 radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
@@ -193,7 +193,7 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
             )
             SettingsBox(
                 title = stringResource(R.string.cryptocurrency),
-                isBig = false,
+                size = 8.dp,
                 icon = Icons.Rounded.CurrencyBitcoin,
                 isCentered = true,
                 actionType = ActionType.CUSTOM,

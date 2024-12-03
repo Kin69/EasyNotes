@@ -101,7 +101,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
-                    isBig = true,
+                    size = 8.dp,
                     title = stringResource(id = R.string.discord),
                     icon = Icons.AutoMirrored.Rounded.ContactSupport,
                     actionType = ActionType.LINK,
@@ -111,7 +111,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
-                    isBig = true,
+                    size = 8.dp,
                     title = stringResource(id = R.string.feature),
                     icon = Icons.Rounded.BugReport,
                     linkClicked = { uriHandler.openUri(ConnectionConst.GITHUB_FEATURE_REQUEST) },

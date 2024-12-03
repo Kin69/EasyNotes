@@ -220,7 +220,7 @@ fun BottomModal(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) 
             modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 20.dp)
         ) {
             SettingsBox(
-                isBig = false,
+                size = 8.dp,
                 title = stringResource(R.string.created_time),
                 icon = Icons.Rounded.Numbers,
                 actionType = ActionType.TEXT,
@@ -228,7 +228,7 @@ fun BottomModal(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) 
                 customText = sdf.format(viewModel.noteCreatedTime.value).toString()
             )
             SettingsBox(
-                isBig = false,
+                size = 8.dp,
                 title = stringResource(R.string.words),
                 icon = Icons.Rounded.Numbers,
                 radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
@@ -236,7 +236,7 @@ fun BottomModal(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) 
                 customText = if (viewModel.noteDescription.value.text != "") viewModel.noteDescription.value.text.split("\\s+".toRegex()).size.toString() else "0"
             )
             SettingsBox(
-                isBig = false,
+                size = 8.dp,
                 title = stringResource(R.string.characters),
                 icon = Icons.Rounded.Numbers,
                 actionType = ActionType.TEXT,

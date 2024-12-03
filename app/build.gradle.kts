@@ -69,6 +69,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.biometric.ktx)
     implementation(libs.androidx.glance)
     implementation(libs.coil.compose)
     implementation(libs.hilt.navigation.compose)

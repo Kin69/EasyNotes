@@ -1,26 +1,50 @@
+/*
+ * Copyright (C) 2024 Vexzure
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 package com.kin.easynotes.presentation.screens.settings.widgets
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.graphics.drawable.Drawable
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,10 +54,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kin.easynotes.R
 
 enum class ActionType {
     RADIOBUTTON,
@@ -44,19 +75,21 @@ enum class ActionType {
     CLIPBOARD
 }
 
+
 @Composable
 fun SettingsBox(
+    radius: RoundedCornerShape? = null,
     title: String,
-    isBig: Boolean = true,
-    description: String = "",
+    description: String? = null,
     icon: ImageVector? = null,
-    radius: RoundedCornerShape,
+    size: Dp = 12.dp,
     isEnabled: Boolean = true,
     isCentered: Boolean = false,
     actionType: ActionType,
     variable: Boolean? = null,
     switchEnabled: (Boolean) -> Unit = {},
     linkClicked: () -> Unit = {},
+    customButton: @Composable () -> Unit = { RenderCustomIcon() },
     customAction: @Composable (() -> Unit) -> Unit = {},
     customText: String = "",
     clipboardText: String = ""
@@ -66,12 +99,11 @@ fun SettingsBox(
     if (showCustomAction) customAction { showCustomAction = !showCustomAction }
 
     AnimatedVisibility(visible = isEnabled) {
-        ElevatedCard(
-            shape = radius,
-            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        Box(
             modifier = Modifier
-                .padding(bottom = 3.dp)
-                .clip(radius)
+                .padding(bottom = dimensionResource(id = R.dimen.card_padding_bottom))
+                .clip(radius ?: RoundedCornerShape(13.dp))
+                .background(MaterialTheme.colorScheme.surfaceColorAtElevation(6.dp))
                 .clickable {
                     handleAction(
                         context,
@@ -80,7 +112,7 @@ fun SettingsBox(
                         switchEnabled,
                         { showCustomAction = !showCustomAction },
                         linkClicked,
-                        clipboardText ?: ""
+                        clipboardText
                     )
                 }
         ) {
@@ -88,29 +120,42 @@ fun SettingsBox(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .padding(
-                        horizontal = 20.dp,
-                        vertical = if (description.isNotBlank() || actionType == ActionType.CLIPBOARD || isBig) 12.dp else 6.dp
+                        horizontal = dimensionResource(id = R.dimen.card_padding_horizontal),
+                        vertical = size
                     )
                     .fillMaxWidth()
             ) {
-                if (icon != null) RenderIcon(icon)
-                Column(Modifier.weight(1f), horizontalAlignment = if (isCentered) Alignment.CenterHorizontally else Alignment.Start) {
-                    Text(
-                        text = title,
-                        modifier = Modifier.padding(start = 3.dp),
-                        fontSize = 16.sp
-                    )
-                    if (description.isNotEmpty() || actionType == ActionType.CLIPBOARD) {
+                Row(
+                    Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    icon?.let {
+                        CircleWrapper(
+                            size = 12.dp,
+                            color = MaterialTheme.colorScheme.surfaceContainerLow
+                        ) {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+                    if (actionType != ActionType.LINK && !description.isNullOrBlank()) {
+                        MaterialText(title, description.ifBlank { clipboardText })
+                    } else {
                         Text(
-                            text = if (actionType == ActionType.CLIPBOARD) clipboardText else description,
-                            modifier = Modifier.padding(start = 3.dp, end = 5.dp),
-                            fontSize = 12.sp,
-                            color = MaterialTheme.colorScheme.primary,
-                            lineHeight = 20.sp
+                            title,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = if (isCentered) TextAlign.Center else TextAlign.Start,
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }
-                RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText)
+                RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText, customButton)
             }
         }
     }
@@ -120,15 +165,15 @@ private fun handleAction(
     context: Context,
     actionType: ActionType,
     variable: Boolean?,
-    switchEnabled: (Boolean) -> Unit,
+    onSwitchEnabled: (Boolean) -> Unit,
     customAction: () -> Unit,
-    linkClicked: () -> Unit,
+    onLinkClicked: () -> Unit,
     clipboardText: String
 ) {
     when (actionType) {
-        ActionType.RADIOBUTTON -> switchEnabled(!variable!!)
-        ActionType.SWITCH -> switchEnabled(!variable!!)
-        ActionType.LINK -> linkClicked()
+        ActionType.RADIOBUTTON -> onSwitchEnabled(variable == false)
+        ActionType.SWITCH -> onSwitchEnabled(variable == false)
+        ActionType.LINK -> onLinkClicked()
         ActionType.CUSTOM -> customAction()
         ActionType.CLIPBOARD -> copyToClipboard(context, clipboardText)
         ActionType.TEXT -> { /* No action needed */ }
@@ -136,11 +181,12 @@ private fun handleAction(
 }
 
 @Composable
-private fun RenderClipboardAction() {
+private fun RenderClipboardIcon() {
     Icon(
         imageVector = Icons.Default.ContentCopy,
         contentDescription = null,
-        modifier = Modifier.padding(12.dp)
+        modifier = Modifier.padding(dimensionResource(id = R.dimen.icon_padding)),
+        tint = MaterialTheme.colorScheme.primary
     )
 }
 
@@ -151,46 +197,37 @@ fun copyToClipboard(context: Context, clipboardText: String) {
 }
 
 @Composable
-private fun RenderIcon(icon: ImageVector) {
-    Icon(
-        imageVector = icon,
-        contentDescription = null,
-        tint = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(end = 6.dp)
-    )
-}
-
-@Composable
 private fun RenderActionComponent(
     actionType: ActionType,
     variable: Boolean?,
-    switchEnabled: (Boolean) -> Unit,
-    linkClicked: () -> Unit,
+    onSwitchEnabled: (Boolean) -> Unit,
+    onLinkClicked: () -> Unit,
     customText: String,
+    customButton: @Composable () -> Unit,
 ) {
     when (actionType) {
-        ActionType.RADIOBUTTON -> RenderRadioBox(variable, switchEnabled)
-        ActionType.SWITCH -> RenderSwitch(variable, switchEnabled)
-        ActionType.LINK -> RenderLink(linkClicked)
-        ActionType.CUSTOM -> CustomIcon()
+        ActionType.RADIOBUTTON -> RenderRadioButton(variable, onSwitchEnabled)
+        ActionType.SWITCH -> RenderSwitch(variable, onSwitchEnabled)
+        ActionType.LINK -> RenderLinkIcon(onLinkClicked)
         ActionType.TEXT -> RenderText(customText)
-        ActionType.CLIPBOARD -> RenderClipboardAction()
+        ActionType.CLIPBOARD -> RenderClipboardIcon()
+        ActionType.CUSTOM -> customButton()
     }
 }
 
 @Composable
-private fun RenderRadioBox(variable: Boolean?, switchEnabled: (Boolean) -> Unit) {
+private fun RenderRadioButton(variable: Boolean?, onSwitchEnabled: (Boolean) -> Unit) {
     RadioButton(
-        selected = variable ?: false,
-        onClick = { switchEnabled(true) }
+        selected = variable == true,
+        onClick = { onSwitchEnabled(true) }
     )
 }
 
 @Composable
-private fun RenderSwitch(variable: Boolean?, switchEnabled: (Boolean) -> Unit) {
+private fun RenderSwitch(variable: Boolean?, onSwitchEnabled: (Boolean) -> Unit) {
     Switch(
-        checked = variable ?: false,
-        onCheckedChange = { switchEnabled(it) },
+        checked = variable == true,
+        onCheckedChange = { onSwitchEnabled(it) },
         modifier = Modifier
             .scale(0.9f)
             .padding(0.dp)
@@ -198,24 +235,25 @@ private fun RenderSwitch(variable: Boolean?, switchEnabled: (Boolean) -> Unit) {
 }
 
 @Composable
-private fun RenderLink(linkClicked: () -> Unit) {
+private fun RenderLinkIcon(onLinkClicked: () -> Unit) {
     Icon(
         imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
         contentDescription = null,
         modifier = Modifier
-            .padding(12.dp)
-            .clickable { linkClicked() }
+            .padding(dimensionResource(id = R.dimen.icon_padding))
+            .clickable { onLinkClicked() },
+        tint = MaterialTheme.colorScheme.primary
     )
 }
 
 @Composable
-private fun CustomIcon() {
+fun RenderCustomIcon() {
     Icon(
         imageVector = Icons.AutoMirrored.Rounded.ArrowForwardIos,
         contentDescription = null,
         modifier = Modifier
             .scale(0.6f)
-            .padding(12.dp)
+            .padding(dimensionResource(id = R.dimen.icon_padding))
     )
 }
 
@@ -224,6 +262,6 @@ private fun RenderText(customText: String) {
     Text(
         text = customText,
         fontSize = 14.sp,
-        modifier = Modifier.padding(12.dp)
+        modifier = Modifier.padding(dimensionResource(id = R.dimen.icon_padding))
     )
 }

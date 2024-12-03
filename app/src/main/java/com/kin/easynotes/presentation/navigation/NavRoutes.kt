@@ -13,6 +13,12 @@ import com.kin.easynotes.presentation.screens.settings.settings.PrivacyScreen
 import com.kin.easynotes.presentation.screens.settings.settings.SupportScreen
 import com.kin.easynotes.presentation.screens.settings.settings.ToolsScreen
 
+enum class ActionType {
+    PASSCODE,
+    FINGERPRINT,
+    PATTERN
+}
+
 sealed class NavRoutes(val route: String) {
     data object Home : NavRoutes("home")
     data object Edit : NavRoutes("edit/{id}/{encrypted}") {
@@ -30,6 +36,9 @@ sealed class NavRoutes(val route: String) {
     data object Widgets : NavRoutes("settings/widgets")
     data object About : NavRoutes("settings/about")
     data object Support : NavRoutes("settings/support")
+    data object LockScreen : NavRoutes("settings/lock/{type}") {
+        fun createRoute(action: ActionType?) = "settings/lock/$action"
+    }
 }
 
 val settingScreens = mapOf<String, @Composable (settingsViewModel: SettingsViewModel, navController : NavController) -> Unit>(

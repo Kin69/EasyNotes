@@ -22,6 +22,10 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
 )
 
 class SettingsRepositoryImpl (private val context: Context) : SettingsRepository {
+    override suspend fun getPreferences(): Preferences {
+        return context.dataStore.data.first()
+    }
+
     override suspend fun putString(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
         context.dataStore.edit { preferences ->
