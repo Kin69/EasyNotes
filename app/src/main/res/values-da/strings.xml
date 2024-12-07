@@ -127,4 +127,13 @@
     <string name="gallery_sync_description">Sletter billeder fra appens lager, når de fjernes fra galleriet</string>
     <string name="show_only_title">Vis kun titel</string>
     <string name="show_only_title_description">Vis kun titlen i forhåndsvisning</string>
+    <string name="terms_liability_title">6. Begrænsning af Ansvar</string>
+    <string name="terms_termination_title">7. Opsigelse</string>
+    <string name="terms_changes_title">8. Ændringer af Vilkår</string>
+    <string name="terms_changes_body">Vi kan opdatere disse servicevilkår til enhver tid. Din fortsatte brug af Easy Notes efter ændringer betragtes som accept af de reviderede vilkår.</string>
+    <string name="terms_effective_date">Ikrafttrædelsesdato</string>
+    <string name="gallery_sync">Galleri Synk</string>
+    <string name="monospace_font_description">Brug monospace-skrifttype ved redigering af noter</string>
+    <string name="monospace_font">Monospace-skrifttype</string>
+    <string name="terms_termination_body">Vi kan opsige eller suspendere din adgang til Easy Notes, hvis du overtræder disse vilkår. Ved opsigelse ophører din ret til at bruge appen med det samme.</string>
 </resources>
