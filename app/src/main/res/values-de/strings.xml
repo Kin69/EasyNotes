@@ -33,7 +33,7 @@
     <string name="not_supported">Noch nicht unterstützt</string>
     <string name="about">Über</string>
     <string name="latest_release">Neueste Version</string>
-    <string name="color_styles">Farben und Stile</string>
+    <string name="color_styles"><![CDATA[Farben & Stile]]></string>
     <string name="widgets">Widgets</string>
     <string name="support_description">Zeig deine Liebe</string>
     <string name="history">Verlauf</string>
