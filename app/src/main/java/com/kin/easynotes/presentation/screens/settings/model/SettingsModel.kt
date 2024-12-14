@@ -40,12 +40,12 @@ class SettingsViewModel @Inject constructor(
     var defaultRoute: String? = null
 
     fun loadDefaultRoute() {
-        defaultRoute = _settings.value.defaultRoute
+        defaultRoute = _settings.value.defaultRouteType
     }
 
     fun updateDefaultRoute(route: String) {
-        _settings.value = _settings.value.copy(defaultRoute = route)
-        update(settings.value.copy(defaultRoute = route))
+        _settings.value = _settings.value.copy(defaultRouteType = route)
+        update(settings.value.copy(defaultRouteType = route))
     }
 
     val databaseUpdate = mutableStateOf(false)
@@ -59,7 +59,7 @@ class SettingsViewModel @Inject constructor(
             settingsUseCase.loadSettingsFromRepository()
         }
         _settings.value = loadedSettings
-        defaultRoute = loadedSettings.defaultRoute
+        defaultRoute = loadedSettings.defaultRouteType
     }
 
     fun update(newSettings: Settings) {

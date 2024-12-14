@@ -3,7 +3,7 @@ package com.kin.easynotes.domain.model
 import com.kin.easynotes.presentation.navigation.NavRoutes
 
 data class Settings(
-    var defaultRoute: String = NavRoutes.Home.route,
+    var defaultRouteType: String = NavRoutes.Home.route,
     var passcode: String? = null,
     var fingerprint: Boolean = false,
     var pattern: String? = null,
