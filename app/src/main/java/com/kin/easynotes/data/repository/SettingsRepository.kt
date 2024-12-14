@@ -14,7 +14,7 @@ import com.kin.easynotes.widget.NotesWidgetReceiver
 import kotlinx.coroutines.flow.first
 
 
-private const val PREFERENCES_NAME = "settings"
+private const val PREFERENCES_NAME = "new_settings"
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
     name = PREFERENCES_NAME,
