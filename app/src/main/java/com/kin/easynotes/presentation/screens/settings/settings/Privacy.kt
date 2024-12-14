@@ -21,10 +21,7 @@ import androidx.navigation.NavController
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
-import com.kin.easynotes.presentation.screens.settings.model.LockTypes
-import com.kin.easynotes.presentation.screens.settings.model.ModeType
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
-import com.kin.easynotes.presentation.screens.settings.settings.lock.LockScreen
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 import com.kin.easynotes.presentation.screens.settings.widgets.CustomListDialog
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox

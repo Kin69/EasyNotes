@@ -1,6 +1,8 @@
 package com.kin.easynotes.presentation.screens.settings.settings.lock.components
 
 import android.view.MotionEvent
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,11 +21,13 @@ import com.kin.easynotes.presentation.screens.settings.settings.lock.viewModel.L
 import kotlin.math.sqrt
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.navigation.NavRoutes
+import com.kin.easynotes.presentation.popUpToTop
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -33,6 +37,16 @@ fun PatternLock(
     lockScreenViewModel: LockScreenViewModel = viewModel(),
     navController: NavController
 ) {
+    val context = LocalContext.current
+
+    BackHandler {
+        if (settingsViewModel.settings.value.pattern != null) {
+            (context as? ComponentActivity)?.finish()
+        } else {
+            navController.navigateUp()
+        }
+    }
+
     val rowCount = 3
     val columnCount = 3
 
@@ -43,13 +57,13 @@ fun PatternLock(
         modifier = Modifier
             .padding(vertical = 64.dp)
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceContainerLow),
+            .background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val text = when  {
-            settingsViewModel.settings.value.pattern == null-> { stringResource(id = R.string.setup_pattern) }
-            settingsViewModel.settings.value.pattern != null -> { stringResource(id = R.string.lock_pattern) }
+        val text = when {
+            settingsViewModel.settings.value.pattern == null -> stringResource(id = R.string.setup_pattern)
+            settingsViewModel.settings.value.pattern != null -> stringResource(id = R.string.lock_pattern)
             else -> "Unknown action"
         }
 
@@ -59,12 +73,9 @@ fun PatternLock(
             modifier = Modifier
                 .width(300.dp)
                 .height(300.dp)
-                .background(MaterialTheme.colorScheme.surfaceContainerLow)
+                .background(MaterialTheme.colorScheme.background)
                 .onSizeChanged { size ->
-                    lockScreenViewModel.canvasSize = Size(
-                        size.width.toFloat(),
-                        size.height.toFloat()
-                    )
+                    lockScreenViewModel.canvasSize = Size(size.width.toFloat(), size.height.toFloat())
                 }
                 .pointerInteropFilter {
                     when (it.action) {
@@ -91,13 +102,19 @@ fun PatternLock(
                                 .takeIf { it != Size.Zero }
                                 ?.let { size ->
                                     val cell = getNearestCell(touchOffset, size.width, size.height)
+
                                     if (cell != null && cell.index !in lockScreenViewModel.selectedCellsIndexList) {
                                         lockScreenViewModel.selectedCellsIndexList.add(cell.index)
                                         lockScreenViewModel.selectedCellCenterList.add(cell.center)
+
                                         lockScreenViewModel.updatePath(cell.center)
+                                    } else if (cell == null) {
+                                        // Prevent invalid lines from being drawn by skipping path updates
+                                        lockScreenViewModel.currentTouchOffset = null
                                     }
                                 }
                         }
+
 
                         MotionEvent.ACTION_UP -> {
                             if (settingsViewModel.settings.value.pattern == null) {
@@ -108,9 +125,10 @@ fun PatternLock(
                                         fingerprint = false
                                     )
                                 )
+                                settingsViewModel.updateDefaultRoute(NavRoutes.LockScreen.createRoute(null),)
                             } else {
                                 if (settingsViewModel.settings.value.pattern == lockScreenViewModel.selectedCellsIndexList.joinToString("")) {
-                                    navController.navigate(NavRoutes.Home.route)
+                                    navController.navigate(NavRoutes.Home.route) { popUpToTop(navController) }
                                 }
                             }
                             lockScreenViewModel.clearPattern()
@@ -140,7 +158,6 @@ fun PatternLock(
                 }
             }
 
-            // Apply rounded end caps to the path drawing
             drawPath(
                 path = lockScreenViewModel.path,
                 color = pathColor,

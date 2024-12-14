@@ -18,11 +18,14 @@ import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.rememberNavController
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.presentation.components.GalleryObserver
 import com.kin.easynotes.presentation.navigation.AppNavHost
+import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.navigation.checkLock
 import com.kin.easynotes.presentation.navigation.getDefaultRoute
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
@@ -32,21 +35,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+
+fun NavOptionsBuilder.popUpToTop(navController: NavController) {
+    popUpTo(navController.currentBackStackEntry?.destination?.route ?: return) {
+        inclusive =  true
+    }
+}
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavHostController
     private var settingsViewModel: SettingsViewModel? = null
-    private var defaultRoute: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashScreen = installSplashScreen()
-        setupSplashScreen(splashScreen)
+        installSplashScreen()
         enableEdgeToEdge()
 
         setContent {
             settingsViewModel = hiltViewModel<SettingsViewModel>()
-            val mainViewModel = hiltViewModel<MainViewModel>()
             val noteId = intent?.getIntExtra("noteId", -1) ?: -1
 
             if (settingsViewModel!!.settings.value.gallerySync) {
@@ -58,33 +65,25 @@ class MainActivity : AppCompatActivity() {
             }
 
             LeafNotesTheme(settingsViewModel!!) {
-                defaultRoute = mainViewModel.defaultRoute.collectAsState().value
-
-                LaunchedEffect(settingsViewModel!!.settings.value.termsOfService) {
-                    mainViewModel.determineDefaultRoute(settingsViewModel!!, noteId)
-                }
 
                 Surface(
                     color = MaterialTheme.colorScheme.surfaceContainerLow,
                 ) {
                     navController = rememberNavController()
-                    if (defaultRoute != null) {
-                        AppNavHost(settingsViewModel!!, navController, noteId, defaultRoute!!)
-                    }
+                    AppNavHost(settingsViewModel!!, navController, noteId, settingsViewModel!!.defaultRoute!!)
                 }
             }
         }
     }
 
-    private fun setupSplashScreen(splashScreen: SplashScreen) {
-        splashScreen.setKeepOnScreenCondition { defaultRoute == null }
-    }
-
     override fun onResume() {
         super.onResume()
         settingsViewModel?.let {
-            if (it.settings.value.lockImmediately) {
-                checkLock(it, navController)
+            it.loadDefaultRoute()
+            if (it.defaultRoute != NavRoutes.Home.route) {
+                if (it.settings.value.lockImmediately) {
+                    navController.navigate(it.defaultRoute!!) { popUpToTop(navController) }
+                }
             }
         }
     }

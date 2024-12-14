@@ -11,6 +11,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -69,23 +70,31 @@ class LockScreenViewModel : ViewModel() {
     }
 
     private fun checkPinCode(settingsViewModel: SettingsViewModel): Boolean {
-       if (settingsViewModel.settings.value.passcode == null) {
-           settingsViewModel.update(settingsViewModel.settings.value.copy(passcode = _pinCode.value.joinToString("")))
-           return true
-       } else {
-           if (_pinCode.value.joinToString("") == settingsViewModel.settings.value.passcode) {
-               return true
-           } else {
-               _isPinIncorrect.value = true
-               _animateError.value = true
-               viewModelScope.launch {
-                   delay(500)
-                   _animateError.value = false
-                   onReset()
-               }
-               return false
-           }
-       }
+        if (settingsViewModel.settings.value.passcode == null) {
+            settingsViewModel.update(
+                settingsViewModel.settings.value.copy(
+                    passcode = _pinCode.value.joinToString(""),
+                    fingerprint = false,
+                    pattern = null
+                )
+            )
+            settingsViewModel.updateDefaultRoute(NavRoutes.LockScreen.createRoute(null),)
+
+            return true
+        } else {
+            if (_pinCode.value.joinToString("") == settingsViewModel.settings.value.passcode) {
+                return true
+            } else {
+                _isPinIncorrect.value = true
+                _animateError.value = true
+                viewModelScope.launch {
+                    delay(500)
+                    _animateError.value = false
+                    onReset()
+                }
+                return false
+            }
+        }
     }
 
     fun onReset() {

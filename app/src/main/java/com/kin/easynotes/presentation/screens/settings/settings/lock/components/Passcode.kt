@@ -1,6 +1,7 @@
 package com.kin.easynotes.presentation.screens.settings.settings.lock.components
 
-import android.annotation.SuppressLint
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -21,20 +22,19 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.Backspace
-import androidx.compose.material.icons.rounded.Clear
+import androidx.compose.material.icons.rounded.Backspace
 import androidx.compose.material.icons.rounded.Fingerprint
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -45,15 +45,25 @@ import androidx.navigation.NavController
 import com.kin.easynotes.presentation.screens.settings.settings.lock.viewModel.LockScreenViewModel
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.navigation.NavRoutes
+import com.kin.easynotes.presentation.popUpToTop
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
-@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun PasscodeLock(
     settingsViewModel: SettingsViewModel,
     navController: NavController,
     passcodeLockViewModel: LockScreenViewModel = viewModel(),
-    ) {
+) {
+    val context = LocalContext.current
+
+    BackHandler {
+        if (settingsViewModel.settings.value.passcode != null) {
+            (context as? ComponentActivity)?.finish()
+        } else {
+            navController.navigateUp()
+        }
+    }
+
     Column(
         modifier = Modifier
             .padding(horizontal = 32.dp)
@@ -85,7 +95,7 @@ fun PasscodeLock(
                 onNumberClick = { number ->
                     passcodeLockViewModel.addNumber(settingsViewModel, number) { result ->
                         if (result) {
-                            navController.navigate(NavRoutes.Home.route)
+                            navController.navigate(NavRoutes.Home.route) { popUpToTop(navController) }
                         }
                     }
                 }
@@ -114,8 +124,7 @@ fun PasscodeLock(
 @Composable
 fun PinCodeDisplay(pinCode: List<Int>, isPinIncorrect: Boolean, animateError: Boolean) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         repeat(6) { index ->
@@ -175,10 +184,10 @@ fun ActionRow(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Icon(
-            imageVector = Icons.Rounded.Clear,
-            contentDescription = "Clear",
+            imageVector = Icons.Rounded.Fingerprint,
+            contentDescription = "Fingerprint",
             modifier = Modifier
-                .scale(1.5f)
+                .scale(2f)
                 .clickable(onClick = onFingerprintClick),
             tint = MaterialTheme.colorScheme.primary
         )
@@ -188,7 +197,7 @@ fun ActionRow(
             onZeroClick()
         }
         Icon(
-            imageVector = Icons.AutoMirrored.Rounded.Backspace,
+            imageVector = Icons.Rounded.Backspace,
             contentDescription = "Backspace",
             modifier = Modifier
                 .scale(1.5f)

@@ -28,17 +28,6 @@ import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import javax.inject.Inject
 
-enum class ModeType() {
-    LOCK,
-    SETUP
-}
-
-enum class LockTypes() {
-    FINGERPRINT,
-    PASSCODE,
-    PATTER,
-    UNLOCK
-}
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -48,9 +37,15 @@ class SettingsViewModel @Inject constructor(
     val noteUseCase: NoteUseCase,
     private val importExportUseCase: ImportExportUseCase,
 ) : ViewModel() {
+    var defaultRoute: String? = null
 
-    fun updateLock() {
-        println(settings.value)
+    fun loadDefaultRoute() {
+        defaultRoute = _settings.value.defaultRoute
+    }
+
+    fun updateDefaultRoute(route: String) {
+        _settings.value = _settings.value.copy(defaultRoute = route)
+        update(settings.value.copy(defaultRoute = route))
     }
 
     val databaseUpdate = mutableStateOf(false)
@@ -64,6 +59,7 @@ class SettingsViewModel @Inject constructor(
             settingsUseCase.loadSettingsFromRepository()
         }
         _settings.value = loadedSettings
+        defaultRoute = loadedSettings.defaultRoute
     }
 
     fun update(newSettings: Settings) {
@@ -158,7 +154,6 @@ class SettingsViewModel @Inject constructor(
     init {
         runBlocking {
             loadSettings()
-            updateLock()
         }
     }
 }
