@@ -3,8 +3,8 @@ package com.kin.easynotes.presentation.components.markdown
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import java.text.BreakIterator
 import androidx.compose.ui.text.withStyle
 
 class MarkdownBuilder(internal val lines: List<String>, private var lineProcessors: List<MarkdownLineProcessor>) {
@@ -72,10 +72,6 @@ fun isInSegments(index: Int, segments: List<Pair<Int, Int>>): Boolean {
     return segments.any { segment -> index in segment.first until segment.second }
 }
 
-
-/**
- * Builds an AnnotatedString with styles applied based on markdown-like syntax.
- */
 fun buildString(input: String, defaultFontWeight: FontWeight = FontWeight.Normal): AnnotatedString {
     val textStyleSegments: List<TextStyleSegment> = listOf(
         BoldSegment(),
@@ -87,21 +83,31 @@ fun buildString(input: String, defaultFontWeight: FontWeight = FontWeight.Normal
 
     val allSegments = textStyleSegments.associateWith { splitByDelimiter(input, it.delimiter) }
 
-    /**
-     * Determines the SpanStyle for a given index based on its presence in style segments.
-     */
     fun getSpanStyle(index: Int): SpanStyle {
         val styles = textStyleSegments.filter { segment -> isInSegments(index, allSegments[segment]!!) }
         return styles.fold(SpanStyle(fontWeight = defaultFontWeight)) { acc, segment -> acc.merge(segment.getSpanStyle()) }
     }
 
-    return buildAnnotatedString {
-        input.forEachIndexed { index, letter ->
-            if (textStyleSegments.none { segment -> segment.delimiter.contains(letter) }) {
-                withStyle(style = getSpanStyle(index)) {
-                    append(letter)
+    val annotatedString = buildAnnotatedString {
+        val iterator = BreakIterator.getWordInstance()
+        iterator.setText(input)
+
+        var start = iterator.first()
+        var end = iterator.next()
+
+        while (end != BreakIterator.DONE) {
+            val substring = input.substring(start, end)
+
+            // Skip delimiters and check Arabic substrings
+            if (textStyleSegments.none { segment -> segment.delimiter.contains(substring) }) {
+                withStyle(style = getSpanStyle(start)) {
+                    append(substring) // Append full words or graphemes
                 }
             }
+
+            start = end
+            end = iterator.next()
         }
     }
+    return annotatedString
 }
