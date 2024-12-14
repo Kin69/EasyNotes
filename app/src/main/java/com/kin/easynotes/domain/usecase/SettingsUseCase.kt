@@ -1,13 +1,17 @@
 package com.kin.easynotes.domain.usecase
 
+import android.content.Context
+import androidx.datastore.preferences.core.stringPreferencesKey
 import com.kin.easynotes.core.constant.ConnectionConst
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.domain.model.Settings
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class SettingsUseCase @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val settingsRepository: SettingsRepositoryImpl,
-    ) {
+) {
 
     suspend fun loadSettingsFromRepository(): Settings {
         return Settings().apply {
@@ -27,7 +31,7 @@ class SettingsUseCase @Inject constructor(
                 Boolean::class.java -> settingsRepository.getBoolean(settingName) ?: defaultValue
                 String::class.java -> settingsRepository.getString(settingName) ?: defaultValue
                 Int::class.java -> settingsRepository.getInt(settingName) ?: defaultValue
-                else -> throw IllegalArgumentException("Unsupported setting type: $fieldType")
+                else -> defaultValue // Allow unsupported types to default to null or the defaultValue.
             }
         } catch (e: ClassCastException) {
             handleCorruptedPreference(settingName, e)
@@ -55,6 +59,7 @@ class SettingsUseCase @Inject constructor(
             is Boolean -> settingsRepository.putBoolean(settingName, settingValue)
             is String -> settingsRepository.putString(settingName, settingValue)
             is Int -> settingsRepository.putInt(settingName, settingValue)
+            null -> settingsRepository.getPreferences().toMutablePreferences().remove(stringPreferencesKey(settingName))
             else -> throw IllegalArgumentException("Unsupported setting type: ${settingValue?.javaClass}")
         }
     }

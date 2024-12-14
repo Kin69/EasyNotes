@@ -18,10 +18,14 @@ private const val PREFERENCES_NAME = "new_settings"
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
     name = PREFERENCES_NAME,
-    produceMigrations = { context -> listOf(SharedPreferencesMigration(context, "notes")) }
+    produceMigrations = { context -> listOf(SharedPreferencesMigration(context, PREFERENCES_NAME)) }
 )
 
 class SettingsRepositoryImpl (private val context: Context) : SettingsRepository {
+    override suspend fun getPreferences(): Preferences {
+        return context.dataStore.data.first()
+    }
+
     override suspend fun putString(key: String, value: String) {
         val preferencesKey = stringPreferencesKey(key)
         context.dataStore.edit { preferences ->

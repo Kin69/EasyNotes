@@ -14,15 +14,15 @@ android {
         applicationId = "com.kin.easynotes"
         minSdk = 26
         targetSdk = 34
-        versionCode = 7
-        versionName = "1.3.75"
+        versionCode = 9
+        versionName = "1.4"
         vectorDrawables {
             useSupportLibrary = true
         }
 
         // https://developer.android.com/guide/topics/resources/app-languages#gradle-config
         resourceConfigurations.plus(
-            listOf("en", "ar", "de", "es", "fa", "fil", "fr", "hi", "it", "ja", "ru", "sk", "tr", "da", "nl", "pl", "tr", "uk", "vi")
+            listOf("en", "ar", "de", "es", "fa", "fil", "fr", "hi", "it", "ja", "ru", "sk", "tr", "da", "nl", "pl", "tr", "uk", "vi", "ota", "pt-rBR", "sr", "zh-rCN")
         )
     }
 
@@ -69,6 +69,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.biometric.ktx)
     implementation(libs.androidx.glance)
     implementation(libs.coil.compose)
     implementation(libs.hilt.navigation.compose)

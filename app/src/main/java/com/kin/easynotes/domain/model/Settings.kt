@@ -1,6 +1,12 @@
 package com.kin.easynotes.domain.model
 
+import com.kin.easynotes.presentation.navigation.NavRoutes
+
 data class Settings(
+    var defaultRouteType: String = NavRoutes.Home.route,
+    var passcode: String? = null,
+    var fingerprint: Boolean = false,
+    var pattern: String? = null,
     val viewMode: Boolean = true,
     val automaticTheme: Boolean = true,
     val darkTheme: Boolean = false,
@@ -19,7 +25,7 @@ data class Settings(
     var showOnlyTitle: Boolean = false,
     var termsOfService: Boolean = false,
     var useMonoSpaceFont: Boolean = false,
-
+    var lockImmediately: Boolean = true,
     var cornerRadius: Int = 32,
 )
 

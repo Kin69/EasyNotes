@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="screen_content_padding">14.dp</dimen>
+    <dimen name="card_padding_bottom">3dp</dimen>
+    <dimen name="card_padding_horizontal">20dp</dimen>
+    <dimen name="card_padding_vertical_small">6dp</dimen>
+    <dimen name="icon_padding_end">6dp</dimen>
+    <dimen name="icon_padding">12dp</dimen>
     <dimen name="max_description_height">150.dp</dimen>
     <dimen name="max_name_height">75.dp</dimen>
+    <dimen name="setting_corner_roundness">32.dp</dimen>
 </resources>

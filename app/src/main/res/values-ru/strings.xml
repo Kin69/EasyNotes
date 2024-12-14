@@ -73,7 +73,7 @@
     <string name="screen_protection_description">Запрещает скриншоты и запись экрана в приложении</string>
     <string name="email">Почта</string>
     <string name="discord">Disсоrd</string>
-    <string name="restore_description">Импортировать заметки из файла</string>
+    <string name="restore_description">Импортировать заметки из файла резервного копирования</string>
     <string name="feature">Запрос новой функции</string>
     <string name="dark_theme_description">Переключение между тёмной и светлой темой оформления</string>
     <string name="minimalistic_mode_description">Убирает верхние кнопки из экрана редактирования заметок</string>
@@ -98,4 +98,49 @@
     <string name="Behavior">Действия</string>
     <string name="always_edit">Приоритет режиму редактирования</string>
     <string name="always_edit_description">Просматривать заметку в режиме редактирования</string>
+    <string name="terms_acceptance_title">1. Принятие условий</string>
+    <string name="terms_use_title">3. Использование приложения</string>
+    <string name="terms_intellectual_property_title">4. Интеллектуальная собственность</string>
+    <string name="terms_liability_title">6. Ограничение ответственности</string>
+    <string name="terms_contact_title">9. Связаться с нами</string>
+    <string name="terms_contact_body">Если у вас есть вопросы по этим Условиям обслуживания или Easy Notes, пожалуйста, свяжитесь с нами по адресу</string>
+    <string name="terms_effective_date">Дата вступления в силу</string>
+    <string name="agree">Согласен</string>
+    <string name="terms_privacy_title">10. Политика конфиденциальности</string>
+    <string name="translators">Переводчики</string>
+    <string name="show_only_title_description">Показывать только заголовок в режиме просмотра</string>
+    <string name="terms_acceptance_body">Нажимая \"Согласен\" и используя Easy Notes, вы принимаете эти Условия обслуживания. Если вы не согласны, не используйте приложение.</string>
+    <string name="terms_license_title">2. Лицензия</string>
+    <string name="terms_license_body">Easy Notes распространяется под лицензией **GNU General Public License (GPL)** версии 3. Это означает
+\n
+\n- Вы можете свободно использовать, модифицировать и делиться приложением
+\n- Если вы распространяете приложение или любые его модифицированные версии, вы также обязаны распространять исходный код и сохранять лицензию GPL.</string>
+    <string name="terms_use_body">Вы соглашаетесь использовать Easy Notes только для законных целей и в соответствии с этими Условиями. Вы **не должны**:
+\n
+\n- _Использовать приложение для незаконных целей_
+\n- _Нарушать права других_
+\n- _Нарушать функциональность или безопасность приложения_</string>
+    <string name="terms_intellectual_property_body">Все права интеллектуальной собственности на Easy Notes принадлежат нам или нашим лицензодателям. Ваше использование приложения не дает вам никаких прав собственности на интеллектуальную собственность.</string>
+    <string name="terms_disclaimer_title">5. Отказ от гарантий</string>
+    <string name="terms_disclaimer_body">Easy Notes предоставляется \"как есть\", без каких-либо гарантий. Мы не гарантируем, что приложение будет без ошибок, безопасным.</string>
+    <string name="terms_liability_body">Мы не несем ответственности за любые убытки, возникшие в результате использования Easy Notes, включая косвенные, случайные или последующие убытки.</string>
+    <string name="terms_termination_title">7. Прекращение</string>
+    <string name="terms_termination_body">Мы можем прекратить или приостановить ваш доступ к Easy Notes, если вы нарушите эти Условия. При прекращении действие вашего права на использование приложения прекратится немедленно.</string>
+    <string name="terms_changes_title">8. Изменения в Условиях</string>
+    <string name="terms_changes_body">Мы можем время от времени обновлять эти Условия обслуживания. Ваше продолжение использования Easy Notes после любых изменений означает ваше согласие с пересмотренными условиями.</string>
+    <string name="terms_privacy_body">Easy Notes не собирает никаких личных данных. Для получения дополнительной информации, пожалуйста, ознакомьтесь с нашей политикой конфиденциальности, доступной по адресу</string>
+    <string name="terms_of_service">Условия предоставления услуг</string>
+    <string name="invalid_password">Неправильный пароль</string>
+    <string name="donators">Пожертвователи</string>
+    <string name="contributors">Контрибьюторы</string>
+    <string name="gallery_sync_description">Удалять изображения из хранилища приложения когда они удаляются из галереи</string>
+    <string name="gallery_sync">Синхронизация с галереей</string>
+    <string name="show_only_title">Показывать только заголовок</string>
+    <string name="file_import_success">Успешно импортировано</string>
+    <string name="file_import_title">Импорт</string>
+    <string name="file_import_description">Импортировать текстовые файлы как заметки</string>
+    <string name="file_import_partial_error">Импортирование некоторых файлов не удалось</string>
+    <string name="file_import_error">Не удалось импортировать</string>
+    <string name="monospace_font">Моноширинный шрифт</string>
+    <string name="monospace_font_description">Использовать моноширинный шрифт при редактировании заметок</string>
 </resources>

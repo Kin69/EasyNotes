@@ -75,7 +75,7 @@
     <string name="build_type">Type de compilation</string>
     <string name="minimalistic_mode_description">Supprimer les boutons du haut de l\'écran d\'édition</string>
     <string name="backup_description">Enregistrer toutes les notes dans un fichier</string>
-    <string name="restore_description">Restaurer des notes à partir d\'un fichier</string>
+    <string name="restore_description">Restaurer les notes à partir du fichier de sauvegarde</string>
     <string name="markdown_description">Activer le markdown dans les notes</string>
     <string name="support_list">Liste des soutiens</string>
     <string name="email">Courriel</string>
@@ -136,4 +136,11 @@
     <string name="gallery_sync">Synchronisation de la galerie</string>
     <string name="show_only_title">Afficher uniquement le titre</string>
     <string name="show_only_title_description">Afficher uniquement le titre dans l\'aperçu</string>
+    <string name="file_import_error">Impossible d\'importer</string>
+    <string name="file_import_partial_error">Échec de l\'importation de certains fichiers</string>
+    <string name="file_import_success">Importation réussie</string>
+    <string name="file_import_title">Importer</string>
+    <string name="file_import_description">Importer d’autres fichiers texte sous forme de notes</string>
+    <string name="monospace_font_description">Utiliser la police monospace lors de l\'édition de la note</string>
+    <string name="monospace_font">Police monospace</string>
 </resources>

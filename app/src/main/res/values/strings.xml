@@ -97,7 +97,7 @@
     <string name="system_language">System Language</string>
     <string name="Behavior">Behavior</string>
     <string name="always_edit">Prioritize Editing Mode</string>
-    <string name="always_edit_description">Enter edit mode on exisitng notes</string>
+    <string name="always_edit_description">Enter edit mode on existing notes</string>
     <string name="invalid_password">Invalid Password</string>
     <string name="donators">Donate</string>
     <string name="translators">Translation</string>
@@ -136,4 +136,25 @@
     <string name="file_import_description">Import other text files as notes</string>
     <string name="monospace_font_description">Use monospace font while editing note</string>
     <string name="monospace_font">Monospace font</string>
+    <string name="alert_text"> Are you sure you want to delete the selected notes</string>
+    <string name="yes"> Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="app_lock">App lock</string>
+    <string name="app_lock_description">Lock app using password</string>
+    <string name="setup_password">Setup passcode</string>
+    <string name="enter_password">Enter Passcode</string>
+    <string name="pin">Pin (6 numbers)</string>
+    <string name="passcode">Passcode</string>
+    <string name="fingerprint">Fingerprint</string>
+    <string name="fingerprint_name">Authentication required</string>
+    <string name="locked">is Locked</string>
+    <string name="uid">UID</string>
+    <string name="authorize_fingerprint">Ask for fingerprint on start</string>
+    <string name="authorize_passcode">Ask for passcode on start</string>
+    <string name="pattern">Pattern</string>
+    <string name="authorize_pattern">Ask for pattern on start</string>
+    <string name="setup_pattern">Settup pattern</string>
+    <string name="lock_pattern">Enter pattern</string>
+    <string name="lock_on_resume">Lock Immediately</string>
+    <string name="lock_on_resume_description">Lock instantly when app is resumed</string>
 </resources>

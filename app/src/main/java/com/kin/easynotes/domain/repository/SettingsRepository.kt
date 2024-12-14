@@ -1,5 +1,7 @@
 package com.kin.easynotes.domain.repository
 
+import androidx.datastore.preferences.core.Preferences
+
 interface SettingsRepository {
     suspend fun putString(key: String, value: String)
     suspend fun getString(key: String): String?
@@ -11,4 +13,5 @@ interface SettingsRepository {
     suspend fun getBoolean(key: String): Boolean?
 
     suspend fun getEveryNotesWidget(): List<Pair<Int, Int>>
+    suspend fun getPreferences(): Preferences
 }
