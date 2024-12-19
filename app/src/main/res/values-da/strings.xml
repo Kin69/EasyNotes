@@ -6,7 +6,7 @@
     <string name="about">Om</string>
     <string name="restore">Gendan</string>
     <string name="notes">Noter</string>
-    <string name="color_styles">Farver &amp; Stilarter</string>
+    <string name="color_styles"><![CDATA[Farver & Stile]]></string>
     <string name="widgets">Widgets</string>
     <string name="support">Støt</string>
     <string name="cloud">Cloud</string>
@@ -136,4 +136,25 @@
     <string name="monospace_font_description">Brug monospace-skrifttype ved redigering af noter</string>
     <string name="monospace_font">Monospace-skrifttype</string>
     <string name="terms_termination_body">Vi kan opsige eller suspendere din adgang til Easy Notes, hvis du overtræder disse vilkår. Ved opsigelse ophører din ret til at bruge appen med det samme.</string>
+    <string name="alert_text">Er du sikker på, at du vil slette de valgte noter?</string>
+    <string name="yes">Ja</string>
+    <string name="cancel">Annuller</string>
+    <string name="app_lock">Applås</string>
+    <string name="app_lock_description">Lås app med adgangskode</string>
+    <string name="setup_password">Opsæt adgangskode</string>
+    <string name="enter_password">Indtast Adgangskode</string>
+    <string name="pin">PIN (6 cifre)</string>
+    <string name="passcode">Adgangskode</string>
+    <string name="fingerprint">Fingeraftryk</string>
+    <string name="fingerprint_name">Godkendelse påkrævet</string>
+    <string name="locked">er Låst</string>
+    <string name="uid">UID</string>
+    <string name="authorize_fingerprint">Bed om fingeraftryk ved start</string>
+    <string name="authorize_passcode">Bed om adgangskode ved start</string>
+    <string name="pattern">Mønster</string>
+    <string name="authorize_pattern">Bed om mønster ved start</string>
+    <string name="setup_pattern">Opsæt mønster</string>
+    <string name="lock_pattern">Indtast mønster</string>
+    <string name="lock_on_resume">Lås Øjeblikkeligt</string>
+    <string name="lock_on_resume_description">Lås øjeblikkeligt, når appen genoptages</string>
 </resources>
