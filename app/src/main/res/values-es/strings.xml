@@ -39,7 +39,7 @@
     <string name="latest_release">Última Actualización</string>
     <string name="notes">Notas</string>
     <string name="start_project">Dale una estrella al proyecto</string>
-    <string name="color_styles">Colores Y Estilo</string>
+    <string name="color_styles"><![CDATA[Colores y estilos]]></string>
     <string name="markdown">Markdown</string>
     <string name="tools">Herramientas</string>
     <string name="description_color_styles">Temas • Tamaño • Fuente</string>
@@ -143,4 +143,25 @@
     <string name="file_import_description">Importar otros archivos de texto como notas</string>
     <string name="monospace_font_description">Utilizar una fuente monoespaciada al editar la nota</string>
     <string name="monospace_font">Fuente monoespaciada</string>
+    <string name="alert_text">¿Está seguro de que desea eliminar las notas seleccionadas?</string>
+    <string name="yes">Sí</string>
+    <string name="cancel">Cancelar</string>
+    <string name="app_lock">Bloqueo de aplicaciones</string>
+    <string name="app_lock_description">Bloquear la aplicación usando una contraseña</string>
+    <string name="setup_password">Configurar contraseña</string>
+    <string name="enter_password">Introducir código de acceso</string>
+    <string name="pin">Pin (6 números)</string>
+    <string name="passcode">Código de acceso</string>
+    <string name="fingerprint">Huella dactilar</string>
+    <string name="fingerprint_name">Se requiere autenticación</string>
+    <string name="locked">Está bloqueado</string>
+    <string name="uid">Identificación única</string>
+    <string name="authorize_fingerprint">Solicitar huella dactilar al iniciar</string>
+    <string name="authorize_passcode">Solicitar contraseña al iniciar</string>
+    <string name="pattern">Patrón</string>
+    <string name="authorize_pattern">Solicitar patrón al inicio</string>
+    <string name="setup_pattern">Configurar patrón</string>
+    <string name="lock_pattern">Introducir patrón</string>
+    <string name="lock_on_resume">Bloquear inmediatamente</string>
+    <string name="lock_on_resume_description">Bloquear instantáneamente cuando se reanuda la aplicación</string>
 </resources>
