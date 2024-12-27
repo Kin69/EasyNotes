@@ -65,7 +65,12 @@ class SettingsViewModel @Inject constructor(
             settingsUseCase.loadSettingsFromRepository()
         }
         _settings.value = loadedSettings
-        defaultRoute = loadedSettings.defaultRouteType
+        if (_settings.value.fingerprint == false && _settings.value.passcode == null && _settings.value.pattern == null) {
+
+            defaultRoute = NavRoutes.Home.route
+        } else {
+            defaultRoute = loadedSettings.defaultRouteType
+        }
     }
 
     fun update(newSettings: Settings) {
