@@ -14,7 +14,7 @@ android {
         applicationId = "com.kin.easynotes"
         minSdk = 26
         targetSdk = 34
-        versionCode = 9
+        versionCode = 11
         versionName = "1.4"
         vectorDrawables {
             useSupportLibrary = true

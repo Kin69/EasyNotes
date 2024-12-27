@@ -19,6 +19,7 @@ import com.kin.easynotes.domain.usecase.ImportResult
 import com.kin.easynotes.domain.usecase.NoteUseCase
 import com.kin.easynotes.domain.usecase.SettingsUseCase
 import com.kin.easynotes.presentation.components.GalleryObserver
+import com.kin.easynotes.presentation.navigation.NavRoutes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,7 +41,12 @@ class SettingsViewModel @Inject constructor(
     var defaultRoute: String? = null
 
     fun loadDefaultRoute() {
-        defaultRoute = _settings.value.defaultRouteType
+        if (_settings.value.fingerprint == false && _settings.value.passcode == null && _settings.value.pattern == null) {
+            defaultRoute == NavRoutes.Home.route
+        } else {
+            defaultRoute = _settings.value.defaultRouteType
+
+        }
     }
 
     fun updateDefaultRoute(route: String) {
