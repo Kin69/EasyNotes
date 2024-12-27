@@ -81,8 +81,10 @@ class MainActivity : AppCompatActivity() {
         settingsViewModel?.let {
             it.loadDefaultRoute()
             if (it.defaultRoute != NavRoutes.Home.route) {
-                if (it.settings.value.lockImmediately) {
-                    navController.navigate(it.defaultRoute!!) { popUpToTop(navController) }
+                if (it.settings.value.passcode != null || it.settings.value.fingerprint || it.settings.value.pattern != null) {
+                    if (it.settings.value.lockImmediately) {
+                        navController.navigate(it.defaultRoute!!) { popUpToTop(navController) }
+                    }
                 }
             }
         }
