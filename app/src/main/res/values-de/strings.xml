@@ -83,4 +83,11 @@
     <string name="vault">Tresor</string>
     <string name="password_continue">fortsetzen</string>
     <string name="system_language">Systemsprache</string>
+    <string name="extreme_amoled_mode_description">Extreme Akkuoptimierung</string>
+    <string name="dark_theme_description">Zwischen dunklen und hellen Farbschemata umschalten</string>
+    <string name="radius_description">Rahmenradius anpassen</string>
+    <string name="view_style_description">Ansichtsstil auswählen</string>
+    <string name="markdown_description">Markdown in Notizen aktivieren</string>
+    <string name="discord">Discord</string>
+    <string name="others">Andere</string>
 </resources>
