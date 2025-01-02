@@ -11,7 +11,7 @@
     <string name="password_continue">继续</string>
     <string name="always_edit">优先编辑模式</string>
     <string name="always_edit_description">进入现有笔记的默认编辑模式</string>
-    <string name="invalid_password">密码无效</string>
+    <string name="invalid_password">密码代码无效</string>
     <string name="donators">捐赠</string>
     <string name="translators">翻译</string>
     <string name="terms_acceptance_title">1. 接受条款</string>
@@ -64,8 +64,7 @@
     <string name="history">历史记录</string>
     <string name="description_tools">已创建 • 删除全部</string>
     <string name="description_markdown">支持 • 图片</string>
-    <string name="support_description">猫猫很可爱,请给猫猫钱.
-\n快,给钱.不然我就要咬你!/ᐠ. ｡.ᐟ\\ᵐᵉᵒʷˎˊ˗</string>
+    <string name="support_description">猫猫很可爱,请给猫猫钱.</string>
     <string name="select_font">字体</string>
     <string name="radius">圆角半径</string>
     <string name="select_radius">设置半径</string>
@@ -117,7 +116,7 @@
     <string name="about">关于</string>
     <string name="version">版本</string>
     <string name="tools">工具</string>
-    <string name="color_styles">颜色与样式</string>
+    <string name="color_styles"><![CDATA[颜色与样式]]></string>
     <string name="language">语言</string>
     <string name="description_color_styles">主题 • 大小 • 字体</string>
     <string name="description_history">历史记录 • 恢复</string>
@@ -132,8 +131,8 @@
     <string name="copy">复制</string>
     <string name="encrypt_databse">加密数据库</string>
     <string name="encrypt_databse_description">备份期间加密数据库</string>
-    <string name="password_prompt">输入密码</string>
-    <string name="detabase_restore_error">密码无效或数据库未加密</string>
+    <string name="password_prompt">输入密码代码</string>
+    <string name="detabase_restore_error">密码代码无效或数据库未加密</string>
     <string name="invalid_input">输入无效</string>
     <string name="sort_ascending">升序排序</string>
     <string name="sort_descending">降序排序</string>
@@ -144,4 +143,25 @@
     <string name="file_import_description">导入其他文本文件作为笔记</string>
     <string name="monospace_font_description">编辑笔记时使用等宽字体</string>
     <string name="monospace_font">等宽字体</string>
+    <string name="alert_text">您确定要删除所选的笔记吗</string>
+    <string name="yes">确定</string>
+    <string name="cancel">取消</string>
+    <string name="app_lock">应用锁🔒</string>
+    <string name="setup_password">设定密码代码</string>
+    <string name="enter_password">输入密码代码</string>
+    <string name="pin">PIN码(六位数字)</string>
+    <string name="passcode">密码代码</string>
+    <string name="fingerprint">指纹</string>
+    <string name="fingerprint_name">请验证身份</string>
+    <string name="app_lock_description">用密码代码保护应用</string>
+    <string name="authorize_fingerprint">启动时要求验证指纹</string>
+    <string name="authorize_passcode">启动时验证密码代码</string>
+    <string name="pattern">图形密码</string>
+    <string name="authorize_pattern">启动时验证图形密码</string>
+    <string name="setup_pattern">设置图形密码</string>
+    <string name="lock_pattern">绘出图形密码</string>
+    <string name="locked">已上锁</string>
+    <string name="uid">UID</string>
+    <string name="lock_on_resume">立即锁定</string>
+    <string name="lock_on_resume_description">应用程序恢复时立即锁定</string>
 </resources>
