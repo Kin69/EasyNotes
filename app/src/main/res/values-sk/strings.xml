@@ -45,7 +45,7 @@
     <string name="information">Informácie</string>
     <string name="system_theme">Systémová téma</string>
     <string name="support">Podpora</string>
-    <string name="color_styles">Farby a štýly</string>
+    <string name="color_styles"><![CDATA[Colors & Styles]]></string>
     <string name="language">Jazyk</string>
     <string name="description_cloud">NextCloud • Lokálne • Šifrovanie</string>
     <string name="description_about">Verzia • Vývojári • Licencia</string>
@@ -143,4 +143,25 @@
     <string name="file_import_description">Importovať ďalšie textové súbory ako poznámky</string>
     <string name="monospace_font_description">Použite monospace písma pri editácii poznámky</string>
     <string name="monospace_font">Monospace písmo</string>
+    <string name="authorize_pattern">Požiadať o vzor pri štarte</string>
+    <string name="lock_pattern">Zadajte vzor</string>
+    <string name="alert_text">Ste si istí, že chcete odstrániť vybrané poznámky</string>
+    <string name="yes">Áno</string>
+    <string name="cancel">Zrušiť</string>
+    <string name="app_lock">Zámok aplikácie</string>
+    <string name="app_lock_description">Lock aplikácie pomocou hesla</string>
+    <string name="pin">Pin (6 čísel)</string>
+    <string name="setup_password">Nastavenie kódu</string>
+    <string name="enter_password">Zadať kód</string>
+    <string name="passcode">Kód</string>
+    <string name="fingerprint">Odtlačok prsta</string>
+    <string name="locked">je uzamknutý</string>
+    <string name="uid">UID</string>
+    <string name="authorize_fingerprint">Požiadať o odtlačky prstov na začiatku</string>
+    <string name="authorize_passcode">Požiadať o kód pri štarte</string>
+    <string name="fingerprint_name">Potrebné overenie</string>
+    <string name="pattern">Vzor</string>
+    <string name="setup_pattern">Nastavenie vzoru</string>
+    <string name="lock_on_resume">Zamknúť okamžite</string>
+    <string name="lock_on_resume_description">Lock okamžite, keď je aplikácia obnovená</string>
 </resources>
