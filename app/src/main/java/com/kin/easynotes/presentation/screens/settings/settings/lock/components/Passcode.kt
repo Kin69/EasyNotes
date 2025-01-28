@@ -108,7 +108,9 @@ fun PasscodeLock(
                 },
                 onZeroClick = {
                     passcodeLockViewModel.addNumber(settingsViewModel, 0) { result ->
-
+                        if (result) {
+                            navController.navigate(NavRoutes.Home.route) { popUpToTop(navController) }
+                        }
                     }
                 },
                 onBackspaceClick = {
