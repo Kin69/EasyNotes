@@ -109,7 +109,7 @@ private fun OnLockClicked(
                     if (settings.settings.value.passcode.isNullOrBlank()) {
                         navController.navigate(NavRoutes.LockScreen.createRoute(com.kin.easynotes.presentation.navigation.ActionType.PASSCODE))
                     } else {
-                        settings.update(settings.settings.value.copy(passcode = null))
+                        settings.update(settings.settings.value.copy(passcode = null, defaultRouteType = NavRoutes.Home.route))
                     }
                 }
             )
@@ -122,7 +122,7 @@ private fun OnLockClicked(
                     if (!settings.settings.value.fingerprint) {
                         navController.navigate(NavRoutes.LockScreen.createRoute(com.kin.easynotes.presentation.navigation.ActionType.FINGERPRINT))
                     } else {
-                        settings.update(settings.settings.value.copy(fingerprint = false))
+                        settings.update(settings.settings.value.copy(fingerprint = false, defaultRouteType = NavRoutes.Home.route))
                     }
                 }
             )
@@ -135,7 +135,8 @@ private fun OnLockClicked(
                     if (settings.settings.value.pattern.isNullOrBlank()) {
                         navController.navigate(NavRoutes.LockScreen.createRoute(com.kin.easynotes.presentation.navigation.ActionType.PATTERN))
                     } else {
-                        settings.update(settings.settings.value.copy(pattern = null))
+                        settings.update(settings.settings.value.copy(pattern = null, defaultRouteType = NavRoutes.Home.route))
+                        settings.updateDefaultRoute(NavRoutes.Home.route)
                     }
                 }
             )

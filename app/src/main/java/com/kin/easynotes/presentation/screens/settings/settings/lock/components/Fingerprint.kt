@@ -84,7 +84,8 @@ fun customizedPrompt(
                 settingsViewModel.settings.value.copy(
                     passcode = null,
                     fingerprint = true,
-                    pattern = null
+                    pattern = null,
+                    defaultRouteType = NavRoutes.LockScreen.route
                 )
             )
             settingsViewModel.updateDefaultRoute(NavRoutes.LockScreen.createRoute(null),)

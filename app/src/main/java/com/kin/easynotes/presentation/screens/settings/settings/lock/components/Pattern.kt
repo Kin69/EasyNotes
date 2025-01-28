@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.util.Logger
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.popUpToTop
@@ -117,6 +118,7 @@ fun PatternLock(
 
 
                         MotionEvent.ACTION_UP -> {
+                            println(settingsViewModel.settings.value.pattern)
                             if (settingsViewModel.settings.value.pattern == null) {
                                 settingsViewModel.update(
                                     settingsViewModel.settings.value.copy(
@@ -125,7 +127,7 @@ fun PatternLock(
                                         fingerprint = false
                                     )
                                 )
-                                settingsViewModel.updateDefaultRoute(NavRoutes.LockScreen.createRoute(null),)
+                                settingsViewModel.updateDefaultRoute(NavRoutes.LockScreen.createRoute(null))
                             } else {
                                 if (settingsViewModel.settings.value.pattern == lockScreenViewModel.selectedCellsIndexList.joinToString("")) {
                                     navController.navigate(NavRoutes.Home.route) { popUpToTop(navController) }

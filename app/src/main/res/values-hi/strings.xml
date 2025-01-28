@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">इजी नोट्स</string>
+    <string name="app_name">इज़ी नोट्स</string>
     <string name="home_screen">नोट्स</string>
     <string name="new_note">नया नोट</string>
-    <string name="dark_theme">गहरी थीम</string>
+    <string name="dark_theme">काला थीम</string>
     <string name="dynamic_colors">डायनामिक रंग</string>
     <string name="pinned">पिन किए गए</string>
     <string name="others">अन्य</string>
@@ -35,7 +35,7 @@
     <string name="about">ऐप के बारे में</string>
     <string name="version">संस्करण</string>
     <string name="start_project">परियोजना को तारांकित करें</string>
-    <string name="latest_release">नवीनतम रिलीज</string>
+    <string name="latest_release">नवीनतम रिलीस</string>
     <string name="donate_me">मुझे दान दें :)</string>
     <string name="restore">पुनर्स्थापित करें</string>
     <string name="notes">नोट्स</string>
@@ -46,9 +46,9 @@
     <string name="tools">टूल्स</string>
     <string name="history">इतिहास</string>
     <string name="widgets">विजेट</string>
-    <string name="description_color_styles">थीम • आकार • फॉन्ट</string>
+    <string name="description_color_styles">थीम • आकार • फ़ॉन्ट</string>
     <string name="cloud">क्लाउड</string>
-    <string name="description_language">फॉन्ट • भाषा</string>
+    <string name="description_language">फ़ॉन्ट • भाषा</string>
     <string name="description_cloud">NextCloud • स्थानीय • कूटलेखन</string>
     <string name="description_about">संस्करण • डेवलपर्स • लाइसेंस</string>
     <string name="description_widgets">विजेट • मार्कडाउन</string>
@@ -64,7 +64,7 @@
     <string name="amoled_colors_description">पृष्ठभूमि के लिए काले रंग का उपयोग करें</string>
     <string name="extreme_amoled_mode_description">अत्यधिक बैटरी अनुकूलन</string>
     <string name="radius_description">सीमा त्रिज्या अनुकूलित करें</string>
-    <string name="select_font">फॉन्ट</string>
+    <string name="select_font">फ़ॉन्ट</string>
     <string name="radius">त्रिज्या</string>
     <string name="select_radius">त्रिज्या चुनें</string>
     <string name="minimalistic_mode">न्यूनतम मोड</string>
@@ -83,7 +83,7 @@
     <string name="support_list">समर्थकों की सूची</string>
     <string name="email">ईमेल</string>
     <string name="discord">डिस्कॉर्ड</string>
-    <string name="feature">खासियत का अनुरोध</string>
+    <string name="feature">ख़ासियत का अनुरोध</string>
     <string name="encrypt_databse_description">बैकअप के दौरान डेटाबेस कूटलेखित करें</string>
     <string name="password_prompt">पासवर्ड दर्ज करें</string>
     <string name="detabase_restore_error">पासवर्ड अमान्य है या डेटाबेस कूटलेखित नहीं है</string>

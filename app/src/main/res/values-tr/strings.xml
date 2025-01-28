@@ -143,4 +143,25 @@
     <string name="file_import_title">İçe aktar</string>
     <string name="monospace_font_description">Notu düzenlerken eş aralıklı yazı tipi kullanın</string>
     <string name="monospace_font">Eş aralıklı yazı tipi</string>
+    <string name="alert_text">Seçili notları silmek istediğinize emin misiniz</string>
+    <string name="yes">Evet</string>
+    <string name="cancel">Hayır</string>
+    <string name="app_lock">Uygulama Kilidi</string>
+    <string name="app_lock_description">Uygulamayı şifre ile kilitle</string>
+    <string name="enter_password">Şifre Girin</string>
+    <string name="setup_password">Şifre Ayarla</string>
+    <string name="pin">PIN (6 sayılı)</string>
+    <string name="passcode">Şifre</string>
+    <string name="fingerprint">Parmak İzi</string>
+    <string name="fingerprint_name">Doğrulama gerekiyor</string>
+    <string name="locked">Kilitlendi</string>
+    <string name="uid">UID</string>
+    <string name="authorize_passcode">Açılışta şifre sor</string>
+    <string name="pattern">Parmak izi</string>
+    <string name="authorize_fingerprint">Açılışta parmak izi iste</string>
+    <string name="authorize_pattern">Açılışta parmak izi iste</string>
+    <string name="setup_pattern">Parmak izi doğrulaması kur</string>
+    <string name="lock_pattern">Parmak izinizi kullanın</string>
+    <string name="lock_on_resume">Hemen Kilitle</string>
+    <string name="lock_on_resume_description">Uygulamaya geri döner dönmez uygulamayı kilitle</string>
 </resources>
