@@ -33,7 +33,7 @@
     <string name="amoled_colors">Modo Amoled</string>
     <string name="start_project">Criar Projeto</string>
     <string name="donate_me">Fazer doação :)</string>
-    <string name="color_styles">Cores &amp; Modos</string>
+    <string name="color_styles"><![CDATA[Cores & Modos]]></string>
     <string name="system_theme">Seguir Tema do Sistema</string>
     <string name="description_widgets">Widgets • Formatação</string>
     <string name="support_description">Declare seu amor</string>
@@ -143,4 +143,25 @@
     <string name="file_import_partial_error">Falha na importação de alguns arquivos</string>
     <string name="monospace_font_description">Use fonte monoespaçada ao editar notas</string>
     <string name="monospace_font">Fonte monoespaçada</string>
+    <string name="app_lock_description">Trancar aplicação utilizando palavra passe</string>
+    <string name="app_lock">Trancar aplicação</string>
+    <string name="setup_password">Defina palavra passe</string>
+    <string name="enter_password">Insira código passe</string>
+    <string name="pin">PIN (6 dígitos)</string>
+    <string name="authorize_passcode">Solicitar palavra passe no arranque</string>
+    <string name="fingerprint">Impressão Digital</string>
+    <string name="fingerprint_name">Autenticação necessária</string>
+    <string name="locked">bloqueado</string>
+    <string name="authorize_fingerprint">Solicitar impressão digital no arranque</string>
+    <string name="pattern">Padrão</string>
+    <string name="authorize_pattern">Solicitar padrão no arranque</string>
+    <string name="lock_on_resume_description">Bloquear de imediato quando a aplicação é retomada</string>
+    <string name="lock_pattern">Insira padrão</string>
+    <string name="cancel">Cancelar</string>
+    <string name="lock_on_resume">Bloquear de imediato</string>
+    <string name="alert_text">Tem certeza que quer apagar as notas selecionadas</string>
+    <string name="yes">Sim</string>
+    <string name="passcode">Código passe</string>
+    <string name="setup_pattern">Configurar padrão</string>
+    <string name="uid">Identificador de usuário</string>
 </resources>
