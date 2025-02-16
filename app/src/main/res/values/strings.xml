@@ -157,4 +157,6 @@
     <string name="lock_pattern">Enter pattern</string>
     <string name="lock_on_resume">Lock Immediately</string>
     <string name="lock_on_resume_description">Lock instantly when app is resumed</string>
+    <string name="disable_swipe_edit">Disable swipe</string>
+    <string name="disable_swipe_edit_description">"Disable swiping to preview in edit mode "</string>
 </resources>

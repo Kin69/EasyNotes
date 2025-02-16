@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material.icons.rounded.Style
+import androidx.compose.material.icons.rounded.Swipe
 import androidx.compose.material.icons.rounded.Title
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -86,10 +87,21 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
                     description = stringResource(id = R.string.show_only_title_description),
                     icon = Icons.Rounded.Title,
                     actionType = ActionType.SWITCH,
-                    radius = shapeManager(isBoth = true, radius = settingsViewModel.settings.value.cornerRadius),
+                    radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
                     variable = settingsViewModel.settings.value.showOnlyTitle,
                     switchEnabled = {
                         settingsViewModel.update(settingsViewModel.settings.value.copy(showOnlyTitle = it))
+                    }
+                )
+                SettingsBox(
+                    title = stringResource(id = R.string.disable_swipe_edit),
+                    description = stringResource(id = R.string.disable_swipe_edit_description),
+                    icon = Icons.Rounded.Swipe,
+                    actionType = ActionType.SWITCH,
+                    radius = shapeManager(isLast = true, radius = settingsViewModel.settings.value.cornerRadius),
+                    variable = settingsViewModel.settings.value.disableSwipeInEditMode,
+                    switchEnabled = {
+                        settingsViewModel.update(settingsViewModel.settings.value.copy(disableSwipeInEditMode = it))
                     }
                 )
             }

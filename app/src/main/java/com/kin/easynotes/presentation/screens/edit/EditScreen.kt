@@ -167,6 +167,7 @@ fun PagerContent(pagerState: PagerState, viewModel: EditViewModel,settingsViewMo
     HorizontalPager(
         state = pagerState,
         modifier = Modifier.imePadding(),
+        userScrollEnabled = !settingsViewModel.settings.value.disableSwipeInEditMode
     ) { page ->
         when (page) {
             0 -> EditScreen(viewModel, settingsViewModel, pagerState, onClickBack)
