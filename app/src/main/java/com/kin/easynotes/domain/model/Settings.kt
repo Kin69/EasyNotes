@@ -27,6 +27,7 @@ data class Settings(
     var useMonoSpaceFont: Boolean = false,
     var lockImmediately: Boolean = true,
     var cornerRadius: Int = 32,
-    var disableSwipeInEditMode: Boolean = false
+    var disableSwipeInEditMode: Boolean = false,
+    var makeSearchBarLonger: Boolean = false
 )
 

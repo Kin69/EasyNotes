@@ -26,6 +26,7 @@ import androidx.compose.material.icons.rounded.GridView
 import androidx.compose.material.icons.rounded.HdrAuto
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.RoundedCorner
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.material.icons.rounded.ViewAgenda
 import androidx.compose.material3.Card
@@ -186,6 +187,18 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.sortDescending,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(sortDescending = it)) }
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+            }
+            item {
+                SettingsBox(
+                    title = stringResource(id = R.string.make_search_bar_longer),
+                    description = stringResource(id = R.string.make_search_bar_longer_description),
+                    icon = Icons.Rounded.Search,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
+                    actionType = ActionType.SWITCH,
+                    variable = settingsViewModel.settings.value.makeSearchBarLonger,
+                    switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(makeSearchBarLonger = it)) }
                 )
             }
         }

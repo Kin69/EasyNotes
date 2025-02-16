@@ -222,7 +222,7 @@ private fun NotesSearchBar(
     SearchBar(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 36.dp, vertical = 18.dp),
+            .padding(horizontal = if (settingsModel.settings.value.makeSearchBarLonger) 16.dp else 36.dp, vertical =  18.dp),
         query = query,
         placeholder = { Text(stringResource(R.string.search)) },
         leadingIcon = { Icon(Icons.Rounded.Search, contentDescription = "Search") },

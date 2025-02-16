@@ -159,4 +159,6 @@
     <string name="lock_on_resume_description">Lock instantly when app is resumed</string>
     <string name="disable_swipe_edit">Disable swipe</string>
     <string name="disable_swipe_edit_description">"Disable swiping to preview in edit mode "</string>
+    <string name="make_search_bar_longer">Scale Search Bar Width</string>
+    <string name="make_search_bar_longer_description">Make search bar match width of notes</string>
 </resources>
