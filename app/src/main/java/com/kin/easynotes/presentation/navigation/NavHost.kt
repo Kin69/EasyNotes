@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import coil.util.Logger
 import com.kin.easynotes.presentation.screens.settings.settings.lock.LockScreen
 import com.kin.easynotes.presentation.screens.edit.EditNoteView
 import com.kin.easynotes.presentation.screens.home.HomeView
@@ -29,8 +30,9 @@ import kotlinx.coroutines.withContext
 fun AppNavHost(settingsModel: SettingsViewModel,navController: NavHostController = rememberNavController(), noteId: Int, defaultRoute: String) {
 
     val activity = (LocalContext.current as? Activity)
+    val startRoute = if (defaultRoute != NavRoutes.LockScreen.route && noteId != -1) NavRoutes.Edit.route else defaultRoute
 
-    NavHost(navController, startDestination = defaultRoute) {
+    NavHost(navController, startDestination = startRoute) {
         animatedComposable(NavRoutes.Home.route) {
             HomeView(
                 onSettingsClicked = { navController.navigate(NavRoutes.Settings.route) },
@@ -115,12 +117,4 @@ suspend fun getDefaultRoute(
         }
 
     return routeFlow.filterNotNull().first()
-}
-
-fun checkLock(settingsViewModel: SettingsViewModel, navController: NavHostController) {
-    when {
-        settingsViewModel.settings.value.passcode != null -> navController.navigate(NavRoutes.LockScreen.createRoute(null))
-        settingsViewModel.settings.value.fingerprint -> navController.navigate(NavRoutes.LockScreen.createRoute(null))
-        settingsViewModel.settings.value.pattern != null -> navController.navigate(NavRoutes.LockScreen.createRoute(null))
-    }
 }
