@@ -54,6 +54,13 @@ Lightweight android notes app with Material You.
 -  Discord : [Easy Notes](https://discord.gg/ZrP4G8z23H)
 
 ---
+
+## 🔑 Checksums
+
+-  MD5: `d6ac2c9352a8ed4c8839bbbf8ad3e534`
+-  SHA1: `6f0eaf53f8bf1506f2cd0f774e32d46e1f92de59`
+-  SHA-256: `fce87da97f791301df390bfa47e81685191167cab5dbd555db8287541f786e28`
+
 ## 🌍 Translation - [Weblate](https://hosted.weblate.org/projects/easy-notes/) (Your contributions to translations are greatly appreciated)
 ![Translation](https://camo.githubusercontent.com/8f2ebd39a22104b3036654c87d372244a4c893300af980f09dac35b52489dffe/68747470733a2f2f686f737465642e7765626c6174652e6f72672f7769646765742f656173792d6e6f7465732f656173792d6e6f7465732d6170706c69636174696f6e2f686f72697a6f6e74616c2d6175746f2e737667)
 ---
