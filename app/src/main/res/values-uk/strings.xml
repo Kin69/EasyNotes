@@ -18,7 +18,7 @@
     <string name="donate_me">Підтримайте мене :)</string>
     <string name="restore">Відновити</string>
     <string name="notes">Нотатки</string>
-    <string name="color_styles">Кольори та стиль</string>
+    <string name="color_styles"><![CDATA[Colors & Styles]]></string>
     <string name="markdown">Markdown</string>
     <string name="tools">Інструменти</string>
     <string name="widgets">Віджети</string>
@@ -97,7 +97,7 @@
     <string name="system_language">Мова системи</string>
     <string name="Behavior">Поведінка</string>
     <string name="always_edit">Надавати пріоритет режиму редагування</string>
-    <string name="always_edit_description">Входити в режим редагування для наявних нотаток</string>
+    <string name="always_edit_description">Увійдіть у режим редагування наявних нотаток</string>
     <string name="invalid_password">Недійсний пароль</string>
     <string name="terms_acceptance_title">1. Прийняття умов</string>
     <string name="terms_license_title">2. Ліцензія</string>
@@ -141,4 +141,27 @@
     <string name="terms_privacy_body">Easy Notes не збирає жодних персональних даних. Для отримання додаткової інформації, зверніться до нашої політики конфіденційності, доступної за посиланням</string>
     <string name="terms_privacy_title">10. Політика конфіденційності</string>
     <string name="file_import_partial_error">Не вдалося імпортувати деякі файли</string>
+    <string name="monospace_font_description">Використовуйте моноширинний шрифт під час редагування примітки</string>
+    <string name="monospace_font">Шрифт MPV</string>
+    <string name="lock_on_resume">Негайно заблокувати</string>
+    <string name="alert_text">Ви впевнені, що бажаєте видалити вибрані нотатки</string>
+    <string name="lock_on_resume_description">Миттєво блокувати після відновлення програми</string>
+    <string name="app_lock_description">Блокування програми за допомогою пароля</string>
+    <string name="locked">Заблоковано</string>
+    <string name="lock_pattern">Введіть шаблон</string>
+    <string name="yes">Так</string>
+    <string name="cancel">Скасувати</string>
+    <string name="app_lock">Блокування програми</string>
+    <string name="setup_password">Налаштувати пароль</string>
+    <string name="enter_password">Введіть пароль</string>
+    <string name="pin">Pin (6 номерів)</string>
+    <string name="passcode">Пароль</string>
+    <string name="fingerprint">Відбиток пальця</string>
+    <string name="fingerprint_name">Потрібна автентифікація</string>
+    <string name="uid">UID</string>
+    <string name="authorize_fingerprint">Запитати відбиток пальця на початку</string>
+    <string name="authorize_passcode">Запитайте пароль на початку</string>
+    <string name="pattern">Візерунок</string>
+    <string name="authorize_pattern">Запитайте шаблон на початку</string>
+    <string name="setup_pattern">Шаблон налаштування</string>
 </resources>
