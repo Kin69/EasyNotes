@@ -136,4 +136,25 @@
     <string name="terms_termination_body">Maari naming wakasin o suspindehin ang iyong pag-access sa Easy Notes kapag ilabag mo ang Mga Tuntunin na ito. Sa pagwawakas, ang iyong karapatang gamitin ang app ay matatapos kaagad.</string>
     <string name="terms_privacy_title">10. Patakaran sa Privacy</string>
     <string name="monospace_font">Monospace na font</string>
+    <string name="passcode">Passcode</string>
+    <string name="enter_password">Ilagay ang Passcode</string>
+    <string name="lock_on_resume">I-lock kaagad</string>
+    <string name="alert_text">Sigurado ka ba gusto mong burahin ang mga piniling tala</string>
+    <string name="yes">Oo</string>
+    <string name="app_lock_description">I-lock ang app gamit ng password</string>
+    <string name="authorize_pattern">Humingi ng pattern sa pagsimula</string>
+    <string name="pin">Pin (6 numero)</string>
+    <string name="cancel">Kanselahin</string>
+    <string name="app_lock">Lock ng app</string>
+    <string name="setup_password">Mag-setup ng passcode</string>
+    <string name="fingerprint_name">Nangangailangan ng authentikasyon</string>
+    <string name="locked">ay Naka-lock</string>
+    <string name="uid">UID</string>
+    <string name="authorize_fingerprint">Humingi ng fingerprint sa pagsimula</string>
+    <string name="authorize_passcode">Humingi ng password sa pagsimula</string>
+    <string name="pattern">Pattern</string>
+    <string name="setup_pattern">I-set up ang pattern</string>
+    <string name="lock_pattern">Ilagay ang pattern</string>
+    <string name="lock_on_resume_description">I-lock kaagad kung na-resume ang app</string>
+    <string name="fingerprint">Fingerprint</string>
 </resources>
