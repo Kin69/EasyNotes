@@ -141,4 +141,14 @@
     <string name="terms_of_service">सेवा शर्तें</string>
     <string name="file_import_title">आयात करें</string>
     <string name="file_import_description">अन्य पाठ फाइलों को नोट्स के रूप में आयात करें</string>
+    <string name="app_lock_description">पासवर्ड का उपयोग करके ऐप लॉक करें</string>
+    <string name="alert_text">क्या आप सुनिश्चित हैं कि आप चयनित नोट्स को हटाना चाहते हैं?</string>
+    <string name="setup_password">पासकोड स्थापित करें</string>
+    <string name="enter_password">पासकोड दर्ज करें</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="yes">हाँ</string>
+    <string name="passcode">पासकोड</string>
+    <string name="fingerprint_name">प्रमाणीकरण आवश्यक है</string>
+    <string name="pin">पिन (6 अंक)</string>
+    <string name="locked">लॉक किया गया है</string>
 </resources>
