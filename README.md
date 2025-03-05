@@ -9,10 +9,7 @@
 # Easy Notes
 Lightweight android notes app with Material You.
 
-[<img src=".github/github.png" alt="Get it on GitHub" height="55">](https://github.com/Kin69/EasyNotes/releases/latest) &nbsp; 
-[<img src=".github/fdroid.png" alt="Get it on F-Droid" height="55">](https://f-droid.org/packages/com.kin.easynotes/) &nbsp;
-
-[<img src=".github/nightly.png" alt="Get Nightly Build" height="55">](https://github.com/Kin69/EasyNotes/releases/download/Nightly/EasyNotes-nightly.apk) &nbsp;
+[<img src=".github/fdroid.png" alt="Get it on F-Droid" height="55">](https://f-droid.org/packages/com.kin.easynotes/)[<img src=".github/github.png" alt="Get it on GitHub" height="55">](https://github.com/Kin69/EasyNotes/releases/latest)[<img src=".github/accrescent.png" alt="Get it on Accrescent" height="55">](https://accrescent.app/app/me.easyapps.easynotes)[<img src=".github/nightly.png" alt="Get Nightly Build" height="55">](https://github.com/Kin69/EasyNotes/releases/download/Nightly/EasyNotes-nightly.apk) &nbsp;
 
 ---
 
