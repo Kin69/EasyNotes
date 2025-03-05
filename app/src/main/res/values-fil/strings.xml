@@ -157,4 +157,8 @@
     <string name="lock_pattern">Ilagay ang pattern</string>
     <string name="lock_on_resume_description">I-lock kaagad kung na-resume ang app</string>
     <string name="fingerprint">Fingerprint</string>
+    <string name="disable_swipe_edit">I-disable ang pag-swipe</string>
+    <string name="disable_swipe_edit_description">"I-disable ang pag-swipe sa preview sa mode ng pag-edit "</string>
+    <string name="make_search_bar_longer">I-scale ang Haba ng Search Bar</string>
+    <string name="make_search_bar_longer_description">Gawing tugma sa haba ng notes ang search bar</string>
 </resources>
