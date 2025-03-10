@@ -122,4 +122,10 @@
     <string name="terms_changes_title">8. Perubahan Ketentuan</string>
     <string name="terms_privacy_body">Easy Notes tidak mengumpulkan data pribadi Anda. Untuk informasi lebih lanjut, mohon lihat Kebijakan Privasi yang tersedia pada</string>
     <string name="terms_contact_body">Mohon hubungi kami jika ada pertanyaan apa pun terkait Syarat dan Ketentuan atau Easy Notes</string>
+    <string name="dark_theme_description">Beralih antara skema warna gelap dan terang</string>
+    <string name="terms_acceptance_body">Dengan menekan Setuju dan menggunakan Easy Notes, Anda menerima Ketentuan Layanan ini. Jika Anda tidak setuju, jangan gunakan aplikasi ini.</string>
+    <string name="terms_intellectual_property_body">Semua hak kekayaan intelektual dalam Easy Notes dimiliki oleh kami atau pemberi lisensi kami. Penggunaan aplikasi oleh Anda tidak memberi Anda kepemilikan atas hak kekayaan intelektual apa pun.</string>
+    <string name="terms_disclaimer_body">Easy Notes disediakan apa adanya, tanpa jaminan apa pun. Kami tidak menjamin bahwa aplikasi ini akan bebas dari kesalahan, aman, atau tanpa gangguan.</string>
+    <string name="terms_liability_title">6. Batasan Tanggung Jawab</string>
+    <string name="terms_liability_body">Kami tidak bertanggung jawab atas segala kerusakan yang diakibatkan oleh penggunaan Easy Notes oleh Anda, termasuk kerusakan tidak langsung, tidak disengaja, atau konsekuensial.</string>
 </resources>
