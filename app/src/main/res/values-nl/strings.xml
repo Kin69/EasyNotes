@@ -23,7 +23,7 @@
     <string name="database">Database</string>
     <string name="donate_me">Doneren :)</string>
     <string name="support">Ondersteuning</string>
-    <string name="color_styles">Kleuren &amp; Stijlen</string>
+    <string name="color_styles"><![CDATA[Kleuren & Stijlen]]></string>
     <string name="language">Taal</string>
     <string name="tools">Gereedschap</string>
     <string name="history">Geschiedenis</string>
@@ -53,7 +53,7 @@
     <string name="radius_description">Randradius aanpassen</string>
     <string name="minimalistic_mode_description">Bovenste knoppen verwijderen uit het bewerkingsscherm</string>
     <string name="backup_description">Alle notities opslaan naar bestand</string>
-    <string name="restore_description">Herstel notities van bestand</string>
+    <string name="restore_description">Herstel notities van backup bestand</string>
     <string name="markdown_description">Markdown inschakelen in notities</string>
     <string name="build_type">Build Type</string>
     <string name="source_code">Broncode</string>
@@ -76,7 +76,7 @@
     <string name="system_language">Systeem Taal</string>
     <string name="Behavior">Gedrag</string>
     <string name="always_edit">Prioriteit geven aan bewerkingsmodus</string>
-    <string name="always_edit_description">Bewerkingsmodus openen voor bestaande notities</string>
+    <string name="always_edit_description">Open bewerkingsmodus voor bestaande notities</string>
     <string name="home_screen">Notities</string>
     <string name="new_note">Nieuwe notitie</string>
     <string name="characters">Karakters</string>
@@ -139,4 +139,26 @@
     <string name="locked">is Vergrendeld</string>
     <string name="uid">UID</string>
     <string name="lock_on_resume_description">Vergrendel onmiddelijk wanneer app weer actief is</string>
+    <string name="terms_acceptance_title">1. Aanvaarding van voorwaarden</string>
+    <string name="terms_use_title">3. Gebruik van de Applicatie</string>
+    <string name="terms_use_body">Je stemt ermee in Easy Notes alleen te gebruiken voor wettige doeleinden en in overeenstemming met deze Voorwaarden. Je mag **niet**:\n\n- _De app gebruiken voor onwettige doeleinden_\n- _De rechten van anderen schenden_\n- _De functionaliteit of veiligheid van de app verstoren_</string>
+    <string name="terms_intellectual_property_title">4. Intellectueel eigendom</string>
+    <string name="terms_disclaimer_title">5. Garantie disclaimer</string>
+    <string name="terms_intellectual_property_body">Alle intellectuele eigendomsrechten in Easy Notes zijn eigendom van ons of onze licentiegevers. Je gebruik van de app verleent je geen eigendom van enige intellectuele eigendomsrechten.</string>
+    <string name="terms_liability_title">6. Beperking van aansprakelijkheid</string>
+    <string name="terms_termination_title">7. Beëindiging</string>
+    <string name="terms_disclaimer_body">Easy Notes wordt geleverd zoals het is, zonder enige garantie. We garanderen niet dat de app geen fouten bevat, veilig is of ononderbroken werkt.</string>
+    <string name="terms_changes_title">8. Wijzigingen in voorwaarden</string>
+    <string name="terms_termination_body">Wij kunnen je toegang tot Easy Notes beëindigen of opschorten als je deze Voorwaarden schendt. Bij beëindiging eindigt je recht om de app te gebruiken onmiddellijk.</string>
+    <string name="terms_privacy_body">Easy Notes verzamelt geen persoonlijke gegevens. Voor meer informatie verwijzen wij je naar ons Privacybeleid dat beschikbaar is op</string>
+    <string name="terms_contact_body">Voor vragen over deze Servicevoorwaarden of Easy Notes kun je contact met ons opnemen via</string>
+    <string name="terms_effective_date">Ingangsdatum</string>
+    <string name="terms_of_service">Servicevoorwaarden</string>
+    <string name="terms_privacy_title">10. Privacybeleid</string>
+    <string name="terms_contact_title">9. Contact opnemen</string>
+    <string name="terms_liability_body">Wij zijn niet aansprakelijk voor schade als gevolg van je gebruik van Easy Notes, met inbegrip van indirecte, incidentele of gevolgschade.</string>
+    <string name="terms_license_title">2. Licentie</string>
+    <string name="terms_acceptance_body">Door op Akkoord te drukken en Easy Notes te gebruiken, accepteert u deze Servicevoorwaarden. Als u niet akkoord gaat, gebruik de applicatie dan niet.</string>
+    <string name="terms_license_body">Easy Notes wordt gedistribueerd onder de **GNU General Public License (GPL) versie 3**. Dit betekent:\n\n- Je bent vrij om de applicatie te gebruiken, aan te passen en te delen.\n- Als je de applicatie of gewijzigde versies verspreidt, moet je ook de broncode verspreiden en de GPL-licentie behouden.</string>
+    <string name="terms_changes_body">Wij kunnen deze Servicevoorwaarden van tijd tot tijd bijwerken. Het voortzetten van het gebruik van Easy Notes na eventuele wijzigingen houdt aanvaarding in van de herziene voorwaarden.</string>
 </resources>
