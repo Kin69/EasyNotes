@@ -157,4 +157,8 @@
     <string name="lock_pattern">Indtast mønster</string>
     <string name="lock_on_resume">Lås Øjeblikkeligt</string>
     <string name="lock_on_resume_description">Lås øjeblikkeligt, når appen genoptages</string>
+    <string name="disable_swipe_edit">Deaktiver swipe</string>
+    <string name="make_search_bar_longer">Skaler søgefeltets bredde</string>
+    <string name="make_search_bar_longer_description">Match søgefeltet med bredden på noter</string>
+    <string name="disable_swipe_edit_description">"Deaktiver swipe for forhåndsvisning i redigeringstilstand "</string>
 </resources>
