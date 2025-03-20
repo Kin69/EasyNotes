@@ -56,7 +56,7 @@
     <string name="extreme_amoled_mode">Extreme Amoled Colors</string>
     <string name="privacy">Privacy</string>
     <string name="screen_protection">Screen Protection</string>
-    <string name="images_supprot">Images Support</string>
+    <string name="images_support">Images Support</string>
     <string name="unstable_feature">Unstable</string>
     <string name="cryptocurrency">Cryptocurrency</string>
     <string name="system_theme_description">Adapts app theme based on system settings</string>
@@ -81,15 +81,15 @@
     <string name="others">Others</string>
     <string name="copy">Copy</string>
     <string name="encrypt_databse">Encrypt Database</string>
-    <string name="encrypt_databse_description">Encrypt database during backup</string>
+    <string name="encrypt_database_description">Encrypt database during backup</string>
     <string name="password_prompt">Enter password</string>
-    <string name="detabase_restore_error">Password is invalid or the database isn\'t encrypted</string>
+    <string name="database_restore_error">Password is invalid or the database isn\'t encrypted</string>
     <string name="invalid_input">Invalid input</string>
     <string name="sort_ascending">Sort Ascending</string>
     <string name="sort_descending">Sort Descending</string>
     <string name="sort_description">Sort notes by their creation time</string>
     <string name="select_note">Select Note</string>
-    <string name="unsuported_image_size">Unsupported Image Size (15mb max)</string>
+    <string name="unsupported_image_size">Unsupported Image Size (15mb max)</string>
     <string name="vault">Vault</string>
     <string name="vault_description">Enable encrypted notes vault</string>
     <string name="password_continue">continue</string>
@@ -153,7 +153,7 @@
     <string name="authorize_passcode">Ask for passcode on start</string>
     <string name="pattern">Pattern</string>
     <string name="authorize_pattern">Ask for pattern on start</string>
-    <string name="setup_pattern">Settup pattern</string>
+    <string name="setup_pattern">Setup pattern</string>
     <string name="lock_pattern">Enter pattern</string>
     <string name="lock_on_resume">Lock Immediately</string>
     <string name="lock_on_resume_description">Lock instantly when app is resumed</string>
