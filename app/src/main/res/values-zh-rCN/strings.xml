@@ -33,7 +33,7 @@
     <string name="terms_liability_body">对于您使用 Easy Notes 所造成的任何损害（包括间接、偶然或必然损害）,我们概不负则.</string>
     <string name="terms_termination_body">如果您违反这些条款,我们可能会限制或暂停您对 Easy Notes 的访问权限.限制后,您使用该应用程序的权利将立即终止.</string>
     <string name="gallery_sync">图库同步</string>
-    <string name="app_name">快速笔记</string>
+    <string name="app_name">Easy Notes</string>
     <string name="no_created_notes">尚未创建笔记.</string>
     <string name="words">单词</string>
     <string name="characters">字符</string>
@@ -64,7 +64,7 @@
     <string name="history">历史记录</string>
     <string name="description_tools">已创建 • 删除全部</string>
     <string name="description_markdown">支持 • 图片</string>
-    <string name="support_description">猫猫很可爱,请给猫猫钱.</string>
+    <string name="support_description">猫猫很可爱,请给猫猫钱!</string>
     <string name="select_font">字体</string>
     <string name="radius">圆角半径</string>
     <string name="select_radius">设置半径</string>
