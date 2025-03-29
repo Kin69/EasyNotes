@@ -49,11 +49,11 @@
     <string name="backup">备份</string>
     <string name="not_supported">尚未支持</string>
     <string name="latest_release">最新版本</string>
-    <string name="start_project">明星项目</string>
+    <string name="start_project">收藏项目</string>
     <string name="restore">恢复</string>
     <string name="notes">笔记</string>
     <string name="support">支持</string>
-    <string name="donate_me">给我钱:)</string>
+    <string name="donate_me">请作者一杯咖啡</string>
     <string name="markdown">Markdown</string>
     <string name="widgets">小部件</string>
     <string name="cloud">云</string>
@@ -64,7 +64,7 @@
     <string name="history">历史记录</string>
     <string name="description_tools">已创建 • 删除全部</string>
     <string name="description_markdown">支持 • 图片</string>
-    <string name="support_description">猫猫很可爱,请给猫猫钱.</string>
+    <string name="support_description">猫猫很可爱,请给猫猫钱!</string>
     <string name="select_font">字体</string>
     <string name="radius">圆角半径</string>
     <string name="select_radius">设置半径</string>
@@ -104,7 +104,7 @@
     <string name="agree">同意</string>
     <string name="terms_of_service">服务条款</string>
     <string name="home_screen">笔记</string>
-    <string name="new_note">新笔记</string>
+    <string name="new_note">新的笔记</string>
     <string name="no_found_notes">未找到注释.</string>
     <string name="column_view">列表视图</string>
     <string name="grid_view">网格视图</string>
@@ -112,7 +112,7 @@
     <string name="description">描述</string>
     <string name="search">搜索</string>
     <string name="delete">删除</string>
-    <string name="dynamic_colors">动态取色</string>
+    <string name="dynamic_colors">动态颜色</string>
     <string name="about">关于</string>
     <string name="version">版本</string>
     <string name="tools">工具</string>
@@ -164,4 +164,8 @@
     <string name="uid">UID</string>
     <string name="lock_on_resume">立即锁定</string>
     <string name="lock_on_resume_description">应用程序恢复时立即锁定</string>
+    <string name="disable_swipe_edit">禁止滑动</string>
+    <string name="disable_swipe_edit_description">"在编辑模式下禁用滑动预览 "</string>
+    <string name="make_search_bar_longer">增加搜索栏宽度</string>
+    <string name="make_search_bar_longer_description">使搜索栏宽度与笔记相同长度</string>
 </resources>
