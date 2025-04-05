@@ -164,4 +164,8 @@
     <string name="lock_pattern">Введите графический ключ</string>
     <string name="lock_on_resume">Незамедлительная блокировка</string>
     <string name="lock_on_resume_description">Блокировать немедленно при открытии приложения</string>
+    <string name="make_search_bar_longer">Подгонять ширину поисковой строки</string>
+    <string name="disable_swipe_edit">Отключить смахивание</string>
+    <string name="disable_swipe_edit_description">"Отключить смахивание (свайп) для предпросмотра в режиме редактирования "</string>
+    <string name="make_search_bar_longer_description">Масштабировать поисковую строку под ширину заметок</string>
 </resources>
