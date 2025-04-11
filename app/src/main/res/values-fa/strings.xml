@@ -157,4 +157,8 @@
     <string name="lock_pattern">وارد کردن الگو</string>
     <string name="lock_on_resume_description">قفل فوری هنگام استفاده مجدد از برنامه</string>
     <string name="terms_intellectual_property_body">تمامی حقوق مالکیت معنوی در این برنامه متعلق به ما یا صادرکنندگان مجوز ما است. استفاده شما از برنامه به شما حق مالکیت معنوی را نمی دهد.</string>
+    <string name="disable_swipe_edit">غیرفعال کردن کشیدن</string>
+    <string name="disable_swipe_edit_description">"غیرفعال کردن کشیدن انگشت برای پیش نمایش در حالت ویرایش. "</string>
+    <string name="make_search_bar_longer">مقیاس پهنای نوار جستجو</string>
+    <string name="make_search_bar_longer_description">نوار جستجو را با پهنای یادداشت ها مطابقت دهید</string>
 </resources>
