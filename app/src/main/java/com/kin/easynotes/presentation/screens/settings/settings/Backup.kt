@@ -30,8 +30,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -186,9 +189,12 @@ fun currentDateTime(): String {
     return formattedDateTime
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun PasswordPrompt(context: Context, text: String, settingsViewModel: SettingsViewModel, onExit: (TextFieldValue?) -> Unit, onBackup: () -> Unit = {}) {
     var password by remember { mutableStateOf(TextFieldValue("")) }
+    val focusManager = LocalFocusManager.current
+    
     Dialog(
         onDismissRequest = { onExit(null) },
         properties = DialogProperties(usePlatformDefaultWidth = false),
@@ -223,7 +229,8 @@ fun PasswordPrompt(context: Context, text: String, settingsViewModel: SettingsVi
                             hideContent = true,
                             value = password,
                             onValueChange = { password = it },
-                            placeholder = stringResource(id = R.string.password_prompt)
+                            placeholder = stringResource(id = R.string.password_prompt),
+                            autofillTypes = listOf(AutofillType.Password)
                         )
                     }
                     Button(
@@ -233,6 +240,7 @@ fun PasswordPrompt(context: Context, text: String, settingsViewModel: SettingsVi
                             .align(Alignment.End),
                         onClick = {
                             if (password.text.isNotBlank()) {
+                                focusManager.clearFocus() // Clear focus to dismiss autofill
                                 onExit(password)
                                 onBackup()
                             } else {
