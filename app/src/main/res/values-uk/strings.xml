@@ -164,4 +164,8 @@
     <string name="pattern">Візерунок</string>
     <string name="authorize_pattern">Запитайте шаблон на початку</string>
     <string name="setup_pattern">Шаблон налаштування</string>
+    <string name="disable_swipe_edit_description">"Вимкніть гортання для попереднього перегляду в режимі редагування "</string>
+    <string name="make_search_bar_longer_description">Зробіть так, щоб панель пошуку відповідала ширині нотаток</string>
+    <string name="disable_swipe_edit">Вимкнути свайп</string>
+    <string name="make_search_bar_longer">Масштабувати ширину панелі пошуку</string>
 </resources>
