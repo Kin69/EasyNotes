@@ -1,7 +1,12 @@
 package com.kin.easynotes.presentation.components.markdown
 
+import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
+import androidx.compose.foundation.clickable
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -246,6 +251,19 @@ fun WidgetMarkdownElement(
                     )
                 }
             }
+
+            is Link -> {
+                Text(
+                    text = element.fullText,
+                    style = TextStyle(
+                        fontSize = fontSize,
+                        fontWeight = weight,
+                        color = color
+                    )
+                )
+            }
+
+            is HorizontalRule -> TODO()
         }
     }
 }

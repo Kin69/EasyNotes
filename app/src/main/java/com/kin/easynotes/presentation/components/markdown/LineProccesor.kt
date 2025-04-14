@@ -80,3 +80,38 @@ class ImageInsertionProcessor : MarkdownLineProcessor {
         builder.add(ImageInsertion(photoUri))
     }
 }
+
+class LinkProcessor : MarkdownLineProcessor {
+    private val urlPattern = Regex("(https?://[\\w-]+(\\.[\\w-]+)+[\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])")
+    
+    override fun canProcessLine(line: String): Boolean {
+        return urlPattern.containsMatchIn(line)
+    }
+
+    override fun processLine(line: String, builder: MarkdownBuilder) {
+        val matches = urlPattern.findAll(line)
+        val urlRanges = mutableListOf<Pair<String, IntRange>>()
+        
+        for (match in matches) {
+            val url = match.value
+            val range = match.range
+            urlRanges.add(Pair(url, range))
+        }
+        
+        if (urlRanges.isNotEmpty()) {
+            builder.add(Link(line, urlRanges))
+        } else {
+            builder.add(NormalText(line))
+        }
+    }
+}
+
+class HorizontalRuleProcessor : MarkdownLineProcessor {
+    override fun canProcessLine(line: String): Boolean {
+        return line.trim() == "---"
+    }
+
+    override fun processLine(line: String, builder: MarkdownBuilder) {
+        builder.add(HorizontalRule(line))
+    }
+}

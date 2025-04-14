@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
@@ -45,6 +46,7 @@ import coil.compose.AsyncImage
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 import com.kin.easynotes.presentation.theme.FontUtils
+import com.kin.easynotes.presentation.theme.linkColor
 
 
 @Composable
@@ -135,7 +137,9 @@ fun MarkdownText(
         CodeBlockProcessor(),
         QuoteProcessor(),
         ImageInsertionProcessor(),
-        CheckboxProcessor()
+        CheckboxProcessor(),
+        LinkProcessor(),
+        HorizontalRuleProcessor()
     )
     val markdownBuilder = MarkdownBuilder(lines, lineProcessors)
     markdownBuilder.parse()
@@ -312,6 +316,66 @@ fun RenderMarkdownElement(
                 }
             }
 
+            is Link -> {
+                val context = LocalContext.current
+                val annotatedString = buildAnnotatedString {
+                    val fullText = element.fullText
+                    var lastIndex = 0
+                    
+                    // Sort ranges to ensure correct order
+                    val sortedRanges = element.urlRanges.sortedBy { it.second.first }
+                    
+                    for ((url, range) in sortedRanges) {
+                        // Add text before the URL
+                        if (range.first > lastIndex) {
+                            val textBefore = fullText.substring(lastIndex, range.first)
+                            append(buildString(textBefore, weight))
+                        }
+                        
+                        // Add the URL with a different style and tag for clickability
+                        pushStringAnnotation("URL", url)
+                        withStyle(SpanStyle(color = linkColor, fontWeight = weight)) {
+                            append(url)
+                        }
+                        pop()
+                        
+                        lastIndex = range.last + 1
+                    }
+                    
+                    // Add any remaining text after the last URL
+                    if (lastIndex < fullText.length) {
+                        val textAfter = fullText.substring(lastIndex)
+                        append(buildString(textAfter, weight))
+                    }
+                }
+                
+                ClickableText(
+                    text = annotatedString,
+                    onClick = { offset: Int ->
+                        annotatedString.getStringAnnotations("URL", offset, offset)
+                            .firstOrNull()?.let { annotation ->
+                                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
+                                intent.data = android.net.Uri.parse(annotation.item)
+                                context.startActivity(intent)
+                            }
+                    },
+                    style = androidx.compose.ui.text.TextStyle(
+                        fontSize = fontSize,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                )
+            }
+            
+            is HorizontalRule -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                        .height(1.dp)
+                        .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f))
+                )
+            }
+            
             is NormalText -> {
                 Text(text = buildString(element.text, weight), fontSize = fontSize)
             }

@@ -31,3 +31,10 @@ data class Strikethrough(override val delimiter: String = "~~") : TextStyleSegme
 data class Underline(override val delimiter: String = "_") : TextStyleSegment {
     override fun getSpanStyle() = SpanStyle(textDecoration = TextDecoration.Underline)
 }
+
+data class CodeSegment(override val delimiter: String = "`") : TextStyleSegment {
+    override fun getSpanStyle() = SpanStyle(
+        fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+        background = Color.LightGray.copy(alpha = 0.3f)
+    )
+}

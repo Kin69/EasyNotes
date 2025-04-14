@@ -49,3 +49,15 @@ data class ImageInsertion(val photoUri: String) : MarkdownElement {
         builder.append("!($photoUri)\n\n")
     }
 }
+
+data class Link(val fullText: String, val urlRanges: List<Pair<String, IntRange>>) : MarkdownElement {
+    override fun render(builder: StringBuilder) {
+        builder.append("$fullText\n\n")
+    }
+}
+
+data class HorizontalRule(val fullText: String) : MarkdownElement {
+    override fun render(builder: StringBuilder) {
+        builder.append("---\n\n")
+    }
+}

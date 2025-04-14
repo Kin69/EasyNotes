@@ -78,7 +78,8 @@ fun buildString(input: String, defaultFontWeight: FontWeight = FontWeight.Normal
         ItalicSegment(),
         HighlightSegment(),
         Strikethrough(),
-        Underline()
+        Underline(),
+        CodeSegment()
     )
 
     val allSegments = textStyleSegments.associateWith { splitByDelimiter(input, it.delimiter) }
