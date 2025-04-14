@@ -100,7 +100,13 @@ fun buildString(input: String, defaultFontWeight: FontWeight = FontWeight.Normal
             val substring = input.substring(start, end)
 
             // Skip delimiters and check Arabic substrings
-            if (textStyleSegments.none { segment -> segment.delimiter.contains(substring) }) {
+            val isDelimiter = textStyleSegments.any { segment -> 
+                // Only consider it a delimiter if it's the exact delimiter string
+                // This ensures single characters like +, -, = are not filtered out
+                segment.delimiter == substring
+            }
+            
+            if (!isDelimiter) {
                 withStyle(style = getSpanStyle(start)) {
                     append(substring) // Append full words or graphemes
                 }

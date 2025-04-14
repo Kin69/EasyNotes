@@ -62,10 +62,21 @@ class QuoteProcessor : MarkdownLineProcessor {
 }
 
 class ListItemProcessor : MarkdownLineProcessor {
-    override fun canProcessLine(line: String): Boolean = line.startsWith("- ")
+    override fun canProcessLine(line: String): Boolean {
+        val trimmed = line.trim()
+        return trimmed.startsWith("- ") || 
+               trimmed.startsWith("+ ") || 
+               trimmed.startsWith("* ")
+    }
 
     override fun processLine(line: String, builder: MarkdownBuilder) {
-        val text = line.removePrefix("- ").trim()
+        val trimmed = line.trim()
+        val text = when {
+            trimmed.startsWith("- ") -> trimmed.removePrefix("- ").trim()
+            trimmed.startsWith("+ ") -> trimmed.removePrefix("+ ").trim()
+            trimmed.startsWith("* ") -> trimmed.removePrefix("* ").trim()
+            else -> trimmed // Shouldn't happen due to canProcessLine check
+        }
         builder.add(ListItem(text))
     }
 }
