@@ -13,6 +13,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
+import com.kin.easynotes.presentation.theme.FontUtils
 
 @Composable
 fun MaterialText(
@@ -23,14 +25,19 @@ fun MaterialText(
     descriptionSize: TextUnit = 11.sp,
     center: Boolean = false,
     titleColor: Color = MaterialTheme.colorScheme.onSurface,
-    descriptionColor: Color = MaterialTheme.colorScheme.onSurfaceVariant
+    descriptionColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    settingsViewModel: SettingsViewModel? = null
 ) {
     Column(
         modifier = modifier,
         horizontalAlignment = if (center) Alignment.CenterHorizontally else Alignment.Start,) {
         Text(
             text = title,
-            style = MaterialTheme.typography.titleMedium.copy(fontSize = titleSize),
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontSize = settingsViewModel?.let {
+                    FontUtils.getFontSize(it, baseSize = titleSize.value.toInt())
+                } ?: titleSize
+            ),
             color = titleColor,
             modifier = Modifier.padding(bottom = 3.dp),
             textAlign = if (center) TextAlign.Center else TextAlign.Start
@@ -38,7 +45,11 @@ fun MaterialText(
         if (description != null) {
             Text(
                 text = description,
-                style = MaterialTheme.typography.bodySmall.copy(fontSize = descriptionSize),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontSize = settingsViewModel?.let {
+                        FontUtils.getFontSize(it, baseSize = descriptionSize.value.toInt())
+                    } ?: descriptionSize
+                ),
                 color = descriptionColor,
                 modifier = Modifier.padding(bottom = 3.dp),
                 maxLines = 6,

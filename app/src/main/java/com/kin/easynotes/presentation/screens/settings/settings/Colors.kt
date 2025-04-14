@@ -22,6 +22,7 @@ import androidx.compose.material.icons.rounded.Battery1Bar
 import androidx.compose.material.icons.rounded.Colorize
 import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.DynamicFeed
+import androidx.compose.material.icons.rounded.FormatSize
 import androidx.compose.material.icons.rounded.GridView
 import androidx.compose.material.icons.rounded.HdrAuto
 import androidx.compose.material.icons.rounded.Palette
@@ -48,6 +49,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.os.LocaleListCompat
@@ -81,6 +83,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
         LazyColumn {
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.minimalistic_mode),
                     description = stringResource(id = R.string.minimalistic_mode_description),
                     icon = Icons.Rounded.DynamicFeed,
@@ -93,6 +96,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.system_theme),
                     description = stringResource(id = R.string.system_theme_description),
                     icon = Icons.Rounded.HdrAuto,
@@ -104,6 +108,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.dark_theme),
                     description = stringResource(id = R.string.dark_theme_description),
                     isEnabled = !settingsViewModel.settings.value.automaticTheme,
@@ -116,6 +121,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.dynamic_colors),
                     description = stringResource(id = R.string.dynamic_colors_description),
                     icon = Icons.Rounded.Colorize,
@@ -129,6 +135,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             item {
                 val value = settingsViewModel.settings.value.amoledTheme
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.amoled_colors),
                     description = stringResource(id = R.string.amoled_colors_description),
                     icon = Icons.Rounded.DarkMode,
@@ -141,6 +148,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.extreme_amoled_mode),
                     icon = Icons.Rounded.Battery1Bar,
                     description = stringResource(id = R.string.extreme_amoled_mode_description),
@@ -154,6 +162,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.radius),
                     description = stringResource(id = R.string.radius_description),
                     icon = Icons.Rounded.RoundedCorner,
@@ -169,6 +178,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = if (settingsViewModel.settings.value.viewMode) stringResource(id = R.string.grid_view) else stringResource(id = R.string.column_view),
                     icon = if (settingsViewModel.settings.value.viewMode) Icons.Rounded.GridView else Icons.Rounded.ViewAgenda,
                     description = stringResource(id = R.string.view_style_description),
@@ -180,6 +190,7 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = if (settingsViewModel.settings.value.sortDescending) stringResource(id = R.string.sort_descending) else stringResource(id = R.string.sort_ascending),
                     description = stringResource(id = R.string.sort_description),
                     icon = Icons.AutoMirrored.Rounded.Sort,
@@ -192,13 +203,30 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.make_search_bar_longer),
                     description = stringResource(id = R.string.make_search_bar_longer_description),
                     icon = Icons.Rounded.Search,
-                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.makeSearchBarLonger,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(makeSearchBarLonger = it)) }
+                )
+            }
+            item {
+                SettingsBox(
+                    settingsViewModel = settingsViewModel,
+                    title = stringResource(id = R.string.font_size),
+                    description = stringResource(id = R.string.font_size_description),
+                    icon = Icons.Rounded.FormatSize,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
+                    actionType = ActionType.CUSTOM,
+                    customAction = {
+                        onExit -> OnFontSizeClicked(settingsViewModel) {
+                            settingsViewModel.update(settingsViewModel.settings.value.copy(fontSize = it))
+                            onExit()
+                        }
+                    }
                 )
             }
         }
@@ -252,6 +280,102 @@ fun OnRadiusClicked( settingsViewModel: SettingsViewModel,onExit: (Int) -> Unit)
                 colors = SliderDefaults.colors(inactiveTrackColor = MaterialTheme.colorScheme.surfaceContainerHigh),
                 onValueChange = { newValue -> sliderPosition = newValue}
             )
+        }
+    }
+}
+
+@Composable
+fun OnFontSizeClicked(settingsViewModel: SettingsViewModel, onExit: (Int) -> Unit) {
+    val minFontSize = 12
+    val maxFontSize = 18
+    val currentFontSize = settingsViewModel.settings.value.fontSize
+    var sliderPosition by remember { mutableFloatStateOf(((currentFontSize - minFontSize).toFloat()) / (maxFontSize - minFontSize)) }
+    val selectedFontSize = minFontSize + ((maxFontSize - minFontSize) * sliderPosition).toInt()
+
+    Dialog(onDismissRequest = { onExit(selectedFontSize) }) {
+        Column(
+            modifier = Modifier
+                .background(
+                    color = MaterialTheme.colorScheme.surfaceContainerLow,
+                    shape = RoundedCornerShape(settingsViewModel.settings.value.cornerRadius / 3)
+                )
+                .fillMaxWidth()
+                .fillMaxSize(0.5f)
+        ) {
+            Text(
+                text = stringResource(id = R.string.font_size),
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 8.dp)
+            )
+            
+            Text(
+                text = stringResource(id = R.string.font_size_value, selectedFontSize),
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            )
+            
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        shape = RoundedCornerShape(settingsViewModel.settings.value.cornerRadius / 2)
+                    )
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.font_size_preview_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                
+                Text(
+                    text = stringResource(id = R.string.font_size_preview_text),
+                    fontSize = selectedFontSize.sp,
+                    fontWeight = FontWeight.Normal,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+            }
+            
+            Slider(
+                value = sliderPosition,
+                modifier = Modifier.padding(32.dp, 16.dp, 32.dp, 16.dp),
+                colors = SliderDefaults.colors(inactiveTrackColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+                onValueChange = { newValue -> 
+                    sliderPosition = newValue 
+                    val newFontSize = minFontSize + ((maxFontSize - minFontSize) * newValue).toInt()
+                }
+            )
+            
+            // Add a button to confirm the selection
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .background(
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = RoundedCornerShape(settingsViewModel.settings.value.cornerRadius / 2)
+                        )
+                        .clickable { onExit(selectedFontSize) }
+                        .padding(horizontal = 24.dp, vertical = 12.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.agree),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
         }
     }
 }

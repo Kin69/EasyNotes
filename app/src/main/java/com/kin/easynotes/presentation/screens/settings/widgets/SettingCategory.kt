@@ -26,8 +26,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
+import com.kin.easynotes.presentation.theme.FontUtils
 
 @Composable
 fun SettingCategory(
@@ -39,12 +42,14 @@ fun SettingCategory(
     smallSetting: Boolean = false,
     action: () -> Unit = {},
     composableAction: @Composable (() -> Unit) -> Unit = {},
+    settingsViewModel: SettingsViewModel? = null
 ) {
     var showCustomAction by remember { mutableStateOf(false) }
     if (showCustomAction) composableAction { showCustomAction = !showCustomAction }
 
     ElevatedCard(
         shape = shape,
+
         modifier = Modifier
             .clip(shape)
             .clickable {
@@ -55,6 +60,7 @@ fun SettingCategory(
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 6.dp),
     ) {
         Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .clip(shape)
                 .fillMaxSize()
@@ -69,15 +75,15 @@ fun SettingCategory(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    RenderCategoryTitle(title = title)
+                    RenderCategoryTitle(title = title, settingsViewModel = settingsViewModel)
                     Spacer(modifier = Modifier.weight(1f))
-                    RenderCategoryDescription(subTitle = subTitle, smallSetting = true)
+                    RenderCategoryDescription(subTitle = subTitle, smallSetting = true, settingsViewModel = settingsViewModel)
                     RenderCategoryIcon(icon, true)
                 }
             } else {
                 Column {
-                    RenderCategoryTitle(title = title)
-                    RenderCategoryDescription(subTitle = subTitle, smallSetting = false)
+                    RenderCategoryTitle(title = title, settingsViewModel = settingsViewModel)
+                    RenderCategoryDescription(subTitle = subTitle, smallSetting = false, settingsViewModel = settingsViewModel)
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 RenderCategoryIcon(icon, false)
@@ -88,21 +94,25 @@ fun SettingCategory(
 }
 
 @Composable
-private fun RenderCategoryTitle(title: String) {
+private fun RenderCategoryTitle(title: String, settingsViewModel: SettingsViewModel? = null) {
     Text(
         text = title,
-        fontSize = 16.sp,
+        fontSize = settingsViewModel?.let {
+            FontUtils.getFontSize(it, baseSize = 16)
+        } ?: 16.sp,
         fontWeight = FontWeight.Bold
     )
 }
 
 @Composable
-private fun RenderCategoryDescription(subTitle: String, smallSetting: Boolean) {
+private fun RenderCategoryDescription(subTitle: String, smallSetting: Boolean, settingsViewModel: SettingsViewModel? = null) {
     if (subTitle.isNotBlank()) {
         Text(
             color = if (smallSetting) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.primary,
             text = subTitle,
-            fontSize = if (smallSetting) 13.sp else 10.sp,
+            fontSize = settingsViewModel?.let {
+                FontUtils.getFontSize(it, baseSize = if (smallSetting) 13 else 10)
+            } ?: if (smallSetting) 13.sp else 10.sp,
             modifier = Modifier.padding(if (smallSetting) 7.dp else 0.dp)
         )
     }

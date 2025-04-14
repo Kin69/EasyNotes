@@ -28,6 +28,7 @@ data class Settings(
     var lockImmediately: Boolean = true,
     var cornerRadius: Int = 32,
     var disableSwipeInEditMode: Boolean = false,
-    var makeSearchBarLonger: Boolean = false
+    var makeSearchBarLonger: Boolean = false,
+    var fontSize: Int = 16
 )
 

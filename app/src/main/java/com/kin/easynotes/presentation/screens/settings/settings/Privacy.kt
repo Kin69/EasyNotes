@@ -36,6 +36,7 @@ fun PrivacyScreen(navController: NavController, settingsViewModel: SettingsViewM
         LazyColumn {
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.screen_protection),
                     description = stringResource(id = R.string.screen_protection_description),
                     icon = Icons.Filled.RemoveRedEye,
@@ -48,6 +49,7 @@ fun PrivacyScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.vault),
                     description = stringResource(id = R.string.vault_description),
                     icon = Icons.Rounded.Security,
@@ -60,6 +62,7 @@ fun PrivacyScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     title = stringResource(id = R.string.app_lock),
                     description = stringResource(id = R.string.app_lock_description),
@@ -73,6 +76,7 @@ fun PrivacyScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     isEnabled = settingsViewModel.settings.value.passcode != null || settingsViewModel.settings.value.pattern != null || settingsViewModel.settings.value.fingerprint,
                     title = stringResource(id = R.string.lock_on_resume),
                     description = stringResource(id = R.string.lock_on_resume_description),
@@ -101,6 +105,7 @@ private fun OnLockClicked(
     ) {
         item {
             createSettingBox(
+                settingsViewModel = settings,
                 title = stringResource(id = R.string.passcode),
                 description = stringResource(id = R.string.authorize_passcode),
                 isEnabled = settings.settings.value.passcode.isNullOrBlank(),
@@ -114,6 +119,7 @@ private fun OnLockClicked(
                 }
             )
             createSettingBox(
+                settingsViewModel = settings,
                 title = stringResource(id = R.string.fingerprint),
                 description = stringResource(id = R.string.authorize_fingerprint),
                 isEnabled = !settings.settings.value.fingerprint,
@@ -127,6 +133,7 @@ private fun OnLockClicked(
                 }
             )
             createSettingBox(
+                settingsViewModel = settings,
                 title = stringResource(id = R.string.pattern),
                 description = stringResource(id = R.string.authorize_pattern),
                 isEnabled = settings.settings.value.pattern.isNullOrBlank(),
@@ -146,12 +153,14 @@ private fun OnLockClicked(
 
 @Composable
 private fun createSettingBox(
+    settingsViewModel: SettingsViewModel,
     title: String,
     description: String,
     isEnabled: Boolean,
     onAction: () -> Unit
 ) {
     SettingsBox(
+        settingsViewModel = settingsViewModel,
         title = title,
         description = description,
         actionType = ActionType.CUSTOM,

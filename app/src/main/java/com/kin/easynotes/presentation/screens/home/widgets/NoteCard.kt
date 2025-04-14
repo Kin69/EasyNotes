@@ -22,6 +22,7 @@ import com.kin.easynotes.R
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
+import com.kin.easynotes.presentation.theme.FontUtils
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -81,8 +82,9 @@ fun NoteCard(
                     weight = FontWeight.Bold,
                     spacing = 0.dp,
                     onContentChange = { onNoteUpdate(note.copy(name = it)) },
-                    fontSize = 16.sp,
-                    radius = settingsViewModel.settings.value.cornerRadius
+                    fontSize = FontUtils.getTitleFontSize(settingsViewModel),
+                    radius = settingsViewModel.settings.value.cornerRadius,
+                    settingsViewModel = settingsViewModel
                 )
             }
             if (note.description.isNotBlank() && !settingsViewModel.settings.value.showOnlyTitle) {
@@ -94,8 +96,9 @@ fun NoteCard(
                     modifier = Modifier
                         .heightIn(max = dimensionResource(R.dimen.max_description_height)),
                     onContentChange = { onNoteUpdate(note.copy(description = it)) },
-                    fontSize = 14.sp,
-                    radius = settingsViewModel.settings.value.cornerRadius
+                    fontSize = FontUtils.getBodyFontSize(settingsViewModel),
+                    radius = settingsViewModel.settings.value.cornerRadius,
+                    settingsViewModel = settingsViewModel
                 )
             }
         }

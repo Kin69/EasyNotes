@@ -94,7 +94,8 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     icon = Icons.AutoMirrored.Rounded.ArrowForwardIos,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
                     isLast = true,
-                    composableAction = { onExit -> BottomModal(navController = navController, settingsViewModel = settingsViewModel) { onExit() }}
+                    composableAction = { onExit -> BottomModal(navController = navController, settingsViewModel = settingsViewModel) { onExit() }},
+                    settingsViewModel = settingsViewModel
                 )
             }
             item {
@@ -103,7 +104,9 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     subTitle = stringResource(R.string.description_color_styles),
                     icon = Icons.Rounded.Palette,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
-                    action = { navController.navigate(NavRoutes.ColorStyles.route) })
+                    action = { navController.navigate(NavRoutes.ColorStyles.route) },
+                    settingsViewModel = settingsViewModel
+                )
             }
             item {
                 SettingCategory(
@@ -111,7 +114,9 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     subTitle = stringResource(id = R.string.description_markdown),
                     icon = Icons.Rounded.TextFields,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
-                    action = { navController.navigate(NavRoutes.Markdown.route) })
+                    action = { navController.navigate(NavRoutes.Markdown.route) },
+                    settingsViewModel = settingsViewModel
+                )
             }
             item {
                 SettingCategory(
@@ -120,7 +125,9 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     icon = Icons.Rounded.Language,
                     isLast = true,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-                    action = { navController.navigate(NavRoutes.Language.route) })
+                    action = { navController.navigate(NavRoutes.Language.route) },
+                    settingsViewModel = settingsViewModel
+                )
             }
             item {
                 SettingCategory(
@@ -128,7 +135,9 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     subTitle = stringResource(R.string.description_cloud),
                     icon = Icons.Rounded.Cloud,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isFirst = true),
-                    action = { navController.navigate(NavRoutes.Cloud.route) })
+                    action = { navController.navigate(NavRoutes.Cloud.route) },
+                    settingsViewModel = settingsViewModel
+                )
             }
             item {
                 SettingCategory(
@@ -136,6 +145,7 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     subTitle = stringResource(id = R.string.screen_protection),
                     icon = ImageVector.vectorResource(id = R.drawable.incognito_fill),
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                    settingsViewModel = settingsViewModel,
                     action = { navController.navigate(NavRoutes.Privacy.route) }
                 )
             }
@@ -146,7 +156,9 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     icon = Icons.Rounded.Work,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
                     isLast = true,
-                    action = { navController.navigate(NavRoutes.Tools.route) })
+                    action = { navController.navigate(NavRoutes.Tools.route) },
+                    settingsViewModel = settingsViewModel
+                )
             }
             item {
                 SettingCategory(
@@ -154,7 +166,8 @@ fun MainSettings(settingsViewModel: SettingsViewModel,navController: NavControll
                     subTitle = stringResource(R.string.description_about),
                     icon = Icons.Rounded.Info,
                     shape = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isBoth = true),
-                    action = { navController.navigate(NavRoutes.About.route) }
+                    action = { navController.navigate(NavRoutes.About.route) },
+                    settingsViewModel = settingsViewModel
                 )
             }
         }
@@ -180,7 +193,8 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
                 isCentered = true,
                 actionType = ActionType.CUSTOM,
                 radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
-                customAction = { uriHandler.openUri(ConnectionConst.SUPPORT_KOFI) }
+                customAction = { uriHandler.openUri(ConnectionConst.SUPPORT_KOFI) },
+                settingsViewModel = settingsViewModel
             )
             SettingsBox(
                 title = "Libera Pay",
@@ -189,7 +203,8 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
                 icon = Icons.Rounded.Payments,
                 radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                 actionType = ActionType.CUSTOM,
-                customAction = { uriHandler.openUri(ConnectionConst.SUPPORT_LIBERAPAY) }
+                customAction = { uriHandler.openUri(ConnectionConst.SUPPORT_LIBERAPAY) },
+                settingsViewModel = settingsViewModel
             )
             SettingsBox(
                 title = stringResource(R.string.cryptocurrency),
@@ -198,7 +213,8 @@ fun BottomModal(navController: NavController,settingsViewModel: SettingsViewMode
                 isCentered = true,
                 actionType = ActionType.CUSTOM,
                 radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = true),
-                customAction = { LaunchedEffect(true) { navController.navigate(NavRoutes.Support.route ) } }
+                customAction = { LaunchedEffect(true) { navController.navigate(NavRoutes.Support.route ) } },
+                settingsViewModel = settingsViewModel
             )
         }
     }

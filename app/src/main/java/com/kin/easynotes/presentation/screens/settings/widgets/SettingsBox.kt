@@ -65,6 +65,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kin.easynotes.R
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
+import com.kin.easynotes.presentation.theme.FontUtils
 
 enum class ActionType {
     RADIOBUTTON,
@@ -92,7 +94,8 @@ fun SettingsBox(
     customButton: @Composable () -> Unit = { RenderCustomIcon() },
     customAction: @Composable (() -> Unit) -> Unit = {},
     customText: String = "",
-    clipboardText: String = ""
+    clipboardText: String = "",
+    settingsViewModel: SettingsViewModel? = null
 ) {
     val context = LocalContext.current
     var showCustomAction by remember { mutableStateOf(false) }
@@ -144,18 +147,25 @@ fun SettingsBox(
                         Spacer(modifier = Modifier.width(8.dp))
                     }
                     if (actionType != ActionType.LINK && !description.isNullOrBlank()) {
-                        MaterialText(title, description.ifBlank { clipboardText })
+                        MaterialText(
+                            title = title, 
+                            description = description.ifBlank { clipboardText },
+                            settingsViewModel = settingsViewModel
+                        )
                     } else {
                         Text(
                             title,
                             color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Bold,
+                            fontSize = settingsViewModel?.let {
+                                FontUtils.getFontSize(it, baseSize = 14)
+                            } ?: MaterialTheme.typography.titleMedium.fontSize,
                             textAlign = if (isCentered) TextAlign.Center else TextAlign.Start,
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }
-                RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText, customButton)
+                RenderActionComponent(actionType, variable, switchEnabled, linkClicked, customText, customButton, settingsViewModel)
             }
         }
     }
@@ -204,12 +214,13 @@ private fun RenderActionComponent(
     onLinkClicked: () -> Unit,
     customText: String,
     customButton: @Composable () -> Unit,
+    settingsViewModel: SettingsViewModel? = null
 ) {
     when (actionType) {
         ActionType.RADIOBUTTON -> RenderRadioButton(variable, onSwitchEnabled)
         ActionType.SWITCH -> RenderSwitch(variable, onSwitchEnabled)
         ActionType.LINK -> RenderLinkIcon(onLinkClicked)
-        ActionType.TEXT -> RenderText(customText)
+        ActionType.TEXT -> RenderText(customText, settingsViewModel)
         ActionType.CLIPBOARD -> RenderClipboardIcon()
         ActionType.CUSTOM -> customButton()
     }
@@ -258,10 +269,12 @@ fun RenderCustomIcon() {
 }
 
 @Composable
-private fun RenderText(customText: String) {
+private fun RenderText(customText: String, settingsViewModel: SettingsViewModel? = null) {
     Text(
         text = customText,
-        fontSize = 14.sp,
+        fontSize = settingsViewModel?.let {
+            FontUtils.getFontSize(it, baseSize = 14)
+        } ?: 14.sp,
         modifier = Modifier.padding(dimensionResource(id = R.dimen.icon_padding))
     )
 }

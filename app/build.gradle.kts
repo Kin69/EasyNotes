@@ -9,6 +9,21 @@ plugins {
 android {
     namespace = "com.kin.easynotes"
     compileSdk = 34
+    flavorDimensions += "default"
+
+    productFlavors {
+        create("default") {
+            dimension = "default"
+            applicationId = "com.kin.easynotes"
+            versionNameSuffix = "-default"
+        }
+
+        create("accrescent") {
+            dimension = "default"
+            applicationId = "me.easyapps.easynotes"
+            versionNameSuffix = "-easyapps"
+        }
+    }
 
     defaultConfig {
         applicationId = "com.kin.easynotes"

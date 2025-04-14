@@ -36,6 +36,7 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
         LazyColumn {
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.markdown),
                     description = stringResource(id = R.string.markdown_description),
                     icon = Icons.Rounded.Style,
@@ -48,6 +49,7 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.always_edit),
                     description = stringResource(id = R.string.always_edit_description),
                     icon = Icons.Rounded.Edit,
@@ -59,6 +61,7 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.gallery_sync),
                     description = stringResource(id = R.string.gallery_sync_description),
                     icon = Icons.Rounded.Image,
@@ -83,6 +86,7 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
             item {
                 Spacer(modifier = Modifier.height(18.dp))
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.show_only_title),
                     description = stringResource(id = R.string.show_only_title_description),
                     icon = Icons.Rounded.Title,
@@ -94,6 +98,7 @@ fun MarkdownScreen(navController: NavController, settingsViewModel: SettingsView
                     }
                 )
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.disable_swipe_edit),
                     description = stringResource(id = R.string.disable_swipe_edit_description),
                     icon = Icons.Rounded.Swipe,

@@ -80,6 +80,7 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
         LazyColumn {
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.encrypt_databse),
                     description = stringResource(id = R.string.encrypt_databse_description),
                     icon = Icons.Rounded.EnhancedEncryption,
@@ -92,6 +93,7 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.backup),
                     description = stringResource(id = R.string.backup_description),
                     icon = Icons.Rounded.Backup,
@@ -124,6 +126,7 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.restore),
                     description = stringResource(id = R.string.restore_description),
                     icon = Icons.Rounded.ImportExport,
@@ -158,6 +161,7 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = context.getString(R.string.file_import_title),
                     description = context.getString(R.string.file_import_description),
                     icon = Icons.Rounded.FileOpen,

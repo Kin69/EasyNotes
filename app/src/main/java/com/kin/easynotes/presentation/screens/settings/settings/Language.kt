@@ -32,6 +32,7 @@ fun LanguageScreen(navController: NavController, settingsViewModel: SettingsView
         LazyColumn {
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.language),
                     description = stringResource(id = R.string.language_description),
                     icon = Icons.Rounded.Translate,
@@ -44,6 +45,7 @@ fun LanguageScreen(navController: NavController, settingsViewModel: SettingsView
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.monospace_font),
                     icon = Icons.Rounded.FontDownload,
                     description = stringResource(id = R.string.monospace_font_description),
@@ -70,6 +72,7 @@ private fun OnLanguageClicked(settingsViewModel: SettingsViewModel, onExit: () -
         initialItem = Pair(context.getString(R.string.system_language), second = ""),
         setting = { isFirstItem, isLastItem, displayData ->
             SettingsBox(
+                settingsViewModel = settingsViewModel,
                 size = 8.dp,
                 title = displayData.first,
                 radius = shapeManager(isFirst = isFirstItem, isLast = isLastItem, radius = settingsViewModel.settings.value.cornerRadius),

@@ -51,6 +51,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -70,6 +71,7 @@ import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
+import com.kin.easynotes.presentation.theme.FontUtils
 import com.kin.easynotes.presentation.screens.settings.widgets.copyToClipboard
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -369,11 +371,13 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                             markdown = viewModel.noteName.value.text,
                             isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
                             weight = FontWeight.Bold,
+                            fontSize = FontUtils.getTitleFontSize(settingsViewModel),
                             modifier = Modifier
                                 .padding(16.dp)
                                 .align(Alignment.CenterHorizontally),
                             onContentChange = { viewModel.updateNoteName(TextFieldValue(text = it)) },
-                            radius = settingsViewModel.settings.value.cornerRadius
+                            radius = settingsViewModel.settings.value.cornerRadius,
+                            settingsViewModel = settingsViewModel
                         )
                         Spacer(modifier = Modifier.weight(1f))
                     }
@@ -398,6 +402,7 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                         radius = settingsViewModel.settings.value.cornerRadius,
                         markdown = viewModel.noteDescription.value.text,
                         isEnabled = settingsViewModel.settings.value.isMarkdownEnabled,
+                        fontSize = FontUtils.getBodyFontSize(settingsViewModel),
                         modifier = Modifier
                             .padding(
                                 16.dp,
@@ -406,7 +411,8 @@ fun PreviewScreen(viewModel: EditViewModel, settingsViewModel: SettingsViewModel
                                 16.dp
                             )
                             .weight(1f),
-                        onContentChange = { viewModel.updateNoteDescription(TextFieldValue(text = it)) })
+                        onContentChange = { viewModel.updateNoteDescription(TextFieldValue(text = it)) },
+                        settingsViewModel = settingsViewModel)
                     }
             }
         )

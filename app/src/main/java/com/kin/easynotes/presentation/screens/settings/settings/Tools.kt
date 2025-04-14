@@ -25,6 +25,7 @@ fun ToolsScreen(navController: NavController, settingsViewModel: SettingsViewMod
         LazyColumn {
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.notes),
                     description = settingsViewModel.noteUseCase.notes.size.toString(),
                     icon = Icons.Rounded.Build,

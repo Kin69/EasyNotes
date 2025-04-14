@@ -42,7 +42,9 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
+import com.kin.easynotes.presentation.theme.FontUtils
 
 
 @Composable
@@ -113,7 +115,8 @@ fun MarkdownText(
     weight: FontWeight = FontWeight.Normal,
     fontSize: TextUnit = 16.sp,
     spacing: Dp = 2.dp,
-    onContentChange: (String) -> Unit = {}
+    onContentChange: (String) -> Unit = {},
+    settingsViewModel: SettingsViewModel? = null
 ) {
     if (!isEnabled) {
         StaticMarkdownText(

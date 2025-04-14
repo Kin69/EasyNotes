@@ -25,6 +25,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
         LazyColumn {
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = "Bitcoin (BTC)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(isFirst = true, radius = settingsViewModel.settings.value.cornerRadius),
@@ -33,6 +34,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = "Monero (XMR)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
@@ -41,6 +43,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = "Ethereum (ETH)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
@@ -49,6 +52,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = "BNB SMART CHAIN (BNB)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
@@ -57,6 +61,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = "Tron (TRX)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
@@ -65,6 +70,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = "Polygon (MATIC)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager( radius = settingsViewModel.settings.value.cornerRadius),
@@ -73,6 +79,7 @@ fun SupportScreen(navController: NavController, settingsViewModel: SettingsViewM
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = "Avalanche C-Chain (AVAX)",
                     actionType = ActionType.CLIPBOARD,
                     radius = shapeManager(isLast = true, radius = settingsViewModel.settings.value.cornerRadius),

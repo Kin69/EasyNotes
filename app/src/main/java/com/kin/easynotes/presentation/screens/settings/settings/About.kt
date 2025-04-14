@@ -43,6 +43,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
         LazyColumn {
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.support_list),
                     icon = Icons.Rounded.Coffee,
                     actionType = ActionType.CUSTOM,
@@ -53,6 +54,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.build_type),
                     description = settingsViewModel.build,
                     icon = Icons.Rounded.Build,
@@ -62,6 +64,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.version),
                     description = settingsViewModel.version,
                     icon = Icons.Rounded.Info,
@@ -72,6 +75,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.latest_release),
                     icon = Icons.Rounded.Verified,
                     actionType = ActionType.LINK,
@@ -81,6 +85,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.source_code),
                     icon = Icons.Rounded.Download,
                     actionType = ActionType.LINK,
@@ -92,6 +97,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
 
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     title = stringResource(id = R.string.email),
                     icon = Icons.Rounded.Email,
                     clipboardText = ConnectionConst.SUPPORT_MAIL,
@@ -101,6 +107,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     size = 8.dp,
                     title = stringResource(id = R.string.discord),
                     icon = Icons.AutoMirrored.Rounded.ContactSupport,
@@ -111,6 +118,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
             }
             item {
                 SettingsBox(
+                    settingsViewModel = settingsViewModel,
                     size = 8.dp,
                     title = stringResource(id = R.string.feature),
                     icon = Icons.Rounded.BugReport,
@@ -145,6 +153,7 @@ fun ContributorsClicked(
         extractDisplayData = { it }
     ) { isFirstItem, isLastItem, displayData ->
         SettingsBox(
+            settingsViewModel = settingsViewModel,
             title = displayData.first,
             description = displayData.second,
             radius = shapeManager(isFirst = isFirstItem, isLast = isLastItem, radius = settingsViewModel.settings.value.cornerRadius),

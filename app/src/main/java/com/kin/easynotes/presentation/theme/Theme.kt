@@ -62,7 +62,7 @@ fun LeafNotesTheme(
 
     MaterialTheme(
         colorScheme = getColorScheme(context, settingsModel.settings.value.darkTheme, settingsModel.settings.value.dynamicTheme, settingsModel.settings.value.amoledTheme),
-        typography = Typography(),
+        typography = getTypography(settingsModel),
         content = content
     )
 }
