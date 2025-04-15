@@ -168,4 +168,9 @@
     <string name="make_search_bar_longer_description">Зробіть так, щоб панель пошуку відповідала ширині нотаток</string>
     <string name="disable_swipe_edit">Вимкнути свайп</string>
     <string name="make_search_bar_longer">Масштабувати ширину панелі пошуку</string>
+    <string name="font_size_description">Зміна розміру тексту в примітках</string>
+    <string name="font_size">Розмір шрифту</string>
+    <string name="font_size_value">Розмір шрифту: %1$d</string>
+    <string name="font_size_preview_title">Попередній перегляд</string>
+    <string name="font_size_preview_text">Ось як виглядатимуть ваші нотатки з вибраним розміром шрифту.</string>
 </resources>
