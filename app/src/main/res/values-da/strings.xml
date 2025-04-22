@@ -161,4 +161,9 @@
     <string name="make_search_bar_longer">Skaler søgefeltets bredde</string>
     <string name="make_search_bar_longer_description">Match søgefeltet med bredden på noter</string>
     <string name="disable_swipe_edit_description">"Deaktiver swipe for forhåndsvisning i redigeringstilstand "</string>
+    <string name="font_size">Skriftstørrelse</string>
+    <string name="font_size_description">Ændr størrelsen på tekst i noter</string>
+    <string name="font_size_value">Skriftstørrelse: %1$d</string>
+    <string name="font_size_preview_title">Forhåndsvisning</string>
+    <string name="font_size_preview_text">Sådan vil dine noter se ud med den valgte skriftstørrelse.</string>
 </resources>
