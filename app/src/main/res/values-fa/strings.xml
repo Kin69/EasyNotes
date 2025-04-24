@@ -161,4 +161,9 @@
     <string name="disable_swipe_edit_description">"غیرفعال کردن کشیدن انگشت برای پیش نمایش در حالت ویرایش. "</string>
     <string name="make_search_bar_longer">مقیاس پهنای نوار جستجو</string>
     <string name="make_search_bar_longer_description">نوار جستجو را با پهنای یادداشت ها مطابقت دهید</string>
+    <string name="font_size">اندازه قلم</string>
+    <string name="font_size_description">تغییر اندازه متن در یادداشت ها</string>
+    <string name="font_size_value">اندازه قلم: %1$d</string>
+    <string name="font_size_preview_title">پیش‌‍نمایش</string>
+    <string name="font_size_preview_text">این همان ظاهر یادداشت‌های شما با اندازه فونت انتخاب‌شده است.</string>
 </resources>
