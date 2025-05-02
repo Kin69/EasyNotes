@@ -28,7 +28,7 @@
     <string name="description_history">Історія • Повернення</string>
     <string name="description_tools">Створено • Видалити всі</string>
     <string name="select_font">Шрифт</string>
-    <string name="images_supprot">Підтримка зображень</string>
+    <string name="images_supprot">Підтримування зображень</string>
     <string name="unstable_feature">Нестабільно</string>
     <string name="screen_protection">Захист змісту</string>
     <string name="dark_theme_description">Перемикання між темною та світлою кольоровою схемою</string>
@@ -63,7 +63,7 @@
     <string name="language">Мова</string>
     <string name="description_color_styles">Тема • Розмір • Шрифт</string>
     <string name="description_cloud">NextCloud • Локально • Шифрування</string>
-    <string name="description_markdown">Підтримка • Зображення</string>
+    <string name="description_markdown">Підтримування • Зображення</string>
     <string name="support_description">Проявіть свою любов</string>
     <string name="radius">Радіус</string>
     <string name="select_radius">Оберіть радіус</string>
@@ -73,8 +73,8 @@
     <string name="extreme_amoled_mode">Екстремальні кольори Amoled</string>
     <string name="privacy">Приватність</string>
     <string name="cryptocurrency">Криптовалюта</string>
-    <string name="system_theme_description">Адаптовувавати тему застосунка згідно з налаштуваннями системи</string>
-    <string name="dynamic_colors_description">Підлаштовувати кольори, щоб вони відповідали вашим шпалерам</string>
+    <string name="system_theme_description">Змінити тему застосунка відповідно до налаштувань системи</string>
+    <string name="dynamic_colors_description">Підлаштовувати кольори, щоби вони відповідали вашим шпалерам</string>
     <string name="amoled_colors_description">Використовувати чорний колір для тла</string>
     <string name="view_style_description">Оберіть стиль відображення</string>
     <string name="minimalistic_mode_description">Приховати верхні кнопки з екрана редагування</string>
@@ -82,22 +82,22 @@
     <string name="restore_description">Відновити нотатки з файлу</string>
     <string name="markdown_description">Використовувати Markdown у нотатках</string>
     <string name="screen_protection_description">Приховувати застосунок у нещодавніх та забороняти знімки екрана</string>
-    <string name="source_code">Вихідний код</string>
+    <string name="source_code">Джерельний код</string>
     <string name="email">Ел. пошта</string>
     <string name="discord">Discord</string>
     <string name="detabase_restore_error">Неправильний пароль або база даних не зашифрована</string>
     <string name="encrypt_databse_description">Зашифровувати базу даних під час резервного копіювання</string>
-    <string name="password_prompt">Введіть пароль</string>
+    <string name="password_prompt">Уведіть пароль</string>
     <string name="invalid_input">Недійсний ввід</string>
     <string name="sort_ascending">Сортувати за зростанням</string>
     <string name="sort_descending">Сортувати за спаданням</string>
-    <string name="sort_description">Сортувати нотатки за часом їх створення</string>
+    <string name="sort_description">Сортувати нотатки за часом їхнього створення</string>
     <string name="unsuported_image_size">Не підтримуваний розмір зображення (до 15 МБ)</string>
     <string name="vault_description">Увімкнути зашифроване сховище для нотаток</string>
     <string name="system_language">Мова системи</string>
     <string name="Behavior">Поведінка</string>
     <string name="always_edit">Надавати пріоритет режиму редагування</string>
-    <string name="always_edit_description">Увійдіть у режим редагування наявних нотаток</string>
+    <string name="always_edit_description">Входити в режим редагування для наявних нотаток</string>
     <string name="invalid_password">Недійсний пароль</string>
     <string name="terms_acceptance_title">1. Прийняття умов</string>
     <string name="terms_license_title">2. Ліцензія</string>
@@ -107,9 +107,9 @@
     <string name="terms_disclaimer_body">Easy Notes надається як є, без жодних гарантій. Ми не гарантуємо, що застосунок буде без помилок, безпечним або безперебійним.</string>
     <string name="terms_liability_title">6. Обмеження відповідальності</string>
     <string name="terms_changes_title">8. Зміни до умов</string>
-    <string name="terms_contact_title">9. Зв\'язок з нами</string>
+    <string name="terms_contact_title">9. Зв\'язок із нами</string>
     <string name="agree">Погоджуюсь</string>
-    <string name="terms_contact_body">З будь-яких питань щодо цих умов надання послуг або Easy Notes, будь ласка, зв\'яжіться з нами за адресою</string>
+    <string name="terms_contact_body">З будь-яких питань щодо цих умов надання послуг або Easy Notes, зв\'язуйтеся з нами за адресою</string>
     <string name="terms_effective_date">Дата набуття чинності</string>
     <string name="terms_of_service">Умови надання послуг</string>
     <string name="file_import_error">Не вдалося імпортувати</string>
@@ -119,39 +119,32 @@
     <string name="donators">Пожертвування</string>
     <string name="contributors">Внесок</string>
     <string name="gallery_sync">Синхронізація з галереєю</string>
-    <string name="show_only_title">Показувати лише заголовок</string>
+    <string name="show_only_title">Відображати лише заголовок</string>
     <string name="gallery_sync_description">Зображення видалятимуться зі сховища застосунку, коли їх видалено з галереї</string>
-    <string name="show_only_title_description">Показувати лише заголовок у попередньому перегляді</string>
+    <string name="show_only_title_description">Відображати лише заголовок у попередньому перегляді</string>
     <string name="file_import_title">Імпорт</string>
-    <string name="terms_license_body">Easy Notes розповсюджується на умовах ліцензії **GNU General Public License (GPL) 3 версії**. Це означає, що:
-\n
-\n- Ви можете вільно використовувати, змінювати та поширювати застосунок.
-\n- Якщо ви поширюєте застосунок або будь-які модифіковані версії, ви також повинні поширювати його джерельний код та залишити ліцензію GPL.</string>
+    <string name="terms_license_body">Easy Notes розповсюджується на умовах ліцензії **GNU General Public License (GPL) 3 версії**. Це означає, що:\n\n- Ви можете вільно використовувати, змінювати та поширювати застосунок.\n- Якщо ви поширюєте застосунок або будь-які модифіковані версії, ви також мусите поширювати його джерельний код та залишити ліцензію GPL.</string>
     <string name="terms_acceptance_body">Натискаючи кнопку «Погоджуюсь» та використовуючи застосунок Easy Notes, ви приймаєте ці умови надання послуг. Якщо ви не згодні, не використовуйте цей застосунок.</string>
-    <string name="terms_use_body">Ви погоджуєтеся використовувати Easy Notes тільки в законних цілях та відповідно до цих умов. Ви **не повинні**:
-\n
-\n- _Використовувати застосунок з будь-якою незаконною метою_
-\n- _Порушувати права інших_
-\n- _Порушувати функціональність або безпеку застосунку_</string>
-    <string name="terms_intellectual_property_body">Всі права інтелектуальної власності на Easy Notes належать нам або нашим ліцензіарам. Використання застосунку не надає вам права власності на будь-які права інтелектуальної власності.</string>
-    <string name="terms_liability_body">Ми не несемо відповідальності за будь-які збитки, пов\'язані з використанням Easy Notes, включаючи непрямі, випадкові або побічні збитки.</string>
+    <string name="terms_use_body">Ви погоджуєтеся використовувати Easy Notes тільки в законних цілях та відповідно до цих умов. Ви **не мусите**:\n\n- _Використовувати застосунок із будь-якою незаконною метою_\n- _Порушувати права інших_\n- _Порушувати функціональність або безпеку застосунку_</string>
+    <string name="terms_intellectual_property_body">Усі права інтелектуальної власності на Easy Notes належать нам або нашим ліцензіарам. Використання застосунку не надає вам права власності на будь-які права інтелектуальної власності.</string>
+    <string name="terms_liability_body">Ми не несемо відповідальності за будь-які збитки, пов\'язані з використанням Easy Notes, включно з непрямими, випадковими або побічними збитками.</string>
     <string name="terms_termination_title">7. Припинення</string>
     <string name="terms_termination_body">Ми можемо припинити або призупинити ваш доступ до Easy Notes, якщо ви порушите ці умови. Після припинення ваше право на використання застосунку буде негайно припинено.</string>
     <string name="terms_changes_body">Ми можемо час від часу оновлювати ці умови надання послуг. Ваше подальше використання Easy Notes після будь-яких змін означає, що ви приймаєте переглянуті умови.</string>
-    <string name="terms_privacy_body">Easy Notes не збирає жодних персональних даних. Для отримання додаткової інформації, зверніться до нашої політики конфіденційності, доступної за посиланням</string>
+    <string name="terms_privacy_body">Easy Notes не збирає жодних персональних даних. Для отримання додаткової інформації, зверніться до нашої політики конфіденційності, доступної за покликанням</string>
     <string name="terms_privacy_title">10. Політика конфіденційності</string>
     <string name="file_import_partial_error">Не вдалося імпортувати деякі файли</string>
-    <string name="monospace_font_description">Використовуйте моноширинний шрифт під час редагування примітки</string>
-    <string name="monospace_font">Шрифт MPV</string>
+    <string name="monospace_font_description">Використовувати моноширинний шрифт під час редагування примітки</string>
+    <string name="monospace_font">Моноширинний шрифт</string>
     <string name="lock_on_resume">Негайно заблокувати</string>
-    <string name="alert_text">Ви впевнені, що бажаєте видалити вибрані нотатки</string>
+    <string name="alert_text">Ви впевнені, що хочете видалити вибрані нотатки</string>
     <string name="lock_on_resume_description">Миттєво блокувати після відновлення програми</string>
-    <string name="app_lock_description">Блокування програми за допомогою пароля</string>
+    <string name="app_lock_description">Блокування застосунку за допомогою пароля</string>
     <string name="locked">Заблоковано</string>
     <string name="lock_pattern">Введіть шаблон</string>
     <string name="yes">Так</string>
     <string name="cancel">Скасувати</string>
-    <string name="app_lock">Блокування програми</string>
+    <string name="app_lock">Блокування застосунку</string>
     <string name="setup_password">Налаштувати пароль</string>
     <string name="enter_password">Введіть пароль</string>
     <string name="pin">Pin (6 номерів)</string>
