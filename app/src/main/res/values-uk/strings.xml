@@ -136,9 +136,9 @@
     <string name="file_import_partial_error">Не вдалося імпортувати деякі файли</string>
     <string name="monospace_font_description">Використовувати моноширинний шрифт під час редагування примітки</string>
     <string name="monospace_font">Моноширинний шрифт</string>
-    <string name="lock_on_resume">Негайно заблокувати</string>
+    <string name="lock_on_resume">Миттєве блокування</string>
     <string name="alert_text">Ви впевнені, що хочете видалити вибрані нотатки</string>
-    <string name="lock_on_resume_description">Миттєво блокувати після відновлення програми</string>
+    <string name="lock_on_resume_description">Миттєво блокувати після відновлення застосунку</string>
     <string name="app_lock_description">Блокування застосунку за допомогою пароля</string>
     <string name="locked">Заблоковано</string>
     <string name="lock_pattern">Уведіть шаблон</string>
@@ -157,13 +157,13 @@
     <string name="pattern">Шаблон</string>
     <string name="authorize_pattern">Запитувати шаблон на початку</string>
     <string name="setup_pattern">Налаштувати шаблон</string>
-    <string name="disable_swipe_edit_description">"Вимкніть гортання для попереднього перегляду в режимі редагування "</string>
-    <string name="make_search_bar_longer_description">Зробіть так, щоб панель пошуку відповідала ширині нотаток</string>
-    <string name="disable_swipe_edit">Вимкнути свайп</string>
-    <string name="make_search_bar_longer">Масштабувати ширину панелі пошуку</string>
-    <string name="font_size_description">Зміна розміру тексту в примітках</string>
+    <string name="disable_swipe_edit_description">"Вимкнути гортання для попереднього перегляду в режимі редагування "</string>
+    <string name="make_search_bar_longer_description">Масштабувати пошукову панель так, щоби вона відповідала ширині нотаток</string>
+    <string name="disable_swipe_edit">Вимкнути жести</string>
+    <string name="make_search_bar_longer">Масштабувати ширину пошукової панелі</string>
+    <string name="font_size_description">Змінити розмір тексту в нотатках</string>
     <string name="font_size">Розмір шрифту</string>
     <string name="font_size_value">Розмір шрифту: %1$d</string>
     <string name="font_size_preview_title">Попередній перегляд</string>
-    <string name="font_size_preview_text">Ось як виглядатимуть ваші нотатки з вибраним розміром шрифту.</string>
+    <string name="font_size_preview_text">Ось як виглядатимуть ваші нотатки з обраним розміром шрифту.</string>
 </resources>
