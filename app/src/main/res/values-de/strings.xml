@@ -148,11 +148,22 @@
     <string name="system_theme_description">Passt das App-Thema an die Systemeinstellungen an</string>
     <string name="dynamic_colors_description">Passt die Farben an Ihr Hintergrundbild an</string>
     <string name="make_search_bar_longer_description">Passe die Suchleiste an die Breite der Notizen an</string>
-    <string name="terms_license_body">Easy Notes wird unter der **GNU General Public License (GPL) version 3** bereitgestellt. Das heißt:\n\n-Sie sind frei, die App zu verwenden, zu modifizieren und zu teilen.\n\n- Wenn Sie die Anwendung oder modifizierte Versionen verteilen, müssen Sie auch den Quellcode verteilen und die GPL-Lizenz beibehalten.</string>
+    <string name="terms_license_body">Easy Notes wird unter der **GNU General Public License (GPL) version 3** bereitgestellt. Das heißt:\n\n-Sie sind frei, die App zu verwenden, zu modifizieren und zu teilen.\n\n- Wenn Sie die Anwendung oder modifizierte Versionen veröffentlichen, müssen Sie auch den Quellcode publik machen und die GPL-Lizenz beibehalten.</string>
     <string name="vault_description">Verschlüsselten Notiz-Tresor aktivieren</string>
     <string name="app_lock">App-Sperre</string>
     <string name="setup_password">PIN einrichten</string>
     <string name="fingerprint_name">Authentifizierung benötigt</string>
     <string name="setup_pattern">Muster einrichten</string>
-    <string name="lock_on_resume_description">Direkt sperren, wenn die App wieder geöffnet wird</string>
+    <string name="lock_on_resume_description">Direkt sperren, wenn die App wieder geschlossen wird</string>
+    <string name="terms_acceptance_title">1. Akzeptanz der Bedingungen</string>
+    <string name="terms_use_body">Sie erklären sich damit einverstanden, Easy Notes nur für rechtmäßige Zwecke und in Übereinstimmung mit diesen Bedingungen zu nutzen. Sie dürfen **nicht**:\n\n- _Die App für rechtswidrige Zwecke zu verwenden_.\n- die Rechte anderer verletzen\n- die Funktionalität oder Sicherheit der App stören_1. Akzeptanz der Bedingungen</string>
+    <string name="terms_termination_title">7. Beendigung</string>
+    <string name="terms_termination_body">Wir können Ihren Zugang zu Easy Notes beenden oder aussetzen, wenn Sie gegen diese Bedingungen verstoßen. Mit der Beendigung endet Ihr Recht, die App zu nutzen, sofort.</string>
+    <string name="file_import_error">Konnte nicht importieren</string>
+    <string name="build_type">Build Typ</string>
+    <string name="disable_swipe_edit_description">"Wischen zur Vorschau im Bearbeitungsmodus deaktivieren "</string>
+    <string name="screen_protection_description">Bildschirm in aktuellen ausblenden und Bildschirmfotos deaktivieren</string>
+    <string name="monospace_font">Schriftart Monospace</string>
+    <string name="locked">ist gesperrt</string>
+    <string name="uid">UID</string>
 </resources>
