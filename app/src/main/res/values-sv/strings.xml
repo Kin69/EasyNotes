@@ -120,4 +120,19 @@
     <string name="lock_on_resume">Lås omedelbart</string>
     <string name="setup_pattern">Ställ in mönster</string>
     <string name="lock_pattern">Ange mönster</string>
+    <string name="extreme_amoled_mode_description">Extrem batterioptimering</string>
+    <string name="radius_description">Justera gränsradie</string>
+    <string name="build_type">Byggtyp</string>
+    <string name="feature">Funktionsförfrågan</string>
+    <string name="always_edit_description">Inta redigeringsläge på existerande anteckningar</string>
+    <string name="gallery_sync">Gallerisynkronisering</string>
+    <string name="file_import_partial_error">Import av vissa filer misslyckades</string>
+    <string name="file_import_success">Import lyckad</string>
+    <string name="monospace_font_description">Använd monospace-typsnitt medan anteckning redigeras</string>
+    <string name="setup_password">Ställ in låskod</string>
+    <string name="enter_password">Ange låskod</string>
+    <string name="passcode">Låskod</string>
+    <string name="authorize_passcode">Be om låskod vid start</string>
+    <string name="disable_swipe_edit">Avaktivera svepning</string>
+    <string name="disable_swipe_edit_description">"Avaktivera svepning vid förhandsgranskning i redigeringsläge. "</string>
 </resources>
