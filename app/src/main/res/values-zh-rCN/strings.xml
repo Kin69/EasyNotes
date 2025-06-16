@@ -168,4 +168,9 @@
     <string name="disable_swipe_edit_description">"在编辑模式下禁用滑动预览 "</string>
     <string name="make_search_bar_longer">增加搜索栏宽度</string>
     <string name="make_search_bar_longer_description">使搜索栏宽度与笔记相同长度</string>
+    <string name="font_size">字体尺寸</string>
+    <string name="font_size_description">更改在笔记内的字体尺寸</string>
+    <string name="font_size_value">字体尺寸:%1$d</string>
+    <string name="font_size_preview_title">预览</string>
+    <string name="font_size_preview_text">这是您的笔记使用所选字体大小后的样子.</string>
 </resources>
