@@ -117,8 +117,8 @@
     <string name="vault">Brankas</string>
     <string name="always_edit_description">Masuk ke mode edit pada catatan yang ada</string>
     <string name="gallery_sync_description">Menghapus gambar dari penyimpanan aplikasi ketika dihapus dari galeri</string>
-    <string name="terms_license_body">Easy Notes didistribusikan di bawah Lisensi Umum GNU (GPL) versi 3. Ini berarti:\n\nAnda bebas untuk menggunakan, memodifikasi, dan membagikan aplikasi ini.\n\nJika Anda mendistribusikan aplikasi atau versi yang dimodifikasi, Anda juga wajib mendistribusikan kode sumber dan mempertahankan lisensi GPL.</string>
-    <string name="terms_use_body">Anda setuju untuk menggunakan Easy Notes hanya untuk tujuan yang sah dan sesuai dengan Ketentuan ini. Anda **dilarang** untuk:\n\nMenggunakan aplikasi untuk tujuan yang tidak sah\n\nMelanggar hak-hak orang lain\n\nMengganggu kinerja atau keamanan aplikasi ini.</string>
+    <string name="terms_license_body">Easy Notes didistribusikan di bawah Lisensi Umum GNU (GPL) versi 3. Ini berarti: \n \n-Anda bebas untuk menggunakan, memodifikasi, dan membagikan aplikasi ini. \n-Jika Anda mendistribusikan aplikasi atau versi yang dimodifikasi, Anda juga wajib mendistribusikan kode sumber dan mempertahankan lisensi GPL.</string>
+    <string name="terms_use_body">Anda setuju untuk menggunakan Easy Notes hanya untuk tujuan yang sah dan sesuai dengan Ketentuan ini. Anda **dilarang** untuk:\n\n- _Menggunakan aplikasi untuk tujuan yang tidak sah_\n- _Melanggar hak-hak orang lain_\n- _Mengganggu kinerja atau keamanan aplikasi ini_</string>
     <string name="terms_changes_title">8. Perubahan Ketentuan</string>
     <string name="terms_privacy_body">Easy Notes tidak mengumpulkan data pribadi apapun. Untuk informasi lebih lanjut, silakan merujuk ke Kebijakan Privasi kami yang tersedia di</string>
     <string name="terms_contact_body">Untuk pertanyaan mengenai Ketentuan Layanan ini atau Easy Notes, silakan hubungi kami di</string>
@@ -149,14 +149,14 @@
     <string name="fingerprint_name">Autentikasi diperlukan</string>
     <string name="locked">Terkunci</string>
     <string name="uid">UID</string>
-    <string name="authorize_fingerprint">Minta sidik jari ketika mulai</string>
+    <string name="authorize_fingerprint">Minta sidik jari saat mulai</string>
     <string name="authorize_passcode">Minta kode sandi saat mulai</string>
     <string name="pattern">Pola</string>
     <string name="authorize_pattern">Minta pola saat mulai</string>
     <string name="setup_pattern">Atur pola</string>
     <string name="lock_pattern">Masukkan pola</string>
     <string name="lock_on_resume">Segera kunci</string>
-    <string name="lock_on_resume_description">Kunci langsung saat aplikasi dibuka kembali</string>
+    <string name="lock_on_resume_description">Kunci segera saat aplikasi dibuka kembali</string>
     <string name="disable_swipe_edit">Nonaktifkan geser</string>
     <string name="disable_swipe_edit_description">"Nonaktifkan geser untuk pratinjau dalam mode edit "</string>
     <string name="make_search_bar_longer">Sesuaikan Lebar Bilah Pencarian</string>
