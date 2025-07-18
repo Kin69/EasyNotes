@@ -164,4 +164,5 @@
     <string name="setup_pattern">Nastavenie vzoru</string>
     <string name="lock_on_resume">Zamknúť okamžite</string>
     <string name="lock_on_resume_description">Lock okamžite, keď je aplikácia obnovená</string>
+    <string name="disable_swipe_edit">Disable swipe</string>
 </resources>
