@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Easy Notes</string>
+    <string name="app_name">یادداشت آسان</string>
     <string name="home_screen">نوشتارها</string>
     <string name="new_note">نوشته‌ی نو</string>
     <string name="no_created_notes">نوشتاری ساخته نشده است.</string>
@@ -77,7 +77,7 @@
     <string name="backup_description">انبار کردن همه‌ی نوشته‌ها در یک پرونده</string>
     <string name="dynamic_colors_description">جورشدن رنگ‌ها با فرتور پس‌زمینه‌ی شما</string>
     <string name="markdown_description">روشن کردن کارپ نشانه‌گذاری در نوشتارها</string>
-    <string name="pinned">به تاغ دوخته‌</string>
+    <string name="pinned">ایستا</string>
     <string name="others">دیگران</string>
     <string name="copy">رونوشت</string>
     <string name="encrypt_databse">رمزگذاری پایگاه‌ داده‌ها</string>
@@ -115,7 +115,7 @@
     <string name="file_import_error">نمیتوان وارد کرد</string>
     <string name="file_import_partial_error">واردات بعضی از فایلها شکست خورد</string>
     <string name="file_import_success">وارد شد</string>
-    <string name="file_import_title">واردات</string>
+    <string name="file_import_title">درون‌برد</string>
     <string name="file_import_description">وارد‌کردن سایر فایلها به عنوان یادداشت</string>
     <string name="donators">کمک‌مالی</string>
     <string name="translators">ترجمه‌کردن</string>
