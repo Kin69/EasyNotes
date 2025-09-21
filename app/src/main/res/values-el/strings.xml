@@ -91,7 +91,7 @@
     <string name="font_size">Μέγεθος Γραμματοσειράς</string>
     <string name="font_size_value">Μέγεθος Γραμματοσειράς: %1$d</string>
     <string name="font_size_preview_text">Έτσι θα φαίνονται οι σημειώσεις σου με το επιλεγμένο μέγεθος γραμματοσειράς.</string>
-    <string name="donate_me">Δώρισε :)</string>
+    <string name="donate_me">Κάνε μια Δωρεά :)</string>
     <string name="widgets">Γραφικά Στοιχεία</string>
     <string name="description_color_styles">Θέματα • Μέγεθος • Γραμματοσειρά</string>
     <string name="description_language">Γραμματοσειρά • Γλώσσα</string>
@@ -99,4 +99,18 @@
     <string name="radius">Ακτίνα</string>
     <string name="select_radius">Επιλογή Ακτίνας</string>
     <string name="screen_protection">Προστασία Οθόνης</string>
+    <string name="display">Εμφάνιση</string>
+    <string name="description_cloud">NextCloud • Τοπικά • Κρυπτογραφημένα</string>
+    <string name="description_widgets">Γραφικά Στοιχεία • Markdown</string>
+    <string name="description_history">Ιστορικό • Επαναφορά</string>
+    <string name="description_markdown">Υποστήριξη • Εικόνες</string>
+    <string name="extreme_amoled_mode">Ακραία Χρώματα Amoled</string>
+    <string name="images_supprot">Υποστήριξη εικόνων</string>
+    <string name="unstable_feature">Ασταθής</string>
+    <string name="radius_description">Προσαρμογή της ακτίνας των ορίων</string>
+    <string name="markdown_description">Ενεργοποίηση markdown στις σημειώσεις</string>
+    <string name="screen_protection_description">Απόκρυψη οθόνης στα πρόσφατα και απενεργοποίηση στιγμιότυπων οθόνης</string>
+    <string name="feature">Αίτημα νέων λειτουργειών</string>
+    <string name="encrypt_databse">Κρυπτογράφηση Βάσης Δεδομένων</string>
+    <string name="encrypt_databse_description">Κρυπτογράφηση βάσης δεδομένων κατά τη διάρκεια της δημιουργίας αντιγράφων ασφαλείας</string>
 </resources>
