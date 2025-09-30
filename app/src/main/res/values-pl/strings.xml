@@ -161,4 +161,9 @@
     <string name="lock_pattern">Wprowadź wzór</string>
     <string name="lock_on_resume">Zablokuj natychmiast</string>
     <string name="lock_on_resume_description">Zablokuj natychmiast po wznowieniu aplikacji</string>
+    <string name="font_size">Rozmiar czcionki</string>
+    <string name="font_size_description">Zmień rozmiar tekstu w notatkach</string>
+    <string name="font_size_value">Rozmiar czcionki: %1$d</string>
+    <string name="font_size_preview_title">Podgląd</string>
+    <string name="font_size_preview_text">Tak będą wyglądać Twoje notatki z wybranym rozmiarem czcionki.</string>
 </resources>

@@ -15,7 +15,7 @@
     <string name="amoled_colors">Amoled 顏色</string>
     <string name="database">資料庫</string>
     <string name="backup">備份</string>
-    <string name="not_supported">不支持</string>
+    <string name="not_supported">暫不支援</string>
     <string name="about">關於</string>
     <string name="version">版本</string>
     <string name="latest_release">最新版本</string>
@@ -23,7 +23,7 @@
     <string name="donate_me">贊助我 :)</string>
     <string name="restore">恢復</string>
     <string name="notes">全部筆記</string>
-    <string name="support">支持</string>
+    <string name="support">支援</string>
     <string name="color_styles">顏色與樣式</string>
     <string name="language">語言</string>
     <string name="markdown">Markdown</string>
@@ -168,4 +168,7 @@
     <string name="lock_pattern">輸入圖案</string>
     <string name="lock_on_resume">立即鎖定</string>
     <string name="lock_on_resume_description">返回應用程式時自動鎖定</string>
+    <string name="font_size">字型大小</string>
+    <string name="font_size_description">變更筆記中的文字大小</string>
+    <string name="font_size_preview_title">預覽</string>
 </resources>

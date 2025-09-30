@@ -168,4 +168,9 @@
     <string name="disable_swipe_edit">Отключить смахивание</string>
     <string name="disable_swipe_edit_description">"Отключить смахивание (свайп) для предпросмотра в режиме редактирования "</string>
     <string name="make_search_bar_longer_description">Масштабировать поисковую строку под ширину заметок</string>
+    <string name="font_size_description">Изменить размер текста в заметках</string>
+    <string name="font_size_preview_text">Вот как ваши заметки будут выглядеть с выбранным размером шрифта.</string>
+    <string name="font_size_value">Размер шрифта: %1$d</string>
+    <string name="font_size_preview_title">Предпросмотр</string>
+    <string name="font_size">Размер шрифта</string>
 </resources>
