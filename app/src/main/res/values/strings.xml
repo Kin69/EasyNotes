@@ -22,6 +22,7 @@
     <string name="dark_theme">Dark Theme</string>
     <string name="dynamic_colors">Dynamic Colors</string>
     <string name="amoled_colors">Amoled Colors</string>
+    <string name="accent_color">Accent Color</string>
     <string name="database">Database</string>
     <string name="backup">Backup</string>
     <string name="not_supported">Not supported yet</string>
@@ -63,6 +64,7 @@
     <string name="dark_theme_description">Toggle between dark and light color schemes</string>
     <string name="dynamic_colors_description">Adjusts colors to match your wallpaper</string>
     <string name="amoled_colors_description">Use black color for background</string>
+    <string name="accent_color_description">Choose a custom accent color for the theme</string>
     <string name="extreme_amoled_mode_description">Extreme Battery optimization</string>
     <string name="radius_description">Customize border radius</string>
     <string name="view_style_description">Select view style</string>
@@ -166,4 +168,5 @@
     <string name="font_size_value">Font Size: %1$d</string>
     <string name="font_size_preview_title">Preview</string>
     <string name="font_size_preview_text">This is how your notes will look with the selected font size.</string>
+    <string name="select_accent_color">Select Accent Color</string>
 </resources>

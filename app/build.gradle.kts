@@ -84,6 +84,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.m3color)
     implementation(libs.androidx.biometric.ktx)
     implementation(libs.androidx.glance)
     implementation(libs.coil.compose)

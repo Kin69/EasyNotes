@@ -10,6 +10,7 @@ coilCompose = "2.7.0"
 hiltNavigationCompose = "1.2.0"
 kotlin = "2.0.0"
 ksp = "2.0.0-1.0.24"
+m3color = "2024.6"
 room = "2.6.1"
 activityCompose = "1.9.1"
 coreKtx = "1.13.1"
@@ -51,6 +52,9 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose"
 
 # Glance
 androidx-glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glanceAppwidget" }
+
+# M3Color | https://github.com/Kyant0/m3color
+m3color = { module = "com.github.Kyant0:m3color", version.ref = "m3color" }
 
 [plugins]
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

@@ -1,7 +1,7 @@
 package com.kin.easynotes.presentation.screens.settings.settings
 
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -13,8 +13,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Sort
@@ -28,11 +29,10 @@ import androidx.compose.material.icons.rounded.HdrAuto
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.RoundedCorner
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.material.icons.rounded.ViewAgenda
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
@@ -43,7 +43,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -51,15 +52,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
-import androidx.core.os.LocaleListCompat
 import androidx.navigation.NavController
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.screens.settings.SettingsScaffold
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.widgets.ActionType
-import com.kin.easynotes.presentation.screens.settings.widgets.ListDialog
 import com.kin.easynotes.presentation.screens.settings.widgets.SettingsBox
+import com.kin.easynotes.presentation.theme.PALETTE_COLORS
 
 fun shapeManager(isBoth: Boolean = false,isLast: Boolean = false,isFirst: Boolean = false,radius: Int): RoundedCornerShape {
     val smallerRadius: Dp = (radius/5).dp
@@ -125,11 +124,28 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                     title = stringResource(id = R.string.dynamic_colors),
                     description = stringResource(id = R.string.dynamic_colors_description),
                     icon = Icons.Rounded.Colorize,
-                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = !(settingsViewModel.settings.value.darkTheme)),
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
                     isEnabled = !settingsViewModel.settings.value.automaticTheme,
                     actionType = ActionType.SWITCH,
                     variable = settingsViewModel.settings.value.dynamicTheme,
                     switchEnabled = { settingsViewModel.update(settingsViewModel.settings.value.copy(automaticTheme = false, dynamicTheme = it))}
+                )
+            }
+            item {
+                SettingsBox(
+                    settingsViewModel = settingsViewModel,
+                    title = stringResource(id = R.string.accent_color),
+                    description = stringResource(id = R.string.accent_color_description),
+                    icon = Icons.Rounded.Palette,
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = !(settingsViewModel.settings.value.darkTheme)),
+                    isEnabled = !settingsViewModel.settings.value.dynamicTheme,
+                    actionType = ActionType.CUSTOM,
+                    customAction = { onExit ->
+                        ColorSelectionDialog(
+                            settingsViewModel = settingsViewModel,
+                            onDismissRequest = onExit
+                        )
+                    },
                 )
             }
             item {
@@ -380,3 +396,55 @@ fun OnFontSizeClicked(settingsViewModel: SettingsViewModel, onExit: (Int) -> Uni
     }
 }
 
+@Composable
+fun ColorSelectionDialog(
+    settingsViewModel: SettingsViewModel,
+    onDismissRequest: () -> Unit
+) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        Card(
+            shape = shapeManager(isBoth = true, radius = settingsViewModel.settings.value.cornerRadius),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)
+        ) {
+            Column(modifier = Modifier.padding(24.dp)) {
+                Text(
+                    text = stringResource(id = R.string.select_accent_color),
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, bottom = 16.dp)
+                )
+
+                val colorChunks = PALETTE_COLORS.chunked(3)
+                colorChunks.forEach { rowColors ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        rowColors.forEach { color ->
+                            val isSelected = settingsViewModel.settings.value.customColor == color.toArgb()
+                            Box(
+                                modifier = Modifier
+                                    .size(48.dp)
+                                    .clip(CircleShape)
+                                    .background(color)
+                                    .clickable {
+                                        settingsViewModel.update(settingsViewModel.settings.value.copy(customColor = color.toArgb()))
+                                        onDismissRequest()
+                                    }
+                                    .then(
+                                        if (isSelected) Modifier.border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
+                                        else Modifier
+                                    )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -7,7 +7,6 @@ import android.view.WindowManager
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Typography
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
@@ -17,7 +16,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 
-private fun getColorScheme(context: Context, isDarkTheme: Boolean, isDynamicTheme: Boolean, isAmoledTheme: Boolean): ColorScheme {
+private fun getColorScheme(context: Context, isDarkTheme: Boolean, isDynamicTheme: Boolean, isAmoledTheme: Boolean, keyColor: Color): ColorScheme {
     if (isDynamicTheme && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         if (isDarkTheme) {
             if (isAmoledTheme) {
@@ -29,14 +28,9 @@ private fun getColorScheme(context: Context, isDarkTheme: Boolean, isDynamicThem
             return dynamicLightColorScheme(context)
         }
     } else if (isDarkTheme) {
-         if (isAmoledTheme) {
-             return darkScheme.copy(surfaceContainerLow = Color.Black, surface = Color.Black)
-         }
-
-        return darkScheme
-    } else {
-        return lightScheme
-    }
+        val darkScheme = generatePalette(keyColor, true)
+        return if (isAmoledTheme) darkScheme.copy(surfaceContainerLow = Color.Black, surface = Color.Black) else darkScheme
+    } else return generatePalette(keyColor, false)
 }
 
 @Composable
@@ -60,8 +54,9 @@ fun LeafNotesTheme(
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
+    val keyColor = Color(settingsModel.settings.value.customColor)
     MaterialTheme(
-        colorScheme = getColorScheme(context, settingsModel.settings.value.darkTheme, settingsModel.settings.value.dynamicTheme, settingsModel.settings.value.amoledTheme),
+        colorScheme = getColorScheme(context, settingsModel.settings.value.darkTheme, settingsModel.settings.value.dynamicTheme, settingsModel.settings.value.amoledTheme, keyColor),
         typography = getTypography(settingsModel),
         content = content
     )
