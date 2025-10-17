@@ -166,4 +166,7 @@
     <string name="font_size_value">اندازه قلم: %1$d</string>
     <string name="font_size_preview_title">پیش‌‍نمایش</string>
     <string name="font_size_preview_text">این همان ظاهر یادداشت‌های شما با اندازه فونت انتخاب‌شده است.</string>
+    <string name="accent_color">رنگ تاکید</string>
+    <string name="accent_color_description">یک رنگ دلخواه تاکیدی برای پوسته انتخاب کنید</string>
+    <string name="select_accent_color">انتخاب رنگ تاکید</string>
 </resources>
