@@ -102,4 +102,19 @@
     <string name="description_history">گچمیش • گری آل</string>
     <string name="description_markdown">دستك • گورسەللر</string>
     <string name="support_description">سوگینیزی گوسدرڭ</string>
+    <string name="extreme_amoled_mode_description">آشیری پیل اییلشدرمەسی</string>
+    <string name="description_color_styles">تەمالر • بویوت • یازی تیپی</string>
+    <string name="description_cloud">NextCloud • یرل • شیفرەلەمە</string>
+    <string name="description_about">سوروم • گلیشدریجیلر • لیسانس</string>
+    <string name="description_tools">اولوشدریلدی • هپسینی سیل</string>
+    <string name="system_theme_description">اویغولامە تەماسی سیستەم عیارلرینە گورە اویارلر</string>
+    <string name="dark_theme_description">قویو و آچیق رنگ دوزنلری آراسیندە گچیش یاپن</string>
+    <string name="dynamic_colors_description">رنگلری دیوار كاغدیڭزە اویەجق شكلدە عیارلر</string>
+    <string name="amoled_colors_description">آرقا پلان ایچین سیاه رنگ قوللان</string>
+    <string name="accent_color_description">تەما ایچین اوزل بر اوركی رنگی سچن</string>
+    <string name="radius_description">كنارلق یاریچاپینی اوزللشدرن</string>
+    <string name="view_style_description">گورونم بیچیمینی سچن</string>
+    <string name="minimalistic_mode_description">دوزنلەمە أكرانندەن اوست دوگمەلری قالدرن</string>
+    <string name="backup_description">توم نوطلری دوسیەیە قید ایدن</string>
+    <string name="restore_description">نوطلری یدكلەمە دوسیەسیندەن گری یوكلەین</string>
 </resources>
