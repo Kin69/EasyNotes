@@ -4,7 +4,7 @@ object DatabaseConst {
     /**
      * Database version
      */
-    const val NOTES_DATABASE_VERSION = 4
+    const val NOTES_DATABASE_VERSION = 5
 
     /**
      * Exported notes room database name and extension

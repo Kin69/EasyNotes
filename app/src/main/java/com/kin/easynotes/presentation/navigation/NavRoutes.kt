@@ -26,6 +26,7 @@ sealed class NavRoutes(val route: String) {
     }
     data object Terms : NavRoutes("terms")
     data object Settings : NavRoutes("settings")
+    data object VoiceNotes : NavRoutes("voice_notes")
     data object ColorStyles : NavRoutes("settings/color_styles")
     data object Language : NavRoutes("settings/language")
     data object Cloud : NavRoutes("settings/cloud")

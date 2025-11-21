@@ -4,10 +4,12 @@ import android.app.Application
 import android.os.Handler
 import android.content.Context
 import android.os.Looper
+import com.kin.easynotes.data.local.dao.VoiceNoteDao
 import com.kin.easynotes.data.local.database.NoteDatabaseProvider
 import com.kin.easynotes.data.repository.ImportExportRepository
 import com.kin.easynotes.data.repository.NoteRepositoryImpl
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
+import com.kin.easynotes.data.repository.VoiceNotesRepository
 import com.kin.easynotes.presentation.components.EncryptionHelper
 import dagger.Module
 import dagger.Provides
@@ -98,5 +100,17 @@ object ApplicationModule {
     @Provides
     fun provideHandler(): Handler {
         return Handler(Looper.getMainLooper())
+    }
+
+    @Provides
+    @Singleton
+    fun provideVoiceNoteDao(noteDatabaseProvider: NoteDatabaseProvider): VoiceNoteDao {
+        return noteDatabaseProvider.voiceNoteDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideVoiceNotesRepository(voiceNoteDao: VoiceNoteDao): VoiceNotesRepository {
+        return VoiceNotesRepository(voiceNoteDao)
     }
 }

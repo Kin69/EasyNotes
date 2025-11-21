@@ -17,6 +17,7 @@ import com.kin.easynotes.presentation.screens.edit.EditNoteView
 import com.kin.easynotes.presentation.screens.home.HomeView
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.terms.TermsScreen
+import com.kin.easynotes.presentation.screens.voice_notes.VoiceNotesScreen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,6 +45,7 @@ fun AppNavHost(settingsModel: SettingsViewModel,navController: NavHostController
                         )
                     )
                 },
+                onVoiceNotesClicked = { navController.navigate(NavRoutes.VoiceNotes.route) },
                 settingsModel = settingsModel
             )
         }
@@ -85,6 +87,10 @@ fun AppNavHost(settingsModel: SettingsViewModel,navController: NavHostController
                     activity?.finish()
                 }
             }
+        }
+
+        animatedComposable(NavRoutes.VoiceNotes.route) {
+            VoiceNotesScreen()
         }
 
         settingScreens.forEach { (route, screen) ->
