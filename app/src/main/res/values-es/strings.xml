@@ -164,4 +164,16 @@
     <string name="lock_pattern">Introducir patrón</string>
     <string name="lock_on_resume">Bloquear inmediatamente</string>
     <string name="lock_on_resume_description">Bloquear instantáneamente cuando se reanuda la aplicación</string>
+    <string name="accent_color">Color de acento</string>
+    <string name="accent_color_description">Elige un color de acento personalizado para el tema</string>
+    <string name="make_search_bar_longer_description">Hacer que la barra de búsqueda coincida con el ancho de las notas</string>
+    <string name="font_size">Tamaño de fuente</string>
+    <string name="font_size_description">Cambiar el tamaño del texto en las notas</string>
+    <string name="font_size_value">Tamaño de fuente: %1$d</string>
+    <string name="font_size_preview_title">Previsualización</string>
+    <string name="font_size_preview_text">Así es como se verán tus notas con el tamaño de fuente seleccionado.</string>
+    <string name="select_accent_color">Seleccionar color de acento</string>
+    <string name="disable_swipe_edit">Desactivar deslizamiento</string>
+    <string name="disable_swipe_edit_description">"Deshabilitar el deslizar para obtener una vista previa en el modo de edición "</string>
+    <string name="make_search_bar_longer">Escalar ancho de la barra de búsqueda</string>
 </resources>
