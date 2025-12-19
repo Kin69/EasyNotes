@@ -1,0 +1,1 @@
+Aplicación de notas privada, con diseño Material y compatible con Markdown.
