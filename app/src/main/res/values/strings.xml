@@ -155,7 +155,7 @@
     <string name="authorize_passcode">Ask for passcode on start</string>
     <string name="pattern">Pattern</string>
     <string name="authorize_pattern">Ask for pattern on start</string>
-    <string name="setup_pattern">Settup pattern</string>
+    <string name="setup_pattern">Setup pattern</string>
     <string name="lock_pattern">Enter pattern</string>
     <string name="lock_on_resume">Lock Immediately</string>
     <string name="lock_on_resume_description">Lock instantly when app is resumed</string>

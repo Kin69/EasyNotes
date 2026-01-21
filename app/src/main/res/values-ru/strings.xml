@@ -160,7 +160,7 @@
     <string name="authorize_pattern">Запрашивает графический ключ при запуске</string>
     <string name="authorize_passcode">Запрашивает пароль при запуске</string>
     <string name="authorize_fingerprint">Запрашивает отпечаток пальца при запуске</string>
-    <string name="setup_pattern">Установка графического ключа</string>
+    <string name="setup_pattern">Настроить графический ключ</string>
     <string name="lock_pattern">Введите графический ключ</string>
     <string name="lock_on_resume">Незамедлительная блокировка</string>
     <string name="lock_on_resume_description">Блокировать немедленно при открытии приложения</string>
@@ -173,4 +173,7 @@
     <string name="font_size_value">Размер шрифта: %1$d</string>
     <string name="font_size_preview_title">Предпросмотр</string>
     <string name="font_size">Размер шрифта</string>
+    <string name="accent_color">Акцентный цвет</string>
+    <string name="accent_color_description">Выберите собственный акцентный цвет для темы</string>
+    <string name="select_accent_color">Выберите акцентный цвет</string>
 </resources>
