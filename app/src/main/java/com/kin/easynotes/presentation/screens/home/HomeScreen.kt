@@ -37,6 +37,7 @@ import com.kin.easynotes.presentation.components.SelectAllButton
 import com.kin.easynotes.presentation.components.SettingsButton
 import com.kin.easynotes.presentation.components.TitleText
 import com.kin.easynotes.presentation.components.VaultButton
+import com.kin.easynotes.presentation.components.VoiceNotesButton
 import com.kin.easynotes.presentation.components.defaultScreenEnterAnimation
 import com.kin.easynotes.presentation.components.defaultScreenExitAnimation
 import com.kin.easynotes.presentation.screens.home.viewmodel.HomeViewModel
@@ -54,7 +55,8 @@ fun HomeView (
     viewModel: HomeViewModel = hiltViewModel(),
     settingsModel: SettingsViewModel,
     onSettingsClicked: () -> Unit,
-    onNoteClicked: (Int, Boolean) -> Unit
+    onNoteClicked: (Int, Boolean) -> Unit,
+    onVoiceNotesClicked: () -> Unit
 ) {
     val context = LocalContext.current
     if (viewModel.isPasswordPromptVisible.value) {
@@ -113,7 +115,8 @@ fun HomeView (
                             viewModel.toggleIsVaultMode(false)
                             viewModel.encryptionHelper.removePassword()
                         }
-                    }
+                    },
+                    onVoiceNotesClicked = onVoiceNotesClicked
                 )
             }
         },
@@ -217,7 +220,8 @@ private fun NotesSearchBar(
     onQueryChange: (String) -> Unit,
     onSettingsClick: () -> Unit,
     onVaultClicked: () -> Unit,
-    onClearClick: () -> Unit
+    onClearClick: () -> Unit,
+    onVoiceNotesClicked: () -> Unit
 ) {
     SearchBar(
         modifier = Modifier
@@ -231,6 +235,7 @@ private fun NotesSearchBar(
                 if (query.isNotBlank()) {
                     CloseButton(contentDescription = "Clear", onCloseClicked = onClearClick)
                 }
+                VoiceNotesButton(onClick = onVoiceNotesClicked)
                 if (settingsModel.settings.value.vaultSettingEnabled) {
                     VaultButton(viewModel.isVaultMode.value) { onVaultClicked() }
                 }
