@@ -45,7 +45,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
-import com.kin.easynotes.presentation.theme.FontUtils
 import com.kin.easynotes.presentation.theme.linkColor
 
 

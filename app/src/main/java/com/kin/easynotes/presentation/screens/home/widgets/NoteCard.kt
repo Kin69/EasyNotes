@@ -1,14 +1,14 @@
 package com.kin.easynotes.presentation.screens.home.widgets
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.kin.easynotes.R
 import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
@@ -51,16 +50,16 @@ fun NoteCard(
             )
     }
 
-    ElevatedCard(
+    Box(
         modifier = Modifier
             .padding(bottom = 12.dp)
             .clip(shape)
+            .background(containerColor)
             .combinedClickable(
                 onClick = { onShortClick() },
                 onLongClick = { onLongClick() }
             )
-            .then(borderModifier),
-        elevation = CardDefaults.cardElevation(defaultElevation = if (containerColor != Color.Black) 6.dp else 0.dp),
+            .then(borderModifier)
     ) {
         Column(
             modifier = Modifier.padding(16.dp, 12.dp, 16.dp, 12.dp)

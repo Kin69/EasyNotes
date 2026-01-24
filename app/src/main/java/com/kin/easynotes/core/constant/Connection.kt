@@ -31,4 +31,9 @@ object ConnectionConst {
      * Support Liberapay.
      */
     const val SUPPORT_LIBERAPAY = "https://liberapay.com/Kin69/"
+
+    /**
+     * Instagram - Fastest Support.
+     */
+    const val SUPPORT_INSTAGRAM = "https://www.instagram.com/easyapps.me/"
 }

@@ -138,7 +138,6 @@ fun ColorStylesScreen(navController: NavController, settingsViewModel: SettingsV
                     description = stringResource(id = R.string.accent_color_description),
                     icon = Icons.Rounded.Palette,
                     radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius, isLast = !(settingsViewModel.settings.value.darkTheme)),
-                    isEnabled = !settingsViewModel.settings.value.dynamicTheme,
                     actionType = ActionType.CUSTOM,
                     customAction = { onExit ->
                         ColorSelectionDialog(
@@ -273,7 +272,7 @@ fun OnRadiusClicked( settingsViewModel: SettingsViewModel,onExit: (Int) -> Unit)
         Column(
             modifier = Modifier
                 .background(
-                    color = MaterialTheme.colorScheme.surfaceContainerLow,
+                    color = MaterialTheme.colorScheme.surface,
                     shape = RoundedCornerShape(realRadius / 3)
                 )
                 .fillMaxWidth()
@@ -312,7 +311,7 @@ fun OnFontSizeClicked(settingsViewModel: SettingsViewModel, onExit: (Int) -> Uni
         Column(
             modifier = Modifier
                 .background(
-                    color = MaterialTheme.colorScheme.surfaceContainerLow,
+                    color = MaterialTheme.colorScheme.surface,
                     shape = RoundedCornerShape(settingsViewModel.settings.value.cornerRadius / 3)
                 )
                 .fillMaxWidth()
@@ -404,7 +403,7 @@ fun ColorSelectionDialog(
     Dialog(onDismissRequest = onDismissRequest) {
         Card(
             shape = shapeManager(isBoth = true, radius = settingsViewModel.settings.value.cornerRadius),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
         ) {
             Column(modifier = Modifier.padding(24.dp)) {
                 Text(
@@ -415,6 +414,36 @@ fun ColorSelectionDialog(
                         .fillMaxWidth()
                         .padding(top = 16.dp, bottom = 16.dp)
                 )
+
+                // System Colors Button
+                val isUsingSystemColors = settingsViewModel.settings.value.customColor == -7896468
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(
+                            if (isUsingSystemColors)
+                                MaterialTheme.colorScheme.primaryContainer
+                            else
+                                MaterialTheme.colorScheme.surfaceContainerHigh
+                        )
+                        .clickable {
+                            settingsViewModel.update(settingsViewModel.settings.value.copy(customColor = -7896468))
+                            onDismissRequest()
+                        }
+                        .padding(12.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.use_system_colors),
+                        fontWeight = if (isUsingSystemColors) FontWeight.Bold else FontWeight.Normal,
+                        color = if (isUsingSystemColors)
+                            MaterialTheme.colorScheme.onPrimaryContainer
+                        else
+                            MaterialTheme.colorScheme.onSurface
+                    )
+                }
 
                 val colorChunks = PALETTE_COLORS.chunked(3)
                 colorChunks.forEach { rowColors ->

@@ -2,7 +2,9 @@ package com.kin.easynotes.presentation.screens.edit
 
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -59,7 +61,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import com.kin.easynotes.R
 import com.kin.easynotes.presentation.components.MoreButton
 import com.kin.easynotes.presentation.components.NavigationIcon
-import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.material.MaterialScaffold
 import com.kin.easynotes.presentation.components.RedoButton
 import com.kin.easynotes.presentation.components.SaveButton
 import com.kin.easynotes.presentation.components.UndoButton
@@ -97,7 +99,7 @@ fun EditNoteView(
 
     val coroutineScope = rememberCoroutineScope()
 
-    NotesScaffold(
+    MaterialScaffold(
         topBar = { if (!settingsViewModel.settings.value.minimalisticMode) TopBar(pagerState, coroutineScope,onClickBack, viewModel) },
         content = { PagerContent(pagerState, viewModel, settingsViewModel, onClickBack) }
     )
@@ -183,7 +185,7 @@ fun PagerContent(pagerState: PagerState, viewModel: EditViewModel,settingsViewMo
 @Composable
 fun TopBar(pagerState: PagerState,coroutineScope: CoroutineScope, onClickBack: () -> Unit, viewModel: EditViewModel) {
     CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
         title = { ModeButton(pagerState, coroutineScope) },
         navigationIcon = {
             Row {
@@ -215,7 +217,7 @@ fun ObserveLifecycleEvents(viewModel: EditViewModel) {
 @Composable
 fun BottomModal(viewModel: EditViewModel, settingsViewModel: SettingsViewModel) {
     ModalBottomSheet(
-        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+        containerColor = MaterialTheme.colorScheme.background,
         onDismissRequest = { viewModel.toggleNoteInfoVisibility(false) }
     ) {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
@@ -427,11 +429,14 @@ fun MarkdownBox(
     shape: RoundedCornerShape = RoundedCornerShape(0.dp),
     content: @Composable () -> Unit,
 ) {
-    ElevatedCard(
-        shape = shape,
+    Box(
         modifier = modifier
             .clip(shape)
             .heightIn(max = 128.dp, min = 42.dp)
+            .background(
+                color = MaterialTheme.colorScheme.surfaceContainer,
+                shape = shape
+            )
             .then(
                 if (isExtremeAmoled) {
                     Modifier.border(
@@ -440,10 +445,8 @@ fun MarkdownBox(
                         color = MaterialTheme.colorScheme.surfaceContainerHighest
                     )
                 } else Modifier
-            ),
-        elevation = CardDefaults.cardElevation(defaultElevation = if (!isExtremeAmoled) 6.dp else 0.dp),
-
-        ) {
+            )
+    ) {
         content()
     }
     Spacer(modifier = Modifier.height(3.dp))
@@ -501,10 +504,7 @@ private fun RenderButton(
             }
         },
         icon = icon,
-        elevation = when {
-            isExtremeAmoled || isMinimalistic -> 0.dp
-            pagerState.currentPage != pageIndex -> 6.dp
-            else -> 12.dp
-        }
+        isSelected = pagerState.currentPage == pageIndex,
+        elevation = 0.dp
     )
 }

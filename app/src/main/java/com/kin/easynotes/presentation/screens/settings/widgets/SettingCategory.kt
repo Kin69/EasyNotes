@@ -1,140 +1,104 @@
+/*
+ * Copyright (C) 2025-2026 Vexzure
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 package com.kin.easynotes.presentation.screens.settings.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
-import com.kin.easynotes.presentation.theme.FontUtils
+import com.kin.easynotes.R
 
 @Composable
-fun SettingCategory(
+fun SupportBox(
     title: String,
-    subTitle: String = "",
-    icon: ImageVector,
-    shape: RoundedCornerShape,
-    isLast: Boolean = false,
-    smallSetting: Boolean = false,
-    action: () -> Unit = {},
-    composableAction: @Composable (() -> Unit) -> Unit = {},
-    settingsViewModel: SettingsViewModel? = null
+    description: String,
+    onAction: () -> Unit
 ) {
-    var showCustomAction by remember { mutableStateOf(false) }
-    if (showCustomAction) composableAction { showCustomAction = !showCustomAction }
-
-    ElevatedCard(
-        shape = shape,
-
+    Row(
         modifier = Modifier
-            .clip(shape)
-            .clickable {
-                showCustomAction = showCustomAction.not()
-                action()
-            },
-        colors = if (smallSetting) CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.primary) else CardDefaults.elevatedCardColors(),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 6.dp),
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clip(shape)
-                .fillMaxSize()
-                .padding(
-                    24.dp,
-                    if (smallSetting) 11.dp else 16.dp,
-                    14.dp,
-                    if (smallSetting) 11.dp else 16.dp
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(bottom = dimensionResource(id = R.dimen.card_padding_bottom))
+            .background(
+                brush = Brush.linearGradient(
+                    colors = listOf(
+                        MaterialTheme.colorScheme.primary,
+                        MaterialTheme.colorScheme.secondary,
+                        MaterialTheme.colorScheme.tertiary
+                    ),
+                    start = Offset(0f, 0f),
+                    end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY)
                 ),
+                shape = RoundedCornerShape(30.dp)
+            )
+            .padding(
+                horizontal = dimensionResource(id = R.dimen.card_padding_horizontal),
+                vertical = 12.dp
+            )
+            .clickable {
+                onAction()
+            },
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            text = title,
+            color = MaterialTheme.colorScheme.background
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Text(
+            fontWeight = FontWeight.Light,
+            fontSize = 12.sp,
+            text = description,
+            color = MaterialTheme.colorScheme.background
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        CircleWrapper(
+            size = 3.dp,
+            color = MaterialTheme.colorScheme.surfaceContainerLow,
         ) {
-            if (smallSetting) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    RenderCategoryTitle(title = title, settingsViewModel = settingsViewModel)
-                    Spacer(modifier = Modifier.weight(1f))
-                    RenderCategoryDescription(subTitle = subTitle, smallSetting = true, settingsViewModel = settingsViewModel)
-                    RenderCategoryIcon(icon, true)
-                }
-            } else {
-                Column {
-                    RenderCategoryTitle(title = title, settingsViewModel = settingsViewModel)
-                    RenderCategoryDescription(subTitle = subTitle, smallSetting = false, settingsViewModel = settingsViewModel)
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                RenderCategoryIcon(icon, false)
-            }
+            Icon(
+                modifier = Modifier.scale(0.6f),
+                imageVector = Icons.Rounded.ArrowForwardIos,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
+            )
         }
     }
-    Spacer(modifier = Modifier.height(if (isLast) 26.dp else 2.dp))
 }
-
-@Composable
-private fun RenderCategoryTitle(title: String, settingsViewModel: SettingsViewModel? = null) {
-    Text(
-        text = title,
-        fontSize = settingsViewModel?.let {
-            FontUtils.getFontSize(it, baseSize = 16)
-        } ?: 16.sp,
-        fontWeight = FontWeight.Bold
-    )
-}
-
-@Composable
-private fun RenderCategoryDescription(subTitle: String, smallSetting: Boolean, settingsViewModel: SettingsViewModel? = null) {
-    if (subTitle.isNotBlank()) {
-        Text(
-            color = if (smallSetting) MaterialTheme.colorScheme.surfaceContainerHigh else MaterialTheme.colorScheme.primary,
-            text = subTitle,
-            fontSize = settingsViewModel?.let {
-                FontUtils.getFontSize(it, baseSize = if (smallSetting) 13 else 10)
-            } ?: if (smallSetting) 13.sp else 10.sp,
-            modifier = Modifier.padding(if (smallSetting) 7.dp else 0.dp)
-        )
-    }
-}
-
-@Composable
-private fun RenderCategoryIcon(icon: ImageVector, reverseColors: Boolean) {
-    Box(
-        modifier = Modifier
-            .background(
-                color = if (reverseColors) MaterialTheme.colorScheme.surfaceContainerHighest else MaterialTheme.colorScheme.primary,
-                shape = RoundedCornerShape(50)
-            ),
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = if (reverseColors) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.surfaceContainerHigh,
-            modifier = Modifier
-                .scale(if (reverseColors) 0.8f else 1f)
-                .padding(if (reverseColors) 9.dp else 9.dp)
-        )
-    }
-}
-

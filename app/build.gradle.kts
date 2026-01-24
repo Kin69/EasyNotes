@@ -8,29 +8,30 @@ plugins {
 
 android {
     namespace = "com.kin.easynotes"
-    compileSdk = 34
-    flavorDimensions += "default"
+    compileSdk = 36
+    flavorDimensions += "store"
 
     productFlavors {
-        create("default") {
-            dimension = "default"
-            applicationId = "com.kin.easynotes"
-            versionNameSuffix = "-default"
+        create("fdroid") {
+            dimension = "store"
+            applicationId = "me.easyapps.easynotes"
+            versionNameSuffix = "-fdroid"
+            isDefault = true
         }
 
-        create("accrescent") {
-            dimension = "default"
-            applicationId = "me.easyapps.easynotes"
-            versionNameSuffix = "-easyapps"
+        create("playstore") {
+            dimension = "store"
+            applicationId = "com.kin.easynotes"
+            versionNameSuffix = "-playstore"
         }
     }
 
     defaultConfig {
         applicationId = "com.kin.easynotes"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 11
-        versionName = "1.4"
+        targetSdk = 36
+        versionCode = 14
+        versionName = "1.7"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -80,7 +81,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    buildToolsVersion = "34.0.0"
+    buildToolsVersion = "36.0.0"
 }
 
 dependencies {
@@ -104,4 +105,5 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
+    "playstoreImplementation"(libs.billing)
 }

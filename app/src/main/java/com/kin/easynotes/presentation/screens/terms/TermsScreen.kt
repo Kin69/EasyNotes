@@ -20,7 +20,7 @@ import com.kin.easynotes.R
 import com.kin.easynotes.core.constant.ConnectionConst
 import com.kin.easynotes.core.constant.SupportConst
 import com.kin.easynotes.presentation.components.AgreeButton
-import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.material.MaterialScaffold
 import com.kin.easynotes.presentation.components.markdown.MarkdownText
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
@@ -30,7 +30,7 @@ import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
 fun TermsScreen(
     settingsViewModel: SettingsViewModel
 ) {
-    NotesScaffold(
+    MaterialScaffold(
         floatingActionButton = {
             AgreeButton(
                 text = stringResource(id = R.string.agree),

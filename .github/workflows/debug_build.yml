@@ -34,10 +34,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Debug App
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleFdroidDebug
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.0
         with:
           name: EasyNotes-debug.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/fdroid/debug/app-fdroid-debug.apk

@@ -40,13 +40,13 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Release APK
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleFdroidRelease
 
       - name: Sign app APK
         uses: r0adkll/sign-android-release@v1
         id: sign_app
         with:
-          releaseDirectory: app/build/outputs/apk/release
+          releaseDirectory: app/build/outputs/apk/fdroid/release
           signingKeyBase64: ${{ secrets.KEY_BASE64 }}
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASS }}
@@ -55,7 +55,7 @@ jobs:
           BUILD_TOOLS_VERSION: "34.0.0"
 
       - name: Rename APK
-        run: mv app/build/outputs/apk/release/app-release-signed.apk EasyNotes-nightly.apk
+        run: mv app/build/outputs/apk/fdroid/release/app-fdroid-release-signed.apk EasyNotes-nightly.apk
 
       - name: Upload the APK
         uses: actions/upload-artifact@v4.6.0

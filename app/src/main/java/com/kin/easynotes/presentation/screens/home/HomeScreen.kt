@@ -1,16 +1,27 @@
 package com.kin.easynotes.presentation.screens.home
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -21,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -31,7 +43,8 @@ import com.kin.easynotes.domain.model.Note
 import com.kin.easynotes.presentation.components.CloseButton
 import com.kin.easynotes.presentation.components.DeleteButton
 import com.kin.easynotes.presentation.components.NotesButton
-import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.material.MaterialScaffold
+import com.kin.easynotes.presentation.components.material.MaterialButton
 import com.kin.easynotes.presentation.components.PinButton
 import com.kin.easynotes.presentation.components.SelectAllButton
 import com.kin.easynotes.presentation.components.SettingsButton
@@ -76,7 +89,7 @@ fun HomeView (
 
     if (settingsModel.databaseUpdate.value) viewModel.noteUseCase.observe()
     val containerColor = getContainerColor(settingsModel)
-    NotesScaffold(
+    MaterialScaffold(
         floatingActionButton = { NewNoteButton { onNoteClicked(it, viewModel.isVaultMode.value) } },
         topBar = {
             AnimatedVisibility(
@@ -143,7 +156,7 @@ fun HomeView (
 
 @Composable
 fun getContainerColor(settingsModel: SettingsViewModel): Color {
-    return if (settingsModel.settings.value.extremeAmoledMode) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh
+    return if (settingsModel.settings.value.extremeAmoledMode) Color.Black else MaterialTheme.colorScheme.surfaceContainer
 }
 
 @Composable
@@ -189,9 +202,7 @@ private fun SelectedNotesTopAppBar(
     TopAppBar(
         modifier = Modifier.padding(bottom = 36.dp),
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = if (!settingsModel.settings.value.extremeAmoledMode)
-                MaterialTheme.colorScheme.surfaceContainerLow
-            else Color.Black
+            containerColor = Color.Transparent
         ),
         title = { TitleText(titleText = selectedNotes.size.toString()) },
         navigationIcon = { CloseButton(onCloseClicked = onCloseClick) },
@@ -219,28 +230,105 @@ private fun NotesSearchBar(
     onVaultClicked: () -> Unit,
     onClearClick: () -> Unit
 ) {
+    val isTyping = query.isNotBlank()
+    val searchBarScale by animateFloatAsState(
+        targetValue = if (isTyping) 1.02f else 1f,
+        animationSpec = spring(
+            dampingRatio = 0.8f,
+            stiffness = 300f
+        ),
+        label = "searchBarScale"
+    )
+    val horizontalPadding = if (settingsModel.settings.value.makeSearchBarLonger) 20.dp else 32.dp
+
     SearchBar(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = if (settingsModel.settings.value.makeSearchBarLonger) 16.dp else 36.dp, vertical =  18.dp),
+            .padding(horizontalPadding, 16.dp, horizontalPadding, 18.dp)
+            .scale(searchBarScale),
         query = query,
         placeholder = { Text(stringResource(R.string.search)) },
         leadingIcon = { Icon(Icons.Rounded.Search, contentDescription = "Search") },
         trailingIcon = {
-            Row {
-                if (query.isNotBlank()) {
-                    CloseButton(contentDescription = "Clear", onCloseClicked = onClearClick)
+            Row(
+                modifier = Modifier.padding(end = 6.dp)
+            ) {
+                AnimatedVisibility(
+                    visible = query.isNotBlank(),
+                    enter = slideInHorizontally(
+                        animationSpec = spring(
+                            dampingRatio = 0.8f,
+                            stiffness = 300f
+                        ),
+                        initialOffsetX = { it / 2 }
+                    ) + fadeIn(
+                        animationSpec = tween(250)
+                    ) + scaleIn(
+                        animationSpec = spring(
+                            dampingRatio = 0.8f,
+                            stiffness = 400f
+                        ),
+                        initialScale = 0.7f
+                    ),
+                    exit = slideOutHorizontally(
+                        animationSpec = tween(200),
+                        targetOffsetX = { it / 2 }
+                    ) + fadeOut(
+                        animationSpec = tween(200)
+                    ) + scaleOut(
+                        animationSpec = tween(200),
+                        targetScale = 0.7f
+                    )
+                ) {
+                    MaterialButton(
+                        imageVector = Icons.Rounded.Close,
+                        contentDescription = "Clear"
+                    ) {
+                        onClearClick()
+                    }
                 }
-                if (settingsModel.settings.value.vaultSettingEnabled) {
-                    VaultButton(viewModel.isVaultMode.value) { onVaultClicked() }
+
+                AnimatedVisibility(
+                    visible = query.isBlank(),
+                    enter = slideInHorizontally(
+                        animationSpec = spring(
+                            dampingRatio = 0.8f,
+                            stiffness = 300f
+                        ),
+                        initialOffsetX = { -it / 2 }
+                    ) + fadeIn(
+                        animationSpec = tween(250)
+                    ) + scaleIn(
+                        animationSpec = spring(
+                            dampingRatio = 0.8f,
+                            stiffness = 400f
+                        ),
+                        initialScale = 0.7f
+                    ),
+                    exit = slideOutHorizontally(
+                        animationSpec = tween(200),
+                        targetOffsetX = { -it / 2 }
+                    ) + fadeOut(
+                        animationSpec = tween(200)
+                    ) + scaleOut(
+                        animationSpec = tween(200),
+                        targetScale = 0.7f
+                    )
+                ) {
+                    Row {
+                        if (settingsModel.settings.value.vaultSettingEnabled) {
+                            VaultButton(viewModel.isVaultMode.value) { onVaultClicked() }
+                        }
+                        SettingsButton(onSettingsClicked = onSettingsClick)
+                    }
                 }
-                SettingsButton(onSettingsClicked = onSettingsClick)
             }
         },
         onQueryChange = onQueryChange,
         onSearch = onQueryChange,
         onActiveChange = {},
         active = false,
+        colors = SearchBarDefaults.colors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)
     ) {}
 }
 

@@ -78,6 +78,7 @@
     <string name="support_list">Supporters List</string>
     <string name="email">Email</string>
     <string name="discord">Discord</string>
+    <string name="instagram_fastest_support">Instagram - Fastest Support</string>
     <string name="feature">Feature Request</string>
     <string name="pinned">Pinned</string>
     <string name="others">Others</string>
@@ -169,4 +170,11 @@
     <string name="font_size_preview_title">Preview</string>
     <string name="font_size_preview_text">This is how your notes will look with the selected font size.</string>
     <string name="select_accent_color">Select Accent Color</string>
+    <string name="use_system_colors">Use System Colors</string>
+    <string name="google_play_support">Google Play</string>
+    <string name="support_thank_you">Thank you for your support!</string>
+    <string name="support_purchase_cancelled">Purchase cancelled</string>
+    <string name="support_purchase_error">Purchase error</string>
+    <string name="support_foss_title">Support FOSS Development</string>
+    <string name="support_foss_description">Help us keep this app free and open source. Your support enables continued development and new features.</string>
 </resources>

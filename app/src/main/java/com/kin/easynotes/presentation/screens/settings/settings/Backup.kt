@@ -207,7 +207,7 @@ fun PasswordPrompt(context: Context, text: String, settingsViewModel: SettingsVi
                         .fillMaxWidth(0.8f)
                         .fillMaxHeight(0.2f)
                         .background(
-                            color = MaterialTheme.colorScheme.surfaceContainerLow,
+                            color = MaterialTheme.colorScheme.surface,
                             shape = shapeManager(
                                 isBoth = true,
                                 radius = settingsViewModel.settings.value.cornerRadius

@@ -12,7 +12,7 @@ data class Settings(
     val darkTheme: Boolean = false,
     var dynamicTheme: Boolean = false,
     var amoledTheme: Boolean = false,
-    var customColor: Int = -271916, // This should be the ARGB of the default Color
+    var customColor: Int = -7896468, // Default value that triggers system dynamic colors
     var minimalisticMode: Boolean = false,
     var extremeAmoledMode: Boolean = false,
     var isMarkdownEnabled: Boolean = true,

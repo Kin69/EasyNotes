@@ -13,14 +13,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.kin.easynotes.R
 import com.kin.easynotes.data.repository.SettingsRepositoryImpl
 import com.kin.easynotes.domain.usecase.NoteUseCase
-import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.material.MaterialScaffold
+import com.kin.easynotes.presentation.components.material.MaterialBar
 import com.kin.easynotes.presentation.screens.home.getContainerColor
 import com.kin.easynotes.presentation.screens.home.sorter
 import com.kin.easynotes.presentation.screens.home.widgets.NoteFilter
-import com.kin.easynotes.presentation.screens.settings.TopBar
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.shapeManager
-import com.kin.easynotes.presentation.theme.LeafNotesTheme
+import com.kin.easynotes.presentation.theme.EasyNotesTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -43,10 +43,10 @@ class NotesWidgetActivity : ComponentActivity() {
             val settings = hiltViewModel<SettingsViewModel>()
             noteUseCase.observe()
 
-            LeafNotesTheme(settingsModel = settings) {
-                NotesScaffold(
+            EasyNotesTheme(settingsModel = settings) {
+                MaterialScaffold(
                     topBar = {
-                        TopBar(
+                        MaterialBar(
                             title = stringResource(id = R.string.select_note),
                             onBackNavClicked = { finish() }
                         )

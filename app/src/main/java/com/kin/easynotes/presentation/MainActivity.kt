@@ -16,7 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.kin.easynotes.presentation.navigation.AppNavHost
 import com.kin.easynotes.presentation.navigation.NavRoutes
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
-import com.kin.easynotes.presentation.theme.LeafNotesTheme
+import com.kin.easynotes.presentation.theme.EasyNotesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 fun NavOptionsBuilder.popUpToTop(navController: NavController) {
@@ -47,10 +47,9 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-            LeafNotesTheme(settingsViewModel!!) {
-
+            EasyNotesTheme(settingsViewModel!!) {
                 Surface(
-                    color = MaterialTheme.colorScheme.surfaceContainerLow,
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     navController = rememberNavController()
                     AppNavHost(settingsViewModel!!, navController, noteId, settingsViewModel!!.defaultRoute!!)

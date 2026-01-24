@@ -15,7 +15,7 @@ fun NotesScaffold(
     content: @Composable () -> Unit
 ) {
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = { topBar() },
         floatingActionButton = { floatingActionButton() },
         content = { padding ->

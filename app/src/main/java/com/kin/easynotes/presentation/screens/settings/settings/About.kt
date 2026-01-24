@@ -120,6 +120,17 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
                 SettingsBox(
                     settingsViewModel = settingsViewModel,
                     size = 8.dp,
+                    title = stringResource(id = R.string.instagram_fastest_support),
+                    icon = Icons.AutoMirrored.Rounded.ContactSupport,
+                    actionType = ActionType.LINK,
+                    linkClicked = { uriHandler.openUri(ConnectionConst.SUPPORT_INSTAGRAM) },
+                    radius = shapeManager(radius = settingsViewModel.settings.value.cornerRadius),
+                )
+            }
+            item {
+                SettingsBox(
+                    settingsViewModel = settingsViewModel,
+                    size = 8.dp,
                     title = stringResource(id = R.string.feature),
                     icon = Icons.Rounded.BugReport,
                     linkClicked = { uriHandler.openUri(ConnectionConst.GITHUB_FEATURE_REQUEST) },

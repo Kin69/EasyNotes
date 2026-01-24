@@ -17,8 +17,6 @@
         android:name="android.permission.FOREGROUND_SERVICE"
         tools:node="remove"/>
 
-
-
     <application
         android:name=".App"
         android:grantUriPermissions="true"
@@ -29,7 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasySplash"
-        tools:targetApi="34">
+        tools:targetApi="36">
         <receiver android:name=".widget.AddNoteReceiver"
             android:exported="true">
             <intent-filter>

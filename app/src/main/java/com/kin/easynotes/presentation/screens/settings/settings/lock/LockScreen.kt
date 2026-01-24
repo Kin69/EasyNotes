@@ -19,7 +19,7 @@ package com.kin.easynotes.presentation.screens.settings.settings.lock
 
 import androidx.compose.runtime.*
 import androidx.navigation.NavController
-import com.kin.easynotes.presentation.components.NotesScaffold
+import com.kin.easynotes.presentation.components.material.MaterialScaffold
 import com.kin.easynotes.presentation.navigation.ActionType
 import com.kin.easynotes.presentation.screens.settings.model.SettingsViewModel
 import com.kin.easynotes.presentation.screens.settings.settings.lock.components.FingerprintLock
@@ -32,7 +32,7 @@ fun LockScreen(
     navController: NavController,
     action: ActionType?,
 ) {
-    NotesScaffold {
+    MaterialScaffold {
         if (action != null) {
             when (action) {
                 ActionType.PASSCODE -> PasscodeLock(settingsViewModel, navController)
