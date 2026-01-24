@@ -159,9 +159,21 @@
     <string name="authorize_passcode">Açılışta şifre sor</string>
     <string name="pattern">Parmak izi</string>
     <string name="authorize_fingerprint">Açılışta parmak izi iste</string>
-    <string name="authorize_pattern">Açılışta parmak izi iste</string>
+    <string name="authorize_pattern">Açılışta desen iste</string>
     <string name="setup_pattern">Parmak izi doğrulaması kur</string>
     <string name="lock_pattern">Parmak izinizi kullanın</string>
     <string name="lock_on_resume">Hemen Kilitle</string>
     <string name="lock_on_resume_description">Uygulamaya geri döner dönmez uygulamayı kilitle</string>
+    <string name="accent_color">Vurgu Rengi</string>
+    <string name="accent_color_description">Tema için özel bir vurgu rengi seçin</string>
+    <string name="disable_swipe_edit">Kaydırmayı devre dışı bırak</string>
+    <string name="disable_swipe_edit_description">"Düzenleme modunda ön izleme için kaydırmayı devre dışı bırak "</string>
+    <string name="make_search_bar_longer">Arama Çubuğu Genişliğini Ölçeklendir</string>
+    <string name="make_search_bar_longer_description">Arama çubuğunun notların genişliğine uymasını sağla</string>
+    <string name="font_size">Yazı Tipi Boyutu</string>
+    <string name="font_size_description">Notlardaki metin boyutunu değiştir</string>
+    <string name="font_size_value">Yazı Tipi Boyutu: %1$d</string>
+    <string name="font_size_preview_title">Ön İzleme</string>
+    <string name="font_size_preview_text">Seçilen yazı tipi boyutunda notlarınız böyle görünecektir.</string>
+    <string name="select_accent_color">Vurgu Rengini Seç</string>
 </resources>

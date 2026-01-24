@@ -1,0 +1,1 @@
+Aplicație de notițe Privată, Materială, Markdown suportat.
