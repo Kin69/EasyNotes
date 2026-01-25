@@ -14,7 +14,7 @@ android {
     productFlavors {
         create("fdroid") {
             dimension = "store"
-            applicationId = "me.easyapps.easynotes"
+            applicationId = "com.kin.easynotes"
             versionNameSuffix = "-fdroid"
             isDefault = true
         }
