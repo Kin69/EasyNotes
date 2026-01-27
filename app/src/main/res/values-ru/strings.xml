@@ -160,7 +160,7 @@
     <string name="authorize_pattern">Запрашивает графический ключ при запуске</string>
     <string name="authorize_passcode">Запрашивает пароль при запуске</string>
     <string name="authorize_fingerprint">Запрашивает отпечаток пальца при запуске</string>
-    <string name="setup_pattern">Настроить графический ключ</string>
+    <string name="setup_pattern">Шаблон настройки</string>
     <string name="lock_pattern">Введите графический ключ</string>
     <string name="lock_on_resume">Незамедлительная блокировка</string>
     <string name="lock_on_resume_description">Блокировать немедленно при открытии приложения</string>
@@ -176,4 +176,12 @@
     <string name="accent_color">Акцентный цвет</string>
     <string name="accent_color_description">Выберите собственный акцентный цвет для темы</string>
     <string name="select_accent_color">Выберите акцентный цвет</string>
+    <string name="instagram_fastest_support">Instagram — Самая быстрая поддержка</string>
+    <string name="use_system_colors">Использовать системные цвета</string>
+    <string name="google_play_support">Google Play</string>
+    <string name="support_thank_you">Благодарю за вашу поддержку!</string>
+    <string name="support_purchase_cancelled">Покупка отменена</string>
+    <string name="support_purchase_error">Ошибка при совершении покупки</string>
+    <string name="support_foss_title">Поддержите разработку свободного и открытого ПО</string>
+    <string name="support_foss_description">Помогите нам сохранить это приложение свободным и открытым. Ваша поддержка обеспечивает дальнейшее развитие проекта и появление новых функций.</string>
 </resources>
