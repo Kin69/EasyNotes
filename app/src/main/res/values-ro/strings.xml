@@ -169,4 +169,12 @@
     <string name="font_size_preview_title">Previzualizare</string>
     <string name="font_size_preview_text">Asta este cum notițele vor arăta cu marimea font-ului selectată.</string>
     <string name="select_accent_color">Selectează Accentul Culorii</string>
+    <string name="instagram_fastest_support">Instagram - Cel mai rapid suport</string>
+    <string name="use_system_colors">Folosiți culori de sistem</string>
+    <string name="google_play_support">Google Play</string>
+    <string name="support_thank_you">Mulțumesc pentru suport!</string>
+    <string name="support_purchase_cancelled">Achiziție anulată</string>
+    <string name="support_purchase_error">Eroare de cumpărare</string>
+    <string name="support_foss_title">Sprijină dezvoltarea FOSS</string>
+    <string name="support_foss_description">Ajutăne să ținem aceasta aplicație gratuită și cu sursă deschisă. Suportul tău ajută dezvoltarea aplicației și noi funcții.</string>
 </resources>
