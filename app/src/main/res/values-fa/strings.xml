@@ -153,7 +153,7 @@
     <string name="authorize_fingerprint">پرسش اثر انگشت هنگام شروع</string>
     <string name="pattern">الگو</string>
     <string name="authorize_pattern">پرسش الگو هنگام شروع</string>
-    <string name="setup_pattern">تنظیم الگو</string>
+    <string name="setup_pattern">گذاردن الگو</string>
     <string name="lock_pattern">وارد کردن الگو</string>
     <string name="lock_on_resume_description">قفل فوری هنگام استفاده مجدد از برنامه</string>
     <string name="terms_intellectual_property_body">تمامی حقوق مالکیت معنوی در این برنامه متعلق به ما یا صادرکنندگان مجوز ما است. استفاده شما از برنامه به شما حق مالکیت معنوی را نمی دهد.</string>
@@ -169,4 +169,12 @@
     <string name="accent_color">رنگ تاکید</string>
     <string name="accent_color_description">یک رنگ دلخواه تاکیدی برای پوسته انتخاب کنید</string>
     <string name="select_accent_color">انتخاب رنگ تاکید</string>
+    <string name="use_system_colors">بکاربردن رنگ‌های سامانه</string>
+    <string name="google_play_support">Google Play</string>
+    <string name="support_thank_you">سپاس از شما برای پشتیبانی‌تان!</string>
+    <string name="support_purchase_cancelled">خرید وازده شد</string>
+    <string name="support_purchase_error">ایرنگ هنگام خرید</string>
+    <string name="support_foss_title">از پیشرفت FOSS پشتیبانی کنید</string>
+    <string name="support_foss_description">ما را یاری کنید که این برنامه را رایگان اود ویدابُن نگه داریم. پشتیبانی شما توان افزودن ویژگی‌های نو اود گسترش پایدار به ما می‌دهد.</string>
+    <string name="instagram_fastest_support">اینستاگرام - سیزان‌ترین پشتیبانی</string>
 </resources>
