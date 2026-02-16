@@ -52,7 +52,7 @@
     <string name="select_font">کلک</string>
     <string name="radius">خمیدگی</string>
     <string name="select_radius">گزیدن خمیدگی</string>
-    <string name="minimalistic_mode">سبک ساده‌گرا</string>
+    <string name="minimalistic_mode">سان ساده‌گرا</string>
     <string name="extreme_amoled_mode">رنگ های بسیار تیره</string>
     <string name="privacy">خوشیک</string>
     <string name="cryptocurrency">ارز دیجیتال</string>
@@ -113,7 +113,7 @@
     <string name="terms_of_service">شرایط سرویس دهی</string>
     <string name="terms_privacy_title">۱۰. سیاست حفظ حریم خصوصی</string>
     <string name="file_import_error">نمیتوان وارد کرد</string>
-    <string name="file_import_partial_error">واردات بعضی از فایلها شکست خورد</string>
+    <string name="file_import_partial_error">درون‌بری برخی پرونده‌ها ناکام بود</string>
     <string name="file_import_success">وارد شد</string>
     <string name="file_import_title">درون‌برد</string>
     <string name="file_import_description">وارد‌کردن سایر فایلها به عنوان یادداشت</string>
@@ -146,7 +146,7 @@
     <string name="app_lock_description">قفل برنامه با گذرواژه</string>
     <string name="setup_password">تنظیم رمز عبور</string>
     <string name="enter_password">وارد کردن رمز عبور</string>
-    <string name="pin">پین (۶ عدد)</string>
+    <string name="pin">شناسه (۶ شماره)</string>
     <string name="fingerprint">اثر انگشت</string>
     <string name="fingerprint_name">نیاز به تایید</string>
     <string name="uid">شناسه</string>
@@ -158,7 +158,7 @@
     <string name="lock_on_resume_description">قفل فوری هنگام استفاده مجدد از برنامه</string>
     <string name="terms_intellectual_property_body">تمامی حقوق مالکیت معنوی در این برنامه متعلق به ما یا صادرکنندگان مجوز ما است. استفاده شما از برنامه به شما حق مالکیت معنوی را نمی دهد.</string>
     <string name="disable_swipe_edit">غیرفعال کردن کشیدن</string>
-    <string name="disable_swipe_edit_description">"غیرفعال کردن کشیدن انگشت برای پیش نمایش در حالت ویرایش. "</string>
+    <string name="disable_swipe_edit_description">"ناکارا کردن کشیدن برای پیش‌نمایش در سان ویرایش. "</string>
     <string name="make_search_bar_longer">مقیاس پهنای نوار جستجو</string>
     <string name="make_search_bar_longer_description">نوار جستجو را با پهنای یادداشت ها مطابقت دهید</string>
     <string name="font_size">اندازه قلم</string>
