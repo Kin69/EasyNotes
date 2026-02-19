@@ -89,7 +89,7 @@
     <string name="sort_descending">Sortuj Malejąco</string>
     <string name="sort_description">Sortuj notatki po dacie utworzenia</string>
     <string name="select_note">Wybierz Notatkę</string>
-    <string name="unsuported_image_size">Niewspierany Rozmiar Obrazu (15MB max)</string>
+    <string name="unsuported_image_size">Niewspierany rozmiar obrazu (15MB max)</string>
     <string name="vault">Sejf</string>
     <string name="vault_description">Włącz sejf szyfrowanych notatek</string>
     <string name="password_continue">kontynuuj</string>
