@@ -40,8 +40,8 @@ fun MaterialScaffold(
             Box(
                 modifier = Modifier
                     .padding(padding)
-                    .imePadding()
                     .consumeWindowInsets(padding)
+                    .imePadding()
             ) {
                 content()
             }
