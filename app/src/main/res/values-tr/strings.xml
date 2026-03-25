@@ -157,11 +157,11 @@
     <string name="locked">Kilitlendi</string>
     <string name="uid">UID</string>
     <string name="authorize_passcode">Açılışta şifre sor</string>
-    <string name="pattern">Parmak izi</string>
+    <string name="pattern">Desen</string>
     <string name="authorize_fingerprint">Açılışta parmak izi iste</string>
     <string name="authorize_pattern">Açılışta desen iste</string>
-    <string name="setup_pattern">Parmak izi doğrulaması kur</string>
-    <string name="lock_pattern">Parmak izinizi kullanın</string>
+    <string name="setup_pattern">Desen kur</string>
+    <string name="lock_pattern">Desen girin</string>
     <string name="lock_on_resume">Hemen Kilitle</string>
     <string name="lock_on_resume_description">Uygulamaya geri döner dönmez uygulamayı kilitle</string>
     <string name="accent_color">Vurgu Rengi</string>
@@ -176,4 +176,12 @@
     <string name="font_size_preview_title">Ön İzleme</string>
     <string name="font_size_preview_text">Seçilen yazı tipi boyutunda notlarınız böyle görünecektir.</string>
     <string name="select_accent_color">Vurgu Rengini Seç</string>
+    <string name="instagram_fastest_support">Instagram - En Hızlı Destek</string>
+    <string name="use_system_colors">Sistem Renklerini Kullan</string>
+    <string name="google_play_support">Google Play</string>
+    <string name="support_thank_you">Desteğiniz için teşekkürler!</string>
+    <string name="support_purchase_cancelled">Satın alma işlemi iptal edildi</string>
+    <string name="support_purchase_error">Satın alma işlemi hatası</string>
+    <string name="support_foss_title">Özgür ve Açık Kaynak Yazılım Geliştirilmesini Destekleyin</string>
+    <string name="support_foss_description">Bu uygulamanın özgür ve açık kaynak olarak kalmasına yardımcı olun. Desteğiniz, uygulamanın geliştirilmeye devam etmesini ve yeni özelliklerin eklenmesini sağlıyor.</string>
 </resources>
