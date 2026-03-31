@@ -127,5 +127,26 @@
     <string name="lock_on_resume">Lås med ein gong</string>
     <string name="disable_swipe_edit">Slå av sveiping</string>
     <string name="disable_swipe_edit_description">"Slå av sveiping for å førehandsvisa i redigeringsmodus. "</string>
-    <string name="make_search_bar_longer">Skaler breidda på søkefeltet</string>
+    <string name="make_search_bar_longer">Skaler breidda på søkjelinja</string>
+    <string name="accent_color">Kontrastfarge</string>
+    <string name="accent_color_description">Vel ein kontrastfarge til temaet</string>
+    <string name="select_accent_color">Vel kontrastfarge</string>
+    <string name="minimalistic_mode_description">Ikkje vis dei øvste knappane ved redigering</string>
+    <string name="always_edit_description">Opna redigeringsmodus i notat som finst frå før</string>
+    <string name="gallery_sync_description">Slettar bilete frå applagringa når dei vert fjerna frå galleriet</string>
+    <string name="gallery_sync">Gallerisynkronisering</string>
+    <string name="lock_on_resume_description">Lås appen straks han vert opna på nytt</string>
+    <string name="make_search_bar_longer_description">Gjer søkjelinja like brei som notata</string>
+    <string name="font_size">Skriftstorleik</string>
+    <string name="font_size_description">Endra skriftstorleiken til notata</string>
+    <string name="font_size_value">Skriftstorleik: %1$d</string>
+    <string name="font_size_preview_title">Førehandsvising</string>
+    <string name="font_size_preview_text">Slik ser notata ut med den valde skriftstorleiken.</string>
+    <string name="use_system_colors">Bruk systemfargane</string>
+    <string name="google_play_support">Google Play</string>
+    <string name="support_thank_you">Takk for støtta!</string>
+    <string name="support_purchase_cancelled">Betaling avbroten</string>
+    <string name="support_purchase_error">Feil ved betaling</string>
+    <string name="support_foss_title">Støtt utvikling av fri programvare og open kjeldekode (FOSS)</string>
+    <string name="support_foss_description">Hjelp oss å utvikla appen som fri programvare med open kjeldekode. Di støtte lèt oss halda fram med å utvikla nye funksjonar.</string>
 </resources>
