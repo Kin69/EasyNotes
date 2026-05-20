@@ -183,7 +183,7 @@ fun CloudScreen(navController: NavController, settingsViewModel: SettingsViewMod
 
 fun currentDateTime(): String {
     val currentDateTime = LocalDateTime.now()
-    val formatter = DateTimeFormatter.ofPattern("MM-dd-HH-mm-ms")
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")
     val formattedDateTime = currentDateTime.format(formatter)
 
     return formattedDateTime
