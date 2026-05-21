@@ -166,4 +166,15 @@
     <string name="font_size_value">Ukuran Font: %1$d</string>
     <string name="font_size_preview_title">Pratinjau</string>
     <string name="font_size_preview_text">Begini tampilan catatan Anda dengan ukuran font yang dipilih.</string>
+    <string name="accent_color">Warna Aksen</string>
+    <string name="accent_color_description">Pilih warna aksen kustom untuk tema</string>
+    <string name="instagram_fastest_support">Instagram – Dukungan Tercepat</string>
+    <string name="select_accent_color">Pilih Warna Aksen</string>
+    <string name="use_system_colors">Gunakan Warna Sistem</string>
+    <string name="google_play_support">Google Play</string>
+    <string name="support_thank_you">Terima kasih atas dukungan Anda!</string>
+    <string name="support_purchase_cancelled">Pembelian dibatalkan</string>
+    <string name="support_purchase_error">Kesalahan pembelian</string>
+    <string name="support_foss_title">Dukung Pengembangan FOSS</string>
+    <string name="support_foss_description">Bantu kami menjaga aplikasi ini tetap gratis dan open source. Dukungan Anda memungkinkan pengembangan berkelanjutan dan penambahan fitur baru.</string>
 </resources>
