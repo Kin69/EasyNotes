@@ -1,3 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Notas</string>
+    <string name="home_screen">Notas</string>
+    <string name="new_note">Nova Nota</string>
+    <string name="no_created_notes">Non hai notas creadas.</string>
+    <string name="no_found_notes">Non se atoparon notas.</string>
+    <string name="created_time">Data de creación</string>
+    <string name="grid_view">Vista de cuadrícula</string>
+    <string name="column_view">Vista de columnas</string>
+    <string name="words">Palabras</string>
+    <string name="characters">Caracteres</string>
+    <string name="name">Nome</string>
+    <string name="description">Descrición</string>
+    <string name="select_all">Seleccionar todo</string>
+    <string name="delete">Eliminar</string>
+    <string name="information">Información</string>
+    <string name="search">Buscar</string>
+    <string name="screen_settings">Configuración</string>
+    <string name="donate_me">Dóame :)</string>
+    <string name="restore">Restaurar</string>
+    <string name="system_theme">Tema do sistema</string>
+    <string name="dark_theme">Tema escuro</string>
+    <string name="dynamic_colors">Cores dinámicas</string>
+    <string name="amoled_colors">Cores AMOLED</string>
+    <string name="language">Idioma</string>
+    <string name="markdown">Markdown</string>
+    <string name="tools">Ferramentas</string>
+    <string name="history">Historial</string>
 </resources>
