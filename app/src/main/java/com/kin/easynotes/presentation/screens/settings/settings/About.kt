@@ -90,7 +90,7 @@ fun AboutScreen(navController: NavController, settingsViewModel: SettingsViewMod
                     icon = Icons.Rounded.Download,
                     actionType = ActionType.LINK,
                     radius = shapeManager(isLast = true, radius = settingsViewModel.settings.value.cornerRadius),
-                    linkClicked = { uriHandler.openUri("https://github.com/Kin69/EasyNotes/releases") }
+                    linkClicked = { uriHandler.openUri("https://github.com/Kin69/EasyNotes") }
                 )
                 Spacer(modifier = Modifier.height(18.dp))
             }
