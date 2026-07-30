@@ -158,7 +158,7 @@
     <string name="support_purchase_error">خطأ في الشراء</string>
     <string name="support_foss_title">دعم تطوير البرمجيات الحرة ومفتوحة المصدر</string>
     <string name="support_foss_description">ساعدنا في الحفاظ على هذا التطبيق مجانيًا ومفتوح المصدر. دعمك يتيح التطوير المستمر والميزات الجديدة.</string>
-    <string name="authorize_passcode">طلب رمز المرور عند البدء</string>
+    <string name="authorize_passcode">اطلب رمز المرور عند البدء</string>
     <string name="terms_use_title">٣. استخدام التطبيق</string>
     <string name="terms_intellectual_property_title">٤. الملكية الفكرية</string>
     <string name="terms_disclaimer_title">٥. إخلاء المسؤولية من الضمانات</string>
@@ -170,4 +170,8 @@
     <string name="terms_privacy_body">لا يجمع Easy Notes أي بيانات شخصية. لمزيد من المعلومات، يُرجى الرجوع إلى سياسة الخصوصية الخاصة بنا المتاحة على</string>
     <string name="terms_contact_body">لأي أسئلة حول شروط الخدمة هذه أو Easy Notes، يرجى الاتصال بنا على</string>
     <string name="terms_effective_date">تاريخ السريان</string>
+    <string name="uid">المعرف الفريد للمستخدم (UID)</string>
+    <string name="terms_changes_body">قد نقوم بتحديث شروط الخدمة هذه من وقت لآخر. استمرار استخدامك لـ Easy Notes بعد أي تغييرات يشكل قبولًا للشروط المنقحة.</string>
+    <string name="terms_use_body">أنت توافق على استخدام Easy Notes فقط للأغراض القانونية ووفقًا لهذه الشروط. يجب عليك **عدم**:\n\n- _استخدام التطبيق لأي غرض غير قانوني_\n- _انتهاك حقوق الآخرين_\n- _تعطيل وظائف أو أمان التطبيق_</string>
+    <string name="terms_termination_body">يجوز لنا إنهاء أو تعليق وصولك إلى Easy Notes إذا خالفت هذه الشروط. عند الإنهاء، حقك في استخدام التطبيق سينتهي على الفور.</string>
 </resources>
