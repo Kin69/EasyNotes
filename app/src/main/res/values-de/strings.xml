@@ -162,8 +162,19 @@
     <string name="file_import_error">Konnte nicht importieren</string>
     <string name="build_type">Build Typ</string>
     <string name="disable_swipe_edit_description">"Wischen zur Vorschau im Bearbeitungsmodus deaktivieren "</string>
-    <string name="screen_protection_description">Bildschirm in aktuellen ausblenden und Bildschirmfotos deaktivieren</string>
+    <string name="screen_protection_description">Vorschau im Taskmanager ausblenden und Screenshots sperren</string>
     <string name="monospace_font">Schriftart Monospace</string>
     <string name="locked">ist gesperrt</string>
     <string name="uid">UID</string>
+    <string name="accent_color">Akzentfarbe</string>
+    <string name="accent_color_description">Eigene Akzentfarbe für das Design wählen</string>
+    <string name="instagram_fastest_support">Instageam - Schnellste Unterstützung</string>
+    <string name="select_accent_color">Wähle Akzentfarbe</string>
+    <string name="use_system_colors">Benutze Systemfarben</string>
+    <string name="google_play_support">Play</string>
+    <string name="support_thank_you">Danke für deine Unterstützung!</string>
+    <string name="support_purchase_cancelled">Kauf abgebrochen</string>
+    <string name="support_purchase_error">Kauf-Fehler</string>
+    <string name="support_foss_title">Freie Anwendungsentwicklung unterstützen</string>
+    <string name="support_foss_description">Helfen Sie uns, diese Anwendung kostenlos und quelloffen zu halten. Ihre Unterstützung ermöglicht die Weiterentwicklung und neue Funktionen.</string>
 </resources>
