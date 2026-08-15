@@ -138,7 +138,7 @@
     <string name="pattern">نمط</string>
     <string name="authorize_pattern">اطلب النمط عند البدء</string>
     <string name="setup_pattern">إعداد نمط</string>
-    <string name="lock_pattern">أدخِل نمط</string>
+    <string name="lock_pattern">أدخِل النمط</string>
     <string name="lock_on_resume">القفل على الفور</string>
     <string name="lock_on_resume_description">القفل فورًا عند استئناف التطبيق</string>
     <string name="disable_swipe_edit">تعطيل السحب</string>
@@ -169,7 +169,7 @@
     <string name="terms_privacy_title">١٠. سياسة الخصوصية</string>
     <string name="terms_privacy_body">لا يجمع Easy Notes أي بيانات شخصية. لمزيد من المعلومات، يُرجى الرجوع إلى سياسة الخصوصية الخاصة بنا المتاحة على</string>
     <string name="terms_contact_body">لأي أسئلة حول شروط الخدمة هذه أو Easy Notes، يرجى الاتصال بنا على</string>
-    <string name="terms_effective_date">تاريخ السريان</string>
+    <string name="terms_effective_date">تاريخ النشر</string>
     <string name="uid">المعرف الفريد للمستخدم (UID)</string>
     <string name="terms_changes_body">قد نقوم بتحديث شروط الخدمة هذه من وقت لآخر. استمرار استخدامك لـ Easy Notes بعد أي تغييرات يشكل قبولًا للشروط المنقحة.</string>
     <string name="terms_use_body">أنت توافق على استخدام Easy Notes فقط للأغراض القانونية ووفقًا لهذه الشروط. يجب عليك **عدم**:\n\n- _استخدام التطبيق لأي غرض غير قانوني_\n- _انتهاك حقوق الآخرين_\n- _تعطيل وظائف أو أمان التطبيق_</string>
