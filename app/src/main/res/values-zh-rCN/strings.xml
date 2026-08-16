@@ -143,7 +143,7 @@
     <string name="file_import_description">导入其他文本文件作为笔记</string>
     <string name="monospace_font_description">编辑笔记时使用等宽字体</string>
     <string name="monospace_font">等宽字体</string>
-    <string name="alert_text">是否确定要删除所选笔记</string>
+    <string name="alert_text">确定要删除所选笔记？</string>
     <string name="yes">确定</string>
     <string name="cancel">取消</string>
     <string name="app_lock">应用锁</string>
@@ -176,4 +176,12 @@
     <string name="accent_color">强调色</string>
     <string name="accent_color_description">为主题选择自定义强调色</string>
     <string name="select_accent_color">选择强调色</string>
+    <string name="instagram_fastest_support">Instagram - 最快支持</string>
+    <string name="use_system_colors">使用系统配色</string>
+    <string name="google_play_support">Google Play</string>
+    <string name="support_thank_you">感谢您的支持！</string>
+    <string name="support_purchase_cancelled">购买已取消</string>
+    <string name="support_purchase_error">购买错误</string>
+    <string name="support_foss_title">支持 FOSS 开发</string>
+    <string name="support_foss_description">帮助我们保持此应用自由且开源。您的支持将助力我们持续开发并推出新功能。</string>
 </resources>
