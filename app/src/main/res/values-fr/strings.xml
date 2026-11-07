@@ -53,7 +53,7 @@
     <string name="select_font">Police d\'écriture</string>
     <string name="radius">Rayon</string>
     <string name="select_radius">Sélectionnez le rayon</string>
-    <string name="extreme_amoled_mode">Couleurs AMOLED extrêmes</string>
+    <string name="extreme_amoled_mode">Couleurs Amoled extrêmes</string>
     <string name="Behavior">Comportement</string>
     <string name="always_edit">Priorité au mode d\'édition</string>
     <string name="always_edit_description">Entrer en mode édition pour les notes existantes</string>
@@ -152,7 +152,7 @@
     <string name="app_lock_description">Verrouiller l\'appli en utilisant un mot de passe</string>
     <string name="setup_password">Définir le code d\'accès</string>
     <string name="enter_password">Entrez le code d\'accès</string>
-    <string name="pin">NIP (6 chiffres)</string>
+    <string name="pin">Nip (6 chiffres)</string>
     <string name="passcode">Code d\'accès</string>
     <string name="fingerprint">Empreinte digitale</string>
     <string name="fingerprint_name">Authentification nécessaire</string>
@@ -176,4 +176,12 @@
     <string name="font_size_preview_title">Prévisualiser</string>
     <string name="font_size_preview_text">Voici à quoi vos notes ressembleront avec la taille de police sélectionnée.</string>
     <string name="select_accent_color">Sélectionnez la couleur d\'accentuation</string>
+    <string name="instagram_fastest_support">Instagram - Soutenir</string>
+    <string name="use_system_colors">Utiliser les couleurs système</string>
+    <string name="google_play_support">Google-Play</string>
+    <string name="support_thank_you">Merci pour votre soutien !</string>
+    <string name="support_purchase_cancelled">Achat annulé</string>
+    <string name="support_purchase_error">Achat en erreur</string>
+    <string name="support_foss_title">Supporter le développement FOSS</string>
+    <string name="support_foss_description">Aidez-nous à garder cette application Libre et Open Source. Votre participation contribue à la poursuite du développement et l\'ajout de nouvelles fonctionnalités.</string>
 </resources>
